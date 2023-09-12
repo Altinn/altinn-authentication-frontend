@@ -1,0 +1,71 @@
+@media only screen and (max-width: 768px) {
+  .pageHeader {
+    gap: 1rem;
+    padding-left: 1.2rem;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .pageHeader {
+    gap: 1.5rem;
+    padding-left: 2rem;
+  }
+}
+
+.pageHeader {
+  height: var(--page-header-height);
+  background-color: var(--component-page_header-background-color);
+  display: flex;
+  width: 100%;
+  color: var(--component-page_header-color);
+  padding-right: 2rem;
+  box-sizing: inherit;
+  align-items: center;
+  font-size: var(--page_header-title-font-size);
+  fill: var(--component-page_header-color);
+}
+
+.pageHeader.dark {
+  --component-page_header-background-color: var(--semantic-surface-action-active);
+  --component-page_header-color: var(--fds-semantic-text-neutral-on_inverted);
+}
+
+.pageHeader.light {
+  --component-page_header-background-color: var(--fds-semantic-surface-neutral-default);
+  --component-page_header-color: var(--fds-semantic-text-neutral-default);
+  border-bottom: solid 1px var(--fds-semantic-border-neutral-subtle);
+}
+
+.pageHeader.success {
+  --component-page_header-background-color: var(--fds-semantic-surface-success-default);
+  --component-page_header-color: var(--fds-semantic-text-neutral-on_inverted);
+}
+
+.pageHeader.danger {
+  --component-page_header-background-color: var(--fds-semantic-surface-danger-default);
+  --component-page_header-color: var(--fds-semantic-text-neutral-on_inverted);
+}
+
+.pageHeader.small {
+  --page_header-title-font-size: 9px;
+  --page-header-height: 72px;
+}
+
+.pageHeader.medium {
+  --page_header-title-font-size: 13px;
+  --page-header-height: 96px;
+}
+
+.icon.small {
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.icon.medium {
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.headerText {
+  font-weight: 400;
+}
