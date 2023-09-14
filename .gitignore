@@ -1,12 +1,14 @@
 # Mac files ++
 .DS_Store
 /node_modules/
+/frontend/node_modules/
 /dist/
 
 # From access management repo:
 # Yarn stuff; we're not using PnP/Zero installs
 .pnp.*
 .yarn/*
+/frontend/.yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
