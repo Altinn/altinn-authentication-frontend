@@ -7,7 +7,7 @@
     "start": "vite",
     "build": "vite build",
     "test": "vite & wait-on http://localhost:5173 & cypress open",
-    "coverage:e2e": "vite & wait-on http://localhost:5173 & cypress run",
+    "coverage:e2e": "vite & wait-on http://localhost:5173 & cypress run"
   },
   "dependencies": {
     "@altinn/altinn-design-system": "0.29.1",
