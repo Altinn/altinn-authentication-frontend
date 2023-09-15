@@ -1,0 +1,49 @@
+.pageContainer {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1rem;
+  background-color: #1eadf7;
+  min-width: 280px;
+  max-width: 1056px;
+  width: 100%;
+}
+
+.closeButtonContainer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.closeButton {
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: none;
+  padding: 0px;
+  height: 36px;
+  padding-top: 3px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-right: 6px;
+}
+
+.closeButton:hover {
+  background-color: #d6eefd;
+}
+
+@media only screen and (min-width: 375px) {
+  .pageMargin {
+    margin: 0 8px 8px 8px;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .pageMargin {
+    margin: 0 16px 16px 16px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .pageMargin {
+    margin: 20px 40px 40px 40px;
+  }
+}
