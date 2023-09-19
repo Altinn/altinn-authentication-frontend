@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 import { ReactComponent as AltinnLogo } from '@/assets/AltinnTextLogo.svg';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { fetchUserInfo, fetchReportee } from '@/rtk/features/userInfo/userInfoSlice';
+// import { fetchUserInfo, fetchReportee } from '@/rtk/features/userInfo/userInfoSlice';
 
 import classes from './UserInfoBar.module.css';
 
@@ -16,12 +16,14 @@ export const UserInfoBar = () => {
   const reporteeLoading = useAppSelector((state) => state.userInfo.reporteeLoading);
   const dispatch = useAppDispatch();
 
+  /*
   useEffect(() => {
     if (userLoading || reporteeLoading) {
       void dispatch(fetchUserInfo());
       void dispatch(fetchReportee());
     }
   }, []);
+  */
 
   return (
     <div>
