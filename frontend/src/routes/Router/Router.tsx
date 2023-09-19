@@ -13,6 +13,13 @@ import { ChooseRightsPage } from '@/features/singleRight/delegate/ChooseRightsPa
 
 import { GeneralPath, SingleRightPath, ApiDelegationPath } from '../paths';
 
+// Note: there are just 8 pages: the elaborate and repetitive route tree below
+// maps out URLs such as /Basepath/OfferedApiDelegations/Overview
+// e.g. /accessmanagement/ui
+// + /offered-api-delegations
+// + /overview
+// = /accessmanagement/ui/offered-api-delegations/overview/
+
 export const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route

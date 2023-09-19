@@ -39,6 +39,10 @@ and is pseudo-available at http://localhost:5173
 (showing just a blue screen)
 
 and at http://localhost:5173/accessmanagement/ui/overview/
-where a pretty Error Page is available.
+where a pretty Error Page is available, 
+
+or the reachable URL
+http://localhost:5173/accessmanagement/ui/offered-api-delegations/overview
+where you can see the old Access Management Overview page.
 
 Please enjoy the seagull while we rebuild the app.
