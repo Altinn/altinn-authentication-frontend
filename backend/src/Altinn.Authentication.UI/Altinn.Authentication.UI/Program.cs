@@ -1,4 +1,14 @@
-var builder = WebApplication.CreateBuilder(args);
+ILogger logger;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+string applicationInsightsKeySecretName = "ApplicationInsights--InstrumentationKey";
+string applicationInsightsConnectionString = string.Empty;
+
+//er AccessManagement spesifikt ifra en nuget
+//string frontendProdFolder = AppEnvironment.GetVariable("FRONTEND_PROD_FOLDER", "wwwroot/Authentication/");
+
+builder.Configuration.AddJsonFile("wwwroot/Authentication/" + "manifest.json", true, true);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
