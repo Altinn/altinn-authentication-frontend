@@ -4,6 +4,9 @@ using System.Diagnostics;
 
 namespace Altinn.Authentication.UI.Controllers
 {
+    [Route("authentication/")]
+    [Route("authentication/ui")]
+    [Route("authentication/ui/{*AnyValue}")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,15 +21,20 @@ namespace Altinn.Authentication.UI.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        private async Task SetLanguageCookie()        
         {
-            return View();
+            //int userId = AuthenticationHelper.GetUserId();            
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        private async Task<bool> ShouldShowAppView()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (User.Identity.IsAuthenticated)
+            {
+                await SetLanguageCookie();
+                return true;
+            }
+
+            return false;
         }
     }
 }
