@@ -1,15 +1,15 @@
 ﻿using Altinn.Authentication.UI.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.Extensions.Options;
 using System.Web;
+using Altinn.Platform.Profile.Models;
 
 namespace Altinn.Authentication.UI.Controllers
 {
-    [Route("authentication/")]
-    [Route("authentication/ui")]
-    [Route("authentication/ui/{*AnyValue}")]
+    [Route("authfront/")]
+    [Route("authfront/ui")]
+    [Route("authfront/ui/{*AnyValue}")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -34,7 +34,7 @@ namespace Altinn.Authentication.UI.Controllers
             IHttpContextAccessor httpContextAccessor)
             //IOptions<PlatformSettings> platformSettings,
             //IOptions<FrontEndEntryPointOptions> frontendEntrypointOptions,
-            //IOptions<GeneralSettings> generalSettings,
+            //IOptions<GeneralSettings> generalSettings)
             //ILogger<HomeController> logger)
         {
             //_logger = logger;
@@ -56,7 +56,6 @@ namespace Altinn.Authentication.UI.Controllers
             {
                 return View();
             }
-
 
             //string goToUrl = HttpUtility.UrlEncode($"{_generalSettings.FrontendBaseUrl}{Request.Path}");
             //string redirectUrl = $"{_platformSettings.ApiAuthenticationEndpoint}authentication?goto={goToUrl}";
