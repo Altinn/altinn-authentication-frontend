@@ -48,7 +48,11 @@
   "authentication_dummy": {
     "auth_title": "Systembrukere",
     "auth_overview_text": "Her kan du administrere dine systembrukere.",
-    "auth_new_system_user": "Opprett ny systembruker"
+    "auth_new_system_user": "Opprett ny systembruker",
+    "auth_card_title": "Du har tidligere opprettet disse systembrukerne",
+    "auth_api_panel_content": "Her skulle vært en liste over systembrukere"
+    
+
   },
     
   "api_delegation": {
@@ -63,7 +67,7 @@
     "api_delegations_received": "Mottatte tilganger til programmerings\u00adgrensesnitt - API",
     "you_have_delegated_accesses": "Du har tidligere delegert disse tilgangene:",
     "you_have_received_accesses": "Du har mottatt disse tilgangene:",
-    "api_panel_content": "Her kan du styre tilgang til APIer sikret gjennom",
+    "api_panel_content": "Her skulle vært en liste over systembrukere",
     "org_nr": "Org.nr.",
     "edit_accesses": "Rediger tilganger",
     "api_overview_text": "Her kan du administrere dine systembrukere.",
@@ -80,7 +84,7 @@
     "previous":"Forrige",
     "next": "Neste",
     "add_new_business": "Legg til ny virksomhet",
-    "card_title": "Programmerings\u00adgrensesnitt - API",
+    "card_title": "Du har tidligere opprettet disse systembrukerne",
     "confirmation_page_content_top_text": "Du ønsker å gi rettigheter til følgende API:",
     "confirmation_page_content_second_text": "API-tilgangene blir gitt til:",
     "confirmation_page_content_bottom_text": "Tilgangene vil bli gitt og er gyldige til de aktivt slettes eller trekkes tilbake.",
