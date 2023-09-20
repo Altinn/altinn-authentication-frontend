@@ -13,6 +13,32 @@ import { ChooseRightsPage } from '@/features/singleRight/delegate/ChooseRightsPa
 
 import { GeneralPath, SingleRightPath, ApiDelegationPath } from '../paths';
 
+// Note: there are just 8 pages: the elaborate and repetitive route tree below
+// maps out URLs such as /Basepath/OfferedApiDelegations/Overview
+// e.g. /accessmanagement/ui
+// + /offered-api-delegations
+// + /overview
+// = /accessmanagement/ui/offered-api-delegations/overview/
+
+// All these 8 pages are available through Router, despite error messages.
+
+// In summary, the 5 paths in OfferedApiDelegations branch are:
+// /accessmanagement/ui/offered-api-delegations/overview/
+// /accessmanagement/ui/offered-api-delegations/choose-org/
+// /accessmanagement/ui/offered-api-delegations/choose-api/
+// /accessmanagement/ui/offered-api-delegations/receipt/
+// /accessmanagement/ui/offered-api-delegations/confirmation/
+
+// ReceivedApiDelegations only has 1 branch: 
+// /accessmanagement/ui/received-api-delegations/overview/
+
+// Finally, SingleRightPath has 2 branches:
+// /accessmanagement/ui/delegate-single-rights/choose-service/
+// /accessmanagement/ui/delegate-single-rights/choose-rights/
+
+// with the new BasePath = "/authfront/ui" our Overview page will be at:
+// http://localhost:5173/authfront/ui/offered-api-delegations/overview
+
 export const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route
@@ -23,6 +49,7 @@ export const Router = createBrowserRouter(
         path={ApiDelegationPath.OfferedApiDelegations}
         errorElement={<NotFoundSite />}
       >
+
         <Route
           path={ApiDelegationPath.Overview}
           element={<OfferedOverviewPage />}
@@ -49,6 +76,7 @@ export const Router = createBrowserRouter(
           errorElement={<NotFoundSite />}
         />
       </Route>
+
       <Route
         path={ApiDelegationPath.ReceivedApiDelegations}
         errorElement={<NotFoundSite />}
@@ -59,6 +87,7 @@ export const Router = createBrowserRouter(
           errorElement={<NotFoundSite />}
         />
       </Route>
+
       <Route
         path={SingleRightPath.DelegateSingleRights}
         errorElement={<NotFoundSite />}
@@ -74,6 +103,7 @@ export const Router = createBrowserRouter(
           errorElement={<NotFoundSite />}
         />
       </Route>
+
     </Route>,
   ),
   { basename: GeneralPath.BasePath },

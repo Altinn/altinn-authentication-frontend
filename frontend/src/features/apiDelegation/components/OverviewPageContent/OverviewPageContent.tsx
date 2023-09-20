@@ -194,11 +194,11 @@ export const OverviewPageContent = ({
         {t('api_delegation.api_panel_content')}{' '}
         <a
           className={classes.link}
-          href='https://samarbeid.digdir.no/maskinporten/maskinporten/25'
+          href='https://github.com/Altinn/altinn-authentication-frontend/issues/2'
           target='_blank'
           rel='noreferrer'
         >
-          {t('common.maskinporten')}
+          {'(se Runes issue #2)'}
         </a>
       </Panel>
       <div className={classes.explanatoryContainer}>
