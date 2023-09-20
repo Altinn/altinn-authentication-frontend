@@ -36,6 +36,9 @@ import { GeneralPath, SingleRightPath, ApiDelegationPath } from '../paths';
 // /accessmanagement/ui/delegate-single-rights/choose-service/
 // /accessmanagement/ui/delegate-single-rights/choose-rights/
 
+// with the new BasePath = "/authfront/ui" our Overview page will be at:
+// http://localhost:5173/authfront/ui/offered-api-delegations/overview
+
 export const Router = createBrowserRouter(
   createRoutesFromElements(
     <Route
