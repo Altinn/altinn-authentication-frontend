@@ -45,6 +45,10 @@
     "add_new_employee": "Legg til ny ansatt",
     "change_rights": "Endre rettigheter"
   },
+  "authentication_dummy": {
+    "auth_title": "Systembrukere"
+  },
+    
   "api_delegation": {
     "businesses": "Virksomheter",
     "delegated_apis": "Delegerte API",
@@ -53,7 +57,7 @@
     "delete": "Slett",
     "delegate_new_org": "Deleger nytt API",
     "save": "Lagre",
-    "api_delegations": "Delegerte tilganger til programmerings\u00adgrensesnitt - API",
+    "api_delegations": "Systembrukere",
     "api_delegations_received": "Mottatte tilganger til programmerings\u00adgrensesnitt - API",
     "you_have_delegated_accesses": "Du har tidligere delegert disse tilgangene:",
     "you_have_received_accesses": "Du har mottatt disse tilgangene:",
