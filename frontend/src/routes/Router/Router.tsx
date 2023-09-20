@@ -1,17 +1,20 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import * as React from 'react';
 
+import { OverviewPage as AuthenticationOverviewPage } from '@/features/overviewpage/OverviewPage';
+
 import { ChooseApiPage } from '@/features/apiDelegation/offered/ChooseApiPage';
 import { OverviewPage as OfferedOverviewPage } from '@/features/apiDelegation/offered/OverviewPage';
 import { OverviewPage as ReceivedOverviewPage } from '@/features/apiDelegation/received/OverviewPage';
 import { ChooseOrgPage } from '@/features/apiDelegation/offered/ChooseOrgPage';
 import { ReceiptPage } from '@/features/apiDelegation/offered/ReceiptPage';
 import { ConfirmationPage } from '@/features/apiDelegation/offered/ConfirmationPage';
-import { NotFoundSite } from '@/sites/NotFoundSite';
 import { ChooseServicePage } from '@/features/singleRight/delegate/ChooseServicePage/ChooseServicePage';
 import { ChooseRightsPage } from '@/features/singleRight/delegate/ChooseRightsPage/ChooseRightsPage';
 
-import { GeneralPath, SingleRightPath, ApiDelegationPath } from '../paths';
+import { NotFoundSite } from '@/sites/NotFoundSite';
+
+import { GeneralPath, AuthenticationPath, SingleRightPath, ApiDelegationPath } from '../paths';
 
 // Note: there are just 8 pages: the elaborate and repetitive route tree below
 // maps out URLs such as /Basepath/OfferedApiDelegations/Overview
@@ -46,10 +49,20 @@ export const Router = createBrowserRouter(
       errorElement={<NotFoundSite />}
     >
       <Route
+        path={AuthenticationPath.Auth}
+        errorElement={<NotFoundSite />}
+      >
+        <Route
+          path={AuthenticationPath.Overview}
+          element={<AuthenticationOverviewPage />}
+          errorElement={<NotFoundSite />}
+        />
+      </Route>
+
+      <Route
         path={ApiDelegationPath.OfferedApiDelegations}
         errorElement={<NotFoundSite />}
       >
-
         <Route
           path={ApiDelegationPath.Overview}
           element={<OfferedOverviewPage />}

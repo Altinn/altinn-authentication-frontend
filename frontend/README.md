@@ -33,6 +33,7 @@ elsewhere in Altinn.
 Should state: Preparing yarn@3.6.3 for immediate activation...
 
 > corepack yarn
+
 This should install the dependencies listed in package.json
 
 4. Run the Vite webserver script in package.json by
@@ -40,7 +41,11 @@ This should install the dependencies listed in package.json
 
 The app should now be running in the Vite webserver,
 and is pseudo-available at http://localhost:5173
-(showing just a blue screen),
+(showing just a blue screen), or http://localhost:5173/authfront/ui/xxx <br>
+(showing an Error Page with a nice seagull).
 
-and with the new /authfront/ui BasePath, we now reach the old Overview page via
+and with the new /authfront/ui BasePath, we now reach the old, but edited Overview page via
 http://localhost:5173/authfront/ui/offered-api-delegations/overview
+
+while the new Authentication OverviewPage on new path is here: <br>
+http://localhost:5173/authfront/ui/auth/overview
