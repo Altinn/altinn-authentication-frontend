@@ -46,3 +46,6 @@ and is pseudo-available at http://localhost:5173
 
 and with the new /authfront/ui BasePath, we now reach the old, but edited Overview page via
 http://localhost:5173/authfront/ui/offered-api-delegations/overview
+
+while the new Authentication OverviewPage on new path is here: <br>
+http://localhost:5173/authfront/ui/auth/overview
