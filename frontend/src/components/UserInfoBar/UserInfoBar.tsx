@@ -33,6 +33,7 @@ export const UserInfoBar = () => {
         </div>
         <div className={classes.userInfoContent}>
           <div>
+            <p>User Info MISSING here</p>
             {userInfoName && <h5 className={classes.userInfoText}>{userInfoName}</h5>}
             {reporteeName && <h5 className={classes.userInfoText}>for {reporteeName}</h5>}
           </div>
