@@ -46,7 +46,9 @@
     "change_rights": "Endre rettigheter"
   },
   "authentication_dummy": {
-    "auth_title": "Systembrukere"
+    "auth_title": "Systembrukere",
+    "auth_overview_text": "Her kan du administrere dine systembrukere.",
+    "auth_new_system_user": "Opprett ny systembruker"
   },
     
   "api_delegation": {
@@ -55,7 +57,7 @@
     "api_accesses": "API-tilganger",
     "delegate_new_api": "Deleger nytt API",
     "delete": "Slett",
-    "delegate_new_org": "Deleger nytt API",
+    "delegate_new_org": "Opprett ny systembruker",
     "save": "Lagre",
     "api_delegations": "Systembrukere",
     "api_delegations_received": "Mottatte tilganger til programmerings\u00adgrensesnitt - API",
@@ -64,7 +66,7 @@
     "api_panel_content": "Her kan du styre tilgang til APIer sikret gjennom",
     "org_nr": "Org.nr.",
     "edit_accesses": "Rediger tilganger",
-    "api_overview_text": "Her finner du oversikt over de API-tilganger din virksomhet har delegert til andre virksomheter.",
+    "api_overview_text": "Her kan du administrere dine systembrukere.",
     "api_received_overview_text": "Her finner du oversikt over de API-tilganger din virksomhet har blitt tildelt av andre virksomheter.",
     "give_access_to_new_api": "Gi tilgang til nytt API",
     "new_org_content_text": "Velg hvilke brukere som skal få tilgang ved å klikke pluss-tegnet. Du kan også legge til ny virksomhet ved å benytte søkefeltet.",
