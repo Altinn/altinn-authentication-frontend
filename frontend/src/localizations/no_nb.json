@@ -46,13 +46,12 @@
     "change_rights": "Endre rettigheter"
   },
   "authentication_dummy": {
-    "auth_title": "Systembrukere",
-    "auth_overview_text": "Her kan du administrere dine systembrukere.",
-    "auth_new_system_user": "Opprett ny systembruker",
-    "auth_card_title": "Du har tidligere opprettet disse systembrukerne",
-    "auth_api_panel_content": "Her skulle vært en liste over systembrukere"
-    
-
+    "auth_title_systembrukere": "Systembrukere",
+    "auth_overview_text_administrere": "Her kan du administrere dine systembrukere",
+    "auth_new_system_user_opprett": "Opprett ny systembruker",
+    "auth_card_title_tidligere_opprettet": "Du har tidligere opprettet disse systembrukerne",
+    "auth_api_panel_content": "Her skulle vært en liste over systembrukere",
+    "auth_edit_button_systembruker": "Rediger systembruker"
   },
     
   "api_delegation": {
