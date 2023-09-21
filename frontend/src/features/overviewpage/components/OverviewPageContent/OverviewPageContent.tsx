@@ -36,6 +36,14 @@ export interface OverviewPageContentInterface {
   layout: LayoutState;
 }
 
+// I think layout is set to .Offered, as initial/default of (arrow) function component,
+// there is only one version of OverviewPagecontent.tsx, 
+// but when parent OverviewPage component
+// creates child <OverviewPageContent>  layout is passed in as a prop
+// <OverviewPageContent layout={LayoutState.Offered} /> 
+// while in OverviewPage for received
+// <OverviewPageContent layout={LayoutState.Received} />
+
 export const OverviewPageContent = ({
   layout = LayoutState.Offered,
 }: OverviewPageContentInterface) => {
@@ -65,10 +73,13 @@ export const OverviewPageContent = ({
     dispatch(resetDelegationRequests());
   }, [overviewOrgs, error]);
 
+  // layout is set to .Offered above: .Received not really used in this page I believe
+  // odd duplication of OverviewPages with dual purpose... but OK
+  // where is layout used? Here it only set String texts...
   switch (layout) {
     case LayoutState.Offered:
       fetchData = async () => await dispatch(fetchOverviewOrgsOffered());
-      overviewText = t('api_delegation.api_overview_text');
+      overviewText = t('authentication_dummy.auth_overview_text_administrere'); // h2 below, not in Small/mobile view
       accessesHeader = t('api_delegation.you_have_delegated_accesses');
       noDelegationsInfoText = t('api_delegation.no_offered_delegations');
       break;
@@ -172,7 +183,9 @@ export const OverviewPageContent = ({
 
   return (
     <div className={classes.overviewActionBarContainer}>
+      
       {!isSm && <h2 className={classes.pageContentText}>{overviewText}</h2>}
+      
       {layout === LayoutState.Offered && (
         <div className={classes.delegateNewButton}>
           <Button
@@ -182,12 +195,13 @@ export const OverviewPageContent = ({
             fullWidth={isSm}
             size='medium'
           >
-            {t('api_delegation.delegate_new_org')}
+            {t('authentication_dummy.auth_new_system_user_opprett')}
           </Button>
         </div>
       )}
+
       <Panel
-        title={t('api_delegation.card_title')}
+        title={t('authentication_dummy.auth_card_title_tidligere_opprettet')}
         forceMobileLayout={isSm}
         showIcon={!isSm}
       >
@@ -201,6 +215,7 @@ export const OverviewPageContent = ({
           {'(se Runes issue #2) XXXX'}
         </a>
       </Panel>
+
       <div className={classes.explanatoryContainer}>
         {overviewOrgs.length > 0 && (
           <>
