@@ -213,6 +213,8 @@ export const OverviewPageContent = ({
     ></ActionBar>
   ));
 
+
+
   return (
     <div className={classes.overviewActionBarContainer}>
 
@@ -229,16 +231,21 @@ export const OverviewPageContent = ({
           >
             {t('authentication_dummy.auth_new_system_user_opprett')}
           </Button>
+          
         </div>
       )}
       <div>
         <br></br><br></br><br></br>
       </div>
 
-      {!isSm && <h2 className={classes.pageContentText}>{'Du har tidligere opprettet disse systembrukerne'}</h2>}
+      {!isSm && <h2 className={classes.pageContentText}>
+        {'Du har tidligere opprettet disse systembrukerne'} 
+      </h2>} 
+        
 
       <CollectionBar
         title='System lakselus rapportering'
+        subtitle='AQUA POWER'
         color={selectedResourcesActionBars.length > 0 ? 'success' : 'neutral'}
         collection={selectedResourcesActionBars}
         compact={isSm}
@@ -253,6 +260,8 @@ export const OverviewPageContent = ({
 
       <CollectionBar
         title='Økonomisystem'
+        subtitle='VISMA ACCOUNTING'
+        additionalText='Delegert til Visma AS'
         color={selectedResourcesActionBars.length > 0 ? 'success' : 'neutral'}
         collection={selectedResourcesActionBars}
         compact={isSm}
