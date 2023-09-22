@@ -2,6 +2,7 @@ import { createBrowserRouter, createRoutesFromElements, Route } from 'react-rout
 import * as React from 'react';
 
 import { OverviewPage as AuthenticationOverviewPage } from '@/features/overviewpage/OverviewPage';
+import { CreationPage } from '@/features/creationpage/CreationPage';
 
 import { ChooseApiPage } from '@/features/apiDelegation/offered/ChooseApiPage';
 import { OverviewPage as OfferedOverviewPage } from '@/features/apiDelegation/offered/OverviewPage';
@@ -57,7 +58,17 @@ export const Router = createBrowserRouter(
           element={<AuthenticationOverviewPage />}
           errorElement={<NotFoundSite />}
         />
+
+        <Route
+          path={AuthenticationPath.Creation}
+          element={<CreationPage />}
+          errorElement={<NotFoundSite />}
+        />
+        
       </Route>
+
+
+
 
       <Route
         path={ApiDelegationPath.OfferedApiDelegations}
