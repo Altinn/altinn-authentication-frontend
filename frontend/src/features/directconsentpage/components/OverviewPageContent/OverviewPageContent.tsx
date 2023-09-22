@@ -35,7 +35,7 @@ import { ErrorPanel, CollectionBar, ActionBar } from '@/components';
 import { MinusCircleIcon } from '@navikt/aksel-icons';
 import { SingleRightPath } from '@/routes/paths'; // temporary, from ChooseServicePage
 
-// NOTE! this version of OverviewPageContent is for CreationPage
+// NOTE! this version of OverviewPageContent is for DirectConsentPage
 
 
 export interface OverviewPageContentInterface {
@@ -85,7 +85,7 @@ export const OverviewPageContent = ({
   switch (layout) {
     case LayoutState.Offered:
       fetchData = async () => await dispatch(fetchOverviewOrgsOffered());
-      overviewText = t('authentication_dummy.auth_overview_text_creation'); // h2 below, not in Small/mobile view
+      overviewText = t('authentication_dummy.auth_overview_text_directconsent'); // h2 below, not in Small/mobile view
       accessesHeader = t('api_delegation.you_have_delegated_accesses');
       noDelegationsInfoText = t('api_delegation.no_offered_delegations');
       break;
@@ -154,68 +154,39 @@ export const OverviewPageContent = ({
 
       {!isSm && <h2 className={classes.pageContentText}>{overviewText}</h2>}
       
-      <div>
-        <br></br>
-      </div>
+   
 
-      <table>
-        <tr>
-          <td>
-            
-            <p>Navn</p> 
-            <p>XXXXX INPUT BOKS XXXXX</p> 
-            <br></br>
-            <p>Beskrivelse</p> 
-            <p>XXXXX INPUT BOKS XXXXX</p>    
-
-            <p> </p> 
-
-           
-            <div>
-              <br></br><br></br><br></br>
-              <br></br><br></br><br></br>
-              <br></br><br></br><br></br>
-              <br></br><br></br><br></br>
-              <br></br><br></br>
-              
-            </div>
-          
-            <p>____________________________________________ </p> 
-          
-          </td>
-
-          <td>
             <p>
-              En systembruker kan i utgangspunktet kun benyttes av Pølsebu AS sine 
-              egne maskinporten-klienter. 
+              <br></br>
+            Fiken AS ber om tilgangsgrupper blir gitt til systemet. <br></br>
+            Tilgangsgruppene vil gi systemintegrasjonen rett til <br></br>
+            å aksessere digital tjenester på vegne av Pølsebu AS<br></br> 
+            <br></br>
               <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
               <a href="https://docs.altinn.studio/nb/"> her</a>. 
             </p>
+            <br></br>
             <p>
-              Ved å velge en systemleverandør vil opprettet systembruker kunne 
-              benyttes fra leverandørens system. Leverandørens system vil da ha 
-              fullmaktene tildelt til systembrukeren.
+            Tilgangsgruppene er: <br></br>
+              <br></br>
+              - MVA (se tjenester)<br></br>
+              - Sykemelding (ee tjenester)
+              <br></br>
             </p>
             <br></br>
+            <p>
+            Innholdet i tilgangsgruppene kan endre seg hvis nye
+             tjenester for områdetet blir tilgjengelig.
 
-            <p>Velg systemleverandør</p>
-            <p>NEDTREKKSMENY</p>
-            <p>Microsoft Norge PowerBI</p>
-            <p>Visma SuperTax</p>
-            <p>Aqua Nor Aqua Master</p>
-            <p>Fiken Business Power</p>
-            <p>PostNord Strålboks</p>
-
-            <br></br><br></br>
-
-            <p> AVBRYT-KNAPP _____  OPPRETT-KNAPP</p>
-
-          </td>
-        </tr>
-      </table>
-
+            </p>
+            
+            <p>
+            Tilgangsgruppene kan fjernes når som helst senere fra Altin profil.
+            </p>
       
+            <br></br>
 
+            <p> AVVIS-KNAPP _____  GODTA-KNAPP</p>
 
     </div>
   );
