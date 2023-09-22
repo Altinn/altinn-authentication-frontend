@@ -25,16 +25,29 @@ import {
 import { resetDelegableApis } from '@/rtk/features/apiDelegation/delegableApi/delegableApiSlice';
 import { useMediaQuery } from '@/resources/hooks';
 import { ApiDelegationPath } from '@/routes/paths';
-import { ErrorPanel } from '@/components';
 
 import { LayoutState } from '../LayoutState';
 
 import { OrgDelegationActionBar } from './OrgDelegationActionBar';
 import classes from './OverviewPageContent.module.css';
 
+import { ErrorPanel, CollectionBar, ActionBar } from '@/components';
+import { MinusCircleIcon } from '@navikt/aksel-icons';
+import { SingleRightPath } from '@/routes/paths'; // temporary, from ChooseServicePage
+
+
+
 export interface OverviewPageContentInterface {
   layout: LayoutState;
 }
+
+// I think layout is set to .Offered, as initial/default of (arrow) function component,
+// there is only one version of OverviewPagecontent.tsx, 
+// but when parent OverviewPage component
+// creates child <OverviewPageContent>  layout is passed in as a prop
+// <OverviewPageContent layout={LayoutState.Offered} /> 
+// while in OverviewPage for received
+// <OverviewPageContent layout={LayoutState.Received} />
 
 export const OverviewPageContent = ({
   layout = LayoutState.Offered,
@@ -65,10 +78,13 @@ export const OverviewPageContent = ({
     dispatch(resetDelegationRequests());
   }, [overviewOrgs, error]);
 
+  // layout is set to .Offered above: .Received not really used in this page I believe
+  // odd duplication of OverviewPages with dual purpose... but OK
+  // where is layout used? Here it only set String texts...
   switch (layout) {
     case LayoutState.Offered:
       fetchData = async () => await dispatch(fetchOverviewOrgsOffered());
-      overviewText = t('api_delegation.api_overview_text');
+      overviewText = t('authentication_dummy.auth_overview_text_administrere'); // h2 below, not in Small/mobile view
       accessesHeader = t('api_delegation.you_have_delegated_accesses');
       noDelegationsInfoText = t('api_delegation.no_offered_delegations');
       break;
@@ -170,9 +186,40 @@ export const OverviewPageContent = ({
     ));
   };
 
+  // From ChooseServicePage.tsx: used to show CollectionBar and selectedResourcesActionBars
+  const delegableChosenServices = useAppSelector((state) =>
+    state.singleRightsSlice.servicesWithStatus.filter((s) => s.status !== 'NotDelegable'),
+  );
+
+  // From ChooseServicePage.tsx: used to show CollectionBar with <ActionBar> below
+  const selectedResourcesActionBars = delegableChosenServices.map((resource, index) => (
+    <ActionBar
+      key={index}
+      title={resource.service?.title}
+      subtitle={resource.service?.resourceOwnerName}
+      size='small'
+      color='success'
+      actions={
+        <Button
+          variant='quiet'
+          size={isSm ? 'medium' : 'small'}
+          onClick={() => {
+          }}
+          icon={isSm && <MinusCircleIcon title={t('common.remove')} />}
+        >
+          {!isSm && t('common.remove')}
+        </Button>
+      }
+    ></ActionBar>
+  ));
+
+
+
   return (
     <div className={classes.overviewActionBarContainer}>
+
       {!isSm && <h2 className={classes.pageContentText}>{overviewText}</h2>}
+      
       {layout === LayoutState.Offered && (
         <div className={classes.delegateNewButton}>
           <Button
@@ -182,70 +229,47 @@ export const OverviewPageContent = ({
             fullWidth={isSm}
             size='medium'
           >
-            {t('api_delegation.delegate_new_org')}
+            {t('authentication_dummy.auth_new_system_user_opprett')}
           </Button>
+          
         </div>
       )}
-      <Panel
-        title={t('api_delegation.card_title')}
-        forceMobileLayout={isSm}
-        showIcon={!isSm}
-      >
-        {t('api_delegation.api_panel_content')}{' '}
-        <a
-          className={classes.link}
-          href='https://github.com/Altinn/altinn-authentication-frontend/issues/2'
-          target='_blank'
-          rel='noreferrer'
-        >
-          {'(se Runes issue #2)'}
-        </a>
-      </Panel>
-      <div className={classes.explanatoryContainer}>
-        {overviewOrgs.length > 0 && (
-          <>
-            {isSm ? (
-              <h3 className={classes.apiSubheading}>{accessesHeader}</h3>
-            ) : (
-              <h2 className={classes.apiSubheading}>{accessesHeader}</h2>
-            )}
-            <div className={classes.editButton}>
-              {!isEditable ? (
-                <Button
-                  variant='quiet'
-                  icon={<Edit />}
-                  onClick={handleSetIsEditable}
-                  size='small'
-                >
-                  {t('api_delegation.edit_accesses')}
-                </Button>
-              ) : (
-                <Button
-                  variant='quiet'
-                  icon={<Error />}
-                  onClick={handleSetIsEditable}
-                  size='small'
-                >
-                  {t('common.cancel')}
-                </Button>
-              )}
-            </div>
-          </>
-        )}
+      <div>
+        <br></br><br></br><br></br>
       </div>
-      <>{activeDelegations()}</>
-      {isEditable && (
-        <div className={classes.saveSection}>
-          <Button
-            disabled={saveDisabled}
-            onClick={handleSave}
-            color='success'
-            fullWidth={isSm}
-          >
-            {t('api_delegation.save')}
-          </Button>
-        </div>
-      )}
+
+      {!isSm && <h2 className={classes.pageContentText}>
+        {'Du har tidligere opprettet disse systembrukerne'} 
+      </h2>} 
+        
+
+      <CollectionBar
+        title='System lakselus rapportering'
+        subtitle='AQUA POWER'
+        color={selectedResourcesActionBars.length > 0 ? 'success' : 'neutral'}
+        collection={selectedResourcesActionBars}
+        compact={isSm}
+        proceedToPath={
+          '/' + SingleRightPath.DelegateSingleRights + '/' + SingleRightPath.ChooseRights
+        }
+      />
+
+      <div>
+        <br></br>
+      </div>
+
+      <CollectionBar
+        title='Økonomisystem'
+        subtitle='VISMA ACCOUNTING'
+        additionalText='Delegert til Visma AS'
+        color={selectedResourcesActionBars.length > 0 ? 'success' : 'neutral'}
+        collection={selectedResourcesActionBars}
+        compact={isSm}
+        proceedToPath={
+          '/' + SingleRightPath.DelegateSingleRights + '/' + SingleRightPath.ChooseRights
+        }
+      />
+
     </div>
   );
 };

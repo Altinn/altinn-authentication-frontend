@@ -4,7 +4,9 @@ import {
   ChevronRightDoubleCircleFillIcon,
   FilesFillIcon,
   ChevronRightDoubleIcon,
-} from '@navikt/aksel-icons';
+} from '@navikt/aksel-icons'; // Fix-me: should be non-filled icon
+import { ReactComponent as Edit } from '@/assets/Edit.svg';
+
 import { Button, Paragraph } from '@digdir/design-system-react';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +15,8 @@ import { ActionBar, type ActionBarProps } from '../ActionBar';
 
 import classes from './CollectionBar.module.css';
 
-export interface CollectionBarProps extends Pick<ActionBarProps, 'color' | 'title'> {
+// added/extended subtitle and additionalText as props of CollectionBar as child ActionBar has such props
+export interface CollectionBarProps extends Pick<ActionBarProps, 'color' | 'title'| 'subtitle' | 'additionalText' > {
   /** The list of selected objects */
   collection: React.ReactNode[];
 
@@ -27,6 +30,8 @@ export interface CollectionBarProps extends Pick<ActionBarProps, 'color' | 'titl
 export const CollectionBar = ({
   color = 'neutral',
   title,
+  subtitle,
+  additionalText,
   collection,
   compact = false,
   proceedToPath,
@@ -43,12 +48,8 @@ export const CollectionBar = ({
   return (
     <>
       <ActionBar
-        title={title}
-        subtitle={
-          compact && (
-            <span role='status'>{collection.length.toString() + ' ' + t('common.added')}</span>
-          )
-        }
+        title={ title }
+        subtitle={ subtitle }
         additionalText={
           !compact && (
             <Paragraph
@@ -56,25 +57,22 @@ export const CollectionBar = ({
               role='status'
               size='small'
               className={cn(classes.counterText, classes[color])}
-            >
-              <FilesFillIcon
-                height={20}
-                width={20}
-              />
-              {collection.length.toString() + ' ' + t('common.added')}
+            > 
+              {additionalText}
             </Paragraph>
           )
         }
         actions={
+
           !compact && (
             <Button
               variant='quiet'
               size='small'
-              icon={<ChevronRightDoubleCircleFillIcon />}
+              icon={<Edit />}
               color={color === 'dark' ? 'inverted' : undefined}
               onClick={proceedClick}
             >
-              {t('common.proceed')}
+              {t('authentication_dummy.auth_edit_button_systembruker')}
             </Button>
           )
         }
@@ -83,12 +81,13 @@ export const CollectionBar = ({
       >
         <div className={cn(classes.content, { [classes.compact]: compact })}>{collection}</div>
       </ActionBar>
+
       {compact && (
         <Button
           className={classes.compactProceedButton}
           variant='quiet'
           size='small'
-          icon={<ChevronRightDoubleIcon />}
+          icon={<ChevronRightDoubleCircleFillIcon />}
           iconPlacement='right'
           onClick={proceedClick}
         >

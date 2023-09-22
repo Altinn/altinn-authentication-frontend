@@ -13,22 +13,27 @@ by the following steps using a command line window, such as VSC Terminal, bash w
 
 1. Download the repo using Git
 > git clone git@github.com:Altinn/altinn-authentication-frontend.git
+
 Note this assumes that you use SSH keys, but Git documentation will not
 be given here.
 
 2. Install Corepack (this depends on your computer setup). 
 Check version by
 > corepack -h
+
 Tested version 0.18.0 was sufficient for our use.
 
 3. Activate corepack and install the yarn 3.6.3 version used
 elsewhere in Altinn.
+
 > corepack enable
 
 > corepack prepare yarn@3.6.3 --activate
+
 Should state: Preparing yarn@3.6.3 for immediate activation...
 
 > corepack yarn
+
 This should install the dependencies listed in package.json
 
 4. Run the Vite webserver script in package.json by
@@ -36,9 +41,11 @@ This should install the dependencies listed in package.json
 
 The app should now be running in the Vite webserver,
 and is pseudo-available at http://localhost:5173
-(showing just a blue screen)
+(showing just a blue screen), or http://localhost:5173/authfront/ui/xxx <br>
+(showing an Error Page with a nice seagull).
 
-and at http://localhost:5173/accessmanagement/ui/overview/
-where a pretty Error Page is available.
+and with the new /authfront/ui BasePath, we now reach the old, but edited Overview page via
+http://localhost:5173/authfront/ui/offered-api-delegations/overview
 
-Please enjoy the seagull while we rebuild the app.
+while the new Authentication OverviewPage on new path is here: <br>
+http://localhost:5173/authfront/ui/auth/overview
