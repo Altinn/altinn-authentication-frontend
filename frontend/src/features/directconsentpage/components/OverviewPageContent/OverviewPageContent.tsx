@@ -170,7 +170,7 @@ export const OverviewPageContent = ({
             Tilgangsgruppene er: <br></br>
               <br></br>
               - MVA (se tjenester)<br></br>
-              - Sykemelding (ee tjenester)
+              - Sykemelding (se tjenester)
               <br></br>
             </p>
             <br></br>
@@ -181,7 +181,7 @@ export const OverviewPageContent = ({
             </p>
             
             <p>
-            Tilgangsgruppene kan fjernes når som helst senere fra Altin profil.
+            Tilgangsgruppene kan fjernes når som helst senere fra Altinn profil.
             </p>
       
             <br></br>
