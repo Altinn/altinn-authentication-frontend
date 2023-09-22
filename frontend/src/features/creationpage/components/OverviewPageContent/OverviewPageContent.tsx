@@ -158,22 +158,64 @@ export const OverviewPageContent = ({
         <br></br>
       </div>
 
-      <div><p>Input boks Navn</p></div> 
+      <table>
+        <tr>
+          <td>
+            
+            <p>Navn</p> 
+            <p>XXXXX INPUT BOKS XXXXX</p> 
+            <br></br>
+            <p>Beskrivelse</p> 
+            <p>XXXXX INPUT BOKS XXXXX</p>    
 
-      <div><p>Input boks Beskrivelse</p></div>      
+            <p> </p> 
 
-      <div>
-        <br></br><br></br><br></br>
-      </div>
+           
+            <div>
+              <br></br><br></br><br></br>
+              <br></br><br></br><br></br>
+              <br></br><br></br><br></br>
+              <br></br><br></br><br></br>
+              <br></br><br></br>
+              
+            </div>
+          
+            <p>____________________________________________ </p> 
+          
+          </td>
 
-      {!isSm && <h2 className={classes.pageContentText}>
-        {'Du har tidligere opprettet disse systembrukerne'} 
-      </h2>} 
-        
+          <td>
+            <p>
+              En systembruker kan i utgangspunktet kun benyttes av Pølsebu AS sine 
+              egne maskinporten-klienter. 
+              <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
+              <a href="https://docs.altinn.studio/nb/"> her</a>. 
+            </p>
+            <p>
+              Ved å velge en systemleverandør vil opprettet systembruker kunne 
+              benyttes fra leverandørens system. Leverandørens system vil da ha 
+              fullmaktene tildelt til systembrukeren.
+            </p>
+            <br></br>
+
+            <p>Velg systemleverandør</p>
+            <p>NEDTREKKSMENY</p>
+            <p>Microsoft Norge PowerBI</p>
+            <p>Visma SuperTax</p>
+            <p>Aqua Nor Aqua Master</p>
+            <p>Fiken Business Power</p>
+            <p>PostNord Strålboks</p>
+
+            <br></br><br></br>
+
+            <p> AVBRYT-KNAPP _____  OPPRETT-KNAPP</p>
+
+          </td>
+        </tr>
+      </table>
 
       
 
-      
 
     </div>
   );
