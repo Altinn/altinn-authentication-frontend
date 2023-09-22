@@ -52,6 +52,13 @@ namespace Altinn.Authentication.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+
+            AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
+            HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions
+            {
+                HttpOnly = false
+            }) ;
+
             if(await ShouldShowAppView())
             {
                 return View();
