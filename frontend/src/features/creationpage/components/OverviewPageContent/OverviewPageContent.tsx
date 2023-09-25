@@ -36,6 +36,7 @@ import { MinusCircleIcon } from '@navikt/aksel-icons';
 import { SingleRightPath } from '@/routes/paths'; // temporary, from ChooseServicePage
 
 // NOTE! this version of OverviewPageContent is for CreationPage
+// CreationPage with sub-files must be reorganized and renamed
 
 
 export interface OverviewPageContentInterface {
