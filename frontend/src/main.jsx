@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { use } from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-// import { RefreshToken } from '@/resources/Token/RefreshToken'; // temp inactivaiton 19.09.23
+import { RefreshToken } from '@/resources/Token/RefreshToken';
 import { Router } from '@/routes/Router/Router';
 
 import { getConfig } from '../config';
