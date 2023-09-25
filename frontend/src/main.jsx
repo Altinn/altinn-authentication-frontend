@@ -44,7 +44,6 @@ use(LanguageDetector)
         defaultOptions: import.meta.env.DEV ? queryClientDevDefaults : undefined,
       });
 
-      // temp inactivation 19.09.23: <RefreshToken />
       ReactDOM.createRoot(document.getElementById('root')).render(
         // if you ever wonder why the components render twice it's because of React.StrictMode
         // comment it out if it causes trouble: https://react.dev/reference/react/StrictMode
@@ -52,7 +51,7 @@ use(LanguageDetector)
           <Provider store={store}>
             <QueryClientProvider client={queryClient}>
               <LoadLocalizations>
-                
+                <RefreshToken />
                 <RouterProvider router={Router}></RouterProvider>
               </LoadLocalizations>
             </QueryClientProvider>
