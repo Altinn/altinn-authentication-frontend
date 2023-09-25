@@ -16,8 +16,8 @@ namespace Altinn.Authentication.UI.Controllers
             _antiforgery = antiforgery;
         }
 
-        [Authorize]
-        //[HttpGet("authfront/api/v1/authentication/refresh")]        //the correct URL
+        //[Authorize]
+        //[HttpGet("authfront/api/v1/authentication/refresh")]        //the correct URL, at least for now, it is likely to change prior to Production, pending input from Skatt and NAV
         [HttpGet("accessmanagement/api/v1/authentication/refresh")]   //this is the URL the js tries to hit now, must be changed
         public async Task<IActionResult> Refresh()
         {

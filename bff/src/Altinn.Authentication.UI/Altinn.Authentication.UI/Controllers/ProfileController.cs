@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Altinn.Authentication.UI.Controllers
@@ -15,9 +16,29 @@ namespace Altinn.Authentication.UI.Controllers
             _httpContextAccessor = httpContextAccessor;
         }
 
+        //[Authorize] //TODO: må fikse
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [HttpGet("user")]
         public async Task<ActionResult> GetUser()
         {
-            return Ok();
+            var user = new
+            {
+                UserId = 20004938,
+                UserName = "JarleErKul",
+                PhoneNumber = "90001337",
+                Email = "1337@altinnstudiotestusers.com",
+                PartyId = 50019992,
+                Party = new
+                {
+                    UserType = 1,
+                    ProfileSettingPreference = new
+                    {
+                        Language = "nb"
+                    }
+                }
+            };
+
+            return Ok(user);
         }
     }
 }
