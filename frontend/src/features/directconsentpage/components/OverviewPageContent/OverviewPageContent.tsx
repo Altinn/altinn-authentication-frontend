@@ -24,7 +24,7 @@ import {
 } from '@/rtk/features/apiDelegation/overviewOrg/overviewOrgSlice';
 import { resetDelegableApis } from '@/rtk/features/apiDelegation/delegableApi/delegableApiSlice';
 import { useMediaQuery } from '@/resources/hooks';
-import { ApiDelegationPath, AuthenticationPath } from '@/routes/paths';
+import { ApiDelegationPath } from '@/routes/paths';
 
 import { LayoutState } from '../LayoutState';
 
@@ -35,6 +35,7 @@ import { ErrorPanel, CollectionBar, ActionBar } from '@/components';
 import { MinusCircleIcon } from '@navikt/aksel-icons';
 import { SingleRightPath } from '@/routes/paths'; // temporary, from ChooseServicePage
 
+// NOTE! this version of OverviewPageContent is for DirectConsentPage
 
 
 export interface OverviewPageContentInterface {
@@ -84,7 +85,7 @@ export const OverviewPageContent = ({
   switch (layout) {
     case LayoutState.Offered:
       fetchData = async () => await dispatch(fetchOverviewOrgsOffered());
-      overviewText = t('authentication_dummy.auth_overview_text_administrere'); // h2 below, not in Small/mobile view
+      overviewText = t('authentication_dummy.auth_overview_text_directconsent'); // h2 below, not in Small/mobile view
       accessesHeader = t('api_delegation.you_have_delegated_accesses');
       noDelegationsInfoText = t('api_delegation.no_offered_delegations');
       break;
@@ -96,12 +97,9 @@ export const OverviewPageContent = ({
       break;
   }
 
-  // Fix-me: setup dispatch for this step, if necessary:
-  // it depends on possible soft-deletions in our list... 
-  // might also just delete it
-  const goToStartNewSystemUser = () => {
-    // dispatch(restoreAllSoftDeletedItems());
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Creation);
+  const goToStartDelegation = () => {
+    dispatch(restoreAllSoftDeletedItems());
+    navigate('/' + ApiDelegationPath.OfferedApiDelegations + '/' + ApiDelegationPath.ChooseOrg);
   };
 
   const handleSaveDisabled = () => {
@@ -120,12 +118,7 @@ export const OverviewPageContent = ({
     setSaveDisabled(true);
   };
 
-  const handleSetIsEditable = () => {
-    if (isEditable) {
-      dispatch(restoreAllSoftDeletedItems());
-    }
-    setIsEditable(!isEditable);
-  };
+  
 
   const mapToDeletionRequest = (orgNr: string, apiId: string) => {
     const deletionRequest: DeletionRequest = {
@@ -150,71 +143,9 @@ export const OverviewPageContent = ({
     setIsEditable(false);
   };
 
-  const activeDelegations = () => {
-    if (error.message) {
-      return (
-        <div className={classes.errorPanel}>
-          <ErrorPanel
-            title={t('api_delegation.data_retrieval_failed')}
-            message={error.message}
-            statusCode={error.statusCode}
-          ></ErrorPanel>
-        </div>
-      );
-    } else if (loading) {
-      return (
-        <div className={classes.spinnerContainer}>
-          <Spinner
-            title={String(t('common.loading'))}
-            size='large'
-          />
-        </div>
-      );
-    } else if (overviewOrgs.length < 1) {
-      return <h3 className={classes.noActiveDelegations}>{noDelegationsInfoText}</h3>;
-    }
-    return overviewOrgs.map((org: OverviewOrg) => (
-      <div
-        key={org.id}
-        className={classes.actionBarWrapper}
-      >
-        <OrgDelegationActionBar
-          organization={org}
-          isEditable={isEditable}
-          softDeleteAllCallback={() => dispatch(softDeleteAll(org.id))}
-          softRestoreAllCallback={() => dispatch(softRestoreAll(org.id))}
-          key={org.id}
-        ></OrgDelegationActionBar>
-      </div>
-    ));
-  };
+  
 
-  // From ChooseServicePage.tsx: used to show CollectionBar and selectedResourcesActionBars
-  const delegableChosenServices = useAppSelector((state) =>
-    state.singleRightsSlice.servicesWithStatus.filter((s) => s.status !== 'NotDelegable'),
-  );
-
-  // From ChooseServicePage.tsx: used to show CollectionBar with <ActionBar> below
-  const selectedResourcesActionBars = delegableChosenServices.map((resource, index) => (
-    <ActionBar
-      key={index}
-      title={resource.service?.title}
-      subtitle={resource.service?.resourceOwnerName}
-      size='small'
-      color='success'
-      actions={
-        <Button
-          variant='quiet'
-          size={isSm ? 'medium' : 'small'}
-          onClick={() => {
-          }}
-          icon={isSm && <MinusCircleIcon title={t('common.remove')} />}
-        >
-          {!isSm && t('common.remove')}
-        </Button>
-      }
-    ></ActionBar>
-  ));
+  
 
 
 
@@ -223,55 +154,39 @@ export const OverviewPageContent = ({
 
       {!isSm && <h2 className={classes.pageContentText}>{overviewText}</h2>}
       
-      {layout === LayoutState.Offered && (
-        <div className={classes.delegateNewButton}>
-          <Button
-            variant='outline'
-            onClick={goToStartNewSystemUser}
-            icon={<Add />}
-            fullWidth={isSm}
-            size='medium'
-          >
-            {t('authentication_dummy.auth_new_system_user_opprett')}
-          </Button>
-          
-        </div>
-      )}
-      <div>
-        <br></br><br></br><br></br>
-      </div>
+   
 
-      {!isSm && <h2 className={classes.pageContentText}>
-        {'Du har tidligere opprettet disse systembrukerne'} 
-      </h2>} 
-        
+            <p>
+              <br></br>
+            Fiken AS ber om tilgangsgrupper blir gitt til systemet. <br></br>
+            Tilgangsgruppene vil gi systemintegrasjonen rett til <br></br>
+            å aksessere digital tjenester på vegne av Pølsebu AS<br></br> 
+            <br></br>
+              <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
+              <a href="https://docs.altinn.studio/nb/"> her</a>. 
+            </p>
+            <br></br>
+            <p>
+            Tilgangsgruppene er: <br></br>
+              <br></br>
+              - MVA (se tjenester)<br></br>
+              - Sykemelding (se tjenester)
+              <br></br>
+            </p>
+            <br></br>
+            <p>
+            Innholdet i tilgangsgruppene kan endre seg hvis nye
+             tjenester for områdetet blir tilgjengelig.
 
-      <CollectionBar
-        title='System lakselus rapportering'
-        subtitle='AQUA POWER'
-        color={selectedResourcesActionBars.length > 0 ? 'success' : 'neutral'}
-        collection={selectedResourcesActionBars}
-        compact={isSm}
-        proceedToPath={
-          '/' + SingleRightPath.DelegateSingleRights + '/' + SingleRightPath.ChooseRights
-        }
-      />
+            </p>
+            
+            <p>
+            Tilgangsgruppene kan fjernes når som helst senere fra Altinn profil.
+            </p>
+      
+            <br></br>
 
-      <div>
-        <br></br>
-      </div>
-
-      <CollectionBar
-        title='Økonomisystem'
-        subtitle='VISMA ACCOUNTING'
-        additionalText='Delegert til Visma AS'
-        color={selectedResourcesActionBars.length > 0 ? 'success' : 'neutral'}
-        collection={selectedResourcesActionBars}
-        compact={isSm}
-        proceedToPath={
-          '/' + SingleRightPath.DelegateSingleRights + '/' + SingleRightPath.ChooseRights
-        }
-      />
+            <p> AVVIS-KNAPP _____  GODTA-KNAPP</p>
 
     </div>
   );

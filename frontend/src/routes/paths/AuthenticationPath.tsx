@@ -1,4 +1,6 @@
 export enum AuthenticationPath {
-    Overview = 'overview',
-    Auth = 'auth',
-  }
+  Auth = 'auth',
+  Creation = 'creation',
+  Overview = 'overview',
+  DirectConsent = 'directconsent'
+}

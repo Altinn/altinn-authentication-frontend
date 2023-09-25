@@ -51,7 +51,11 @@
     "auth_new_system_user_opprett": "Opprett ny systembruker",
     "auth_card_title_tidligere_opprettet": "Du har tidligere opprettet disse systembrukerne",
     "auth_api_panel_content": "Her skulle vært en liste over systembrukere",
-    "auth_edit_button_systembruker": "Rediger systembruker"
+    "auth_edit_button_systembruker": "Rediger systembruker",
+
+    "auth_overview_text_creation": "Opprett ny systembruker for systemintegrasjon ved bruk av Maskinporten",
+    
+    "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
   },
     
   "api_delegation": {
