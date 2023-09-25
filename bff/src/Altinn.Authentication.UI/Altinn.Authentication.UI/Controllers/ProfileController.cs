@@ -17,7 +17,7 @@ namespace Altinn.Authentication.UI.Controllers
 
         public async Task<ActionResult> GetUser()
         {
-
+            return Ok();
         }
     }
 }
