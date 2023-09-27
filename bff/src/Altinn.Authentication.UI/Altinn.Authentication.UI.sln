@@ -5,7 +5,13 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altinn.Authentication.UI", "Altinn.Authentication.UI\Altinn.Authentication.UI.csproj", "{2817607C-79B3-4B06-94CC-F5D7D1C646D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altinn.Authentication.UI.Mocks", "Altinn.Authentication.UI.Mocks\Altinn.Authentication.UI.Mocks.csproj", "{6BCF4825-FC81-4E32-B91F-36523622E88C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Altinn.Authentication.UI.Mocks", "Altinn.Authentication.UI.Mocks\Altinn.Authentication.UI.Mocks.csproj", "{6BCF4825-FC81-4E32-B91F-36523622E88C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altinn.Authentication.UI.Core", "Altinn.Authentication.UI.Core\Altinn.Authentication.UI.Core.csproj", "{3699BC33-95E0-40C7-AE00-1564B549C28F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altinn.Authentication.UI.Integration", "Altinn.Authentication.UI.Integration\Altinn.Authentication.UI.Integration.csproj", "{A8B7FFF2-4288-422D-99B3-EA959B6D7625}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Altinn.Authentication.UI.Tests", "Altinn.Authentication.UI.Tests\Altinn.Authentication.UI.Tests.csproj", "{B2152DBD-6B8F-4FE6-A718-9E249D9C9889}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{6BCF4825-FC81-4E32-B91F-36523622E88C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BCF4825-FC81-4E32-B91F-36523622E88C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BCF4825-FC81-4E32-B91F-36523622E88C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3699BC33-95E0-40C7-AE00-1564B549C28F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3699BC33-95E0-40C7-AE00-1564B549C28F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3699BC33-95E0-40C7-AE00-1564B549C28F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3699BC33-95E0-40C7-AE00-1564B549C28F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8B7FFF2-4288-422D-99B3-EA959B6D7625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8B7FFF2-4288-422D-99B3-EA959B6D7625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8B7FFF2-4288-422D-99B3-EA959B6D7625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8B7FFF2-4288-422D-99B3-EA959B6D7625}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2152DBD-6B8F-4FE6-A718-9E249D9C9889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2152DBD-6B8F-4FE6-A718-9E249D9C9889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2152DBD-6B8F-4FE6-A718-9E249D9C9889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2152DBD-6B8F-4FE6-A718-9E249D9C9889}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
