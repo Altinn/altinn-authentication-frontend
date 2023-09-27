@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Altinn.Authentication.UI.Filters;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 //https://github.com/Altinn/altinn-authentication-frontend/issues/22
 
@@ -6,6 +7,7 @@ namespace Altinn.Authentication.UI.Controllers
 {
     [Route("authfront/api/v1/systemuser")]
     [ApiController]
+    [AutoValidateAntiforgeryTokenIfAuthCookie]
     public class SystemUserController : ControllerBase
     {
         //Mock Data
@@ -54,18 +56,24 @@ namespace Altinn.Authentication.UI.Controllers
         }
 
         // POST api/<SystemUserController>
+        //[Authorize]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpPost]
         public void Post([FromBody] string value)
         {
         }
 
         // PUT api/<SystemUserController>/5
+        //[Authorize]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
 
         // DELETE api/<SystemUserController>/5
+        //[Authorize]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpDelete("{id}")]
         public void Delete(int id)
         {

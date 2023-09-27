@@ -10,6 +10,7 @@ using Swashbuckle.AspNetCore.Filters;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using AltinnCore.Authentication.JwtCookie;
 using Altinn.Common.PEP.Configuration;
+using Altinn.Authentication.UI.Extensions;
 
 ILogger logger;
 
@@ -39,7 +40,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-//app.UseDefaultSecurityHeaders();
+app.UseDefaultSecurityHeaders();
 
 app.UseAuthentication();
 app.UseAuthorization();
