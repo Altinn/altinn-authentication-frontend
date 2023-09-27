@@ -5,8 +5,8 @@ import { Page, PageHeader, PageContent, PageContainer } from '@/components';
 import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
 import { useMediaQuery } from '@/resources/hooks';
 
-import { OverviewPageContent } from './components/OverviewPageContent';
-import { LayoutState } from './components/LayoutState';
+import { CreationPageContent } from './CreationPageContent';
+
 
 export const CreationPage = () => {
   const { t } = useTranslation('common');
@@ -22,7 +22,7 @@ export const CreationPage = () => {
       >
         <PageHeader icon={<ApiIcon />}>{'Opprett ny systembruker'}</PageHeader>
         <PageContent>
-          <OverviewPageContent layout={LayoutState.Offered} />
+          <CreationPageContent />
         </PageContent>
       </Page>
     </PageContainer>
