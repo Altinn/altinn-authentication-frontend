@@ -44,8 +44,11 @@ and is pseudo-available at http://localhost:5173
 (showing just a blue screen), or http://localhost:5173/authfront/ui/xxx <br>
 (showing an Error Page with a nice seagull).
 
-and with the new /authfront/ui BasePath, we now reach the old, but edited Overview page via
-http://localhost:5173/authfront/ui/offered-api-delegations/overview
-
-while the new Authentication OverviewPage on new path is here: <br>
+The new Authentication OverviewPage on the new path is here: <br>
 http://localhost:5173/authfront/ui/auth/overview
+
+The new Authentication CreationPage is here: <br>
+http://localhost:5173/authfront/ui/auth/creation
+
+The new Authentication DirectConsentPage is here: <br>
+http://localhost:5173/authfront/ui/auth/directconsent
