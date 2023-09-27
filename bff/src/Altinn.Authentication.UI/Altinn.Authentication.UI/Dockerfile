@@ -7,7 +7,7 @@ RUN yarn --immutable
 RUN yarn build
 
 #Building the Authentication BFF Backend
-FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS generate-authentication-backend
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS generate-authentication-bff
 WORKDIR /build
 COPY bff .
 RUN dotnet build src/Altinn.Authentication.UI/Altinn.Authentication.UI/Altinn.Authentication.UI.csproj -c Release -o /app_output
@@ -21,7 +21,7 @@ WORKDIR /app
 ENV ASPNETCORE_ENVIRONMENT = Development
 RUN apk add --no-cache icu-libs krb5-libs libgcc libintl libssl1.1 libstdc++ zlib
 
-COPY --from=generate-authentication-backend /app_output .
+COPY --from=generate-authentication-bff /app_output .
 COPY --from=generate-authentication-frontend /build/dist/assets ./wwwroot/authentication/assets
 COPY --from=generate-authentication-frontend /build/src/localizations ./wwwroot/authentication/localizations
 COPY --from=generate-authentication-frontend /build/dist/manifest.json ./wwwroot/authentication
