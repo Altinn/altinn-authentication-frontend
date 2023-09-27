@@ -1,107 +1,90 @@
-@media only screen and (max-width: 768px) {
-  .overviewAccordionsContainer {
-    margin-top: 0rem;
-  }
-
-  .delegateNewButton {
-    margin-bottom: 1.3rem;
-    margin-top: 0rem;
-  }
-
-  .activeDelegationsHeader {
-    margin-top: 0.1rem;
-  }
-
-  .editButton {
-    align-items: center;
-    justify-content: end;
-    margin-bottom: 0.3rem;
-  }
-}
-
-@media only screen and (min-width: 769px) {
-  .overviewActionBarContainer {
-    margin-top: 3rem;
-  }
-
-  .delegateNewButton {
-    margin-bottom: 3rem;
-  }
-
-  .activeDelegationsHeader {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .saveSection {
-    margin-right: 0.5rem;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .editButton {
-    justify-content: flex-end;
-    align-items: center;
-    display: flex;
-    flex: 1;
-  }
-
-  .explanatoryContainer {
-    margin-top: 30px;
-    display: flex;
-  }
-}
-
-.noActiveDelegations {
-  margin-top: 1.5rem;
-}
-
-.spinnerContainer {
+.creationPageContainer {
+  margin-left: 40px;
+  margin-right: 40px;
   margin-top: 3rem;
-  display: flex;
-  justify-content: center;
 }
 
-.saveSection {
-  margin-top: 2rem;
-}
-
-.apiSubheading {
-  display: flex;
-  margin-bottom: 2rem;
-  font-weight: 500;
-}
-
-.pageContentText {
+.header {
   margin-top: -2rem;
   font-weight: 500;
 }
 
-.link {
-  color: black;
-  text-decoration-line: underline;
-  text-decoration-color: #1eadf7;
-  display: inline-block;
-  background: transparent;
+.flexContainer {
+  display: flex;
 }
 
-.errorPanel {
+.leftContainer {
+  flex: 3;
+  margin-right: 1rem;
+}
+
+.rightContainer {
+  flex: 3;
+}
+
+.nameWrapper {
+  margin: 10px;
+}
+
+.descriptionWrapper {
+  margin: 10px;
   margin-top: 2rem;
 }
 
-.actionBarWrapper {
-  margin-top: 5px;
-  margin-bottom: 5px;
+.selectWrapper {
+  margin: 10px;
+  margin-bottom: 2rem;
+
 }
 
-.testText {
-  margin-right: 40px;
+.confirmationWrapper {
+  margin: 10px;
 }
 
-.testContent {
-  margin: 1.5rem;
+.buttonContainer {
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+}
+
+.cancelButton {
+  margin: 10px;
+}
+
+.confirmButton {
+  margin: 10px;
+}
+
+@media only screen and (min-width: 769px) {
+
+  .contentText {
+    font-size: 18px;
+  }
+  
+}
+
+@media only screen and (max-width: 768px) {
+
+  .contentText {
+    font-size: 16px;
+  }
+
+}
+
+@media only screen and (max-width: 576px) {
+
+  .flexContainer {
+    flex-direction: column;
+  }
+
+  .creationPageContainer {
+    margin-top: 1rem;
+  }
+
+  .header {
+    font-size: 20px;
+  }
+
+  .contentText {
+    font-size: 14px;
+  }
+
 }

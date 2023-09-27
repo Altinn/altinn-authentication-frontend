@@ -85,108 +85,85 @@ export const CreationPageContent = () => {
  
 
   return (
-    <div className={classes.overviewActionBarContainer}>
-
-      {!isSm && <h2 className={classes.pageContentText}>{overviewText}</h2>}
-      
-      <div>
-        <br></br>
-      </div>
-
-      <table>
-        <tr>
-          <td>
+    <div className={classes.creationPageContainer}>
+      <h2 className={classes.header}>{overviewText}</h2>  
+      <div className={classes.flexContainer}>
+        <div className={classes.leftContainer}>
+          <div className={classes.nameWrapper}>
             <TextField 
               label = 'Navn'
               value = { navn }
               onChange={e => setNavn(e.target.value)}
             />
-            
-            <br></br><br></br>
-           
+          </div>
+
+          <div className={classes.descriptionWrapper}>
             <TextField 
               label= 'Beskrivelse' 
               value = { beskrivelse }
               onChange={e => setBeskrivelse(e.target.value)}
             />
+          </div>
+        </div>
 
-            <div>
-              <br></br><br></br><br></br>
-              <br></br><br></br><br></br>
-              <br></br><br></br><br></br>
-              <br></br><br></br><br></br>
-              <br></br><br></br><br></br>
-              <br></br><br></br><br></br>
-            </div>
-            <p>____________________________________________ </p>           
-          </td>
+        <div className={classes.rightContainer}>
 
-          <td>
-            <p>
-              En systembruker kan i utgangspunktet kun benyttes av Pølsebu AS sine 
-              egne maskinporten-klienter. 
-              <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
-              <a href="https://docs.altinn.studio/nb/"> her</a>. 
-            </p>
-            <p>
-              Ved å velge en systemleverandør vil opprettet systembruker kunne 
-              benyttes fra leverandørens system. Leverandørens system vil da ha 
-              fullmaktene tildelt til systembrukeren.
-            </p>
-            <br></br>
+          <p className={classes.contentText}>
+            En systembruker kan i utgangspunktet kun benyttes av Pølsebu AS sine 
+            egne maskinporten-klienter. 
+            <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
+            <a href="https://docs.altinn.studio/nb/"> her</a>. 
+          </p>
 
-            <p>Velg systemleverandør</p>
-                        
+          <p className={classes.contentText}>
+            Ved å velge en systemleverandør vil opprettet systembruker kunne 
+            benyttes fra leverandørens system. Leverandørens system vil da ha 
+            fullmaktene tildelt til systembrukeren.
+          </p>
+
+          <div className={classes.selectWrapper}>
             <Select
+              label="Velg systemleverandør"
               options={testoptions}
               onChange={handleChangeInput}
               value={selected}
             />
+          </div>
 
-            <br></br><br></br><br></br>
-          
-            <hr></hr>
+          <hr></hr>
             
-            <br></br>
-            <p><b>Bekreft valgt systemleverandør : {selected}</b></p>
-
+          <div className={classes.confirmationWrapper}>
             <p>
-              <b>
-                Bekreft navn ny systembruker : {navn}
-              </b>
+              <b>Bekreft valgt systemleverandør : {selected}</b>
+              <br></br>
+              <b>Bekreft navn ny systembruker : {navn}</b>
+              <br></br>
+              <b>Bekreft beskrivelse ny systembruker: {beskrivelse}</b>
+
             </p>
-            <p>
-              <b>
-                Bekreft beskrivelse ny systembruker: {beskrivelse}
-              </b>
-            </p>
+          </div>
 
-            <br></br>
+          <div className={classes.buttonContainer}>
 
-            <table>
-              <tr>
-                <td>
-                  <Button
-                  color='danger'
-                  >
-                    AVBRYT 
-                  </Button> 
-                </td>
+            <div className={classes.cancelButton}>
+              <Button
+                color='danger'
+              >
+                AVBRYT 
+              </Button> 
+            </div>
 
-                <td>
-                  <Button
-                    color='success'
-                  >
-                    OPPRETT
-                  </Button> 
-                </td>
-              </tr>
-            </table>
-            
-          </td>
-        </tr>
-      </table>
+            <div className={classes.confirmButton}>
+              <Button
+                color='success'
+              >
+                OPPRETT 
+              </Button> 
+            </div>
 
+          </div>
+        </div>      
+      </div>
     </div>
   );
 };
