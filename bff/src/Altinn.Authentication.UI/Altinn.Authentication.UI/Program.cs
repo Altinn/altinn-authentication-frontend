@@ -40,7 +40,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-app.UseDefaultSecurityHeaders();
+//app.UseDefaultSecurityHeaders();
 
 app.UseAuthentication();
 app.UseAuthorization();

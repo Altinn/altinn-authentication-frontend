@@ -7,7 +7,7 @@ namespace Altinn.Authentication.UI.Controllers
 {
     [Route("authfront/api/v1/systemuser")]
     [ApiController]
-    [AutoValidateAntiforgeryTokenIfAuthCookie]
+    //[AutoValidateAntiforgeryTokenIfAuthCookie]
     public class SystemUserController : ControllerBase
     {
         //Mock Data

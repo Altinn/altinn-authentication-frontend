@@ -7,7 +7,7 @@ using Altinn.Authentication.UI.Filters;
 namespace Altinn.Authentication.UI.Controllers
 {
     [ApiController]
-    [AutoValidateAntiforgeryTokenIfAuthCookie] //TODO: bruke Filteret til AM, prøver uten først så Torgeir får sin Mocked BFF
+    //[AutoValidateAntiforgeryTokenIfAuthCookie] 
     public class AuthenticationController : ControllerBase
     {
         private readonly IAntiforgery _antiforgery;
@@ -18,7 +18,7 @@ namespace Altinn.Authentication.UI.Controllers
         }
 
         //[Authorize]
-        [HttpGet("authfront/api/v1/authentication/refresh")]        //the correct URL, at least for now, it is likely to change prior to Production, pending input from Skatt and NAV
+        [HttpGet("authfront/api/v1/authentication/refresh")]        //TODO: it is likely to change prior to Production, pending input from Skatt and NAV
         public async Task<IActionResult> Refresh()
         {
             AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
