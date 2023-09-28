@@ -20,11 +20,11 @@ export default defineConfig({
       // overwrite default .html entry
       input: './entrypoint.js',
       output: {
-        entryFileNames: 'assets/accessmanagement.js',
+        entryFileNames: 'assets/authfront.js',
         assetFileNames: (assetInfo) => {
           const extType = assetInfo.name.split('.')[1];
           if (/css/i.test(extType)) {
-            return `assets/accessmanagement.css`;
+            return `assets/authfront.css`;
           }
           return `assets/[name]-[hash][extname]`;
         },
