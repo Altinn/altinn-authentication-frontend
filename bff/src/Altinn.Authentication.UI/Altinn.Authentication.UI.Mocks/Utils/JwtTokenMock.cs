@@ -35,7 +35,7 @@ namespace Altinn.Authentication.UI.Mocks.Utils
                 return new X509SigningCredentials(certIssuer, SecurityAlgorithms.RsaSha256);
             }
 
-            X509Certificate2 cert = new X509Certificate2(certPath);
+            X509Certificate2 cert = new X509Certificate2(certPath, "qwer1234");
             return new X509SigningCredentials(cert, SecurityAlgorithms.RsaSha256);
         }
     }
