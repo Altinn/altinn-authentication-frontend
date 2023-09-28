@@ -23,7 +23,7 @@ namespace Altinn.Authentication.UI.Tests.Controllers
             HttpClient client = SetupUtils.GetTestClient(_factory, false);
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            string token = PrincipalUtil.GetAccessToken("sbl.authorization");
+            string token = PrincipalUtil.GetAccessToken("sbl.authorization");            
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
 
