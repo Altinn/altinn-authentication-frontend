@@ -1,7 +1,8 @@
 # Altinn-authentication-frontend repo
 Dette er Authentication React frontend med BFF (backend-for-frontend)
 
-# Hvordan sette opp bff app og frontend app så de kjører sammen
+### Hvordan sette opp bff app og frontend app så de kjører sammen
+
 Det er nå fungerende kontakt mellom kjørende React frontend og BFF apper, <br>
 som var et viktig først delmål for utvikling av løsningen.
 
