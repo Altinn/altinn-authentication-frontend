@@ -3,7 +3,7 @@ This is the React frontend part of the new altinn-authentication-frontend.<br>
 A more detailed description of the project is available at this repo wiki.
 
 
-## How-to-use this app per. 27.09.23 (this is a work in progress):
+## How-to-use this app per 29.09.23 (this is a work in progress):
 
 Corepack should be installed and enabled, 
 https://nodejs.org/api/corepack.html <br>
@@ -41,6 +41,15 @@ This should install the dependencies listed in package.json
 
 4. Run the Vite webserver script in package.json by
 > yarn start
+
+The bff dotnet app is also available (see README in /bff/ sub-repo),<br>
+in brief, in order to reach deveopment Kestrel server, do 
+> dotnet run
+in folder with .csproj file. 
+
+Swagger and OverviewPage should then become available at:<br>
+http://localhost:5191/swagger/index.html <br>
+http://localhost:5191/authfront/ui/auth/overview <br>
 
 ### Links to new pages and paths in the new app
 
