@@ -10,24 +10,49 @@ namespace Altinn.Authentication.UI.Controllers
     //[AutoValidateAntiforgeryTokenIfAuthCookie]
     public class SystemUserController : ControllerBase
     {
-        //Mock Data
-        SystemUser systemUser1 = new SystemUser()
-        {
-            Id = "2334-34545-2-324-2-2",
-            Title = "Vårt regnskapsystem",
-            Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
-            SystemType = "534-ADF-SF",
-            Created = "2023-09-12"
-        };
+        
 
-        SystemUser systemUser2 = new SystemUser()
+        private List<SystemUser> MockTestHelper() 
         {
-            Id = "2334-34545-2-324-2-3",
-            Title = "Vårt andre regnskapsystem",
-            Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
-            SystemType = "534-ADF-SF",
-            Created = "2023-09-22"
-        };
+            //Mock Data
+            SystemUser systemUser1 = new SystemUser()
+            {
+                Id = "1",
+                Title = "Vårt regnskapsystem",
+                Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
+                SystemType = "534-ADF-SF",
+                Created = "2023-09-12",
+                ClientId = "20578230597"
+            };
+
+            SystemUser systemUser2 = new SystemUser()
+            {
+                Id = "2",
+                Title = "Vårt andre regnskapsystem",
+                Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
+                SystemType = "534-ADF-SF",
+                Created = "2023-09-22",
+                ClientId = "20578230598"
+            };
+
+            SystemUser systemUser3 = new SystemUser()
+            {
+                Id = "3",
+                Title = "Et helt annet system",
+                Description = "Fiken superskatt",
+                SystemType = "lfhiwlfhi",
+                Created = "2023-09-22",
+                ClientId = "23523523"
+            };
+
+            List<SystemUser> systemUserList = new List<SystemUser>();
+
+            systemUserList.Add(systemUser1);
+            systemUserList.Add(systemUser2);
+            systemUserList.Add(systemUser3);
+
+            return systemUserList;
+        }
 
         // GET: api/<SystemUserController>
         //[Authorize] //TODO: må fikse
@@ -35,24 +60,21 @@ namespace Altinn.Authentication.UI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SystemUser>>> GetSystemUserList()
         {
-            List<SystemUser> systemUserList = new List<SystemUser>();
 
-            systemUserList.Add(systemUser1);
-            systemUserList.Add(systemUser2);
+            var list = MockTestHelper();
 
-
-            return Ok(systemUserList);
+            return Ok(list);
         }
 
         // GET api/<SystemUserController>/5
         //[Authorize]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetSystemUser(int id)
+        public async Task<ActionResult> GetSystemUser(string id)
         {
-            
+            var usr = MockTestHelper().Find(u => u.Id == id);
 
-            return Ok(systemUser1);
+            return Ok(usr);
         }
 
         // POST api/<SystemUserController>
@@ -87,5 +109,6 @@ namespace Altinn.Authentication.UI.Controllers
         public string? Description { get; set; }
         public string? SystemType { get; set; }
         public string? Created { get; set; }
+        public string? ClientId { get; set; }
     }
 }

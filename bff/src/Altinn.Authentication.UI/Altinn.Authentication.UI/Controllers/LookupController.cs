@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Altinn.Platform.Register.Models;
+using Altinn.Authentication.UI.Filters;
 
 namespace Altinn.Authentication.UI.Controllers
 {
     [ApiController]
+    //[AutoValidateAntiforgeryTokenIfAuthCookie]
     public class LookupController : ControllerBase
     {
         [HttpGet]
