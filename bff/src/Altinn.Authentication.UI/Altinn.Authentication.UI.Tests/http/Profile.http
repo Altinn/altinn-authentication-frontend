@@ -1,26 +1,33 @@
 ﻿//Change to the correct rootUrl for testing locally or towards servers
 //Within VS debugger
-@rootUrl = https://localhost:44349
+//@rootUrl = https://localhost:44349
+@rootHttpsUrl = https://localhost:7170
+@rootHttpUrl = https://localhost:5191
 
 ###
 //The Homecontroller returns the index.html which launches the React SPA
 //Expected result: React SPA index.html with minified js bundle
-GET {{rootUrl}}/authfront/ui/
+//Requires either a valid cookie with XSRF Token in the header
+//or the Developer/Tester must switch off the Authorize attribute in the Controller.
+GET {{rootHttpsUrl}}/authfront/ui/
 
 ###
 //The endpoint for retrieving the name and info of the logged in user
 //Expected result: a DTO with only username and organizationname
-//Should either be already logged in via DialogPorten, or mock a test Cookie 
+//Should either be already logged in via DialogPorten, mock a test Cookie 
+//or switch off the Authorize attribute in the Controller.
 {
   "userName": "Testur Testursson",
   "organizationName": "TestParty"
 }
 
-GET {{rootUrl}}/authfront/api/v1/profile/user
+GET {{rootHttpsUrl}}/authfront/api/v1/profile/user
 
 ###
 //The endpoint for refreshing a Token
 //Expected result: a new Token
-GET {{rootUrl}}/authfront/api/v1/authentication/refresh
+//Needs a valid cookie with XSRF Token in the header to work,
+//or the Developer/Tester must switch off the Authorize attribute in the Controller.
+GET {{rootHttpsUrl}}/authfront/api/v1/authentication/refresh
 
 

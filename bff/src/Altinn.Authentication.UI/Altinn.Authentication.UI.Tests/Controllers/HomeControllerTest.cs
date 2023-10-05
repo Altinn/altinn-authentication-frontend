@@ -4,6 +4,7 @@ using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Xunit;
 using System.Net.Http.Headers;
+using System.Net;
 
 namespace Altinn.Authentication.UI.Tests.Controllers
 {
@@ -40,9 +41,14 @@ namespace Altinn.Authentication.UI.Tests.Controllers
             HttpResponseMessage response = await client.GetAsync($"authfront/");
             IEnumerable<string> cookieHeaders = response.Headers.GetValues("Set-Cookie");
             IEnumerable<string> xframeHeaders = response.Headers.GetValues("X-Frame-Options");
-
+            IEnumerable<string> contentTypeHeaders = response.Headers.GetValues("X-Content-Type-Options");
+            IEnumerable<string> xssProtectionHeaders = response.Headers.GetValues("X-XSS-Protection");
+            IEnumerable<string> referrerPolicyHeaders = response.Headers.GetValues("Referrer-Policy");
 
             //Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(3, cookieHeaders.Count());
+            Assert.StartsWith("AS-", cookieHeaders.ElementAt(0));
 
 
         }
