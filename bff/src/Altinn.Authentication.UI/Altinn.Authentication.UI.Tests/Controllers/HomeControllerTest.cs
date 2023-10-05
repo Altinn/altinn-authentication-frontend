@@ -7,16 +7,26 @@ using System.Net.Http.Headers;
 
 namespace Altinn.Authentication.UI.Tests.Controllers
 {
+    /// <summary>
+    /// Tests for <see cref="HomeController"/>
+    /// </summary>
     [Collection ("HomeController Tests")]
     public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory<HomeController>>
     {
         private readonly CustomWebApplicationFactory<HomeController> _factory;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="factory"></param>
         public HomeControllerTest(CustomWebApplicationFactory<HomeController> factory)
         {
             _factory = factory;
         }
 
+        /// <summary>
+        /// Test: Checks if antiforgery token is set when authenticated
+        /// </summary>
         [Fact]
         public async Task Index_Authenticated()
         {
@@ -25,6 +35,14 @@ namespace Altinn.Authentication.UI.Tests.Controllers
 
             string token = PrincipalUtil.GetAccessToken("sbl.authorization");            
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            //Act
+            HttpResponseMessage response = await client.GetAsync($"authfront/");
+            IEnumerable<string> cookieHeaders = response.Headers.GetValues("Set-Cookie");
+            IEnumerable<string> xframeHeaders = response.Headers.GetValues("X-Frame-Options");
+
+
+            //Assert
 
 
         }
