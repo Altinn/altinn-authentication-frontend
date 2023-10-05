@@ -49,9 +49,33 @@ namespace Altinn.Authentication.UI.Tests.Controllers
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
             Assert.Equal(3, cookieHeaders.Count());
             Assert.StartsWith("AS-", cookieHeaders.ElementAt(0));
+            Assert.StartsWith("XSR", cookieHeaders.ElementAt(1));
+            Assert.StartsWith("il8next", cookieHeaders.ElementAt(2));
+            Assert.StartsWith("deny", xframeHeaders.ElementAt(0));
+            Assert.StartsWith("nosniff", contentTypeHeaders.ElementAt(0));
+            Assert.StartsWith("0", xssProtectionHeaders.ElementAt(0));
+            Assert.StartsWith("no-referrer", referrerPolicyHeaders.ElementAt(0));
 
 
         }
+
+        /// <summary>
+        /// Test: User should be redirected when not authenticated
+        /// </summary>  
+        [Fact]
+        public async Task Index_NotAuthenticated()
+        {
+            //Arrange
+            HttpClient client = SetupUtils.GetTestClient(_factory, true);
+            string requestUrl = "http://localhost:5101/authentication/api/v1/authentication?goto=https://localhost:7170/authfront/ui/home";
+
+            //Act
+            HttpResponseMessage response = await client.GetAsync($"authfront/");
+
+            //Assert
+            Assert.Equal(requestUrl, response.RequestMessage?.RequestUri?.ToString());
+        }
+
 
     }
 }
