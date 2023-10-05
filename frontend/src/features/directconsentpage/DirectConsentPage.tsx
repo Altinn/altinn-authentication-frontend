@@ -22,7 +22,7 @@ export const DirectConsentPage = () => {
       >
         <PageHeader icon={<ApiIcon />}>{'Direct Consent Page'}</PageHeader>
         <PageContent>
-          <OverviewPageContent layout={LayoutState.Offered} />
+          <OverviewPageContent />
         </PageContent>
       </Page>
     </PageContainer>

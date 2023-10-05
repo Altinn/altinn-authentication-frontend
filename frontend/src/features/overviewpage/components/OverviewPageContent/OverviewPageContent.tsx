@@ -9,7 +9,6 @@ import { useMediaQuery } from '@/resources/hooks';
 import { AuthenticationPath } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
 import { ErrorPanel, CollectionBar, ActionBar } from '@/components';
-import { SingleRightPath } from '@/routes/paths'; // Fix-me: temporary, from ChooseServicePage
 
 
 export const OverviewPageContent = () => {
@@ -68,7 +67,7 @@ export const OverviewPageContent = () => {
         collection={[]}
         compact={isSm}
         proceedToPath={
-          '/' + SingleRightPath.DelegateSingleRights + '/' + SingleRightPath.ChooseRights
+          '/fixpath/'
         }
       />
 
@@ -84,7 +83,7 @@ export const OverviewPageContent = () => {
         collection={[]}
         compact={isSm}
         proceedToPath={
-          '/' + SingleRightPath.DelegateSingleRights + '/' + SingleRightPath.ChooseRights
+          '/fixpath/'
         }
       />
 
