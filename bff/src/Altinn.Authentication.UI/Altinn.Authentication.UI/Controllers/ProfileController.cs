@@ -53,7 +53,20 @@ namespace Altinn.Authentication.UI.Controllers
 
             };
 
-            return Ok(user);
+            UserNameAndOrganizatioNameDTO userDTO = new() 
+            { 
+                UserName = user.UserName,
+                OrganizationName = user.Party.Name
+            };
+
+            return Ok(userDTO);
         }
     }
+}
+
+
+public class UserNameAndOrganizatioNameDTO
+{
+    public string UserName { get; set; }
+    public string OrganizationName { get; set; }
 }
