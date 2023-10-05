@@ -21,9 +21,25 @@ export const CreationPageContent = () => {
   const [navn, setNavn] = useState('');
   const [beskrivelse, setBeskrivelse] = useState('');
 
-
   // State variabel for nedtrekksmeny:
   const [selected, setSelected] = useState(''); 
+
+  const handleReject = () => {
+    setNavn('');
+    setBeskrivelse('');
+    setSelected('');
+  }
+
+  // Mulig at her skal man trigge en dispatch
+  // og så navigere til OverviewPage
+  const handleConfirm = () => {
+    setNavn('ReduxLagret');
+    setBeskrivelse('ReduxLagret');
+    setSelected('');
+  }
+
+
+  
 
   const { t } = useTranslation('common');
   const navigate = useNavigate();
@@ -83,6 +99,7 @@ export const CreationPageContent = () => {
   };
   // const minInputId:string = "inputIdString"; // valg id trengs ikke?
  
+ 
 
   return (
     <div className={classes.creationPageContainer}>
@@ -130,15 +147,21 @@ export const CreationPageContent = () => {
             />
           </div>
 
-          <hr></hr>
+          
             
           <div className={classes.confirmationWrapper}>
+
+            <hr></hr>
+
             <p>
-              <b>Bekreft valgt systemleverandør : {selected}</b>
+              <b>Bekreft valgt systemleverandør : </b> <br></br>
+              {selected} 
               <br></br>
-              <b>Bekreft navn ny systembruker : {navn}</b>
+              <b>Bekreft navn ny systembruker : </b> <br></br>
+              {navn} 
               <br></br>
-              <b>Bekreft beskrivelse ny systembruker: {beskrivelse}</b>
+              <b>Bekreft beskrivelse ny systembruker: </b> <br></br>
+              {beskrivelse} 
 
             </p>
           </div>
@@ -150,6 +173,7 @@ export const CreationPageContent = () => {
                 color='primary'
                 variant='outline'
                 size='small'
+                onClick={handleReject}
               >
                 Avbryt 
               </Button> 
@@ -159,6 +183,7 @@ export const CreationPageContent = () => {
               <Button
                 color='primary'
                 size='small'
+                onClick={handleConfirm}
               >
                 Opprett 
               </Button> 
