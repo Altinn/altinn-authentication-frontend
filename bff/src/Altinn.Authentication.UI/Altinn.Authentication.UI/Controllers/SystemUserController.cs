@@ -5,6 +5,9 @@ using System.Diagnostics;
 
 namespace Altinn.Authentication.UI.Controllers
 {
+    /// <summary>
+    /// This API performs basic CRUD operations for the System Users
+    /// </summary>
     [Route("authfront/api/v1/systemuser")]
     [ApiController]
     //[AutoValidateAntiforgeryTokenIfAuthCookie]

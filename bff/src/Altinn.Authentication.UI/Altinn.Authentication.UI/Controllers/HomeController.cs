@@ -54,12 +54,23 @@ namespace Altinn.Authentication.UI.Controllers
         {
 
             AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-            HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions
+            if (_env.IsDevelopment())
             {
-                HttpOnly = false
-            }) ;
+                HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions
+                {
+                    HttpOnly = false
+                });
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions
+                {
+                    Secure = true,
+                    HttpOnly = false
+                });
+            }
 
-            if(await ShouldShowAppView())
+            if (await ShouldShowAppView())
             {
                 return View();
             }
@@ -76,6 +87,16 @@ namespace Altinn.Authentication.UI.Controllers
         private async Task SetLanguageCookie()        
         {
             //int userId = AuthenticationHelper.GetUserId();            
+            int userId = 007;
+            //UserProfile userProfile = await _profileService.GetUserProfile(userId);
+            AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
+            //string language = userProfile.ProfileSettingPreference.Language;
+            string language = "nb";
+
+            HttpContext.Response.Cookies.Append("il8next", language, new CookieOptions
+            {   //Cookie should now be readable by javascript
+                HttpOnly = false
+            });
         }
 
         private async Task<bool> ShouldShowAppView()

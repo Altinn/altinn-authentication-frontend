@@ -3,6 +3,7 @@
 //@rootUrl = https://localhost:44349
 @rootHttpsUrl = https://localhost:7170
 @rootHttpUrl = https://localhost:5191
+@authApiRootUrl = http://localhost:5101
 
 ###
 //The Homecontroller returns the index.html which launches the React SPA
@@ -31,3 +32,5 @@ GET {{rootHttpsUrl}}/authfront/api/v1/profile/user
 GET {{rootHttpsUrl}}/authfront/api/v1/authentication/refresh
 
 
+###
+GET {{AuthApiRootUrl}}/authentication/api/v1/authentication?
