@@ -147,21 +147,25 @@ export const CreationPageContent = () => {
 
             <div className={classes.cancelButton}>
               <Button
-                color='danger'
+                color='primary'
+                variant='outline'
+                size='small'
               >
-                AVBRYT 
+                Avbryt 
               </Button> 
             </div>
 
             <div className={classes.confirmButton}>
               <Button
-                color='success'
+                color='primary'
+                size='small'
               >
-                OPPRETT 
+                Opprett 
               </Button> 
             </div>
 
           </div>
+
         </div>      
       </div>
     </div>
