@@ -1,12 +1,9 @@
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
-
 import { ReactComponent as CloseIcon } from '@/assets/RedClose.svg';
 import { GeneralPath } from '@/routes/paths';
 import { getCookie } from '@/resources/Cookie/CookieMethods';
-
 import { UserInfoBar } from '../UserInfoBar/UserInfoBar';
-
 import classes from './PageContainer.module.css';
 
 export interface PageContainerProps {

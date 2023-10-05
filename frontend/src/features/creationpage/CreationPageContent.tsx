@@ -28,7 +28,7 @@ export const CreationPageContent = () => {
   const { t } = useTranslation('common');
   const navigate = useNavigate();
   const dispatch = useAppDispatch(); // fix-me: bygg kobling til REDUX 
-  const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
+  // const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
   const isSm = useMediaQuery('(max-width: 768px)');
 
   // brukes i h2, ikke vist i Small/mobile view

@@ -6,10 +6,9 @@ import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
 import { useMediaQuery } from '@/resources/hooks';
 
 import { OverviewPageContent } from './components/OverviewPageContent';
-import { LayoutState } from './components/LayoutState';
 
 export const OverviewPage = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common'); // Fix-me: skift til auth-språknøkkel
   const isSm = useMediaQuery('(max-width: 768px)');
 
   return (
@@ -20,7 +19,7 @@ export const OverviewPage = () => {
       >
         <PageHeader icon={<ApiIcon />}>{t('api_delegation.api_delegations')}</PageHeader>
         <PageContent>
-          <OverviewPageContent layout={LayoutState.Offered} />
+          <OverviewPageContent />
         </PageContent>
       </Page>
     </PageContainer>
