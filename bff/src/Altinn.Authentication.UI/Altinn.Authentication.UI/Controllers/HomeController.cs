@@ -54,26 +54,49 @@ namespace Altinn.Authentication.UI.Controllers
         {
 
             AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-            HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions
+            if (_env.IsDevelopment())
             {
-                HttpOnly = false
-            }) ;
+                HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions
+                {
+                    HttpOnly = false
+                });
+            }
+            else
+            {
+                HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions
+                {
+                    Secure = true,
+                    HttpOnly = false
+                });
+            }
 
-            if(await ShouldShowAppView())
+            if (await ShouldShowAppView())
             {
                 return View();
             }
 
             //string goToUrl = HttpUtility.UrlEncode($"{_generalSettings.FrontendBaseUrl}{Request.Path}");
+            string goToUrl = "https://localhost:7170/authfront/ui/home";
+            string authApiEndpoint = "http://localhost:5101/authentication/api/v1/authentication";
+            string redirectUrl = authApiEndpoint + "?goto=" + goToUrl;
             //string redirectUrl = $"{_platformSettings.ApiAuthenticationEndpoint}authentication?goto={goToUrl}";
-            //return Redirect(redirectUrl);
+            return Redirect(redirectUrl);
 
-            return View();
         }
 
         private async Task SetLanguageCookie()        
         {
             //int userId = AuthenticationHelper.GetUserId();            
+            int userId = 007;
+            //UserProfile userProfile = await _profileService.GetUserProfile(userId);
+            AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
+            //string language = userProfile.ProfileSettingPreference.Language;
+            string language = "nb";
+
+            HttpContext.Response.Cookies.Append("il8next", language, new CookieOptions
+            {   //Cookie should now be readable by javascript
+                HttpOnly = false
+            });
         }
 
         private async Task<bool> ShouldShowAppView()

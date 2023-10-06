@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using Altinn.Platform.Register.Models;
 using Altinn.Authentication.UI.Filters;
 
+
+///Summary
+///Probably not needed yet, there is nothing in the UI that uses this controller
+///
 namespace Altinn.Authentication.UI.Controllers
 {
     [ApiController]
