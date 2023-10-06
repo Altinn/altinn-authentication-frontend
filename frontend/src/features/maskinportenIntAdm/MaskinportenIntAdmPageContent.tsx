@@ -27,8 +27,8 @@ export const MaskinportenIntAdmPageContent = () => {
   // brukes i h2, ikke vist i Small/mobile view
   const isSm = useMediaQuery('(max-width: 768px)'); // trengs denne?
   let overviewText: string;
-  overviewText = t('authentication_dummy.auth_overview_text_creation'); 
-
+  // overviewText = t('authentication_dummy.auth_overview_text_creation'); 
+  overviewText = 'Opprett og administrer maskinporten integrasjon'; // flytt til språkstøtte
 
   // skal nå bare gå tilbake til OverviewPage
   // selv om vi må vurdere en sletting av ting?
@@ -74,6 +74,7 @@ export const MaskinportenIntAdmPageContent = () => {
           <div className={classes.nameWrapper}>
             <TextField 
               label = 'Navn'
+              type = 'text'
               value = { navn }
               onChange={e => setNavn(e.target.value)}
             />
@@ -82,6 +83,7 @@ export const MaskinportenIntAdmPageContent = () => {
           <div className={classes.descriptionWrapper}>
             <TextField 
               label= 'Beskrivelse' 
+              type = 'text'
               value = { beskrivelse }
               onChange={e => setBeskrivelse(e.target.value)}
             />
@@ -89,12 +91,29 @@ export const MaskinportenIntAdmPageContent = () => {
 
           <p className={classes.contentText}>
             
-            Last opp i jwk i format
-
-            HER EN KNAPP MED LABEL
+          <br></br>
+            Last opp i jwk i format <br></br>
             
-            Maskinporten krever at du oppdaterer JWK hver 12. månd.
-            Hvis JWK ikke oppdateres vil integrasjon slutte å virke.
+            <div className={classes.uploadButton}>
+              <Button
+                color='primary'
+                variant='outline'
+                size='small'
+                onClick={handleReject}
+              >
+                Choose File 
+              </Button>
+              <span>No file chosen</span> 
+            </div>
+            <br></br>
+            
+          </p>
+
+          <p className={classes.warningUpdateText}>
+            <b>
+              Maskinporten krever at du oppdaterer JWK hver 12. måned.
+              Hvis JWK ikke oppdateres vil integrasjon slutte å virke.
+            </b>
           </p>
 
           <div className={classes.buttonContainer}>
