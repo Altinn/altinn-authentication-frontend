@@ -5,14 +5,13 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { TextField, Button, Select } from '@digdir/design-system-react';
-import classes from './CreationPageContent.module.css';
+import classes from './CustomCreationPageContent.module.css'; 
 import { useMediaQuery } from '@/resources/hooks';
 
-// NOTE! this version of OverviewPageContent is for CreationPage
-// CreationPage with sub-files must be reorganized and renamed
+// Kopiert fra CreationPage: mye må ryddes vekk her og
+// erstattes med Runes spesialflyt #3
 
-
-export const CreationPageContent = () => {
+export const CustomCreationPageContent = () => {
   
   // State variabler for input-bokser:
   const [navn, setNavn] = useState('');
@@ -26,7 +25,6 @@ export const CreationPageContent = () => {
   const dispatch = useAppDispatch(); // fix-me: bygg kobling til REDUX 
   // const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
   
-
   // brukes i h2, ikke vist i Small/mobile view
   const isSm = useMediaQuery('(max-width: 768px)'); // trengs denne?
   let overviewText: string;
@@ -55,7 +53,7 @@ export const CreationPageContent = () => {
 
   
 
-
+  
   // options med label skilt fra value (samme verdi for demo)
   // use inline interface definition for Type her
   // https://stackoverflow.com/questions/35435042/how-can-i-define-an-array-of-objects
@@ -65,26 +63,16 @@ export const CreationPageContent = () => {
       "value": ""
     },
     {
-      "label": "Microsoft Norge PowerBI",
-      "value": "Microsoft Norge PowerBI"
+      "label": "SELV-VALGT VALG1",
+      "value": "SELV-VALGT VALG1"
     },
     {
-      "label": "Visma SuperTax",
-      "value": "Visma SuperTax"
+      "label": "SELV-VALGT VALG2",
+      "value": "SELV-VALGT VALG2"
     },
-    {
-      "label": "Aqua Nor Aqua Master",
-      "value": "Aqua Nor Aqua Master"
-    },
-    {
-      "label": "Fiken Business Power",
-      "value": "Fiken Business Power"
-    },
-    {
-      "label": "PostNord Strålboks",
-      "value": "PostNord Strålboks"
-    }
-  ]; // merk at Storyboard dokumentasjon på Designsystemet
+  ]; 
+  
+  // merk at Storyboard dokumentasjon på Designsystemet SELECT
   // skiller mellom "label" og "value"
   // "value er verdien som brukes av onChange-funksjonen.
   // label er teksten som vises i listen.""
@@ -103,24 +91,17 @@ export const CreationPageContent = () => {
     setSelected(val);
   };
   // const minInputId:string = "inputIdString"; // valg id trengs ikke?
-
-  // Dette er mest for knapper og videre navigering,
-  // mens her er <Link> kanskje bedre: fra Studio Dashboard
-  // men bør også sjekke Designsystemet om de har noe på gang der
-  const handleSkiftTilCustomCreationPage = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.CustomCreation);
-  };
  
  
 
   return (
-    <div className={classes.creationPageContainer}>
+    <div className={classes.customCreationPageContainer}>
       <h2 className={classes.header}>{overviewText}</h2>  
       <div className={classes.flexContainer}>
         <div className={classes.leftContainer}>
           <div className={classes.nameWrapper}>
             <TextField 
-              label = 'Navn'
+              label = 'Navn: spesial'
               value = { navn }
               onChange={e => setNavn(e.target.value)}
             />
@@ -128,7 +109,7 @@ export const CreationPageContent = () => {
 
           <div className={classes.descriptionWrapper}>
             <TextField 
-              label= 'Beskrivelse' 
+              label= 'Beskrivelse av spesial' 
               value = { beskrivelse }
               onChange={e => setBeskrivelse(e.target.value)}
             />
@@ -138,36 +119,34 @@ export const CreationPageContent = () => {
         <div className={classes.rightContainer}>
 
           <p className={classes.contentText}>
-            En systembruker kan i utgangspunktet kun benyttes av Pølsebu AS sine 
-            egne maskinporten-klienter. 
-            <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
-            <a href="https://docs.altinn.studio/nb/"> her</a>. 
+            Du er i gang med å opprette en SELV-VALGT leverandør. 
+            Den SELV-VALGTE leverandørens system vil da ha 
+            fullmaktene tildelt til systembrukeren. Systembrukeren må 
+            knyttes mot organisasjonens egen integrasjon i maskinporten
+            eller et system tilbydt av en selv-valgt leverandør. 
           </p>
 
           <p className={classes.contentText}>
-            Ved å velge en FORHÅNDSGODKJENT systemleverandør vil opprettet systembruker kunne 
-            benyttes fra leverandørens system. Leverandørens system vil da ha 
-            fullmaktene tildelt til systembrukeren.
-          </p>
-
-          <p className={classes.contentText}>
-            For å velge en SELVVALGT systemleverandør klikk 
+            For å velge en FORHÅNDSGODKJENT systemleverandør klikk  
             <Link
-            to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.CustomCreation}
+            to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Creation}
             > her</Link> 
-
           </p>
 
           <div className={classes.selectWrapper}>
             <Select
-              label="Velg FORHÅNDSGODKJENT systemleverandør"
+              label="Velg maskinporten integrasjon"
               options={testoptions}
               onChange={handleChangeInput}
               value={selected}
+              error={true}
             />
           </div>
 
-    
+          
+            
+         
+
           <div className={classes.buttonContainer}>
 
             <div className={classes.cancelButton}>
