@@ -42,6 +42,7 @@ namespace Altinn.Authentication.UI.Mocks.Utils
             return token;
         }
 
+
         public static string GetAccessToken(string appId)
         {
             List<Claim> claims = new List<Claim>();

@@ -19,10 +19,10 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 //string applicationInsightsKeySecretName = "ApplicationInsights--InstrumentationKey";
 //string applicationInsightsConnectionString = string.Empty;
 
-//er AccessManagement spesifikt ifra en nuget
 //string frontendProdFolder = AppEnvironment.GetVariable("FRONTEND_PROD_FOLDER", "wwwroot/Authentication/");
+string frontendProdFolder = "wwwroot/Authentication/";
 
-builder.Configuration.AddJsonFile("wwwroot/Authentication/" + "manifest.json", true, true);
+builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, true);
 ConfigureServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
