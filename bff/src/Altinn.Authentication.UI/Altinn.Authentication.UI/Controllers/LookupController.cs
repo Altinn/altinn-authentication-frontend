@@ -11,11 +11,11 @@ using Altinn.Authentication.UI.Filters;
 namespace Altinn.Authentication.UI.Controllers
 {
     [ApiController]
-    //[AutoValidateAntiforgeryTokenIfAuthCookie]
+    [AutoValidateAntiforgeryTokenIfAuthCookie]
     public class LookupController : ControllerBase
     {
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         [Route("authfront/api/v1/lookup/reportee/{partyId}")]
         public async Task<ActionResult<Party>> GetPartyFromReportee(int partyId)
         {
