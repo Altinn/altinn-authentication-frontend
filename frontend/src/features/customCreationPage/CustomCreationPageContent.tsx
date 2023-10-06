@@ -5,13 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useMediaQuery } from '@/resources/hooks';
-import classes from './CreationPageContent.module.css'; // ikke redigert ennå
+import classes from './CustomCreationPageContent.module.css'; 
 
-// NOTE! this version of OverviewPageContent is for CreationPage
-// CreationPage with sub-files must be reorganized and renamed
+// Kopiert fra CreationPage: mye må ryddes vekk her og
+// erstattes med Runes spesialflyt #3
 
-
-export const CreationPageContent = () => {
+export const CustomCreationPageContent = () => {
   
   // State variabler for input-bokser:
   const [navn, setNavn] = useState('');
@@ -100,13 +99,13 @@ export const CreationPageContent = () => {
  
 
   return (
-    <div className={classes.creationPageContainer}>
+    <div className={classes.customCreationPageContainer}>
       <h2 className={classes.header}>{overviewText}</h2>  
       <div className={classes.flexContainer}>
         <div className={classes.leftContainer}>
           <div className={classes.nameWrapper}>
             <TextField 
-              label = 'Navn'
+              label = 'Navn: spesial'
               value = { navn }
               onChange={e => setNavn(e.target.value)}
             />
@@ -114,7 +113,7 @@ export const CreationPageContent = () => {
 
           <div className={classes.descriptionWrapper}>
             <TextField 
-              label= 'Beskrivelse' 
+              label= 'Beskrivelse av spesial' 
               value = { beskrivelse }
               onChange={e => setBeskrivelse(e.target.value)}
             />
@@ -131,20 +130,20 @@ export const CreationPageContent = () => {
           </p>
 
           <p className={classes.contentText}>
-            Ved å velge en FORHÅNDSGODKJENT systemleverandør vil opprettet systembruker kunne 
-            benyttes fra leverandørens system. Leverandørens system vil da ha 
+            Du er i gang med å opprette en SELV-VALGT leverandør. 
+            Den SELV-VALGTE leverandørens system vil da ha 
             fullmaktene tildelt til systembrukeren.
           </p>
 
           <p className={classes.contentText}>
-            For å velge en SELVVALGT systemleverandør klikk  
+            For å velge en FORHÅNDSGODKJENT systemleverandør klikk  
             <a href="https://vg.no"
             > her</a>.
           </p>
 
           <div className={classes.selectWrapper}>
             <Select
-              label="Velg FORHÅNDSGODKJENT systemleverandør"
+              label="Velg SELV-VALGT systemleverandør"
               options={testoptions}
               onChange={handleChangeInput}
               value={selected}
@@ -158,7 +157,7 @@ export const CreationPageContent = () => {
             <hr></hr>
 
             <p>
-              <b>Bekreft valgt systemleverandør : </b> <br></br>
+              <b>Bekreft SELV-VALGT systemleverandør : </b> <br></br>
               {selected} 
               <br></br>
               <b>Bekreft navn ny systembruker : </b> <br></br>
