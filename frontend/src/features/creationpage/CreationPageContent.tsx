@@ -32,6 +32,8 @@ export const CreationPageContent = () => {
 
   // Mulig at her skal man trigge en dispatch
   // og så navigere til OverviewPage
+  // har opprettet en creationPageSlice som nå er synlig i 
+  // Chrome DevTools --> må ut og løpe...
   const handleConfirm = () => {
     setNavn('ReduxLagret');
     setBeskrivelse('ReduxLagret');
