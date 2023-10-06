@@ -119,16 +119,11 @@ export const CustomCreationPageContent = () => {
         <div className={classes.rightContainer}>
 
           <p className={classes.contentText}>
-            En systembruker kan i utgangspunktet kun benyttes av Pølsebu AS sine 
-            egne maskinporten-klienter. 
-            <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
-            <a href="https://docs.altinn.studio/nb/"> her</a>. 
-          </p>
-
-          <p className={classes.contentText}>
             Du er i gang med å opprette en SELV-VALGT leverandør. 
             Den SELV-VALGTE leverandørens system vil da ha 
-            fullmaktene tildelt til systembrukeren.
+            fullmaktene tildelt til systembrukeren. Systembrukeren må 
+            knyttes mot organisasjonens egen integrasjon i maskinporten
+            eller et system tilbydt av en selv-valgt leverandør. 
           </p>
 
           <p className={classes.contentText}>
@@ -140,7 +135,7 @@ export const CustomCreationPageContent = () => {
 
           <div className={classes.selectWrapper}>
             <Select
-              label="Velg SELV-VALGT systemleverandør"
+              label="Velg maskinporten integrasjon"
               options={testoptions}
               onChange={handleChangeInput}
               value={selected}
