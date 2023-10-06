@@ -3,7 +3,10 @@ import * as React from 'react';
 
 import { OverviewPage as AuthenticationOverviewPage } from '@/features/overviewpage/OverviewPage';
 import { CreationPage } from '@/features/creationpage/CreationPage';
+import { CustomCreationPage } from '@/features/customCreationPage/CustomCreationPage';
+
 import { DirectConsentPage } from '@/features/directconsentpage/DirectConsentPage';
+import { MaskinportenIntAdmPage } from '@/features/maskinportenIntAdm/MaskinportenIntAdmPage';
 
 import { NotFoundSite } from '@/sites/NotFoundSite';
 import { GeneralPath, AuthenticationPath } from '../paths';
@@ -33,10 +36,24 @@ export const Router = createBrowserRouter(
         />
 
         <Route
+          path={AuthenticationPath.CustomCreation}
+          element={<CustomCreationPage />}
+          errorElement={<NotFoundSite />}
+        />
+
+        <Route
           path={AuthenticationPath.DirectConsent}
           element={<DirectConsentPage />}
           errorElement={<NotFoundSite />}
         />
+
+
+        <Route
+          path={AuthenticationPath.MaskinportenAdm}
+          element={<MaskinportenIntAdmPage />}
+          errorElement={<NotFoundSite />}
+        />
+
         
       </Route>
     </Route>,
