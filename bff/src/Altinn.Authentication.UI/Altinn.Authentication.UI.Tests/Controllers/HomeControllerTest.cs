@@ -4,19 +4,30 @@ using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Xunit;
 using System.Net.Http.Headers;
+using System.Net;
 
 namespace Altinn.Authentication.UI.Tests.Controllers
 {
+    /// <summary>
+    /// Tests for <see cref="HomeController"/>
+    /// </summary>
     [Collection ("HomeController Tests")]
     public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory<HomeController>>
     {
         private readonly CustomWebApplicationFactory<HomeController> _factory;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="factory"></param>
         public HomeControllerTest(CustomWebApplicationFactory<HomeController> factory)
         {
             _factory = factory;
         }
 
+        /// <summary>
+        /// Test: Checks if antiforgery token is set when authenticated
+        /// </summary>
         [Fact]
         public async Task Index_Authenticated()
         {
@@ -26,8 +37,66 @@ namespace Altinn.Authentication.UI.Tests.Controllers
             string token = PrincipalUtil.GetAccessToken("sbl.authorization");            
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
+            //Act
+            HttpResponseMessage response = await client.GetAsync($"authfront/");
+            IEnumerable<string> cookieHeaders = response.Headers.GetValues("Set-Cookie");
+            IEnumerable<string> xframeHeaders = response.Headers.GetValues("X-Frame-Options");
+            //IEnumerable<string> contentTypeHeaders = response.Headers.GetValues("X-Content-Type-Options");
+            //IEnumerable<string> xssProtectionHeaders = response.Headers.GetValues("X-XSS-Protection");
+            //IEnumerable<string> referrerPolicyHeaders = response.Headers.GetValues("Referrer-Policy");
+
+            //Assert
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+            Assert.Equal(3, cookieHeaders.Count());
+            Assert.StartsWith("AS-", cookieHeaders.ElementAt(0));
+            Assert.StartsWith("XSR", cookieHeaders.ElementAt(1));
+            Assert.StartsWith("il8next", cookieHeaders.ElementAt(2));
+            Assert.StartsWith("deny", xframeHeaders.ElementAt(0));
+            //Assert.StartsWith("nosniff", contentTypeHeaders.ElementAt(0));
+            //Assert.StartsWith("0", xssProtectionHeaders.ElementAt(0));
+            //Assert.StartsWith("no-referrer", referrerPolicyHeaders.ElementAt(0));
+
 
         }
+
+        /// <summary>
+        /// Test: User should be redirected when not authenticated
+        /// </summary>  
+        [Fact]
+        public async Task Index_NotAuthenticated()
+        {
+            //Arrange
+            HttpClient client = SetupUtils.GetTestClient(_factory, true);
+            string requestUrl = "http://localhost:5101/authentication/api/v1/authentication?goto=https://localhost:7170/authfront/ui/home";
+
+            //Act
+            HttpResponseMessage response = await client.GetAsync($"authfront/");
+
+            //Assert
+            Assert.Equal(requestUrl, response.RequestMessage?.RequestUri?.ToString());
+        }
+
+
+        /// <summary>
+        /// Test: User has a cookie to authenticate with, should get Home Ok
+        /// </summary>  
+        [Fact] 
+        public async Task GetHome_Ok_WithAuthCookie()
+        {
+            string token = PrincipalUtil.GetAccessToken("sbl.authorization");
+            HttpClient client = SetupUtils.GetTestClient(_factory, false);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "authfront/");
+            SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            _ = await response.Content.ReadAsStringAsync();
+            IEnumerable<string> cookieHeaders = response.Headers.GetValues("Set-Cookie");
+
+            Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+
+
+        }
+
 
     }
 }
