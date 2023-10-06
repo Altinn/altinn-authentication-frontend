@@ -1,11 +1,12 @@
-import { TextField, Button, Select } from '@digdir/design-system-react';
+import * as React from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import * as React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
+import { TextField, Button, Select } from '@digdir/design-system-react';
+import classes from './CreationPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
-import classes from './CreationPageContent.module.css'; // ikke redigert ennå
 
 // NOTE! this version of OverviewPageContent is for CreationPage
 // CreationPage with sub-files must be reorganized and renamed
@@ -20,10 +21,25 @@ export const CreationPageContent = () => {
   // State variabel for nedtrekksmeny:
   const [selected, setSelected] = useState(''); 
 
+  const { t } = useTranslation('common');
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch(); // fix-me: bygg kobling til REDUX 
+  // const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
+  
+
+  // brukes i h2, ikke vist i Small/mobile view
+  const isSm = useMediaQuery('(max-width: 768px)'); // trengs denne?
+  let overviewText: string;
+  overviewText = t('authentication_dummy.auth_overview_text_creation'); 
+
+
+  // skal nå bare gå tilbake til OverviewPage
+  // selv om vi må vurdere en sletting av ting?
   const handleReject = () => {
     setNavn('');
     setBeskrivelse('');
     setSelected('');
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
   // Mulig at her skal man trigge en dispatch
@@ -39,15 +55,6 @@ export const CreationPageContent = () => {
 
   
 
-  const { t } = useTranslation('common');
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch(); // fix-me: bygg kobling til REDUX 
-  // const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
-  const isSm = useMediaQuery('(max-width: 768px)');
-
-  // brukes i h2, ikke vist i Small/mobile view
-  let overviewText: string;
-  overviewText = t('authentication_dummy.auth_overview_text_creation'); 
 
   // options med label skilt fra value (samme verdi for demo)
   // use inline interface definition for Type her
@@ -96,6 +103,13 @@ export const CreationPageContent = () => {
     setSelected(val);
   };
   // const minInputId:string = "inputIdString"; // valg id trengs ikke?
+
+  // Dette er mest for knapper og videre navigering,
+  // mens her er <Link> kanskje bedre: fra Studio Dashboard
+  // men bør også sjekke Designsystemet om de har noe på gang der
+  const handleSkiftTilCustomCreationPage = () => {
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.CustomCreation);
+  };
  
  
 
@@ -137,9 +151,11 @@ export const CreationPageContent = () => {
           </p>
 
           <p className={classes.contentText}>
-            For å velge en SELVVALGT systemleverandør klikk  
-            <a href="https://vg.no"
-            > her</a>.
+            For å velge en SELVVALGT systemleverandør klikk 
+            <Link
+            to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.CustomCreation}
+            > her</Link> 
+
           </p>
 
           <div className={classes.selectWrapper}>
@@ -151,25 +167,7 @@ export const CreationPageContent = () => {
             />
           </div>
 
-          
-            
-          <div className={classes.confirmationWrapper}>
-
-            <hr></hr>
-
-            <p>
-              <b>Bekreft valgt systemleverandør : </b> <br></br>
-              {selected} 
-              <br></br>
-              <b>Bekreft navn ny systembruker : </b> <br></br>
-              {navn} 
-              <br></br>
-              <b>Bekreft beskrivelse ny systembruker: </b> <br></br>
-              {beskrivelse} 
-
-            </p>
-          </div>
-
+    
           <div className={classes.buttonContainer}>
 
             <div className={classes.cancelButton}>

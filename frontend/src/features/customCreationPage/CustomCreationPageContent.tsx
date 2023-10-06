@@ -1,11 +1,12 @@
-import { TextField, Button, Select } from '@digdir/design-system-react';
+import * as React from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import * as React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { useMediaQuery } from '@/resources/hooks';
+import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './CustomCreationPageContent.module.css'; 
+import { useMediaQuery } from '@/resources/hooks';
 
 // Kopiert fra CreationPage: mye må ryddes vekk her og
 // erstattes med Runes spesialflyt #3
@@ -19,10 +20,24 @@ export const CustomCreationPageContent = () => {
   // State variabel for nedtrekksmeny:
   const [selected, setSelected] = useState(''); 
 
+  const { t } = useTranslation('common');
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch(); // fix-me: bygg kobling til REDUX 
+  // const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
+  
+  // brukes i h2, ikke vist i Small/mobile view
+  const isSm = useMediaQuery('(max-width: 768px)'); // trengs denne?
+  let overviewText: string;
+  overviewText = t('authentication_dummy.auth_overview_text_creation'); 
+
+
+  // skal nå bare gå tilbake til OverviewPage
+  // selv om vi må vurdere en sletting av ting?
   const handleReject = () => {
     setNavn('');
     setBeskrivelse('');
     setSelected('');
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
   // Mulig at her skal man trigge en dispatch
@@ -38,16 +53,7 @@ export const CustomCreationPageContent = () => {
 
   
 
-  const { t } = useTranslation('common');
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch(); // fix-me: bygg kobling til REDUX 
-  // const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
-  const isSm = useMediaQuery('(max-width: 768px)');
-
-  // brukes i h2, ikke vist i Small/mobile view
-  let overviewText: string;
-  overviewText = t('authentication_dummy.auth_overview_text_creation'); 
-
+  
   // options med label skilt fra value (samme verdi for demo)
   // use inline interface definition for Type her
   // https://stackoverflow.com/questions/35435042/how-can-i-define-an-array-of-objects
@@ -57,26 +63,16 @@ export const CustomCreationPageContent = () => {
       "value": ""
     },
     {
-      "label": "Microsoft Norge PowerBI",
-      "value": "Microsoft Norge PowerBI"
+      "label": "SELV-VALGT VALG1",
+      "value": "SELV-VALGT VALG1"
     },
     {
-      "label": "Visma SuperTax",
-      "value": "Visma SuperTax"
+      "label": "SELV-VALGT VALG2",
+      "value": "SELV-VALGT VALG2"
     },
-    {
-      "label": "Aqua Nor Aqua Master",
-      "value": "Aqua Nor Aqua Master"
-    },
-    {
-      "label": "Fiken Business Power",
-      "value": "Fiken Business Power"
-    },
-    {
-      "label": "PostNord Strålboks",
-      "value": "PostNord Strålboks"
-    }
-  ]; // merk at Storyboard dokumentasjon på Designsystemet
+  ]; 
+  
+  // merk at Storyboard dokumentasjon på Designsystemet SELECT
   // skiller mellom "label" og "value"
   // "value er verdien som brukes av onChange-funksjonen.
   // label er teksten som vises i listen.""
@@ -137,8 +133,9 @@ export const CustomCreationPageContent = () => {
 
           <p className={classes.contentText}>
             For å velge en FORHÅNDSGODKJENT systemleverandør klikk  
-            <a href="https://vg.no"
-            > her</a>.
+            <Link
+            to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Creation}
+            > her</Link> 
           </p>
 
           <div className={classes.selectWrapper}>
@@ -152,22 +149,7 @@ export const CustomCreationPageContent = () => {
 
           
             
-          <div className={classes.confirmationWrapper}>
-
-            <hr></hr>
-
-            <p>
-              <b>Bekreft SELV-VALGT systemleverandør : </b> <br></br>
-              {selected} 
-              <br></br>
-              <b>Bekreft navn ny systembruker : </b> <br></br>
-              {navn} 
-              <br></br>
-              <b>Bekreft beskrivelse ny systembruker: </b> <br></br>
-              {beskrivelse} 
-
-            </p>
-          </div>
+         
 
           <div className={classes.buttonContainer}>
 
