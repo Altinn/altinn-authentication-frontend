@@ -6,6 +6,7 @@ import { CreationPage } from '@/features/creationpage/CreationPage';
 import { CustomCreationPage } from '@/features/customCreationPage/CustomCreationPage';
 
 import { DirectConsentPage } from '@/features/directconsentpage/DirectConsentPage';
+import { MaskinportenIntAdmPage } from '@/features/maskinportenIntAdm/MaskinportenIntAdmPage';
 
 import { NotFoundSite } from '@/sites/NotFoundSite';
 import { GeneralPath, AuthenticationPath } from '../paths';
@@ -43,6 +44,13 @@ export const Router = createBrowserRouter(
         <Route
           path={AuthenticationPath.DirectConsent}
           element={<DirectConsentPage />}
+          errorElement={<NotFoundSite />}
+        />
+
+
+        <Route
+          path={AuthenticationPath.MaskinportenAdm}
+          element={<MaskinportenIntAdmPage />}
           errorElement={<NotFoundSite />}
         />
 
