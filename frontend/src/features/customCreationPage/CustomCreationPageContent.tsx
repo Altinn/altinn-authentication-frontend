@@ -139,6 +139,7 @@ export const CustomCreationPageContent = () => {
               options={testoptions}
               onChange={handleChangeInput}
               value={selected}
+              error={true}
             />
           </div>
 
