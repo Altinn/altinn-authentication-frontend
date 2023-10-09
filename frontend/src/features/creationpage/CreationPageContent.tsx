@@ -8,9 +8,6 @@ import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
 
-// NOTE! this version of OverviewPageContent is for CreationPage
-// CreationPage with sub-files must be reorganized and renamed
-
 
 export const CreationPageContent = () => {
   
@@ -30,7 +27,7 @@ export const CreationPageContent = () => {
   // brukes i h2, ikke vist i Small/mobile view
   const isSm = useMediaQuery('(max-width: 768px)'); // trengs denne?
   let overviewText: string;
-  overviewText = t('authentication_dummy.auth_overview_text_creation'); 
+  overviewText = 'Knytt systembruker til systemleverandør'; 
 
 
   // skal nå bare gå tilbake til OverviewPage
@@ -112,64 +109,62 @@ export const CreationPageContent = () => {
   };
  
  
-
   return (
     <div className={classes.creationPageContainer}>
-      <h2 className={classes.header}>{overviewText}</h2>  
-      <div className={classes.flexContainer}>
-        <div className={classes.leftContainer}>
-          <div className={classes.nameWrapper}>
+      <div className={classes.inputContainer}> 
+        <div className={classes.nameWrapper}>
             <TextField 
               label = 'Navn'
               value = { navn }
               onChange={e => setNavn(e.target.value)}
             />
-          </div>
-
-          <div className={classes.descriptionWrapper}>
+        </div>
+        <div className={classes.descriptionWrapper}>
             <TextField 
               label= 'Beskrivelse' 
               value = { beskrivelse }
               onChange={e => setBeskrivelse(e.target.value)}
             />
-          </div>
         </div>
+      </div>
 
-        <div className={classes.rightContainer}>
+      <h2 className={classes.header}>{overviewText}</h2>
 
-          <p className={classes.contentText}>
-            En systembruker kan i utgangspunktet kun benyttes av Pølsebu AS sine 
-            egne maskinporten-klienter. 
-            <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
-            <a href="https://docs.altinn.studio/nb/"> her</a>. 
-          </p>
+      <p className={classes.contentText}>
+            I de fleste tilfeller vil systembrukeren benyttes i sammenheng med 
+            sluttbrukersystemer levert av forskjellige leverandører. Det er en 
+            rekke leverandører og systemer i markedet som tilbyr systemer 
+            for forskjellig bruk. Du må selv gjøre en selvstendig vurdering på valg 
+            av leverandør og system. Nedenfor listes alle leverandører og systemer 
+            som har meldt at de leverer slike tjenester. Altinn har ikke gjort noen 
+            vurdering av disse.
+      </p>
 
-          <p className={classes.contentText}>
-            Ved å velge en FORHÅNDSGODKJENT systemleverandør vil opprettet systembruker kunne 
-            benyttes fra leverandørens system. Leverandørens system vil da ha 
-            fullmaktene tildelt til systembrukeren.
-          </p>
 
-          <p className={classes.contentText}>
-            For å velge en SELVVALGT systemleverandør klikk 
-            <Link
-            to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.CustomCreation}
-            > her</Link> 
-
-          </p>
-
+      <div className={classes.flexContainer}>
+        <div className={classes.leftContainer}>
           <div className={classes.selectWrapper}>
             <Select
-              label="Velg FORHÅNDSGODKJENT systemleverandør"
+              label="Velg systemleverandør og system"
               options={testoptions}
               onChange={handleChangeInput}
               value={selected}
             />
           </div>
+        </div>
 
-    
+        <div className={classes.rightContainer}>
+          <h3 className={classes.header}>Eget system?</h3>
+          <p className={classes.contentText}>
+            Hvis du har et eget system du ønsker å benytte, 
+            opprett integrasjon i maskinporten 
+            <Link
+            to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.MaskinportenAdm}
+            > her</Link> 
+            .
+          </p>
+
           <div className={classes.buttonContainer}>
-
             <div className={classes.cancelButton}>
               <Button
                 color='primary'
@@ -180,7 +175,6 @@ export const CreationPageContent = () => {
                 Avbryt 
               </Button> 
             </div>
-
             <div className={classes.confirmButton}>
               <Button
                 color='primary'
@@ -190,7 +184,6 @@ export const CreationPageContent = () => {
                 Opprett 
               </Button> 
             </div>
-
           </div>
 
         </div>      
