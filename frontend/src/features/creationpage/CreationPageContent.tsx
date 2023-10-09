@@ -62,24 +62,28 @@ export const CreationPageContent = () => {
       "value": ""
     },
     {
-      "label": "Microsoft Norge PowerBI",
-      "value": "Microsoft Norge PowerBI"
+      "label": "Visma AS (936796702): Visma Økonomi",
+      "value": "Visma AS (936796702): Visma Økonomi"
     },
     {
-      "label": "Visma SuperTax",
-      "value": "Visma SuperTax"
+      "label": "Visma AS (936796702): Visma HR",
+      "value": "Visma AS (936796702): Visma HR"
     },
     {
-      "label": "Aqua Nor Aqua Master",
-      "value": "Aqua Nor Aqua Master"
+      "label": "4Human AS (897757222): 4Human HRM",
+      "value": "4Human AS (897757222): 4Human HRM"
     },
     {
-      "label": "Fiken Business Power",
-      "value": "Fiken Business Power"
+      "label": "Aqua Group (931693670): Salmon King",
+      "value": "Aqua Group (931693670): Salmon King"
     },
     {
-      "label": "PostNord Strålboks",
-      "value": "PostNord Strålboks"
+      "label": "Snekkerbua ANS (92341234): Materialadmin",
+      "value": "Snekkerbua ANS (92341234): Materialadmin"
+    },
+    {
+      "label": "Vei og bil AS (9234523423): Prikk remover",
+      "value": "Vei og bil AS (9234523423): Prikk remover"
     }
   ]; // merk at Storyboard dokumentasjon på Designsystemet
   // skiller mellom "label" og "value"
