@@ -1,13 +1,28 @@
 .creationPageContainer {
   margin-left: 40px;
   margin-right: 40px;
-  margin-top: 3rem;
+  margin-top: 10px;
+}
+
+.inputContainer {
+  display: flex;
+  justify-content: normal;
+  margin-top: 10px;
+}
+
+.nameWrapper {
+  margin: 10px;
+}
+
+.descriptionWrapper {
+  margin: 10px;
 }
 
 .header {
-  margin-top: -2rem;
+  margin-top: 20px;
   font-weight: 500;
 }
+
 
 .flexContainer {
   display: flex;
@@ -22,32 +37,18 @@
   flex: 3;
 }
 
-.nameWrapper {
-  margin: 10px;
-}
 
-.descriptionWrapper {
-  margin: 10px;
-  margin-top: 2rem;
-}
 
 .selectWrapper {
   margin: 10px;
   margin-bottom: 2rem;
-  margin-top: 2rem;
-
-}
-
-.confirmationWrapper {
-  margin: 10px;
-  margin-top: 50px;
-  font-size: 10px;
+  margin-top: 1rem;
 }
 
 .buttonContainer {
   display: flex;
   justify-content: flex-end;
-  margin-top: 10px;
+  margin-top: 10rem;
   
 }
 
@@ -61,10 +62,11 @@
   display: flex;
 }
 
+
 @media only screen and (min-width: 769px) {
 
   .contentText {
-    font-size: 18px;
+    font-size: 16px;
   }
   
 }
@@ -72,10 +74,15 @@
 @media only screen and (max-width: 768px) {
 
   .contentText {
+    font-size: 14px;
+  }
+
+  .header {
     font-size: 16px;
   }
 
 }
+
 
 @media only screen and (max-width: 576px) {
 
@@ -83,12 +90,12 @@
     flex-direction: column;
   }
 
-  .creationPageContainer {
-    margin-top: 1rem;
+  .inputContainer {
+    flex-direction: column;
   }
 
-  .header {
-    font-size: 20px;
+  .creationPageContainer {
+    margin-top: 1rem;
   }
 
   .contentText {

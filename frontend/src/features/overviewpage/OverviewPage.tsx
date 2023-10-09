@@ -5,7 +5,7 @@ import { Page, PageHeader, PageContent, PageContainer } from '@/components';
 import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
 import { useMediaQuery } from '@/resources/hooks';
 
-import { OverviewPageContent } from './components/OverviewPageContent';
+import { OverviewPageContent } from './OverviewPageContent';
 
 export const OverviewPage = () => {
   const { t } = useTranslation('common'); // Fix-me: skift til auth-språknøkkel
