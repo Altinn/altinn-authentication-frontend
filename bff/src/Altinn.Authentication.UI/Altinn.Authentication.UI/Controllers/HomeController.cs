@@ -91,7 +91,7 @@ namespace Altinn.Authentication.UI.Controllers
             //UserProfile userProfile = await _profileService.GetUserProfile(userId);
             AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
             //string language = userProfile.ProfileSettingPreference.Language;
-            string language = "nb";
+            string language = "no_nb";
 
             HttpContext.Response.Cookies.Append("il8next", language, new CookieOptions
             {   //Cookie should now be readable by javascript
