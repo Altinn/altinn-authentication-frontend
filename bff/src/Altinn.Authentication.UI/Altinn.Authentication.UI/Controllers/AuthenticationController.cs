@@ -7,7 +7,7 @@ using Altinn.Authentication.UI.Filters;
 namespace Altinn.Authentication.UI.Controllers
 {
     [ApiController]
-    //[AutoValidateAntiforgeryTokenIfAuthCookie] 
+    [AutoValidateAntiforgeryTokenIfAuthCookie] 
     public class AuthenticationController : ControllerBase
     {
         private readonly IAntiforgery _antiforgery;

@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using AltinnCore.Authentication.JwtCookie;
 using Altinn.Common.PEP.Configuration;
 using Altinn.Authentication.UI.Extensions;
+using Altinn.Authentication.UI.Filters;
+using Altinn.Common.AccessTokenClient.Services;
 
 ILogger logger;
 
@@ -19,13 +21,15 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 //string applicationInsightsKeySecretName = "ApplicationInsights--InstrumentationKey";
 //string applicationInsightsConnectionString = string.Empty;
 
-//er AccessManagement spesifikt ifra en nuget
 //string frontendProdFolder = AppEnvironment.GetVariable("FRONTEND_PROD_FOLDER", "wwwroot/Authentication/");
+string frontendProdFolder = "wwwroot/Authentication/";
 
-builder.Configuration.AddJsonFile("wwwroot/Authentication/" + "manifest.json", true, true);
+builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, true);
 ConfigureServices(builder.Services, builder.Configuration);
 
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -39,8 +43,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHttpsRedirection();
 }
 
-app.UseStaticFiles();
-//app.UseDefaultSecurityHeaders();
+app.UseDefaultSecurityHeaders();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -58,11 +61,20 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
+    services.AddControllersWithViews();
+    //services.ConfigureDataProtection();
+    services.AddMvc();
+    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+
+
+    services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();
     //PlatformSettings platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>();  //AM spesifikt
     services.AddAuthentication(JwtCookieDefaults.AuthenticationScheme)
         .AddJwtCookie(JwtCookieDefaults.AuthenticationScheme, configureOptions: options =>
         {
             options.JwtCookieName = "AltinnStudioRuntime";
+            options.MetadataAddress = "http://localhost:5101/authentication/api/v1/openid/";
 
             options.TokenValidationParameters = new TokenValidationParameters
             {
@@ -93,9 +105,11 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
         options.HeaderName = "X-XSRF-TOKEN";
     });
 
-    services.AddControllersWithViews();
-    services.AddMvc();
-    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    services.TryAddSingleton<ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter>();
+
+    
+    
+    
     services.AddSwaggerGen();
 }
 
