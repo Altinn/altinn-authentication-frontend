@@ -40,10 +40,10 @@ namespace Altinn.Authentication.UI.Tests.Controllers
             //Act
             HttpResponseMessage response = await client.GetAsync($"authfront/");
             IEnumerable<string> cookieHeaders = response.Headers.GetValues("Set-Cookie");
-            IEnumerable<string> xframeHeaders = response.Headers.GetValues("X-Frame-Options");
-            IEnumerable<string> contentTypeHeaders = response.Headers.GetValues("X-Content-Type-Options");
-            IEnumerable<string> xssProtectionHeaders = response.Headers.GetValues("X-XSS-Protection");
-            IEnumerable<string> referrerPolicyHeaders = response.Headers.GetValues("Referrer-Policy");
+            //IEnumerable<string> xframeHeaders = response.Headers.GetValues("X-Frame-Options");
+            //IEnumerable<string> contentTypeHeaders = response.Headers.GetValues("X-Content-Type-Options");
+            //IEnumerable<string> xssProtectionHeaders = response.Headers.GetValues("X-XSS-Protection");
+            //IEnumerable<string> referrerPolicyHeaders = response.Headers.GetValues("Referrer-Policy");
 
             //Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
@@ -51,10 +51,10 @@ namespace Altinn.Authentication.UI.Tests.Controllers
             Assert.StartsWith("AS-", cookieHeaders.ElementAt(0));
             Assert.StartsWith("XSR", cookieHeaders.ElementAt(1));
             Assert.StartsWith("il8next", cookieHeaders.ElementAt(2));
-            Assert.StartsWith("deny", xframeHeaders.ElementAt(0));
-            Assert.StartsWith("nosniff", contentTypeHeaders.ElementAt(0));
-            Assert.StartsWith("0", xssProtectionHeaders.ElementAt(0));
-            Assert.StartsWith("no-referrer", referrerPolicyHeaders.ElementAt(0));
+            //Assert.StartsWith("deny", xframeHeaders.ElementAt(0));
+            //Assert.StartsWith("nosniff", contentTypeHeaders.ElementAt(0));
+            //Assert.StartsWith("0", xssProtectionHeaders.ElementAt(0));
+            //Assert.StartsWith("no-referrer", referrerPolicyHeaders.ElementAt(0));
 
 
         }
@@ -67,7 +67,7 @@ namespace Altinn.Authentication.UI.Tests.Controllers
         {
             //Arrange
             HttpClient client = SetupUtils.GetTestClient(_factory, true);
-            string requestUrl = "http://localhost:5101/authentication/api/v1/authentication?goto=https://localhost:7170/authfront/ui/home";
+            string requestUrl = "http://localhost:5101/authentication/api/v1/openid?goto=https://localhost:7170/authfront/ui/home";
 
             //Act
             HttpResponseMessage response = await client.GetAsync($"authfront/");

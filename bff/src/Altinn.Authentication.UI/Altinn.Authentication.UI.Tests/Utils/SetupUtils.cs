@@ -1,5 +1,6 @@
 ﻿using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Mocks;
+using Altinn.Authentication.UI.Mocks.Mocks;
 using AltinnCore.Authentication.JwtCookie;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -17,7 +18,12 @@ public static class SetupUtils
         {
             builder.ConfigureTestServices(services =>
             {
-                //services.AddTransient<>
+
+                //services.AddTransient<IResourceRegistryClient, ResourceRegistryClientMock>();
+                //services.AddTransient<IAuthenticationClient, AuthenticationMock>();
+                //services.AddTransient<IProfileClient, ProfileClientMock>();
+
+                services.AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
             });
         });
 

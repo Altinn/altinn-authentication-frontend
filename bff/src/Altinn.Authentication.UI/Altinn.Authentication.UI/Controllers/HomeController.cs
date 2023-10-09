@@ -77,7 +77,7 @@ namespace Altinn.Authentication.UI.Controllers
 
             //string goToUrl = HttpUtility.UrlEncode($"{_generalSettings.FrontendBaseUrl}{Request.Path}");
             string goToUrl = "https://localhost:7170/authfront/ui/home";
-            string authApiEndpoint = "http://localhost:5101/authentication/api/v1/authentication";
+            string authApiEndpoint = "http://localhost:5101/authentication/api/v1/openid";
             string redirectUrl = authApiEndpoint + "?goto=" + goToUrl;
             //string redirectUrl = $"{_platformSettings.ApiAuthenticationEndpoint}authentication?goto={goToUrl}";
             return Redirect(redirectUrl);
