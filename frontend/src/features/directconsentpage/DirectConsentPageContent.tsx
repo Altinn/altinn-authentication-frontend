@@ -3,27 +3,18 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
-
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-
 import { useMediaQuery } from '@/resources/hooks';
+import classes from './DirectConsentPageContent.module.css';
 
 
-import classes from './OverviewPageContent.module.css';
-
-// NOTE! this version of OverviewPageContent is for DirectConsentPage
-// Fix-me: RENAME this component
-
-
-
-export const OverviewPageContent = () => {
+export const DirectConsentPageContent = () => {
   const [saveDisabled, setSaveDisabled] = useState(false);
   const [isEditable, setIsEditable] = useState(false);
   const { t } = useTranslation('common');
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isSm = useMediaQuery('(max-width: 768px)');
-
 
   let overviewText: string;
   overviewText = t('authentication_dummy.auth_overview_text_directconsent'); // h2 below, not in Small/mobile view

@@ -5,8 +5,7 @@ import { Page, PageHeader, PageContent, PageContainer } from '@/components';
 import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
 import { useMediaQuery } from '@/resources/hooks';
 
-import { OverviewPageContent } from './components/OverviewPageContent';
-import { LayoutState } from './components/LayoutState';
+import { DirectConsentPageContent } from './DirectConsentPageContent';
 
 export const DirectConsentPage = () => {
   const { t } = useTranslation('common');
@@ -22,7 +21,7 @@ export const DirectConsentPage = () => {
       >
         <PageHeader icon={<ApiIcon />}>{'Direct Consent Page'}</PageHeader>
         <PageContent>
-          <OverviewPageContent />
+          <DirectConsentPageContent />
         </PageContent>
       </Page>
     </PageContainer>
