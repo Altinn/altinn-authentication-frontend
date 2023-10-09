@@ -35,40 +35,50 @@ export const DirectConsentPageContent = () => {
     console.log("Her skulle det skjedd noe")
   }
 
-  return (
-    <div className={classes.overviewActionBarContainer}>
 
-      {!isSm && <h2 className={classes.pageContentText}>{overviewText}</h2>}
-      
-            <p>
-              <br></br>
+  // Må sette inn lag med Page, PageContainer etc... så det ligner
+  // på andre sider.
+
+  return (
+
+    <div className={classes.directConsentPageContainer}>
+
+      <h2 className={classes.header}>{overviewText}</h2>
+      <div className={classes.flexContainer}>
+        <div className={classes.leftContainer}>
+
+          <p className={classes.contentText}>
             Fiken AS ber om tilgangsgrupper blir gitt til systemet. <br></br>
             Tilgangsgruppene vil gi systemintegrasjonen rett til <br></br>
-            å aksessere digitale tjenester på vegne av Pølsebu AS<br></br> 
+            å aksessere digitale tjenester på vegne av Pølsebu AS<br></br>
+            <br></br> 
+            <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
+            <a href="https://docs.altinn.studio/nb/"> her</a>. 
+          </p>
+            
+
             <br></br>
-              <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
-              <a href="https://docs.altinn.studio/nb/"> her</a>. 
-            </p>
-            <br></br>
-            <p>
+          <p className={classes.contentText}>
             Tilgangsgruppene er: <br></br>
               <br></br>
               - MVA (se tjenester)<br></br>
               - Sykemelding (se tjenester)
               <br></br>
-            </p>
+          </p>
+
             <br></br>
-            <p>
+
+          <p className={classes.contentText}>
             Innholdet i tilgangsgruppene kan endre seg hvis nye
-             tjenester for områdetet blir tilgjengelig.
-            </p>
+            tjenester for områdetet blir tilgjengelig.
+          </p>
             
-            <p>
+          <p className={classes.contentText}>
             Tilgangsgruppene kan fjernes når som helst senere fra Altinn profil.
-            </p>
+          </p>
       
 
-            <div className={classes.buttonContainer}>
+          <div className={classes.buttonContainer}>
 
             <div className={classes.cancelButton}>
               <Button
@@ -92,7 +102,9 @@ export const DirectConsentPageContent = () => {
             </div>
 
           </div>
-
+          
+        </div>
+      </div>
     </div>
   );
 };

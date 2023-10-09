@@ -19,7 +19,7 @@ export const DirectConsentPage = () => {
         color='dark'
         size={isSm ? 'small' : 'medium'}
       >
-        <PageHeader icon={<ApiIcon />}>{'Direct Consent Page'}</PageHeader>
+        <PageHeader icon={<ApiIcon />}>{'Direkte Samtykke'}</PageHeader>
         <PageContent>
           <DirectConsentPageContent />
         </PageContent>
