@@ -77,7 +77,7 @@ namespace Altinn.Authentication.UI.Controllers
 
             //string goToUrl = HttpUtility.UrlEncode($"{_generalSettings.FrontendBaseUrl}{Request.Path}");
             string goToUrl = "https://localhost:7170/authfront/ui/home";
-            string authApiEndpoint = "http://localhost:5101/authentication/api/v1/authentication";
+            string authApiEndpoint = "http://localhost:5101/authentication/api/v1/openid";
             string redirectUrl = authApiEndpoint + "?goto=" + goToUrl;
             //string redirectUrl = $"{_platformSettings.ApiAuthenticationEndpoint}authentication?goto={goToUrl}";
             return Redirect(redirectUrl);
@@ -91,7 +91,7 @@ namespace Altinn.Authentication.UI.Controllers
             //UserProfile userProfile = await _profileService.GetUserProfile(userId);
             AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
             //string language = userProfile.ProfileSettingPreference.Language;
-            string language = "nb";
+            string language = "no_nb";
 
             HttpContext.Response.Cookies.Append("il8next", language, new CookieOptions
             {   //Cookie should now be readable by javascript
