@@ -33,4 +33,4 @@ GET {{rootHttpsUrl}}/authfront/api/v1/authentication/refresh
 
 
 ###
-GET {{AuthApiRootUrl}}/authentication/api/v1/authentication?
+//GET {{AuthApiRootUrl}}/authentication/api/v1/authentication

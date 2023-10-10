@@ -8,21 +8,20 @@ using Altinn.Authentication.UI.Filters;
 ///Summary
 ///Probably not needed yet, there is nothing in the UI that uses this controller
 ///
-namespace Altinn.Authentication.UI.Controllers
+namespace Altinn.Authentication.UI.Controllers;
+
+[ApiController]
+[AutoValidateAntiforgeryTokenIfAuthCookie]
+public class LookupController : ControllerBase
 {
-    [ApiController]
-    [AutoValidateAntiforgeryTokenIfAuthCookie]
-    public class LookupController : ControllerBase
+    [HttpGet]
+    [Authorize]
+    [Route("authfront/api/v1/lookup/reportee/{partyId}")]
+    public async Task<ActionResult<Party>> GetPartyFromReportee(int partyId)
     {
-        [HttpGet]
-        [Authorize]
-        [Route("authfront/api/v1/lookup/reportee/{partyId}")]
-        public async Task<ActionResult<Party>> GetPartyFromReportee(int partyId)
-        {
-            Party party = new();
+        Party party = new();
 
-            return Ok(party);
-        }
-
+        return Ok(party);
     }
+
 }
