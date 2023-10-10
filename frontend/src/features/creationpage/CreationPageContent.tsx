@@ -3,10 +3,14 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
+
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
+import { lagreOpprettKnapp } from '@/rtk/features/creationPage/creationPageSlice';
+
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
+
 
 
 export const CreationPageContent = () => {
@@ -20,37 +24,35 @@ export const CreationPageContent = () => {
 
   const { t } = useTranslation('common');
   const navigate = useNavigate();
-  const dispatch = useAppDispatch(); // fix-me: bygg kobling til REDUX 
-  // const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
-  
+
+  const dispatch = useAppDispatch(); // fix-me: bygger kobling til REDUX 
+  const reduxNavn = useAppSelector((state) => state.creationPage.navn);
+  const reduxBeskrivelse = useAppSelector((state) => state.creationPage.beskrivelse);
 
   // brukes i h2, ikke vist i Small/mobile view
-  const isSm = useMediaQuery('(max-width: 768px)'); // trengs denne?
+  const isSm = useMediaQuery('(max-width: 768px)'); // fix-me: trengs denne?
   let overviewText: string;
   overviewText = 'Knytt systembruker til systemleverandør'; 
 
 
   // skal nå bare gå tilbake til OverviewPage
-  // selv om vi må vurdere en sletting av ting?
   const handleReject = () => {
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+  }
+
+  // Opprett-knapp flytter foreløpig bare 
+  // local State for Navn, Beskrivelse og Valgt Systemleverandør
+  // til Redux State, som er stabil så lenge app kjører
+  // ---> tilgjengelig også fra andre sider
+  // ---> API er ennå ikke tilgjengelig per 10.10.23
+  const handleConfirm = () => {
+    dispatch(lagreOpprettKnapp( { navn: navn, beskrivelse: beskrivelse, selected: selected } ));
     setNavn('');
     setBeskrivelse('');
     setSelected('');
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
-  // Mulig at her skal man trigge en dispatch
-  // og så navigere til OverviewPage
-  // har opprettet en creationPageSlice som nå er synlig i 
-  // Chrome DevTools --> må ut og løpe...
-  const handleConfirm = () => {
-    setNavn('ReduxLagret');
-    setBeskrivelse('ReduxLagret');
-    setSelected('');
-  }
-
-
-  
 
 
   // options med label skilt fra value (samme verdi for demo)
@@ -167,6 +169,18 @@ export const CreationPageContent = () => {
             > her</Link> 
             .
           </p>
+
+          <p>
+            Tester lokal useState her: <br></br>
+            navn = {navn} <br></br>
+            beskrivelse = {beskrivelse}
+          </p>
+          <p>
+            Tester Redux global State her: <br></br>
+            reduxNavn = {reduxNavn} <br></br>
+            reduxBeskrivelse = {reduxBeskrivelse}
+          </p>
+
 
           <div className={classes.buttonContainer}>
             <div className={classes.cancelButton}>
