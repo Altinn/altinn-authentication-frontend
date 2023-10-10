@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createSlice } from '@reduxjs/toolkit';
 
 export interface SliceState {
     navn: string;
@@ -8,28 +7,17 @@ export interface SliceState {
 }
 
 const initialState: SliceState = {
-    navn: 'test-initial',
-    beskrivelse: 'test-initial', 
-    selected: 'test-initial',
+    navn: '',
+    beskrivelse: '', 
+    selected: '',
 };
 
-/* Not sure if CreationPage needs to fetch information
-export const fetchUserInfo = createAsyncThunk('userInfo/fetchUserInfoSlice', async () => {
-  return await axios
-    .get('/authfront/api/v1/profile/user')
-    .then((response) => response.data)
-    .catch((error) => {
-      console.error(error);
-      throw new Error(String(error.response.data));
-    });
-});
-*/
-
+// foreløpig lagreOpprettKnapp skal senere gi API POST kall til BFF
 const creationPageSlice = createSlice({
   name: 'creation',
   initialState,
   reducers: {
-    lagreKnapper : (state, action) => {
+    lagreOpprettKnapp : (state, action) => {
         state.navn = action.payload.navn;
         state.beskrivelse = action.payload.beskrivelse;
         state.selected = action.payload.selected;
@@ -38,3 +26,4 @@ const creationPageSlice = createSlice({
 });
 
 export default creationPageSlice.reducer;
+export const { lagreOpprettKnapp } = creationPageSlice.actions;

@@ -1,25 +1,32 @@
-import { Button, Spinner } from '@digdir/design-system-react';
-import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import * as React from 'react';
+// import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { ReactComponent as Add } from '@/assets/Add.svg';
-import { useMediaQuery } from '@/resources/hooks';
 import { AuthenticationPath } from '@/routes/paths';
+
 import classes from './OverviewPageContent.module.css';
-import { ErrorPanel, CollectionBar, ActionBar } from '@/components';
+import { CollectionBar, ActionBar } from '@/components';
+import { ReactComponent as Add } from '@/assets/Add.svg';
+import { Button, Spinner } from '@digdir/design-system-react';
+import { useMediaQuery } from '@/resources/hooks';
+import { useTranslation } from 'react-i18next';
 
 
 export const OverviewPageContent = () => {
 
   const { t } = useTranslation('common');
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  const isSm = useMediaQuery('(max-width: 768px)');
+  const dispatch = useAppDispatch(); // fix-me: bygger kobling til REDUX 
+  const reduxNavn = useAppSelector((state) => state.creationPage.navn);
+  const reduxBeskrivelse = useAppSelector((state) => state.creationPage.beskrivelse);
+  const reduxSelected = useAppSelector((state) => state.creationPage.selected);
+  
+  // dette fungerer fint --> mulig at jeg skal lage kumulativ liste over systembrukere??
+  // da måtte jeg ha en katalog av brukere, der de to alleredei OverviewPage var først,
+  // men så øker det på nedover... 
 
-  let fetchData: () => any;
+  const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger
 
   let overviewText: string;
   overviewText = t('authentication_dummy.auth_overview_text_administrere'); 
@@ -34,12 +41,13 @@ export const OverviewPageContent = () => {
 
   // Fix-me: CollectionBar links go nowhere
 
-  return (
-    <div className={classes.overviewActionBarContainer}>
 
-      {!isSm && <h2 className={classes.pageContentText}>{overviewText}</h2>}
+  return (
+    <div className={classes.overviewPageContainer}>
+
+      <h2 className={classes.pageContentText}>{overviewText}</h2>
       
-        <div className={classes.delegateNewButton}>
+        <div className={classes.systemUserNewButton}>
           <Button
             variant='outline'
             onClick={goToStartNewSystemUser}
@@ -51,13 +59,10 @@ export const OverviewPageContent = () => {
           </Button>
         </div>
       
-      <div>
-        <br></br><br></br><br></br>
-      </div>
 
-      {!isSm && <h2 className={classes.pageContentText}>
+      <h2 className={classes.pageContentText}>
         {'Du har tidligere opprettet disse systembrukerne'} 
-      </h2>} 
+      </h2>
         
 
       <CollectionBar
@@ -86,6 +91,24 @@ export const OverviewPageContent = () => {
           '/fixpath/'
         }
       />
+
+      <div>
+        <br></br>
+      </div>
+
+      { reduxNavn && (
+      <CollectionBar
+        title=  {reduxBeskrivelse}
+        subtitle= { reduxSelected }
+        additionalText= {reduxNavn}
+        color={'neutral'}
+        collection={[]}
+        compact={isSm}
+        proceedToPath={
+          '/fixpath/'
+        }
+      />
+      )}
 
     </div>
   );
