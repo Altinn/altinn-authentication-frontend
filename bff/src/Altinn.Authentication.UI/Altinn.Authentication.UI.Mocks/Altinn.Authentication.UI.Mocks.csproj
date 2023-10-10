@@ -13,4 +13,9 @@
     <PackageReference Include="JWTCookieAuthentication" Version="3.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mocks\SystemUser\" />
+    <Folder Include="Mocks\UserProfile\" />
+  </ItemGroup>
+
 </Project>
