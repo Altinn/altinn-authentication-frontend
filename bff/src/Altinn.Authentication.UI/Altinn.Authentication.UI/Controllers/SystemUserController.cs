@@ -1,4 +1,5 @@
-﻿using Altinn.Authentication.UI.Filters;
+﻿using Altinn.Authentication.UI.Core.SystemUser;
+using Altinn.Authentication.UI.Filters;
 using Altinn.Authentication.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -15,51 +16,18 @@ namespace Altinn.Authentication.UI.Controllers;
 [AutoValidateAntiforgeryTokenIfAuthCookie]
 public class SystemUserController : ControllerBase
 {
-    
 
-    private static List<SystemUserDTO> MockTestHelper() 
+    ISystemUserClient _systemUserClient;
+
+    /// <summary>
+    /// Constructor for <see cref="SystemUserController"/>
+    /// </summary>
+    public SystemUserController(ISystemUserClient systemUserClient)
     {
-        //Mock Data
-        SystemUserDTO systemUser1 = new()
-        {
-            Id = "1",
-            Title = "Vårt regnskapsystem",
-            Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
-            SystemType = "534-ADF-SF",
-            Created = "2023-09-12",
-            ClientId = "20578230597"
-        };
-
-        SystemUserDTO systemUser2 = new()
-        {
-            Id = "2",
-            Title = "Vårt andre regnskapsystem",
-            Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
-            SystemType = "534-ADF-SF",
-            Created = "2023-09-22",
-            ClientId = "20578230598"
-        };
-
-        SystemUserDTO systemUser3 = new()
-        {
-            Id = "3",
-            Title = "Et helt annet system",
-            Description = "Fiken superskatt",
-            SystemType = "lfhiwlfhi",
-            Created = "2023-09-22",
-            ClientId = "23523523"
-        };
-
-        List<SystemUserDTO> systemUserList = new()
-        {
-            systemUser1,
-            systemUser2,
-            systemUser3
-        };
-
-        return systemUserList;
+        _systemUserClient = systemUserClient; 
     }
 
+    
     // GET: api/<SystemUserController>
     [Authorize] 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -67,44 +35,48 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetSystemUserList()
     {
 
-        var list = MockTestHelper();
+        //var list = MockTestHelper();
 
-        return Ok(list);
+        return Ok();
     }
 
     // GET api/<SystemUserController>/5
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
-    public async Task<ActionResult> GetSystemUser(string id)
+    public async Task<ActionResult> GetSystemUser(string id, CancellationToken cancellationToken = default)
     {
-        var usr = MockTestHelper().Find(u => u.Id == id);
+        //var usr = MockTestHelper().Find(u => u.Id == id);
 
-        return Ok(usr);
+        return Ok();
     }
 
     // POST api/<SystemUserController>
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
-    public void Post([FromBody] string value)
+    public void Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
+        _systemUserClient.PostNewSystemUserDescriptor(newSystemUserDescriptor, cancellationToken);
     }
 
     // PUT api/<SystemUserController>/5
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    public void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
     {
+        if (modifiedSystemUser.Title is not null) _systemUserClient.ChangeSystemUserTitle(modifiedSystemUser.Title, id, cancellationToken);
+        if (modifiedSystemUser.Description is not null) _systemUserClient.ChangeSystemUserTitle(modifiedSystemUser.Description, id, cancellationToken);
     }
 
     // DELETE api/<SystemUserController>/5
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public void Delete(Guid id, CancellationToken cancellationToken = default)
     {
+        _systemUserClient.DeleteSystemUser(id, cancellationToken);
     }
 }
 
