@@ -1,31 +1,35 @@
-@media only screen and (max-width: 768px) {
-  .overviewAccordionsContainer {
-    margin-top: 0rem;
-  }
 
-  .delegateNewButton {
-    margin-bottom: 1.3rem;
-    margin-top: 0rem;
-  }
+.spinnerContainer {
+  margin-top: 3rem;
+  display: flex;
+  justify-content: center;
+}
 
-  .activeDelegationsHeader {
-    margin-top: 0.1rem;
-  }
+.pageContentText {
+  margin-top: -2rem;
+  font-weight: 500;
+}
 
-  .editButton {
-    align-items: center;
-    justify-content: end;
-    margin-bottom: 0.3rem;
-  }
+.link {
+  color: black;
+  text-decoration-line: underline;
+  text-decoration-color: #1eadf7;
+  display: inline-block;
+  background: transparent;
+}
+
+.actionBarWrapper {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 @media only screen and (min-width: 769px) {
-  .overviewActionBarContainer {
+  .overviewPageContainer {
     margin-top: 3rem;
   }
 
-  .delegateNewButton {
-    margin-bottom: 3rem;
+  .systemUserNewButton {
+    margin-bottom: 6rem;
   }
 
   .activeDelegationsHeader {
@@ -53,55 +57,25 @@
   }
 }
 
-.noActiveDelegations {
-  margin-top: 1.5rem;
-}
 
-.spinnerContainer {
-  margin-top: 3rem;
-  display: flex;
-  justify-content: center;
-}
 
-.saveSection {
-  margin-top: 2rem;
-}
+@media only screen and (max-width: 768px) {
+  .overviewAccordionsContainer {
+    margin-top: 0rem;
+  }
 
-.apiSubheading {
-  display: flex;
-  margin-bottom: 2rem;
-  font-weight: 500;
-}
+  .systemUserNewButton {
+    margin-bottom: 3rem;
+    margin-top: 0rem;
+  }
 
-.pageContentText {
-  margin-top: -2rem;
-  font-weight: 500;
-}
+  .activeDelegationsHeader {
+    margin-top: 0.1rem;
+  }
 
-.link {
-  color: black;
-  text-decoration-line: underline;
-  text-decoration-color: #1eadf7;
-  display: inline-block;
-  background: transparent;
-}
-
-.errorPanel {
-  margin-top: 2rem;
-}
-
-.actionBarWrapper {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.testText {
-  margin-right: 40px;
-}
-
-.testContent {
-  margin: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  .editButton {
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 0.3rem;
+  }
 }
