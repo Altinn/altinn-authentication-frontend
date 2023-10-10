@@ -170,18 +170,6 @@ export const CreationPageContent = () => {
             .
           </p>
 
-          <p>
-            Tester lokal useState her: <br></br>
-            navn = {navn} <br></br>
-            beskrivelse = {beskrivelse}
-          </p>
-          <p>
-            Tester Redux global State her: <br></br>
-            reduxNavn = {reduxNavn} <br></br>
-            reduxBeskrivelse = {reduxBeskrivelse}
-          </p>
-
-
           <div className={classes.buttonContainer}>
             <div className={classes.cancelButton}>
               <Button
