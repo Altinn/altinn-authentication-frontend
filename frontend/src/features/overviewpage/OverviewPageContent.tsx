@@ -15,7 +15,11 @@ export const OverviewPageContent = () => {
 
   const { t } = useTranslation('common');
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+
+  const dispatch = useAppDispatch(); // fix-me: bygger kobling til REDUX 
+  const reduxNavn = useAppSelector((state) => state.creationPage.navn);
+  const reduxBeskrivelse = useAppSelector((state) => state.creationPage.beskrivelse);
+
 
   const isSm = useMediaQuery('(max-width: 768px)');
 
@@ -35,11 +39,11 @@ export const OverviewPageContent = () => {
   // Fix-me: CollectionBar links go nowhere
 
   return (
-    <div className={classes.overviewActionBarContainer}>
+    <div className={classes.overviewPageContainer}>
 
-      {!isSm && <h2 className={classes.pageContentText}>{overviewText}</h2>}
+      <h2 className={classes.pageContentText}>{overviewText}</h2>
       
-        <div className={classes.delegateNewButton}>
+        <div className={classes.systemUserNewButton}>
           <Button
             variant='outline'
             onClick={goToStartNewSystemUser}
@@ -51,13 +55,10 @@ export const OverviewPageContent = () => {
           </Button>
         </div>
       
-      <div>
-        <br></br><br></br><br></br>
-      </div>
 
-      {!isSm && <h2 className={classes.pageContentText}>
+      <h2 className={classes.pageContentText}>
         {'Du har tidligere opprettet disse systembrukerne'} 
-      </h2>} 
+      </h2>
         
 
       <CollectionBar
@@ -86,6 +87,12 @@ export const OverviewPageContent = () => {
           '/fixpath/'
         }
       />
+
+      <p>
+        Tester Redux global State her: <br></br>
+        reduxNavn = {reduxNavn} <br></br>
+        reduxBeskrivelse = {reduxBeskrivelse}
+      </p>
 
     </div>
   );
