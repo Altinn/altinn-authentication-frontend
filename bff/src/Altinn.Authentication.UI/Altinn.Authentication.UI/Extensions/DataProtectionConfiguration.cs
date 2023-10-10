@@ -33,6 +33,6 @@ public static class DataProtectionConfiguration
         }
 
         // Return a key directory based on the current operating system
-        return FileSystemXmlRepository.DefaultKeyStorageDirectory;
+        return FileSystemXmlRepository.DefaultKeyStorageDirectory!;
     }
 }

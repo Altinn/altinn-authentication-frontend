@@ -2,8 +2,9 @@
 //Within VS debugger
 //@rootUrl = https://localhost:44349
 @rootHttpsUrl = https://localhost:7170
-@rootHttpUrl = https://localhost:5191
+@rootHttpUrl = http://localhost:5006
 @authApiRootUrl = http://localhost:5101
+@localAltinCloud = http://local.altinn.cloud
 
 ###
 //The Homecontroller returns the index.html which launches the React SPA
@@ -22,15 +23,18 @@ GET {{rootHttpsUrl}}/authfront/ui/
   "organizationName": "TestParty"
 }
 
-GET {{rootHttpsUrl}}/authfront/api/v1/profile/user
+GET {{rootHttpUrl}}/authfront/api/v1/profile/user
 
 ###
 //The endpoint for refreshing a Token
 //Expected result: a new Token
 //Needs a valid cookie with XSRF Token in the header to work,
 //or the Developer/Tester must switch off the Authorize attribute in the Controller.
-GET {{rootHttpsUrl}}/authfront/api/v1/authentication/refresh
+GET {{rootHttpUrl}}/authfront/api/v1/authentication/refresh
 
 
 ###
-GET {{AuthApiRootUrl}}/authentication/api/v1/authentication?
+//GET {{AuthApiRootUrl}}/authentication/api/v1/authentication
+
+###
+GET {{rootHttpUrl}}/authfront/ui/auth/overview
