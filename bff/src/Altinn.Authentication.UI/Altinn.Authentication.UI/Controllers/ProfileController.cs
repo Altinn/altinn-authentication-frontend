@@ -28,7 +28,7 @@ public class ProfileController : ControllerBase
     /// Method that returns the user information about the user that is logged in
     /// <param name = "UserDTO">The UserProfile as a DTO for the Frontend</param>
     /// </summary>
-    //[Authorize] //TODO: må fikse
+    [Authorize] //TODO: må fikse
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("user")]
     public async Task<ActionResult> GetUser()
@@ -39,12 +39,12 @@ public class ProfileController : ControllerBase
             UserId = 20004938,
             Email = "1337@altinnstudiotestusers.com",
             PhoneNumber = "90001337",
-            UserName = "Testur Testursson",
+            UserName = "Testur Testursson Jr",
             PartyId = 50019992,
             ExternalIdentity = "",
             Party = new Platform.Register.Models.Party 
             {
-                Name = "TestParty"
+                Name = "Test Organisasjon"
             },
             ProfileSettingPreference = new() 
             {

@@ -17,8 +17,8 @@ public class AuthenticationController : ControllerBase
         _antiforgery = antiforgery;
     }
 
-    //[Authorize]
-    [HttpGet("authfront/api/v1/authentication/refresh")]        //TODO: it is likely to change prior to Production, pending input from Skatt and NAV
+    [Authorize]
+    [HttpGet("authfront/api/v1/authentication/refresh")]//TODO: it is likely to change prior to Production, pending input from Skatt and NAV
     public async Task<IActionResult> Refresh()
     {
         AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
