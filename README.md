@@ -21,3 +21,16 @@ og vår frontend Overview side tilgjengelig på
 http://localhost:5191/authfront/ui/auth/overview
 
 Dette fungerer nå både på Mac og på PC.
+
+
+### nytt bidrag 10 10 2023
+The AuthenticationFrontend BFF needs a set of configurations to integrate and run.
+During Development it is through local.altinn.cloud
+
+1: See https://github.com/Altinn/app-localtest/tree/AuthFrontLokalTest for changes needed in local-test to run the BFF locally.
+: Need to edit the config file in the loadbalancer to forward the correct route, should be part of the above branch already
+: Run the loadbalancer in Docker, (docker compose up -d --build .) (then close the local-test, since we run that locally)
+: Run the BFF in the local folder (where program.cs is) with dotnet run
+: Run the local-test in the local src folder (where program.cs is) with dotnet run
+: Run the vite server for the Frontend in it's local folder with yarn start
+

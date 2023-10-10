@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Altinn.Authentication.UI.Core\Altinn.Authentication.UI.Core.csproj" />
+  </ItemGroup>
+
 </Project>
