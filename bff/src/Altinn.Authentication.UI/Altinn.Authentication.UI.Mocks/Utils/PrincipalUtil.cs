@@ -10,7 +10,7 @@ public static class PrincipalUtil
 
     public static string GetToken(int userId, int partyId, int authenticationLevel = 2)
     {
-        List<Claim> claims = new List<Claim>();
+        List<Claim> claims = new();
         string issuer = "www.altinn.no";
         claims.Add(new Claim(AltinnCoreClaimTypes.UserId, userId.ToString(), ClaimValueTypes.String, issuer));
         claims.Add(new Claim(AltinnCoreClaimTypes.UserName, "UserOne", ClaimValueTypes.String, issuer));
@@ -29,7 +29,7 @@ public static class PrincipalUtil
 
     public static string GetAccessToken(string issuer, string app)
     {
-        List<Claim> claims = new List<Claim>
+        List<Claim> claims = new()
         {
             new Claim(AccessTokenClaimTypes.App, app, ClaimValueTypes.String, issuer)
         };

@@ -1,4 +1,6 @@
 ﻿using Altinn.Authentication.UI.Filters;
+using Altinn.Authentication.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 //https://github.com/Altinn/altinn-authentication-frontend/issues/22
@@ -10,15 +12,15 @@ namespace Altinn.Authentication.UI.Controllers;
 /// </summary>
 [Route("authfront/api/v1/systemuser")]
 [ApiController]
-//[AutoValidateAntiforgeryTokenIfAuthCookie]
+[AutoValidateAntiforgeryTokenIfAuthCookie]
 public class SystemUserController : ControllerBase
 {
     
 
-    private List<SystemUser> MockTestHelper() 
+    private static List<SystemUserDTO> MockTestHelper() 
     {
         //Mock Data
-        SystemUser systemUser1 = new SystemUser()
+        SystemUserDTO systemUser1 = new()
         {
             Id = "1",
             Title = "Vårt regnskapsystem",
@@ -28,7 +30,7 @@ public class SystemUserController : ControllerBase
             ClientId = "20578230597"
         };
 
-        SystemUser systemUser2 = new SystemUser()
+        SystemUserDTO systemUser2 = new()
         {
             Id = "2",
             Title = "Vårt andre regnskapsystem",
@@ -38,7 +40,7 @@ public class SystemUserController : ControllerBase
             ClientId = "20578230598"
         };
 
-        SystemUser systemUser3 = new SystemUser()
+        SystemUserDTO systemUser3 = new()
         {
             Id = "3",
             Title = "Et helt annet system",
@@ -48,20 +50,21 @@ public class SystemUserController : ControllerBase
             ClientId = "23523523"
         };
 
-        List<SystemUser> systemUserList = new List<SystemUser>();
-
-        systemUserList.Add(systemUser1);
-        systemUserList.Add(systemUser2);
-        systemUserList.Add(systemUser3);
+        List<SystemUserDTO> systemUserList = new()
+        {
+            systemUser1,
+            systemUser2,
+            systemUser3
+        };
 
         return systemUserList;
     }
 
     // GET: api/<SystemUserController>
-    //[Authorize] //TODO: må fikse
+    [Authorize] 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<SystemUser>>> GetSystemUserList()
+    public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetSystemUserList()
     {
 
         var list = MockTestHelper();
@@ -70,7 +73,7 @@ public class SystemUserController : ControllerBase
     }
 
     // GET api/<SystemUserController>/5
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
     public async Task<ActionResult> GetSystemUser(string id)
@@ -81,7 +84,7 @@ public class SystemUserController : ControllerBase
     }
 
     // POST api/<SystemUserController>
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
     public void Post([FromBody] string value)
@@ -89,7 +92,7 @@ public class SystemUserController : ControllerBase
     }
 
     // PUT api/<SystemUserController>/5
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPut("{id}")]
     public void Put(int id, [FromBody] string value)
@@ -97,7 +100,7 @@ public class SystemUserController : ControllerBase
     }
 
     // DELETE api/<SystemUserController>/5
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpDelete("{id}")]
     public void Delete(int id)
@@ -105,12 +108,4 @@ public class SystemUserController : ControllerBase
     }
 }
 
-public class SystemUser
-{
-    public string? Id { get; set; }
-    public string? Title { get; set; }
-    public string? Description { get; set; }
-    public string? SystemType { get; set; }
-    public string? Created { get; set; }
-    public string? ClientId { get; set; }
-}
+
