@@ -13,6 +13,8 @@ using Altinn.Common.PEP.Configuration;
 using Altinn.Authentication.UI.Extensions;
 using Altinn.Authentication.UI.Filters;
 using Altinn.Common.AccessTokenClient.Services;
+using Altinn.Authentication.UI.Core.SystemUser;
+using Altinn.Authentication.UI.Integration.SystemUser;
 
 ILogger logger;
 
@@ -62,9 +64,11 @@ app.Run();
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
     services.AddControllersWithViews();
-    //services.ConfigureDataProtection();
+    services.ConfigureDataProtection();
     services.AddMvc();
     services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    services.TryAddSingleton<ISystemUserClient, SystemUserClient>();
+    services.TryAddSingleton<ISystemUserService, SystemUserService>();
 
 
 
@@ -106,10 +110,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     });
 
     services.TryAddSingleton<ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter>();
-
-    
-    
-    
+        
     services.AddSwaggerGen();
 }
 

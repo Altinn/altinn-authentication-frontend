@@ -1,7 +1,8 @@
 ﻿namespace Altinn.Authentication.UI.Core.SystemUser;
 
 /// <summary>
-/// When the Frontend POST a new SystemUser this is the descriptor passed deeper into the layers to create the new Entity 
+/// When the Frontend POST a new SystemUser this is the descriptor
+/// passed deeper into the layers to create the new Entity 
 /// </summary>
 public class SystemUserDescriptor
 {

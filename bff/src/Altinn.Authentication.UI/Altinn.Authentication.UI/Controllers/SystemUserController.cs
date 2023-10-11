@@ -1,6 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUser;
 using Altinn.Authentication.UI.Filters;
-using Altinn.Authentication.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -16,17 +15,15 @@ namespace Altinn.Authentication.UI.Controllers;
 [AutoValidateAntiforgeryTokenIfAuthCookie]
 public class SystemUserController : ControllerBase
 {
-
-    ISystemUserClient _systemUserClient;
+    ISystemUserService _systemUserService;
 
     /// <summary>
     /// Constructor for <see cref="SystemUserController"/>
     /// </summary>
-    public SystemUserController(ISystemUserClient systemUserClient)
+    public SystemUserController(ISystemUserService systemUserService)
     {
-        _systemUserClient = systemUserClient; 
+        _systemUserService = systemUserService; 
     }
-
     
     // GET: api/<SystemUserController>
     [Authorize] 
@@ -46,9 +43,9 @@ public class SystemUserController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult> GetSystemUser(string id, CancellationToken cancellationToken = default)
     {
-        //var usr = MockTestHelper().Find(u => u.Id == id);
+        var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(Guid.NewGuid(), cancellationToken);
 
-        return Ok();
+        return Ok(list);
     }
 
     // POST api/<SystemUserController>
@@ -57,17 +54,17 @@ public class SystemUserController : ControllerBase
     [HttpPost]
     public void Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
-        _systemUserClient.PostNewSystemUserDescriptor(newSystemUserDescriptor, cancellationToken);
+        _systemUserService.PostNewSystemUserDescriptor(newSystemUserDescriptor, cancellationToken);
     }
 
     // PUT api/<SystemUserController>/5
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPut("{id}")]
-    public void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
+    public async void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
     {
-        if (modifiedSystemUser.Title is not null) _systemUserClient.ChangeSystemUserTitle(modifiedSystemUser.Title, id, cancellationToken);
-        if (modifiedSystemUser.Description is not null) _systemUserClient.ChangeSystemUserTitle(modifiedSystemUser.Description, id, cancellationToken);
+        if (modifiedSystemUser.Title is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.Title, id, cancellationToken);
+        if (modifiedSystemUser.Description is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.Description, id, cancellationToken);
     }
 
     // DELETE api/<SystemUserController>/5
@@ -76,7 +73,7 @@ public class SystemUserController : ControllerBase
     [HttpDelete("{id}")]
     public void Delete(Guid id, CancellationToken cancellationToken = default)
     {
-        _systemUserClient.DeleteSystemUser(id, cancellationToken);
+        _systemUserService.DeleteSystemUser(id, cancellationToken);
     }
 }
 
