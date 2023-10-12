@@ -1,0 +1,33 @@
+﻿namespace Altinn.Authentication.UI.Integration.Configuration;
+
+/// <summary>
+/// General configuration settings
+/// </summary>
+public class PlatformSettings
+{
+    /// <summary>
+    /// Gets or sets the access management api endpoint
+    /// </summary>
+    public string? ApiAccessManagementEndpoint { get; set; }
+
+    /// <summary>
+    /// Gets or sets the authentication api endpoint
+    /// </summary>
+    public string? ApiAuthenticationEndpoint { get; set; }
+
+    /// <summary>
+    /// Gets or sets the profile api endpoint.
+    /// </summary>
+    public string? ApiProfileEndpoint { get; set; }
+
+    /// <summary>
+    /// Name of the cookie for where JWT is stored
+    /// </summary>
+    public string? JwtCookieName { get; set; }
+
+    /// <summary>
+    /// Open Id Connect Well known endpoint
+    /// </summary>
+    public string? OpenIdWellKnownEndpoint { get; set; }
+
+}

@@ -4,10 +4,10 @@ namespace Altinn.Authentication.UI.Integration.SystemUser;
 
 public class SystemUserClient : ISystemUserClient
 {
-    private static List<SystemUserDTO> MockTestHelper()
+    private static List<SystemUserReal> MockTestHelper()
     {
         //Mock Data
-        SystemUserDTO systemUser1 = new()
+        SystemUserReal systemUser1 = new()
         {
             Id = "1",
             Title = "Vårt regnskapsystem",
@@ -17,7 +17,7 @@ public class SystemUserClient : ISystemUserClient
             ClientId = "20578230597"
         };
 
-        SystemUserDTO systemUser2 = new()
+        SystemUserReal systemUser2 = new()
         {
             Id = "2",
             Title = "Vårt andre regnskapsystem",
@@ -27,7 +27,7 @@ public class SystemUserClient : ISystemUserClient
             ClientId = "20578230598"
         };
 
-        SystemUserDTO systemUser3 = new()
+        SystemUserReal systemUser3 = new()
         {
             Id = "3",
             Title = "Et helt annet system",
@@ -37,7 +37,7 @@ public class SystemUserClient : ISystemUserClient
             ClientId = "23523523"
         };
 
-        List<SystemUserDTO> systemUserList = new()
+        List<SystemUserReal> systemUserList = new()
         {
             systemUser1,
             systemUser2,
@@ -47,35 +47,40 @@ public class SystemUserClient : ISystemUserClient
         return systemUserList;
     }
 
-    private static List<SystemUserDTO> _systemUserList = new();
+    private static List<SystemUserReal> _systemUserList = new();
 
     public SystemUserClient()
     {
         _systemUserList = MockTestHelper();
     }
-
-    public async Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
+   
+    public Task<SystemUserReal> GetSpecificSystemUserReal(Guid id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<bool> ChangeSystemUserTitle(string newTitle, Guid id, CancellationToken cancellationToken = default)
+    public Task<Guid> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<bool> DeleteSystemUser(Guid id, CancellationToken cancellationToken = default)
+    public Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<SystemUserDTO> GetSystemUserDTO(Guid id, CancellationToken cancellationToken = default)
+    public Task<bool> ChangeSystemUserRealTitle(string newTitle, Guid id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Guid> PostNewSystemUserDescriptor(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public Task<bool> ChangeSystemUserRealDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(Guid id, CancellationToken cancellationToken = default)
+    {
+        return _systemUserList;
     }
 }
