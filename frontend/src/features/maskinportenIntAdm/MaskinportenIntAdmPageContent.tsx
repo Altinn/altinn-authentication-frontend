@@ -9,7 +9,9 @@ import { lagreNavnBeskrivelseKnapp } from '@/rtk/features/maskinportenPage/maski
 
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './MaskinportenIntAdmPageContent.module.css';
-import { useMediaQuery } from '@/resources/hooks';
+// import { useMediaQuery } from '@/resources/hooks';
+
+import { XSDUpload } from './XSDUpload';
 
 
 export const MaskinportenIntAdmPageContent = () => {
@@ -48,13 +50,9 @@ export const MaskinportenIntAdmPageContent = () => {
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
-  /* Inactivate test temporarily
-          <p>
-            Test av Redux:<br></br>
-            ReduxNavn = { reduxNavn } <br></br>
-            ReduxBeskrivelse = { reduxBeskrivelse }
-          </p>
-  */
+  
+         
+  
 
 
  
@@ -112,8 +110,27 @@ export const MaskinportenIntAdmPageContent = () => {
               Hvis JWK ikke oppdateres vil integrasjonen slutte å virke.
           </p>
 
-          <div className={classes.buttonContainer}>
+          <div className={classes.uploadTests}>
+            <p>
+              <b>Test av Upload:</b><br></br>
+              ReduxNavn = { reduxNavn } <br></br>
+              ReduxBeskrivelse = { reduxBeskrivelse }
+            </p>
+            <XSDUpload
+              submitButtonRenderer={(fileInputClickHandler) => (
+                <Button 
+                  color='primary' 
+                  onClick={fileInputClickHandler} 
+                  size='small'
+                >
+                  {'Last opp test.jwk'}
+                </Button>
+              )}
+            />
+          </div>
 
+
+          <div className={classes.buttonContainer}>
             <div className={classes.cancelButton}>
               <Button
                 color='primary'
