@@ -3,7 +3,10 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
+
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
+import { lagreNavnBeskrivelseKnapp } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
+
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './MaskinportenIntAdmPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
@@ -18,9 +21,10 @@ export const MaskinportenIntAdmPageContent = () => {
 
   const { t } = useTranslation('common');
   const navigate = useNavigate();
-  const dispatch = useAppDispatch(); // fix-me: bygg kobling til REDUX 
-  // const overviewOrgs = useAppSelector((state) => state.overviewOrg.overviewOrgs);
-  
+
+  const dispatch = useAppDispatch(); // fix-me: koble opp til API
+  const reduxNavn = useAppSelector((state) => state.maskinportenPage.navn);
+  const reduxBeskrivelse = useAppSelector((state) => state.maskinportenPage.beskrivelse);
 
   // brukes i h2, ikke vist i Small/mobile view
   // const isSm = useMediaQuery('(max-width: 768px)'); // trengs denne?
@@ -32,12 +36,25 @@ export const MaskinportenIntAdmPageContent = () => {
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
-  // Mulig at her skal man trigge en dispatch
-  // og så navigere til OverviewPage
+ // Opprett-knapp flytter foreløpig bare 
+  // local State for Navn og Beskrivelse
+  // til Redux State, som er stabil så lenge app kjører
+  // ---> tilgjengelig også fra andre sider
+  // ---> API er ennå ikke tilgjengelig per 12.10.23
   const handleConfirm = () => {
-    setNavn('ReduxLagret');
-    setBeskrivelse('ReduxLagret');
+    dispatch(lagreNavnBeskrivelseKnapp( { navn: navn, beskrivelse: beskrivelse } ));
+    setNavn('');
+    setBeskrivelse('');
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
+
+  /* Inactivate test temporarily
+          <p>
+            Test av Redux:<br></br>
+            ReduxNavn = { reduxNavn } <br></br>
+            ReduxBeskrivelse = { reduxBeskrivelse }
+          </p>
+  */
 
 
  

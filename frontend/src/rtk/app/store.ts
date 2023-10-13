@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import userInfoReducer from '../features/userInfo/userInfoSlice';
 import creationPageReducer from '../features/creationPage/creationPageSlice';
+import maskinportenPageReducer from '../features/maskinportenPage/maskinportenPageSlice';
 
 const logger = createLogger();
 
@@ -11,12 +12,14 @@ const store = import.meta.env.PROD
       reducer: {
         userInfo: userInfoReducer,
         creationPage: creationPageReducer,
+        maskinportenPage: maskinportenPageReducer,
       },
     })
   : configureStore({
       reducer: {
         userInfo: userInfoReducer,
         creationPage: creationPageReducer,
+        maskinportenPage: maskinportenPageReducer,
       },
       middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(logger),
