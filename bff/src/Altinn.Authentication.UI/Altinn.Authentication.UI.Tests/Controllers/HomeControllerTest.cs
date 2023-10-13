@@ -1,5 +1,4 @@
-﻿using Altinn.Authentication.UI;
-using Altinn.Authentication.UI.Tests.Utils;
+﻿using Altinn.Authentication.UI.Tests.Utils;
 using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Xunit;
