@@ -13,7 +13,7 @@ namespace Altinn.Authentication.UI.Controllers;
 /// </summary>
 [Route("authfront/api/v1/systemuser")]
 [ApiController]
-//[AutoValidateAntiforgeryTokenIfAuthCookie]
+[AutoValidateAntiforgeryTokenIfAuthCookie]
 public class SystemUserController : ControllerBase
 {
     ISystemUserService _systemUserService;
@@ -54,7 +54,7 @@ public class SystemUserController : ControllerBase
     /// Used to upload a certificate for the System User
     /// </summary>
     /// <returns></returns>
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
@@ -73,7 +73,7 @@ public class SystemUserController : ControllerBase
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
     /// <param name="cancellationToken"></param>
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("upload")]
     public async Task<ActionResult> UploadCertificate(IFormFile file, CancellationToken cancellationToken = default)
