@@ -1,4 +1,4 @@
-.creationPageContainer {
+.maskinportenPageContainer {
   margin-left: 40px;
   margin-right: 40px;
   margin-top: 3rem;
@@ -31,8 +31,26 @@
   max-width: 270px;
 }
 
+.uploadButtonContainer {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.uploadButtonWrapper {
+  margin-right: 10px;
+}
+
+.fileChosenTextWrapper {
+  font-size: 16px;
+}
+
+
+
 .warningUpdateText {
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 2rem;
 }
 
 
@@ -41,7 +59,6 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
-  
 }
 
 .cancelButton {
@@ -56,16 +73,22 @@
 
 @media only screen and (min-width: 769px) {
 
-  .contentText {
+  .jwkContentText {
     font-size: 18px;
+    margin-top: 3rem;
   }
   
 }
 
 @media only screen and (max-width: 768px) {
 
-  .contentText {
+  .header {
+    font-size: 20px;
+  }
+
+  .jwkContentText {
     font-size: 16px;
+    margin-top: 2rem;
   }
 
 }
@@ -76,15 +99,11 @@
     flex-direction: column;
   }
 
-  .creationPageContainer {
+  .maskinportenPageContainer {
     margin-top: 1rem;
   }
 
-  .header {
-    font-size: 20px;
-  }
-
-  .contentText {
+  .jwkContentText {
     font-size: 14px;
   }
 
