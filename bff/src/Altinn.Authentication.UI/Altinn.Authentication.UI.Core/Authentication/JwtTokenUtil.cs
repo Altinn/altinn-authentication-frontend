@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Altinn.Authentication.UI.Core.Common;
+namespace Altinn.Authentication.UI.Core.Authentication;
 
 /// <summary>
 /// Retrieves Cookie or Bearer token from the Context
@@ -8,17 +8,17 @@ namespace Altinn.Authentication.UI.Core.Common;
 public static class JwtTokenUtil
 {
     public static string? GetTokenFromContext(HttpContext context, string cookiename)
-    {   
+    {
         //Get the cookie from the request
         string? token = context.Request.Cookies[cookiename];
 
         //If there is no cookie, search for a Bearer token
-        if(token is null || token == string.Empty)
+        if (token is null || token == string.Empty)
         {
             string? authorization = context.Request.Headers["Authorization"];
-            if (authorization is null || authorization == string.Empty) 
-            { 
-                return string.Empty; 
+            if (authorization is null || authorization == string.Empty)
+            {
+                return string.Empty;
             }
 
             if (authorization.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))

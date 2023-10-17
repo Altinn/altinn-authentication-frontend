@@ -1,5 +1,5 @@
 ﻿using Altinn.Platform.Profile.Models;
-namespace Altinn.Authentication.UI.Core.Common;
+namespace Altinn.Authentication.UI.Core.UserProfiles;
 
 /// <summary>
 /// Helper class for Authentication
@@ -14,7 +14,7 @@ public static class ProfileHelper
     /// <returns></returns>
     public static string GetLanguageCodeForUser(UserProfile userProfile)
     {
-        if(userProfile is null)
+        if (userProfile is null)
         {
             return "nb";
         }
