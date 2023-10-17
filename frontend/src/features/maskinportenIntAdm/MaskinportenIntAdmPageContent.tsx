@@ -18,9 +18,9 @@ import { UploadKomponent } from './UploadKomponent';
 export const MaskinportenIntAdmPageContent = () => {
   
   // State variabler for input-bokser:
+  // men de er lite i bruk ---> erstatt med Redux state variabler?
   const [navn, setNavn] = useState('');
   const [beskrivelse, setBeskrivelse] = useState('');
-
 
   const { t } = useTranslation('common');
   const navigate = useNavigate();
@@ -55,7 +55,10 @@ export const MaskinportenIntAdmPageContent = () => {
   // så kunne man her kjøre en Redux API kall som dytter disse 3
   // opp til BFF... 
   // men da må Navn og Beskrivelse komme seg til Redux på annen måte enn her...
-  // kanskje når elementet mister fokus...
+  // kanskje når elementet mister fokus... eller
+  // man kan erstatte useState variabler : setNavn() og setBeskrivelse()
+  // med dispatch()
+  // Da kan også value = Navn fjernes fra TextField... 
 
   // skal bare kjøres om disabled "Opprett" knapp er blitt aktivert...
   const handleConfirm = () => {
@@ -123,7 +126,7 @@ export const MaskinportenIntAdmPageContent = () => {
                 onClick={handleConfirm}
                 disabled
               >
-                Opprett 
+                Opprett (om ikke disabled)
               </Button> 
             </div>
 
