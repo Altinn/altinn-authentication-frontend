@@ -1,4 +1,4 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemUser;
+﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 /// <summary>
 /// Used in the Frontend to present the SystemUser

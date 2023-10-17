@@ -1,4 +1,4 @@
-﻿using Altinn.Authentication.UI.Core.SystemUser;
+﻿using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,22 +27,22 @@ public class SystemUserController : ControllerBase
     }
     
     // GET: api/<SystemUserController>
-    [Authorize] 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetSystemUserList()
-    {
+    //[Authorize] 
+    //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    //[HttpGet]
+    //public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetSystemUserList()
+    //{
 
-        //var list = MockTestHelper();
+    //    //var list = MockTestHelper();
 
-        return Ok();
-    }
+    //    return Ok();
+    //}
 
     // GET api/<SystemUserController>/5
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
-    public async Task<ActionResult> GetSystemUser(string id, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> GetSystemUserListForLogedInUser(string id, CancellationToken cancellationToken = default)
     {
         var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(Guid.NewGuid(), cancellationToken);
 
@@ -54,7 +54,7 @@ public class SystemUserController : ControllerBase
     /// Used to upload a certificate for the System User
     /// </summary>
     /// <returns></returns>
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
@@ -113,7 +113,7 @@ public class SystemUserController : ControllerBase
     }
 
     // DELETE api/<SystemUserController>/5
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpDelete("{id}")]
     public void Delete(Guid id, CancellationToken cancellationToken = default)

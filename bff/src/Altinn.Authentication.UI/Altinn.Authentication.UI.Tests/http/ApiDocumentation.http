@@ -11,7 +11,7 @@
 //Expected result: React SPA index.html with minified js bundle
 //Requires either a valid cookie with XSRF Token in the header
 //or the Developer/Tester must switch off the Authorize attribute in the Controller.
-GET {{rootHttpsUrl}}/authfront/ui/
+GET {{rootHttpUrl}}/authfront/ui/
 
 ###
 //The endpoint for retrieving the name and info of the logged in user

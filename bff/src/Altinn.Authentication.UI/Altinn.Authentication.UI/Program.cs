@@ -13,8 +13,8 @@ using Altinn.Common.PEP.Configuration;
 using Altinn.Authentication.UI.Extensions;
 using Altinn.Authentication.UI.Filters;
 using Altinn.Common.AccessTokenClient.Services;
-using Altinn.Authentication.UI.Core.SystemUser;
-using Altinn.Authentication.UI.Integration.SystemUser;
+using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Authentication.UI.Integration.SystemUsers;
 
 ILogger logger;
 
@@ -28,6 +28,7 @@ string frontendProdFolder = "wwwroot/Authentication/";
 
 builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, true);
 ConfigureServices(builder.Services, builder.Configuration);
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();

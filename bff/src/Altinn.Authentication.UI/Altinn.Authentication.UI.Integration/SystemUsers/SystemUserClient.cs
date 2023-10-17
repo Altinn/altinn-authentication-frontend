@@ -1,5 +1,7 @@
-﻿using Altinn.Authentication.UI.Core.SystemUser;
-namespace Altinn.Authentication.UI.Integration.SystemUser;
+﻿using Altinn.Authentication.UI.Core.SystemUsers;
+using System.Net.Http.Headers;
+
+namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
 public class SystemUserClient : ISystemUserClient
 {
@@ -59,7 +61,7 @@ public class SystemUserClient : ISystemUserClient
             Description = sysdescr.Title,
             Created = DateTime.UtcNow.Date.ToString()
 
-        };
+        };       
     }
 
     public SystemUserClient()
@@ -67,9 +69,9 @@ public class SystemUserClient : ISystemUserClient
         _systemUserList = MockTestHelper();
     }
    
-    public Task<SystemUserReal> GetSpecificSystemUserReal(Guid id, CancellationToken cancellationToken = default)
+    public async Task<SystemUserReal?> GetSpecificSystemUserReal(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        return _systemUserList.Find(i => i.Id == id.ToString());
     }
 
     public async Task<Guid> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
@@ -79,9 +81,12 @@ public class SystemUserClient : ISystemUserClient
         return Guid.Parse(sysreal.Id!);
     }
 
-    public Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
+    public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        SystemUserReal? toDelete = _systemUserList.Find(i => i.Id == id.ToString());        
+        if (toDelete is null) return false;
+        _systemUserList.Remove(toDelete);
+        return true;
     }
 
     public Task<bool> ChangeSystemUserRealTitle(string newTitle, Guid id, CancellationToken cancellationToken = default)
