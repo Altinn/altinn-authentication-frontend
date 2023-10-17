@@ -1,7 +1,7 @@
 ﻿namespace Altinn.Authentication.UI.Core.SystemUser;
 
 
-public class SystemUserReal
+public sealed class SystemUserReal
 
 {
     public string? Id { get; set; }

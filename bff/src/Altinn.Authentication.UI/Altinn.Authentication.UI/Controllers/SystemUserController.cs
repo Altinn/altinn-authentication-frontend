@@ -39,7 +39,7 @@ public class SystemUserController : ControllerBase
     }
 
     // GET api/<SystemUserController>/5
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
     public async Task<ActionResult> GetSystemUser(string id, CancellationToken cancellationToken = default)
@@ -59,7 +59,6 @@ public class SystemUserController : ControllerBase
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
     {
-        //var file = Request.Form.Files[0];
         var fileName = file.FileName;
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
         var stream = new FileStream(filePath, FileMode.Create);
@@ -72,12 +71,12 @@ public class SystemUserController : ControllerBase
     /// <summary>
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
-    /// <param name="cancellationToken"></param>
+    /// <param name = "cancellationToken" ></ param >
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("upload")]
     public async Task<ActionResult> UploadCertificate(IFormFile file, CancellationToken cancellationToken = default)
-    {        
+    {
         using var form = new MultipartFormDataContent();
         using var streamContent = new StreamContent(file.OpenReadStream());
         using var fileContent = new ByteArrayContent(await streamContent.ReadAsByteArrayAsync(cancellationToken));
@@ -90,12 +89,12 @@ public class SystemUserController : ControllerBase
         var responseString = await response.Content.ReadAsStringAsync(cancellationToken);
         Debug.WriteLine(responseString);
         response.Dispose();
-        
+
         return Ok();
     }
 
     // POST api/<SystemUserController>
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
     public void Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
