@@ -11,7 +11,8 @@ import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './MaskinportenIntAdmPageContent.module.css';
 // import { useMediaQuery } from '@/resources/hooks';
 
-import { XSDUpload } from './XSDUpload';
+import { UploadKomponent } from './UploadKomponent';
+
 
 
 export const MaskinportenIntAdmPageContent = () => {
@@ -34,6 +35,7 @@ export const MaskinportenIntAdmPageContent = () => {
   // overviewText = t('authentication_dummy.auth_overview_text_creation'); 
   overviewText = 'Opprett og administrer maskinporten integrasjon'; // flytt til språkstøtte
 
+  // Går tilbake til startsiden
   const handleReject = () => {
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
@@ -43,6 +45,19 @@ export const MaskinportenIntAdmPageContent = () => {
   // til Redux State, som er stabil så lenge app kjører
   // ---> tilgjengelig også fra andre sider
   // ---> API er ennå ikke tilgjengelig per 12.10.23
+  // spørsmålet er om <UploadKomponent /> skal kjøre 
+  // automatisk API kall om Redux-Navn og Redux-Beskrivelse er tilgjengelig
+  // viss disse blir fylt ut etterpå... 
+
+  // 
+
+  // Dersom Redux state har både Navn, Beskrivelse og JWK fil
+  // så kunne man her kjøre en Redux API kall som dytter disse 3
+  // opp til BFF... 
+  // men da må Navn og Beskrivelse komme seg til Redux på annen måte enn her...
+  // kanskje når elementet mister fokus...
+
+  // skal bare kjøres om disabled "Opprett" knapp er blitt aktivert...
   const handleConfirm = () => {
     dispatch(lagreNavnBeskrivelseKnapp( { navn: navn, beskrivelse: beskrivelse } ));
     setNavn('');
@@ -50,12 +65,7 @@ export const MaskinportenIntAdmPageContent = () => {
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
-  
-         
-  
 
-
- 
   return (
     <div className={classes.maskinportenPageContainer}>
       <h2 className={classes.header}>{overviewText}</h2>  
@@ -85,51 +95,15 @@ export const MaskinportenIntAdmPageContent = () => {
             Last opp i jwk i format
           </p>  
 
-          <div className={classes.uploadButtonContainer}>
+          <UploadKomponent />
 
-            <div className={classes.uploadButtonWrapper}>
-              <Button
-                color='primary'
-                variant='outline'
-                size='small'
-                onClick={handleReject}
-              >
-                Choose File 
-              </Button>  
-            </div>
-
-            <div className={classes.fileChosenTextWrapper}>
-              <span>No file chosen</span> 
-            </div>
-            
-          </div>
-          
 
           <p className={classes.warningUpdateText}>
               Maskinporten krever at du oppdaterer JWK hver 12. måned.
               Hvis JWK ikke oppdateres vil integrasjonen slutte å virke.
           </p>
 
-          <div className={classes.uploadTests}>
-            <p>
-              <b>Test av Upload:</b><br></br>
-              ReduxNavn = { reduxNavn } <br></br>
-              ReduxBeskrivelse = { reduxBeskrivelse }
-            </p>
-            <XSDUpload
-              submitButtonRenderer={(fileInputClickHandler) => (
-                <Button 
-                  color='primary' 
-                  onClick={fileInputClickHandler} 
-                  size='small'
-                >
-                  {'Last opp test.jwk'}
-                </Button>
-              )}
-            />
-          </div>
-
-
+          
           <div className={classes.buttonContainer}>
             <div className={classes.cancelButton}>
               <Button
@@ -147,6 +121,7 @@ export const MaskinportenIntAdmPageContent = () => {
                 color='primary'
                 size='small'
                 onClick={handleConfirm}
+                disabled
               >
                 Opprett 
               </Button> 

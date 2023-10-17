@@ -1,0 +1,19 @@
+
+
+.gjemInputButton {
+  display: none;
+}
+
+.uploadButtonContainer {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+}
+
+.uploadButtonWrapper {
+  margin-right: 10px;
+}
+
+.fileChosenTextWrapper {
+  font-size: 16px;
+}
