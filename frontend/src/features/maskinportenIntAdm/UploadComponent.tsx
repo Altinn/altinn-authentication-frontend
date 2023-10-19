@@ -4,7 +4,7 @@ import classes from './UploadComponent.module.css';
 import { Button } from '@digdir/design-system-react';
 // import { UploadIcon } from '@navikt/aksel-icons';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { bekreftJwkTilgjengelighet } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
+import { bekreftJwkTilgjengelighet, clearStateAfterApi } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 
@@ -16,10 +16,9 @@ export interface IUploadComponentProps {
 export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) => {
 
   const navigate = useNavigate();
-  // upLoadedFile er ennå ikke typet
   const [upLoadedFile, setUpLoadedFile] = useState();
 
-  const [apiUploading, setApiUploading] = useState(false);
+  const [apiUploading, setApiUploading] = useState(false); 
   const [errorText, setErrorText] = useState('');
 
   const dispatch = useAppDispatch(); 
@@ -73,7 +72,7 @@ export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) =>
   // sender fil til BFF om bruker trykker Opprett
   const handleApiUpload = (formData: FormData) => {
     console.log("Er i handleApiUpload");
-    setApiUploading(true);
+    setApiUploading(true); // fix-me: informasjon ikke brukt ennå
     axios
       .post('/authfront/api/v1/systemuser/uploaddisk', formData, {
         headers: {
@@ -105,6 +104,8 @@ export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) =>
       formData.append("beskrivelse", reduxBeskrivelse);
       handleApiUpload(formData);
     }
+    // Tømmer Redux
+    dispatch(clearStateAfterApi());
     // Navigerer så til Hovedside: burde oppdatere Redux også
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }

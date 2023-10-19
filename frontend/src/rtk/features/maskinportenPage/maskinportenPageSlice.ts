@@ -27,9 +27,14 @@ const maskinportenPageSlice = createSlice({
     },
     bekreftJwkTilgjengelighet : (state, action) => {
       state.onJwkFileAvailable = action.payload.onJwkFileAvailable;
-    }
+    },
+    clearStateAfterApi : (state) => {
+      state.navn = '';
+      state.beskrivelse = '';
+      state.onJwkFileAvailable = false;
+    },
   },
 });
 
 export default maskinportenPageSlice.reducer;
-export const { lagreNavn, lagreBeskrivelse, bekreftJwkTilgjengelighet } = maskinportenPageSlice.actions;
+export const { lagreNavn, lagreBeskrivelse, bekreftJwkTilgjengelighet, clearStateAfterApi } = maskinportenPageSlice.actions;
