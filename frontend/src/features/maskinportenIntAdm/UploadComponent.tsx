@@ -109,7 +109,7 @@ export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) =>
     // skal kjøre API kall her i UploadKomponent
     if (upLoadedFile) {
       const formData = new FormData();
-      formData.append('testFormfileName', upLoadedFile);
+      formData.append('file', upLoadedFile, upLoadedFile.name);
       handleApiUpload(formData);
     }
     // Navigerer så til Hovedside: burde oppdatere Redux også
