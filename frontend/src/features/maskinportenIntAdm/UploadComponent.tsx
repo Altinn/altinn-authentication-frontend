@@ -8,6 +8,8 @@ import { bekreftJwkTilgjengelighet, clearStateAfterApi } from '@/rtk/features/ma
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 
+    // FIX-ME: om fil er lastet opp, og bruker navigerer
+    // til annen side, og kommer tilbake: ER FIKSET
 
 export interface IUploadComponentProps {
     opprettKnappBlokkert:boolean;
@@ -16,7 +18,7 @@ export interface IUploadComponentProps {
 export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) => {
 
   const navigate = useNavigate();
-  const [upLoadedFile, setUpLoadedFile] = useState();
+  const [upLoadedFile, setUpLoadedFile] = useState(); // fix-me: ikke helt stabil løsning
 
   const [apiUploading, setApiUploading] = useState(false); 
   const [errorText, setErrorText] = useState('');
@@ -24,14 +26,6 @@ export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) =>
   const dispatch = useAppDispatch(); 
   const reduxNavn = useAppSelector((state) => state.maskinportenPage.navn);
   const reduxBeskrivelse = useAppSelector((state) => state.maskinportenPage.beskrivelse);
-
-    // FIX-ME: TEST DETTE
-    // Om bruker har lastet opp en JWK-fil,
-    // så starter å laste opp en ny, en kansellerer
-    // så kommer Redux og komponent ut av synk...
-    // to keep Redux and component in sync
-    // ---> krasjer render-render prosess
-    // if (!upLoadedFile && reduxFilLastetOpp) dispatch(bekreftJwkTilgjengelighet( { onJwkFileAvailable: false} ));
   
 
   const inputRefSkjultKnapp = useRef(null);
@@ -64,8 +58,15 @@ export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) =>
     } 
   } 
 
+  if (!opprettKnappBlokkert && !upLoadedFile) {
+    // if navigation by user has Redux and upLoad out of sync, Redux is cleared
+    dispatch(clearStateAfterApi()); 
+  }
+
   // Går tilbake til startsiden om bruker trykker Avbryt
   const handleAvbryt = () => {
+    // om man trykker Avbryt etter å ha lastet opp fil, må Redux også tømmes OK
+    dispatch(clearStateAfterApi());
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
@@ -111,7 +112,7 @@ export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) =>
   }
 
 
-    return (
+  return (
     <div>
         <div className={classes.uploadButtonContainer}>
             <div className={classes.uploadButtonWrapper}>
@@ -167,5 +168,5 @@ export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) =>
           </div>
       </div>  
     </div>      
-    );
+  );
 };
