@@ -64,17 +64,18 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
-    services.AddControllersWithViews();
-    services.ConfigureDataProtection();
+    //Defaults
     services.AddMvc();
-    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-    services.TryAddSingleton<ISystemUserClient, SystemUserClient>();
-    services.TryAddSingleton<ISystemUserService, SystemUserService>();
+    services.AddControllersWithViews();
+
+    //App Configuration
+    //PlatformSettings platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>(); 
 
 
-
-    services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();
-    //PlatformSettings platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>();  //AM spesifikt
+    //Authentication and Security
+    services.ConfigureDataProtection();    
+    services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();   
+    
     services.AddAuthentication(JwtCookieDefaults.AuthenticationScheme)
         .AddJwtCookie(JwtCookieDefaults.AuthenticationScheme, configureOptions: options =>
         {
@@ -111,7 +112,13 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     });
 
     services.TryAddSingleton<ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter>();
-        
+
+    //Feature functional services
+    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    services.TryAddSingleton<ISystemUserClient, SystemUserClient>();
+    services.TryAddSingleton<ISystemUserService, SystemUserService>();
+
+    //Debug and Development
     services.AddSwaggerGen();
 }
 

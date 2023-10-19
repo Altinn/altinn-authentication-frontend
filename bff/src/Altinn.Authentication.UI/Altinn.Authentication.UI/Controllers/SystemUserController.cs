@@ -1,5 +1,6 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
+using Altinn.Authentication.UI.Models.SystemUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -42,13 +43,14 @@ public class SystemUserController : ControllerBase
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
-    public async Task<ActionResult> GetSystemUserListForLogedInUser(string id, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> GetSystemUserListForLoggedInUser(string id, CancellationToken cancellationToken = default)
     {
         var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(Guid.NewGuid(), cancellationToken);
 
         return Ok(list);
     }
 
+    //https://brokul.dev/sending-files-and-additional-data-using-httpclient-in-net-core
     //POST api/<SystemUserController>/upload
     /// <summary>
     /// Used to upload a certificate for the System User
@@ -58,24 +60,28 @@ public class SystemUserController : ControllerBase
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
-    {
+    {        
         var fileName = file.FileName;
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
         var stream = new FileStream(filePath, FileMode.Create);
         await file.CopyToAsync(stream, cancellationToken);
+
         stream.Close();
         stream.Dispose();
+
+        
         return Ok();
     }
+
 
     /// <summary>
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
     /// <param name = "cancellationToken" ></ param >
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpPost("upload")]
-    public async Task<ActionResult> UploadCertificate(IFormFile file, CancellationToken cancellationToken = default)
+    [HttpPost("uploadjwk")]
+    public async Task<ActionResult> UploadCertificate(IFormFile file, [FromForm] string name, [FromForm] string desc , CancellationToken cancellationToken = default)
     {
         using var form = new MultipartFormDataContent();
         using var streamContent = new StreamContent(file.OpenReadStream());

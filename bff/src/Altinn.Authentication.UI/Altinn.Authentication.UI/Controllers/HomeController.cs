@@ -31,9 +31,9 @@ public class HomeController : Controller
         //IProfileService profileService,
         IAntiforgery antiforgery,
         IWebHostEnvironment env,
-        IHttpContextAccessor httpContextAccessor,
+        IHttpContextAccessor httpContextAccessor)
         //IOptions<PlatformSettings> platformSettings,
-        IOptions<FrontEndEntryPointOptions> frontendEntrypointOptions)
+        //IOptions<FrontEndEntryPointOptions> frontendEntrypointOptions)
         //IOptions<GeneralSettings> generalSettings)
         //ILogger<HomeController> logger)
     {
