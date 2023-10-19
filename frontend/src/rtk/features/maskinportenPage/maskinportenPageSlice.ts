@@ -17,12 +17,14 @@ const maskinportenPageSlice = createSlice({
   name: 'maskinporten',
   initialState,
   reducers: {
-    lagreNavnBeskrivelseKnapp : (state, action) => {
+    lagreNavn : (state, action) => {
         state.navn = action.payload.navn;
-        state.beskrivelse = action.payload.beskrivelse;
-    }
+    },
+    lagreBeskrivelse : (state, action) => {
+      state.beskrivelse = action.payload.beskrivelse;
+  }
   },
 });
 
 export default maskinportenPageSlice.reducer;
-export const { lagreNavnBeskrivelseKnapp } = maskinportenPageSlice.actions;
+export const { lagreNavn, lagreBeskrivelse } = maskinportenPageSlice.actions;

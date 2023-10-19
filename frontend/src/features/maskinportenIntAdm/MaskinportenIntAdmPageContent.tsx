@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { lagreNavnBeskrivelseKnapp } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
+import { lagreNavn, lagreBeskrivelse } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
 
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './MaskinportenIntAdmPageContent.module.css';
@@ -62,10 +62,20 @@ export const MaskinportenIntAdmPageContent = () => {
 
   // skal bare kjøres om disabled "Opprett" knapp er blitt aktivert...
   const handleConfirm = () => {
-    dispatch(lagreNavnBeskrivelseKnapp( { navn: navn, beskrivelse: beskrivelse } ));
+    // dispatch fjernet
     setNavn('');
     setBeskrivelse('');
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+  }
+
+  const handleOnBlurNavn = () => {
+    console.log("Fokus tapt fra Navn boks: kjører dispatch");
+    dispatch(lagreNavn( { navn: navn} ));
+  }
+
+  const handleOnBlurBeskrivelse = () => {
+    console.log("Fokus tapt fra Beskrivelse boks: kjører dispatch");
+    dispatch(lagreBeskrivelse( { beskrivelse: beskrivelse} ));
   }
 
 
@@ -76,12 +86,17 @@ export const MaskinportenIntAdmPageContent = () => {
         
         <div className={classes.leftContainer}>
           
-          <div className={classes.nameWrapper}>
+          <div 
+            className={classes.nameWrapper}
+            
+          >
             <TextField 
               label = 'Navn'
               type = 'text'
               value = { navn }
-              onChange={e => setNavn(e.target.value)}
+              onChange=
+              {e => setNavn(e.target.value)}
+              onBlur = {handleOnBlurNavn}
             />
           </div>
 
@@ -91,6 +106,7 @@ export const MaskinportenIntAdmPageContent = () => {
               type = 'text'
               value = { beskrivelse }
               onChange={e => setBeskrivelse(e.target.value)}
+              onBlur = {handleOnBlurBeskrivelse}
             />
           </div>
 
