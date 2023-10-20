@@ -80,7 +80,7 @@ public class SystemUserController : ControllerBase
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploadjwk")]
-    public async Task<ActionResult> UploadCertificate(IFormFile file, [FromForm] string name, [FromForm] string desc , CancellationToken cancellationToken = default)
+    public async Task<ActionResult> UploadCertificate([FromForm] IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
     {
         using var form = new MultipartFormDataContent();
         using var streamContent = new StreamContent(file.OpenReadStream());
