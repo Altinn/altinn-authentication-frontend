@@ -2,12 +2,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface SliceState {
   navn: string;
-beskrivelse: string;
+  beskrivelse: string;
+  onJwkFileAvailable: boolean
 }
 
 const initialState: SliceState = {
     navn: '',
     beskrivelse: '', 
+    onJwkFileAvailable: false,
 };
 
 // foreløpig lagreNavnBeskrivelseKnapp skal senere gi API POST kall til BFF
@@ -17,12 +19,22 @@ const maskinportenPageSlice = createSlice({
   name: 'maskinporten',
   initialState,
   reducers: {
-    lagreNavnBeskrivelseKnapp : (state, action) => {
+    lagreNavn : (state, action) => {
         state.navn = action.payload.navn;
-        state.beskrivelse = action.payload.beskrivelse;
-    }
+    },
+    lagreBeskrivelse : (state, action) => {
+      state.beskrivelse = action.payload.beskrivelse;
+    },
+    bekreftJwkTilgjengelighet : (state, action) => {
+      state.onJwkFileAvailable = action.payload.onJwkFileAvailable;
+    },
+    clearStateAfterApi : (state) => {
+      state.navn = '';
+      state.beskrivelse = '';
+      state.onJwkFileAvailable = false;
+    },
   },
 });
 
 export default maskinportenPageSlice.reducer;
-export const { lagreNavnBeskrivelseKnapp } = maskinportenPageSlice.actions;
+export const { lagreNavn, lagreBeskrivelse, bekreftJwkTilgjengelighet, clearStateAfterApi } = maskinportenPageSlice.actions;
