@@ -61,6 +61,7 @@ public class SystemUserController : ControllerBase
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
     {        
+
         var fileName = file.FileName;
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
         var stream = new FileStream(filePath, FileMode.Create);
@@ -68,7 +69,6 @@ public class SystemUserController : ControllerBase
 
         stream.Close();
         stream.Dispose();
-
         
         return Ok();
     }
