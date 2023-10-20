@@ -70,12 +70,13 @@ export const UploadComponent = ({opprettKnappBlokkert}:IUploadComponentProps) =>
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
-  // sender fil til BFF om bruker trykker Opprett
+  // sender fil til BFF om bruker trykker Opprett:
+  // /authfront/api/v1/systemuser/uploaddisk
+  // tester 20.10.23 ny URL: /uploadjwk
   const handleApiUpload = (formData: FormData) => {
-    console.log("Er i handleApiUpload");
     setApiUploading(true); // fix-me: informasjon ikke brukt ennå
     axios
-      .post('/authfront/api/v1/systemuser/uploaddisk', formData, {
+      .post('/authfront/api/v1/systemuser/uploadjwk', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
