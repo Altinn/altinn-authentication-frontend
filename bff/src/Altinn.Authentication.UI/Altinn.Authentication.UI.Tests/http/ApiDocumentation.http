@@ -38,3 +38,7 @@ GET {{rootHttpUrl}}/authfront/api/v1/authentication/refresh
 
 ###
 GET {{rootHttpUrl}}/authfront/ui/auth/overview
+
+
+###
+POST {{rootHttpUrl}}/authfront/api/v1/systemuser/uploadjwk -H 'accept: */*' -H 'Content-Type: multipart/form-data' -F 'file=@test.txt;type=text/plain' -F 'name=Hei' -F 'desc=Der'
