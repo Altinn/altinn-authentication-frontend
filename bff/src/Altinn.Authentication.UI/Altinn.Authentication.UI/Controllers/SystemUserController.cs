@@ -1,4 +1,4 @@
-﻿using Altinn.Authentication.UI.Core.SystemUser;
+﻿using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -27,22 +27,22 @@ public class SystemUserController : ControllerBase
     }
     
     // GET: api/<SystemUserController>
-    [Authorize] 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpGet]
-    public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetSystemUserList()
-    {
+    //[Authorize] 
+    //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    //[HttpGet]
+    //public async Task<ActionResult<IEnumerable<SystemUserDTO>>> GetSystemUserList()
+    //{
 
-        //var list = MockTestHelper();
+    //    //var list = MockTestHelper();
 
-        return Ok();
-    }
+    //    return Ok();
+    //}
 
     // GET api/<SystemUserController>/5
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
-    public async Task<ActionResult> GetSystemUser(string id, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> GetSystemUserListForLogedInUser(string id, CancellationToken cancellationToken = default)
     {
         var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(Guid.NewGuid(), cancellationToken);
 
@@ -54,12 +54,11 @@ public class SystemUserController : ControllerBase
     /// Used to upload a certificate for the System User
     /// </summary>
     /// <returns></returns>
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
     {
-        //var file = Request.Form.Files[0];
         var fileName = file.FileName;
         var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
         var stream = new FileStream(filePath, FileMode.Create);
@@ -72,12 +71,12 @@ public class SystemUserController : ControllerBase
     /// <summary>
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
-    /// <param name="cancellationToken"></param>
+    /// <param name = "cancellationToken" ></ param >
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("upload")]
     public async Task<ActionResult> UploadCertificate(IFormFile file, CancellationToken cancellationToken = default)
-    {        
+    {
         using var form = new MultipartFormDataContent();
         using var streamContent = new StreamContent(file.OpenReadStream());
         using var fileContent = new ByteArrayContent(await streamContent.ReadAsByteArrayAsync(cancellationToken));
@@ -90,12 +89,12 @@ public class SystemUserController : ControllerBase
         var responseString = await response.Content.ReadAsStringAsync(cancellationToken);
         Debug.WriteLine(responseString);
         response.Dispose();
-        
+
         return Ok();
     }
 
     // POST api/<SystemUserController>
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
     public void Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
@@ -114,7 +113,7 @@ public class SystemUserController : ControllerBase
     }
 
     // DELETE api/<SystemUserController>/5
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpDelete("{id}")]
     public void Delete(Guid id, CancellationToken cancellationToken = default)

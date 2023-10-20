@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\Constants\" />
+    <Folder Include="Common\Configuration\" />
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Altinn.Platform.Models" Version="1.2.0" />
+  </ItemGroup>
+
 </Project>

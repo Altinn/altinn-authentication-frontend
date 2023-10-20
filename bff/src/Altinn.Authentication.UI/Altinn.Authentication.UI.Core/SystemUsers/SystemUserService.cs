@@ -1,4 +1,4 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemUser;
+﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 public class SystemUserService : ISystemUserService
 {
@@ -30,14 +30,14 @@ public class SystemUserService : ISystemUserService
         return listofDTOs;
     }
 
-    public async Task<SystemUserDTO> GetSpecificSystemUserDTO(Guid id, CancellationToken cancellationToken = default)
+    public async Task<SystemUserDTO?> GetSpecificSystemUserDTO(Guid id, CancellationToken cancellationToken = default)
     {              
         return MapFromSystemUserRealToDTO(await _systemUserClient.GetSpecificSystemUserReal(id, cancellationToken));
     }
 
-    private SystemUserDTO MapFromSystemUserRealToDTO(SystemUserReal systemUserReal)
+    private static SystemUserDTO? MapFromSystemUserRealToDTO(SystemUserReal? systemUserReal)
     {
-
+        if (systemUserReal is null) return null;
         SystemUserDTO systemUserDTO = new()
         {
             Title = systemUserReal.Title,
