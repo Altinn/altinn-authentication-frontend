@@ -39,6 +39,20 @@ GET {{rootHttpUrl}}/authfront/api/v1/authentication/refresh
 ###
 GET {{rootHttpUrl}}/authfront/ui/auth/overview
 
+# //
+# ------WebKitFormBoundaryKxEcAc9apIaN6cPu
+# Content-Disposition: form-data; name="file"; filename="test.jwk"
+# Content-Type: application/octet-stream
 
+
+# ------WebKitFormBoundaryKxEcAc9apIaN6cPu
+# Content-Disposition: form-data; name="navn"
+
+# Det går sikkert ann å skrive lange ting her med øæå
+# ------WebKitFormBoundaryKxEcAc9apIaN6cPu
+# Content-Disposition: form-data; name="beskrivelse"
+
+# Og her også?? zxy {[]}!
+# ------WebKitFormBoundaryKxEcAc9apIaN6cPu--
 ###
 POST {{rootHttpUrl}}/authfront/api/v1/systemuser/uploadjwk -H 'accept: */*' -H 'Content-Type: multipart/form-data' -F 'file=@test.txt;type=text/plain' -F 'name=Hei' -F 'desc=Der'
