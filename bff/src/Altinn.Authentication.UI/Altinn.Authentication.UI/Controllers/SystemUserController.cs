@@ -1,6 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
-using Altinn.Authentication.UI.Models.SystemUsers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
