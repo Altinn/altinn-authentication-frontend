@@ -31,45 +31,6 @@
   max-width: 270px;
 }
 
-.uploadButtonContainer {
-  display: flex;
-  margin-top: 10px;
-  align-items: center;
-}
-
-.uploadButtonWrapper {
-  margin-right: 10px;
-}
-
-.fileChosenTextWrapper {
-  font-size: 16px;
-}
-
-
-
-.warningUpdateText {
-  font-size: 14px;
-  font-weight: 500;
-  margin-top: 2rem;
-}
-
-
-
-.buttonContainer {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-.cancelButton {
-  margin: 10px;
-  display: flex;
-}
-
-.confirmButton {
-  margin: 10px;
-  display: flex;
-}
 
 @media only screen and (min-width: 769px) {
 

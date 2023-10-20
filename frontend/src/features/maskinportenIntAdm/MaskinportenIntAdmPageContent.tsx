@@ -1,76 +1,63 @@
 import * as React from 'react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, Link } from 'react-router-dom';
-import { AuthenticationPath } from '@/routes/paths';
-
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { lagreNavnBeskrivelseKnapp } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
+import { lagreNavn, lagreBeskrivelse } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
 
-import { TextField, Button, Select } from '@digdir/design-system-react';
+import { TextField } from '@digdir/design-system-react';
 import classes from './MaskinportenIntAdmPageContent.module.css';
-import { useMediaQuery } from '@/resources/hooks';
+// import { useMediaQuery } from '@/resources/hooks';
+import { UploadComponent } from './UploadComponent';
 
 
 export const MaskinportenIntAdmPageContent = () => {
   
-  // State variabler for input-bokser:
+  const { t } = useTranslation('common');
+
+  // Redux variabler
+  const dispatch = useAppDispatch(); 
+  const reduxNavn = useAppSelector((state) => state.maskinportenPage.navn);
+  const reduxBeskrivelse = useAppSelector((state) => state.maskinportenPage.beskrivelse);
+  const reduxOnJwkFileAvailable = useAppSelector((state) => state.maskinportenPage.onJwkFileAvailable);
+
+  // regulate upLoad button inside <UploadComponent />
+  let opprettKnappBlokkert = true;
+  if (reduxNavn && reduxBeskrivelse && reduxOnJwkFileAvailable ) { 
+    opprettKnappBlokkert = false;
+  } 
+
+  // State variabler brukt for dynamisk oppdatering av Navn og Beskrivelse felt 
   const [navn, setNavn] = useState('');
   const [beskrivelse, setBeskrivelse] = useState('');
 
-
-  const { t } = useTranslation('common');
-  const navigate = useNavigate();
-
-  const dispatch = useAppDispatch(); // fix-me: koble opp til API
-  const reduxNavn = useAppSelector((state) => state.maskinportenPage.navn);
-  const reduxBeskrivelse = useAppSelector((state) => state.maskinportenPage.beskrivelse);
-
+  
   // brukes i h2, ikke vist i Small/mobile view
   // const isSm = useMediaQuery('(max-width: 768px)'); // trengs denne?
   let overviewText: string;
   // overviewText = t('authentication_dummy.auth_overview_text_creation'); 
   overviewText = 'Opprett og administrer maskinporten integrasjon'; // flytt til språkstøtte
 
-  const handleReject = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+  const handleOnBlurNavn = () => {
+    dispatch(lagreNavn( { navn: navn} ));
   }
 
- // Opprett-knapp flytter foreløpig bare 
-  // local State for Navn og Beskrivelse
-  // til Redux State, som er stabil så lenge app kjører
-  // ---> tilgjengelig også fra andre sider
-  // ---> API er ennå ikke tilgjengelig per 12.10.23
-  const handleConfirm = () => {
-    dispatch(lagreNavnBeskrivelseKnapp( { navn: navn, beskrivelse: beskrivelse } ));
-    setNavn('');
-    setBeskrivelse('');
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+  const handleOnBlurBeskrivelse = () => {
+    dispatch(lagreBeskrivelse( { beskrivelse: beskrivelse} ));
   }
 
-  /* Inactivate test temporarily
-          <p>
-            Test av Redux:<br></br>
-            ReduxNavn = { reduxNavn } <br></br>
-            ReduxBeskrivelse = { reduxBeskrivelse }
-          </p>
-  */
-
-
- 
   return (
     <div className={classes.maskinportenPageContainer}>
       <h2 className={classes.header}>{overviewText}</h2>  
       <div className={classes.flexContainer}>
-        
-        <div className={classes.leftContainer}>
-          
+        <div className={classes.leftContainer}>      
           <div className={classes.nameWrapper}>
             <TextField 
               label = 'Navn'
               type = 'text'
               value = { navn }
-              onChange={e => setNavn(e.target.value)}
+              onChange=
+              {e => setNavn(e.target.value)}
+              onBlur = {handleOnBlurNavn}
             />
           </div>
 
@@ -80,6 +67,7 @@ export const MaskinportenIntAdmPageContent = () => {
               type = 'text'
               value = { beskrivelse }
               onChange={e => setBeskrivelse(e.target.value)}
+              onBlur = {handleOnBlurBeskrivelse}
             />
           </div>
 
@@ -87,59 +75,8 @@ export const MaskinportenIntAdmPageContent = () => {
             Last opp i jwk i format
           </p>  
 
-          <div className={classes.uploadButtonContainer}>
-
-            <div className={classes.uploadButtonWrapper}>
-              <Button
-                color='primary'
-                variant='outline'
-                size='small'
-                onClick={handleReject}
-              >
-                Choose File 
-              </Button>  
-            </div>
-
-            <div className={classes.fileChosenTextWrapper}>
-              <span>No file chosen</span> 
-            </div>
-            
-          </div>
-          
-
-          <p className={classes.warningUpdateText}>
-              Maskinporten krever at du oppdaterer JWK hver 12. måned.
-              Hvis JWK ikke oppdateres vil integrasjonen slutte å virke.
-          </p>
-
-          <div className={classes.buttonContainer}>
-
-            <div className={classes.cancelButton}>
-              <Button
-                color='primary'
-                variant='outline'
-                size='small'
-                onClick={handleReject}
-              >
-                Avbryt 
-              </Button> 
-            </div>
-
-            <div className={classes.confirmButton}>
-              <Button
-                color='primary'
-                size='small'
-                onClick={handleConfirm}
-              >
-                Opprett 
-              </Button> 
-            </div>
-
-          </div>
-          
-        </div>
-
-              
+          <UploadComponent opprettKnappBlokkert={opprettKnappBlokkert} />
+        </div>    
       </div>
     </div>
   );
