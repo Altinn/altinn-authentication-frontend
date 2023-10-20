@@ -1,4 +1,4 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemUser;
+﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 
 public sealed class SystemUserReal

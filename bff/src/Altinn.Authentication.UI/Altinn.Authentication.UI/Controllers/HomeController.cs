@@ -33,7 +33,7 @@ public class HomeController : Controller
         IWebHostEnvironment env,
         IHttpContextAccessor httpContextAccessor)
         //IOptions<PlatformSettings> platformSettings,
-        //IOptions<FrontEndEntryPointOptions> frontendEntrypointOptions,
+        //IOptions<FrontEndEntryPointOptions> frontendEntrypointOptions)
         //IOptions<GeneralSettings> generalSettings)
         //ILogger<HomeController> logger)
     {

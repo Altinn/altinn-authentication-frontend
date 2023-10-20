@@ -13,8 +13,8 @@ using Altinn.Common.PEP.Configuration;
 using Altinn.Authentication.UI.Extensions;
 using Altinn.Authentication.UI.Filters;
 using Altinn.Common.AccessTokenClient.Services;
-using Altinn.Authentication.UI.Core.SystemUser;
-using Altinn.Authentication.UI.Integration.SystemUser;
+using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Authentication.UI.Integration.SystemUsers;
 
 ILogger logger;
 
@@ -28,6 +28,7 @@ string frontendProdFolder = "wwwroot/Authentication/";
 
 builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, true);
 ConfigureServices(builder.Services, builder.Configuration);
+builder.Services.AddHttpContextAccessor();
 
 
 var app = builder.Build();
@@ -63,17 +64,18 @@ app.Run();
 
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
-    services.AddControllersWithViews();
-    services.ConfigureDataProtection();
+    //Defaults
     services.AddMvc();
-    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-    services.TryAddSingleton<ISystemUserClient, SystemUserClient>();
-    services.TryAddSingleton<ISystemUserService, SystemUserService>();
+    services.AddControllersWithViews();
+
+    //App Configuration
+    //PlatformSettings platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>(); 
 
 
-
-    services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();
-    //PlatformSettings platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>();  //AM spesifikt
+    //Authentication and Security
+    services.ConfigureDataProtection();    
+    services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();   
+    
     services.AddAuthentication(JwtCookieDefaults.AuthenticationScheme)
         .AddJwtCookie(JwtCookieDefaults.AuthenticationScheme, configureOptions: options =>
         {
@@ -110,7 +112,13 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     });
 
     services.TryAddSingleton<ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter>();
-        
+
+    //Feature functional services
+    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    services.TryAddSingleton<ISystemUserClient, SystemUserClient>();
+    services.TryAddSingleton<ISystemUserService, SystemUserService>();
+
+    //Debug and Development
     services.AddSwaggerGen();
 }
 

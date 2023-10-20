@@ -1,4 +1,4 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemUser;
+﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 
 /// <summary>
@@ -7,7 +7,7 @@
 public interface ISystemUserService
 {
     Task<List<SystemUserDTO>> GetAllSystemUserDTOsForChosenUser(Guid id, CancellationToken cancellationToken = default);
-    Task<SystemUserDTO> GetSpecificSystemUserDTO(Guid id, CancellationToken cancellationToken = default);
+    Task<SystemUserDTO?> GetSpecificSystemUserDTO(Guid id, CancellationToken cancellationToken = default);
     Task<Guid> PostNewSystemUserDescriptor(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
     Task<bool> DeleteSystemUser(Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserTitle(string newTitle, Guid id, CancellationToken cancellationToken = default);
