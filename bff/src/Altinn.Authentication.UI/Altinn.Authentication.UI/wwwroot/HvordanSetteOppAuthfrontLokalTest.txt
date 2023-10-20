@@ -1,7 +1,0 @@
-legge inn hakk i lokaltest for authentication app
-legge inn config i nginx for loadbalancer redirect slik at vi får jukset til samme "subdomene"
-kjøre localtest repo på docker, skru av selve localtest, trenger bare loadbalancern
-kjøre selve localtest localt med dotnet run
-kjøre authenticationfrontend-frontend vite server med yarn start (if frontend folder)
-kjøre authenticationfrontend-bff lokalt med dotnet run i authentication.ui i proj folder, der program.cs er
-åpne browser på local.altinn.cloud/authfront/ui/ *en eller annen side*
