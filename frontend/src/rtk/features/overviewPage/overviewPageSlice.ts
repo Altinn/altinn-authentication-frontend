@@ -3,11 +3,13 @@ import axios from 'axios';
 
 // import { getCookie } from '@/resources/Cookie/CookieMethods';
 
+// new overviewPageSlice
 // will reflect API call to Swagger GET /systemuser/{id}
 // but also Runes new SystemUserObject (see Wiki update 23.10.23)
 // The OverviewPage has a list of SystemUserObjects
-// ---> array in Slice?
-// ---> type the SystemUserObject?!
+
+// based on userInfoSlice code and array code from 
+// delegableApiSlice.ts AccMan repo
 
 export interface SystemUserObject {
     id: string;
@@ -17,7 +19,7 @@ export interface SystemUserObject {
     ownedBy: string;
     controlledBy: string;
   }
-// tror key:value par created:Date; med fordel kan legges til senere
+// FIX-ME: tror key:value par created:Date; med fordel kan legges til senere
 // det er lettere med en ren String-array i første omgang
  
 export interface SliceState {
@@ -70,7 +72,7 @@ const overviewPageSlice = createSlice({
             };
             downLoadedArray.push(loopObject);
         }
-        
+
         state.systemUserArray = downLoadedArray;
         state.overviewLoaded = true;
       })
