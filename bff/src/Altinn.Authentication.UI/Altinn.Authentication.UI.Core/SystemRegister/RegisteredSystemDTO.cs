@@ -2,5 +2,7 @@
 
 public class RegisteredSystemDTO
 {
-
+    public string? Id;
+    public string? Navn;
+    public string? Beskrivelse;
 }
