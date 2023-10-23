@@ -1,6 +1,6 @@
 ﻿using Altinn.Authentication.UI.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Altinn.Authentication.UI.Core.SystemRegisters;
+using Altinn.Authentication.UI.Core.SystemRegister;
 
 namespace Altinn.Authentication.UI.Controllers;
 
