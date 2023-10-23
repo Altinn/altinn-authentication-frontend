@@ -32,9 +32,7 @@ builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, tr
 ConfigureServices(builder.Services, builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 
-
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -73,11 +71,12 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     //App Configuration
     //PlatformSettings platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>(); 
 
-
     //Authentication and Security
     services.ConfigureDataProtection();    
-    services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();   
-    
+    services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();
+    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    services.TryAddSingleton<ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter>();
+
     services.AddAuthentication(JwtCookieDefaults.AuthenticationScheme)
         .AddJwtCookie(JwtCookieDefaults.AuthenticationScheme, configureOptions: options =>
         {
@@ -111,12 +110,9 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
         options.Cookie.Name = "AS-XSRF-TOKEN";
         options.Cookie.SameSite = SameSiteMode.Lax;
         options.HeaderName = "X-XSRF-TOKEN";
-    });
+    });    
 
-    services.TryAddSingleton<ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter>();
-
-    //Feature functional services
-    services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+    //Altinn feature functional services    
     services.TryAddSingleton<ISystemUserClient, SystemUserClient>();
     services.TryAddSingleton<ISystemUserService, SystemUserService>();
     services.TryAddSingleton<ISystemRegisterService, SystemRegisterService>();

@@ -1,4 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System.Net.Http.Headers;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
@@ -10,41 +11,43 @@ public class SystemUserClient : ISystemUserClient
         //Mock Data
         SystemUserReal systemUser1 = new()
         {
-            Id = "1",
+            Id = "37ce1792-3b35-4d50-a07d-636017aa7dbd",
             Title = "Vårt regnskapsystem",
             Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
-            SystemType = "534-ADF-SF",
-            Created = "2023-09-12",
-            ClientId = "20578230597"
+            SystemType = "Visma Skatt",
+            OwnedBy = "orgno:91235123",
+            ControlledBy = "orgno:92432454",
+            Created = "2023-09-12"
         };
 
         SystemUserReal systemUser2 = new()
         {
-            Id = "2",
+            Id = "37ce1792-3b35-4d50-a07d-636017aa7dbe",
             Title = "Vårt andre regnskapsystem",
-            Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
-            SystemType = "534-ADF-SF",
-            Created = "2023-09-22",
-            ClientId = "20578230598"
+            Description = "Koblet opp mot Visvas. Snakk med Per om abonnement",
+            SystemType = "Visma Visvas",
+            OwnedBy = "orgno:91235124",
+            ControlledBy = "orgno:92432455",
+            Created = "2023-09-22"
         };
 
         SystemUserReal systemUser3 = new()
         {
-            Id = "3",
+            Id = "37ce1792-3b35-4d50-a07d-636017aa7dbf",
             Title = "Et helt annet system",
-            Description = "Fiken superskatt",
-            SystemType = "lfhiwlfhi",
-            Created = "2023-09-22",
-            ClientId = "23523523"
+            Description = "Kai og Guri vet alt om dette systemet.",
+            SystemType = "Fiken Superskatt",
+            OwnedBy = "orgno:91235125",
+            ControlledBy = "orgno:92432456",
+            Created = "2023-09-22"
         };
 
-        List<SystemUserReal> systemUserList = new()
+    List<SystemUserReal> systemUserList = new()
         {
             systemUser1,
             systemUser2,
             systemUser3
         };
-
         return systemUserList;
     }
 
