@@ -18,10 +18,10 @@ public class SystemRegisterController : ControllerBase
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet]
-    public async Task<ActionResult> GetListOfRegisteredSystems()
+    public async Task<ActionResult> GetListOfRegisteredSystems(CancellationToken cancellationToken = default)
     {
-        var list = await _systemRegisterService.GetListRegSys();
+        var lista = await _systemRegisterService.GetListRegSys(cancellationToken);
 
-        return Ok(list);
+        return Ok(lista);
     }
 }

@@ -15,6 +15,8 @@ using Altinn.Authentication.UI.Filters;
 using Altinn.Common.AccessTokenClient.Services;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Integration.SystemUsers;
+using Altinn.Authentication.UI.Core.SystemRegister;
+using Altinn.Authentication.UI.Integration.SystemRegister;
 
 ILogger logger;
 
@@ -117,6 +119,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     services.TryAddSingleton<ISystemUserClient, SystemUserClient>();
     services.TryAddSingleton<ISystemUserService, SystemUserService>();
+    services.TryAddSingleton<ISystemRegisterService, SystemRegisterService>();
+    services.TryAddSingleton<ISystemRegisterClient, SystemRegisterClient>();
 
     //Debug and Development
     services.AddSwaggerGen();

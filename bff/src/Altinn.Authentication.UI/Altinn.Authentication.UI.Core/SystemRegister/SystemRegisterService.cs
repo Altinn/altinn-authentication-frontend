@@ -9,7 +9,7 @@ public class SystemRegisterService : ISystemRegisterService
         _systemRegisterClient = systemRegisterClient;
     }
 
-    public async Task<List<RegisteredSystemDTO>> GetListRegSys()
+    public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
     {
         List<RegisteredSystemDTO> lista = new();
 
