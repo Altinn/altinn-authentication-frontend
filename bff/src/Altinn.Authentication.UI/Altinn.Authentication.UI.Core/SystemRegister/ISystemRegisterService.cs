@@ -2,5 +2,5 @@
 
 public interface ISystemRegisterService
 {
-    Task<List<RegisteredSystemDTO>> GetListRegSys();
+    Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellation = default);
 }
