@@ -33,11 +33,11 @@ public sealed class SystemUserReal
     public string? SystemType { get; set; }
 
     /// <summary>
-    /// The OwnedBy and ControlledBy identifies the end-user, and is fetched from the login Context and
-    /// user profile serivces
+    /// The OwnedBy identifies the end-user Organisation, and is fetched from the login Context and
+    /// user party serivces
     /// </summary>
-    public string? OwnedBy { get; set; }
-    public string? ControlledBy { get; set; }
+    public string? OwnedByPartyId { get; set; }
+    //public string? ControlledBy { get; set; } //not needed, can be implisitly determined from either SystemType or ClientId
 
     /// <summary>
     /// For self-made systems, not delivered in the first Phase of the Project, and therefore not in the DTO

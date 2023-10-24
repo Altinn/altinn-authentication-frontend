@@ -33,8 +33,8 @@ public class SystemUserDescriptor
     /// The OwnedBy and ControlledBy identifies the end-user, and is fetched from the login Context and
     /// user profile serivces
     /// </summary>
-    public string? OwnedBy { get; set; }
-    public string? ControlledBy { get; set; }
+    public string? OwnedByPartyId { get; set; }
+    //public string? ControlledBy { get; set; }
 
 
 }
