@@ -1,8 +1,8 @@
 ﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 /// <summary>
-/// The central class, it encapsulates an end-user's systemUser.
-/// It is the end-user that creates a systemUser.
+/// The central concept 
+/// The end-user that creates a systemUser.
 /// One is created for every systemType the end-user wants to integrate with / delegate rights to
 /// It should only be possible to create one systemuser pr end-user and systemtype.
 /// 
