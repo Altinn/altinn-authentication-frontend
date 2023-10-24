@@ -26,6 +26,10 @@ GET {{rootHttpUrl}}/authfront/ui/
 GET {{rootHttpUrl}}/authfront/api/v1/profile/user
 
 ###
+GET {{rootHttpUrl}}/authfront/api/v1/systemuser/1
+
+
+###
 //The endpoint for refreshing a Token
 //Expected result: a new Token
 //Needs a valid cookie with XSRF Token in the header to work,
@@ -55,4 +59,7 @@ GET {{rootHttpUrl}}/authfront/ui/auth/overview
 # Og her også?? zxy {[]}!
 # ------WebKitFormBoundaryKxEcAc9apIaN6cPu--
 ###
-POST {{rootHttpUrl}}/authfront/api/v1/systemuser/uploadjwk -H 'accept: */*' -H 'Content-Type: multipart/form-data' -F 'file=@test.txt;type=text/plain' -F 'name=Hei' -F 'desc=Der'
+POST {{rootHttpUrl}}/authfront/api/v1/systemuser/uploadjwk -H 'accept: */*' -H 'Content-Type: multipart/form-data' -F 'file=@test.txt;type=text/plain' -F 'navn=Hei' -F 'beskrivelse=Der'
+
+###
+GET http://localhost:5006/authfront/api/v1/systemregister

@@ -43,9 +43,12 @@ public class SystemUserService : ISystemUserService
             Title = systemUserReal.Title,
             Description = systemUserReal.Description,
             Created = systemUserReal.Created,
-            ClientId = systemUserReal.ClientId,
+            //ClientId = systemUserReal.ClientId,//Not a deliverable in the first Phase of the Project
             SystemType = systemUserReal.SystemType,
-            Id = systemUserReal.Id
+            Id = systemUserReal.Id,
+            OwnedBy = systemUserReal.OwnedBy,
+            ControlledBy = systemUserReal.ControlledBy
+
         };
 
         return systemUserDTO;
