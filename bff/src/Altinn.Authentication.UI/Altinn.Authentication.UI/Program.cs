@@ -41,7 +41,7 @@ string frontendProdFolder = "wwwroot/Authentication/";
 
 builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, true);
 ConfigureServiceDefaults(builder.Services, builder.Configuration);
-ConfigureAppConfigurationServices(builder.Services, builder.Configuration);
+ConfigureAppSettings(builder.Services, builder.Configuration);
 ConfigureAuthenticationAndSecurity(builder.Services, builder.Configuration);
 ConfigureFeatureClients(builder.Services, builder.Configuration);
 ConfigureFeatureServices(builder.Services, builder.Configuration);
@@ -84,21 +84,12 @@ void ConfigureServiceDefaults(IServiceCollection services, IConfiguration config
     services.AddControllersWithViews();
 }
 
-void ConfigureAppConfigurationServices (IServiceCollection services, IConfiguration configuration)
+void ConfigureAppSettings (IServiceCollection services, IConfiguration configuration)
 {
     //App Configuration
     services.Configure<PlatformSettings>(configuration.GetSection("PlatformSettings"));
     services.AddSingleton(configuration);
     PlatformSettings? platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>();
-
-}
-
-void ConfigureFeatureClients(IServiceCollection services, IConfiguration configuration)
-{
-    services.AddHttpClient<IAuthenticationClient, AuthenticationClient>();
-    services.AddSingleton<IUserProfileClient, UserProfileClient>();
-    services.AddSingleton<ISystemUserClient, SystemUserClient>();
-    services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
 }
 
 void ConfigureAuthenticationAndSecurity (IServiceCollection services, IConfiguration configuration)
@@ -144,15 +135,21 @@ void ConfigureAuthenticationAndSecurity (IServiceCollection services, IConfigura
     });
 }
 
+void ConfigureFeatureClients(IServiceCollection services, IConfiguration configuration)
+{
+    //Clients in the Integration layer for the Feature Services
+    services.AddHttpClient<IAuthenticationClient, AuthenticationClient>();
+    services.AddSingleton<IUserProfileClient, UserProfileClient>();
+    services.AddSingleton<ISystemUserClient, SystemUserClient>();
+    services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
+}
+
 void ConfigureFeatureServices(IServiceCollection services, IConfiguration configuration)
 {   
-
-    //Altinn feature functional services        
+    //Altinn Feature Services        
     services.AddSingleton<ISystemUserService, SystemUserService>();
     services.AddSingleton<ISystemRegisterService, SystemRegisterService>();    
-    services.AddSingleton<IUserProfileService, UserProfileService>();
-    
-
+    services.AddSingleton<IUserProfileService, UserProfileService>();    
 }
 
 void ConfigureDevelopmentAndTestingServices(IServiceCollection services, IConfiguration configuration)
@@ -166,7 +163,6 @@ async Task SetConfigurationProviders(ConfigurationManager config)
     config.AddEnvironmentVariables();
     config.AddCommandLine(args);
     
-    await Task.Delay(10);
     //keyvault og applicationinsight ting
 }
 
