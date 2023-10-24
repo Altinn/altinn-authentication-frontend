@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Altinn.Platform.Profile.Models;
 using Microsoft.AspNetCore.Mvc;
 using Altinn.Authentication.UI.Models;
