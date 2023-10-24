@@ -22,7 +22,7 @@ public class AuthenticationClient : IAuthenticationClient
     {
         //_logger = logger;
         _platformSettings = platformSettings.Value;
-        _httpContextAccessor = httpContextAccessor;
+        _httpContextAccessor = httpContextAccessor;        
         client.BaseAddress = new Uri(platformSettings.Value.ApiAuthenticationEndpoint!);
         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         _client = client;
