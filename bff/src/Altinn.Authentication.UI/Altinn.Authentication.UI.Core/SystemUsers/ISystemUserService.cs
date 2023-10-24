@@ -2,7 +2,7 @@
 
 
 /// <summary>
-/// The middleman between the BFF's SystemUserAPI and Altinn's real SystemUserAPI 
+/// The "middleware" between the BFF's SystemUserAPI and Altinn's real SystemUserAPI in the Authentication Component
 /// </summary>
 public interface ISystemUserService
 {
