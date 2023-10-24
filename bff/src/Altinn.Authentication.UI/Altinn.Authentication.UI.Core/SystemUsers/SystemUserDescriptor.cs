@@ -9,7 +9,7 @@ public class SystemUserDescriptor
     /// <summary>
     /// Friendly name chosen by the end-user
     /// </summary>
-    public string? Title { get; set; }
+    public string? IntegrationTitle { get; set; }
 
     /// <summary>
     /// Either set by the end-user as instructions to self,
@@ -21,7 +21,7 @@ public class SystemUserDescriptor
     /// The actual chosen systemType that this SystemUser
     /// creates an integration / delegation for
     /// </summary>
-    public string? SystemType { get; set; }
+    public string? SelectedSystemType { get; set; }
 
     /// <summary>
     /// Only set if the end-user has a self-made system
@@ -30,8 +30,7 @@ public class SystemUserDescriptor
     public string? ClientId { get; set; }
 
     /// <summary>
-    /// The OwnedBy and ControlledBy identifies the end-user, and is fetched from the login Context and
-    /// user profile serivces
+    /// The OwnedByParty identifies the end-user's organisation/person, and is fetched by the BFF from the login Context Cookie
     /// </summary>
     public string? OwnedByPartyId { get; set; }
     //public string? ControlledBy { get; set; }

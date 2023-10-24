@@ -6,9 +6,11 @@
 public sealed record SystemUserDTO
 {
     public string? Id { get; set; }
-    public string? Title { get; set; }
+    public string? IntegrationTitle { get; set; }
     public string? Description { get; set; }
-    public string? SystemType { get; set; }
+    public string? ProductName { get; set; }
+    public string? SupplierName { get; set; }
+    public string? SupplierOrgno { get; set; }
     public string? OwnedByPartyId { get; set; }
     //public string? ControlledBy { get; set; }
     public string? Created { get; set; }

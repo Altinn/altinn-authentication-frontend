@@ -12,4 +12,5 @@ public interface ISystemUserService
     Task<bool> DeleteSystemUser(Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserTitle(string newTitle, Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default);
+    Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default);
 }

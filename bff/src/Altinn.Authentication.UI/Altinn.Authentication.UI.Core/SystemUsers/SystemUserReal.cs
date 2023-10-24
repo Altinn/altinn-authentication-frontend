@@ -49,4 +49,12 @@ public sealed class SystemUserReal
     /// </summary>
     public string? Created { get; set; }
 
+    /// <summary>
+    /// False by default, if a SystemUser is deleted in the API,
+    /// it is marked as IsDeleted ("tombstoned") rather than actually deleted
+    /// from the database. This is to avoid complications with cascade delete,
+    /// and the need to maintain consistent logging, and possible compliance rules.
+    /// </summary>
+    public bool IsDeleted { get; set; }
+
 }

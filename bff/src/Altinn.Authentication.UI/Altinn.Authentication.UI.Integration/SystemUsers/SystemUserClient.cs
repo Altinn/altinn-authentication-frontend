@@ -59,9 +59,9 @@ public class SystemUserClient : ISystemUserClient
         {
             Id = Guid.NewGuid().ToString(),
             ClientId = Guid.NewGuid().ToString(), 
-            SystemType = "OnlyForTest",
-            Title = sysdescr.Title,
-            Description = sysdescr.Title,
+            SystemType = sysdescr.SelectedSystemType,
+            Title = sysdescr.IntegrationTitle,
+            Description = sysdescr.Description,
             Created = DateTime.UtcNow.Date.ToString()
 
         };       
@@ -105,5 +105,10 @@ public class SystemUserClient : ISystemUserClient
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(Guid id, CancellationToken cancellationToken = default)
     {
         return _systemUserList;
+    }
+
+    public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 }

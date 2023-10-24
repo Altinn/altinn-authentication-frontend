@@ -45,11 +45,13 @@ public class SystemUserService : ISystemUserService
         if (systemUserReal is null) return null;
         SystemUserDTO systemUserDTO = new()
         {
-            Title = systemUserReal.Title,
+            IntegrationTitle = systemUserReal.Title,
             Description = systemUserReal.Description,
             Created = systemUserReal.Created,
             //ClientId = systemUserReal.ClientId,//Not a deliverable in the first Phase of the Project
-            SystemType = systemUserReal.SystemType,
+            ProductName = systemUserReal.SystemType,
+            SupplierName = "Not implemented yet",
+            SupplierOrgno = "999999999MVA", 
             Id = systemUserReal.Id,
             OwnedByPartyId = systemUserReal.OwnedByPartyId,
             //ControlledBy = systemUserReal.ControlledBy
@@ -62,5 +64,10 @@ public class SystemUserService : ISystemUserService
     public async Task<Guid> PostNewSystemUserDescriptor(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         return await _systemUserClient.PostNewSystemUserReal(newSystemUserDescriptor, cancellation);
+    }
+
+    public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
+    {
+        return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
     }
 }
