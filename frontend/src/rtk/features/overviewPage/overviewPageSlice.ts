@@ -11,6 +11,8 @@ import axios from 'axios';
 // based on userInfoSlice code and array code from 
 // delegableApiSlice.ts AccMan repo
 
+
+
 export interface SystemUserObject {
     id: string;
     title: string;
@@ -21,6 +23,8 @@ export interface SystemUserObject {
   }
 // FIX-ME: tror key:value par created:Date; med fordel kan legges til senere
 // det er lettere med en ren String-array i første omgang
+// FIX-ME2: objects received from BFF GET /systemuser/0 
+// does not contain "ownedBy" nor "controlledBy"
  
 export interface SliceState {
   systemUserArray: SystemUserObject[];
