@@ -17,17 +17,43 @@ export const OverviewPageContent = () => {
   const { t } = useTranslation('common');
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch(); // fix-me: bygger kobling til REDUX 
+  const dispatch = useAppDispatch(); // fix-me: bygger kobling til REDUX CreationPage
+  // for Runes Demo:
   const reduxNavn = useAppSelector((state) => state.creationPage.navn);
   const reduxBeskrivelse = useAppSelector((state) => state.creationPage.beskrivelse);
   const reduxSelected = useAppSelector((state) => state.creationPage.selected);
   
-  // dette fungerer fint --> mulig at jeg skal lage kumulativ liste over systembrukere??
-  // da måtte jeg ha en katalog av brukere, der de to alleredei OverviewPage var først,
-  // men så øker det på nedover... 
+  
+  // 24.10.23: Nytt SystemUserObject har nå 3 SUO i Redux
+  // Lager presentasjons-funksjon reduxCollectionBarArray
+  // der jeg stapper inn alle 6 feltene så får Rune og Mette 
+  // komme opp med et design
+  
+  const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
 
+  // testet: tolerer initial rendering da reduxState er tom OK
+  const reduxCollectionBarArray = () => {
+    return reduxObjektArray.map( (SystemUser) => (
+      <div key={SystemUser.id}>
+        <CollectionBar
+          title=  {SystemUser.title}
+          subtitle= { `${SystemUser.systemType} (${SystemUser.ownedBy})` }
+          additionalText= {`${SystemUser.description} (${SystemUser.controlledBy})`} 
+          color={'neutral'}
+          collection={[]}
+          compact={isSm}
+          proceedToPath={ '/fixpath/' }
+        />
+        <div>
+          <br></br>
+        </div>
+      </div>
+    ));
+  };
+  
+
+  // Eldre greier: bør byttes ut, men kan trenges for Mobil-optimering
   const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger
-
   let overviewText: string;
   overviewText = t('authentication_dummy.auth_overview_text_administrere'); 
   // Fix-me: h2 below, not in Small/mobile view
@@ -39,8 +65,7 @@ export const OverviewPageContent = () => {
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Creation);
   };
 
-  // Fix-me: CollectionBar links go nowhere
-
+  // Fix-me: CollectionBar links go nowhere yet
 
   return (
     <div className={classes.overviewPageContainer}>
@@ -63,7 +88,9 @@ export const OverviewPageContent = () => {
       <h2 className={classes.pageContentText}>
         {'Du har tidligere opprettet disse systembrukerne'} 
       </h2>
-        
+
+      { reduxCollectionBarArray() }
+
 
       <CollectionBar
         title='System lakselus rapportering'

@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 import userInfoReducer from '../features/userInfo/userInfoSlice';
+import overviewPageReducer from '../features/overviewPage/overviewPageSlice';
 import creationPageReducer from '../features/creationPage/creationPageSlice';
 import maskinportenPageReducer from '../features/maskinportenPage/maskinportenPageSlice';
 
@@ -11,6 +12,7 @@ const store = import.meta.env.PROD
   ? configureStore({
       reducer: {
         userInfo: userInfoReducer,
+        overviewPage: overviewPageReducer,
         creationPage: creationPageReducer,
         maskinportenPage: maskinportenPageReducer,
       },
@@ -18,6 +20,7 @@ const store = import.meta.env.PROD
   : configureStore({
       reducer: {
         userInfo: userInfoReducer,
+        overviewPage: overviewPageReducer,
         creationPage: creationPageReducer,
         maskinportenPage: maskinportenPageReducer,
       },
