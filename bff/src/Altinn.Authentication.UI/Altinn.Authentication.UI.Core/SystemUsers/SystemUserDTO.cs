@@ -9,6 +9,10 @@ public sealed record SystemUserDTO
     public string? Title { get; set; }
     public string? Description { get; set; }
     public string? SystemType { get; set; }
+    public string? OwnedBy { get; set; }
+    public string? ControlledBy { get; set; }
     public string? Created { get; set; }
-    public string? ClientId { get; set; }
+
+    //Not a deliverable in the first Phase in jan 2023
+    //public string? ClientId { get; set; }
 }

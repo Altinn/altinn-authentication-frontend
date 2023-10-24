@@ -1,5 +1,6 @@
 ﻿namespace Altinn.Authentication.UI.Core.Authentication;
 
-public class IAuthenticationClient
+public interface IAuthenticationClient
 {
+    Task<string> RefreshToken();
 }

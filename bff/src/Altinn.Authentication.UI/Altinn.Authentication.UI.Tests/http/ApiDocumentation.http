@@ -26,6 +26,10 @@ GET {{rootHttpUrl}}/authfront/ui/
 GET {{rootHttpUrl}}/authfront/api/v1/profile/user
 
 ###
+GET {{rootHttpUrl}}/authfront/api/v1/systemuser/1
+
+
+###
 //The endpoint for refreshing a Token
 //Expected result: a new Token
 //Needs a valid cookie with XSRF Token in the header to work,
