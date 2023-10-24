@@ -19,6 +19,9 @@ using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Integration.SystemRegister;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Integration.UserProfiles;
+using Altinn.Authentication.UI.Core.Authentication;
+using Altinn.Authentication.UI.Integration.Authentication;
+using System.Net.Security;
 
 ILogger logger;
 
@@ -27,11 +30,22 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 //string applicationInsightsKeySecretName = "ApplicationInsights--InstrumentationKey";
 //string applicationInsightsConnectionString = string.Empty;
 
+//ConfigureSetupLogging();
+
+await SetConfigurationProviders(builder.Configuration);
+
+//ConfigureLogging(builder.Logging);
+
 //string frontendProdFolder = AppEnvironment.GetVariable("FRONTEND_PROD_FOLDER", "wwwroot/Authentication/");
 string frontendProdFolder = "wwwroot/Authentication/";
 
 builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, true);
-ConfigureServices(builder.Services, builder.Configuration);
+ConfigureServiceDefaults(builder.Services, builder.Configuration);
+ConfigureAppConfigurationServices(builder.Services, builder.Configuration);
+ConfigureAuthenticationAndSecurity(builder.Services, builder.Configuration);
+ConfigureFeatureClients(builder.Services, builder.Configuration);
+ConfigureFeatureServices(builder.Services, builder.Configuration);
+ConfigureDevelopmentAndTestingServices(builder.Services, builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
@@ -63,22 +77,37 @@ app.MapControllers();
 
 app.Run();
 
-
-void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+void ConfigureServiceDefaults(IServiceCollection services, IConfiguration configuration)
 {
     //Defaults
     services.AddMvc();
     services.AddControllersWithViews();
+}
 
+void ConfigureAppConfigurationServices (IServiceCollection services, IConfiguration configuration)
+{
     //App Configuration
-    //PlatformSettings platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>(); 
+    services.Configure<PlatformSettings>(configuration.GetSection("PlatformSettings"));
+    services.AddSingleton(configuration);
+    PlatformSettings? platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>();
 
+}
+
+void ConfigureFeatureClients(IServiceCollection services, IConfiguration configuration)
+{
+    services.AddHttpClient<IAuthenticationClient, AuthenticationClient>();
+    services.AddSingleton<IUserProfileClient, UserProfileClient>();
+    services.AddSingleton<ISystemUserClient, SystemUserClient>();
+    services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
+}
+
+void ConfigureAuthenticationAndSecurity (IServiceCollection services, IConfiguration configuration)
+{
     //Authentication and Security
-    services.ConfigureDataProtection();    
+    services.ConfigureDataProtection();
     services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();
     services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
     services.TryAddSingleton<ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter>();
-
     services.AddAuthentication(JwtCookieDefaults.AuthenticationScheme)
         .AddJwtCookie(JwtCookieDefaults.AuthenticationScheme, configureOptions: options =>
         {
@@ -112,16 +141,22 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
         options.Cookie.Name = "AS-XSRF-TOKEN";
         options.Cookie.SameSite = SameSiteMode.Lax;
         options.HeaderName = "X-XSRF-TOKEN";
-    });    
+    });
+}
 
-    //Altinn feature functional services    
-    services.AddSingleton<ISystemUserClient, SystemUserClient>();
+void ConfigureFeatureServices(IServiceCollection services, IConfiguration configuration)
+{   
+
+    //Altinn feature functional services        
     services.AddSingleton<ISystemUserService, SystemUserService>();
-    services.AddSingleton<ISystemRegisterService, SystemRegisterService>();
-    services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
+    services.AddSingleton<ISystemRegisterService, SystemRegisterService>();    
     services.AddSingleton<IUserProfileService, UserProfileService>();
-    services.AddSingleton<IUserProfileClient, UserProfileClient>();
+    
 
+}
+
+void ConfigureDevelopmentAndTestingServices(IServiceCollection services, IConfiguration configuration)
+{
     //Debug and Development
     services.AddSwaggerGen();
 }
@@ -133,4 +168,32 @@ async Task SetConfigurationProviders(ConfigurationManager config)
     
     await Task.Delay(10);
     //keyvault og applicationinsight ting
+}
+
+void ConfigureSetupLogging()
+{
+    ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+    {
+        builder
+            .AddFilter("Microsoft", LogLevel.Warning)
+            .AddFilter("System", LogLevel.Warning)
+            .AddFilter("Altinn.Authentication.Ui.Program", LogLevel.Debug)
+            .AddConsole();
+    });
+}
+
+void ConfigureLogging(ILoggingBuilder loggingBuilder)
+{
+    loggingBuilder.ClearProviders();
+
+    //Set up ApplicationInsight here
+    // - - - ...
+    //
+
+
+    //Default during dev/test:
+    loggingBuilder.AddFilter("Microsoft", LogLevel.Warning);
+    loggingBuilder.AddFilter("System", LogLevel.Warning);
+    loggingBuilder.AddConsole();
+
 }
