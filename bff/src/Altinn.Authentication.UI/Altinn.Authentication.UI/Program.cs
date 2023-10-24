@@ -17,6 +17,8 @@ using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Integration.SystemUsers;
 using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Integration.SystemRegister;
+using Altinn.Authentication.UI.Core.UserProfiles;
+using Altinn.Authentication.UI.Integration.UserProfiles;
 
 ILogger logger;
 
@@ -113,10 +115,12 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     });    
 
     //Altinn feature functional services    
-    services.TryAddSingleton<ISystemUserClient, SystemUserClient>();
-    services.TryAddSingleton<ISystemUserService, SystemUserService>();
-    services.TryAddSingleton<ISystemRegisterService, SystemRegisterService>();
-    services.TryAddSingleton<ISystemRegisterClient, SystemRegisterClient>();
+    services.AddSingleton<ISystemUserClient, SystemUserClient>();
+    services.AddSingleton<ISystemUserService, SystemUserService>();
+    services.AddSingleton<ISystemRegisterService, SystemRegisterService>();
+    services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
+    services.AddSingleton<IUserProfileService, UserProfileService>();
+    services.AddSingleton<IUserProfileClient, UserProfileClient>();
 
     //Debug and Development
     services.AddSwaggerGen();

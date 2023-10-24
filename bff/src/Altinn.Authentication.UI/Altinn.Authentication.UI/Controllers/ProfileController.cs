@@ -2,6 +2,8 @@
 using Altinn.Platform.Profile.Models;
 using Microsoft.AspNetCore.Mvc;
 using Altinn.Authentication.UI.Models;
+using System.Runtime.CompilerServices;
+using Altinn.Authentication.UI.Core.UserProfiles;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -14,44 +16,30 @@ public class ProfileController : ControllerBase
 {
     //private readonly IProfileClient _profileClient;
     private readonly IHttpContextAccessor _httpContextAccessor;
-
+    private readonly IUserProfileService _userProfileService;
     /// <summary>
     /// Initializes a new instance of the <see cref="ProfileController"/> class
     /// </summary>
-    public ProfileController(IHttpContextAccessor httpContextAccessor)
+    public ProfileController(
+        IHttpContextAccessor httpContextAccessor,
+        IUserProfileService userProfileService
+        )
     {
         _httpContextAccessor = httpContextAccessor;
+        _userProfileService = userProfileService;
     }
 
     /// <summary>
     /// Method that returns the user information about the user that is logged in
     /// <param name = "UserDTO">The UserProfile as a DTO for the Frontend</param>
     /// </summary>
-    [Authorize] 
+    //[Authorize] 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("user")]
     public async Task<ActionResult> GetUser()
     {
 
-        UserProfile user = new()
-        {
-            UserId = 20004938,
-            Email = "1337@altinnstudiotestusers.com",
-            PhoneNumber = "90001337",
-            UserName = "Testur Testursson Jr",
-            PartyId = 50019992,
-            ExternalIdentity = "",
-            Party = new Platform.Register.Models.Party 
-            {
-                Name = "Test Organisasjon"
-            },
-            ProfileSettingPreference = new() 
-            {
-                Language = "nb"
-            },
-            UserType = Platform.Profile.Enums.UserType.SSNIdentified             
-
-        };
+        UserProfile user = await _userProfileService.GetUserProfile(1);
 
         UserNameAndOrganizatioNameDTO userDTO = new() 
         { 
