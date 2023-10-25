@@ -141,16 +141,15 @@ void ConfigureAuthenticationAndSecurity (IServiceCollection services, IConfigura
 
 void ConfigureFeatureClients(IServiceCollection services, IConfiguration configuration)
 {
-    //Clients in the Integration layer
-    //for the login user and auth logic
-    services.AddHttpClient<IAuthenticationClient, AuthenticationClientMock>();
+    //Clients in the Integration layer for the login user and auth logic
+    //services.AddHttpClient<IAuthenticationClient, AuthenticationClientMock>();
+    services.AddSingleton<IAuthenticationClient, AuthenticationClientMock>();
     services.AddSingleton<IUserProfileClient, UserProfileClientMock>();
     services.AddSingleton<IPartyClient, PartyClientMock>();
 
     //Clients for the actual Features' Services
     services.AddSingleton<ISystemUserClient, SystemUserClientMock>();
-    services.AddSingleton<ISystemRegisterClient, SystemRegisterClientMock>();
-    
+    services.AddSingleton<ISystemRegisterClient, SystemRegisterClientMock>();    
 }
 
 void ConfigureFeatureServices(IServiceCollection services, IConfiguration configuration)
@@ -161,8 +160,7 @@ void ConfigureFeatureServices(IServiceCollection services, IConfiguration config
 
     //Altinn actual Features' Services        
     services.AddSingleton<ISystemUserService, SystemUserService>();
-    services.AddSingleton<ISystemRegisterService, SystemRegisterService>();    
-    
+    services.AddSingleton<ISystemRegisterService, SystemRegisterService>();        
 }
 
 void ConfigureDevelopmentAndTestingServices(IServiceCollection services, IConfiguration configuration)
@@ -204,5 +202,4 @@ void ConfigureLogging(ILoggingBuilder loggingBuilder)
     loggingBuilder.AddFilter("Microsoft", LogLevel.Warning);
     loggingBuilder.AddFilter("System", LogLevel.Warning);
     loggingBuilder.AddConsole();
-
 }
