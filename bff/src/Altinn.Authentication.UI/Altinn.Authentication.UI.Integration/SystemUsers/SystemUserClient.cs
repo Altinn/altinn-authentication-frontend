@@ -42,7 +42,7 @@ public class SystemUserClient : ISystemUserClient
             OwnedByPartyId = "orgno:91235125",
             Created = "2023-09-22",
             IsDeleted = false,
-            ClientId = "ø"
+            ClientId = ""
         };
 
     List<SystemUserReal> systemUserList = new()
