@@ -16,7 +16,9 @@ public class SystemUserClient : ISystemUserClient
             Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
             SystemType = "Visma Skatt",
             OwnedByPartyId = "orgno:91235123",
-            Created = "2023-09-12"
+            Created = "2023-09-12",
+            IsDeleted = false,
+            ClientId = ""
         };
 
         SystemUserReal systemUser2 = new()
@@ -26,7 +28,9 @@ public class SystemUserClient : ISystemUserClient
             Description = "Koblet opp mot Visvas. Snakk med Per om abonnement",
             SystemType = "Visma Visvas",
             OwnedByPartyId = "orgno:91235124",
-            Created = "2023-09-22"
+            Created = "2023-09-22",
+            IsDeleted = false,
+            ClientId = ""
         };
 
         SystemUserReal systemUser3 = new()
@@ -36,7 +40,9 @@ public class SystemUserClient : ISystemUserClient
             Description = "Kai og Guri vet alt om dette systemet.",
             SystemType = "Fiken Superskatt",
             OwnedByPartyId = "orgno:91235125",
-            Created = "2023-09-22"
+            Created = "2023-09-22",
+            IsDeleted = false,
+            ClientId = "ø"
         };
 
     List<SystemUserReal> systemUserList = new()

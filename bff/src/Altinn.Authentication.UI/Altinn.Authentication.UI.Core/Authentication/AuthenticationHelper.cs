@@ -1,71 +1,36 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Altinn.Platform.Register.Models;
+using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace Altinn.Authentication.UI.Core.Authentication;
 
 public static class AuthenticationHelper
 {
-    /// <summary>
-    /// Retrieves the user id as an int from the http context user claims
-    /// </summary>
-    /// <param name="httpContext"></param>
-    /// <returns></returns>
-    public static int GetUserId(HttpContext httpContext)
+    
+    public static int GetUserId(HttpContext context) =>
+        GetIntValueFromClaim(context, AltinnCoreClaimType.UserId);
+
+    public static int GetUserAuthenticationLevel(HttpContext context) =>
+         GetIntValueFromClaim(context, AltinnCoreClaimType.AuthenticationLevel);
+
+    public static int GetUsersPartyId(HttpContext context) => 
+        GetIntValueFromClaim(context, AltinnCoreClaimType.PartyId);
+
+    private static int GetIntValueFromClaim(HttpContext context, string claimType)
     {
-        int userId = 0;
+        int value = 0;
 
-        if(httpContext.User is not null)
-        {
-            foreach (Claim claim in httpContext.User.Claims)
-            {
-                if (claim.Type.Equals(AltinnCoreClaimType.UserId))
-                {
-                    userId = Convert.ToInt32(claim.Value);
-                }
-            }
-        }
-
-        return userId;
-    }
-
-    /// <summary>
-    /// Retrieves the authenticationlevel from the httpcontext user claims
-    /// </summary>
-    /// <param name="httpContext"></param>
-    /// <returns></returns>
-    public static int GetUserAuthenticationLevel (HttpContext httpContext)
-    {
-        int authenticationLevel = 0;
-
-        if(httpContext.User is not null)
-        {
-            foreach(Claim claim in httpContext.User.Claims)
-            {
-                if (claim.Type.Equals(AltinnCoreClaimType.AuthenticationLevel))
-                {
-                    authenticationLevel = Convert.ToInt32(claim.Value);
-                }
-            }
-        }
-        return authenticationLevel;
-    }
-
-    public static int GetUsersPartyId(HttpContext context)
-    {
-        int partyId = 0;
-
-        if(context.User is not null)
+        if (context.User is not null)
         {
             foreach (Claim claim in context.User.Claims)
             {
-                if (claim.Type.Equals(AltinnCoreClaimType.PartyId))
+                if (claim.Type.ToString().Equals(claimType))
                 {
-                    partyId = Convert.ToInt32(claim.Value);
+                    value = Convert.ToInt32(claim.Value);
+                    return value;
                 }
-
             }
         }
-
-        return partyId;
+        return value;
     }
 }
