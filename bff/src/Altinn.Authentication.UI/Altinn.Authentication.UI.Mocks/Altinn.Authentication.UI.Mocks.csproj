@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mocks\SystemUsers\" />
-    <Folder Include="Mocks\UserProfiles\" />
+    <ProjectReference Include="..\Altinn.Authentication.UI.Core\Altinn.Authentication.UI.Core.csproj" />
+    <ProjectReference Include="..\Altinn.Authentication.UI.Integration\Altinn.Authentication.UI.Integration.csproj" />
   </ItemGroup>
 
 </Project>
