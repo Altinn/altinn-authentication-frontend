@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.Extensions.Options;
 using System.Web;
 using Altinn.Platform.Profile.Models;
+using Altinn.Authentication.UI.Core.Authentication;
+using Altinn.Authentication.UI.Core.UserProfiles;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -16,6 +18,7 @@ public class HomeController : Controller
     private readonly IAntiforgery _antiforgery;
     private readonly IWebHostEnvironment _env;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IUserProfileService _profileService;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="HomeController" /> class.
@@ -28,7 +31,7 @@ public class HomeController : Controller
     /// <param name="httpContextAccessor">http context</param>
     /// <param name="generalSettings">general settings</param>
     public HomeController(
-        //IProfileService profileService,
+        IUserProfileService profileService,
         IAntiforgery antiforgery,
         IWebHostEnvironment env,
         IHttpContextAccessor httpContextAccessor)
@@ -41,7 +44,7 @@ public class HomeController : Controller
         _antiforgery = antiforgery;
         _env = env;
         _httpContextAccessor = httpContextAccessor;
-        //_profileService = profileService;
+        _profileService = profileService;
     }
 
 
@@ -88,12 +91,17 @@ public class HomeController : Controller
 
     private async Task SetLanguageCookie()        
     {
-        //int userId = AuthenticationHelper.GetUserId();            
-        int userId = 007;
-        //UserProfile userProfile = await _profileService.GetUserProfile(userId);
-        AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-        //string language = userProfile.ProfileSettingPreference.Language;
-        string language = "no_nb";
+        int userId = 0;
+        var context = _httpContextAccessor.HttpContext;
+        if (context is not null)
+        {
+            userId = AuthenticationHelper.GetUserId(context);
+        }
+        //int userId = 007;
+        UserProfile userProfile = await _profileService.GetUserProfile(userId);
+        _ = _antiforgery.GetAndStoreTokens(HttpContext);
+        string language = userProfile.ProfileSettingPreference.Language;
+        //string language = "no_nb";
 
         HttpContext.Response.Cookies.Append("il8next", language, new CookieOptions
         {   //Cookie should now be readable by javascript

@@ -48,7 +48,7 @@ public class ProfileController : ControllerBase
 
         try
         {
-            UserProfile user = await _userProfileService.GetUserProfile(1);
+            UserProfile user = await _userProfileService.GetUserProfile(userid);
             if (user is null) return NotFound();
             
             userDTO = new()
