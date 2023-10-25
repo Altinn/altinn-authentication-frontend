@@ -1,6 +1,7 @@
 ﻿using Altinn.Authentication.UI.Filters;
 using Microsoft.AspNetCore.Mvc;
 using Altinn.Authentication.UI.Core.SystemRegister;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -16,6 +17,7 @@ public class SystemRegisterController : ControllerBase
         _systemRegisterService = systemRegisterService;
     }
 
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet]
     public async Task<ActionResult> GetListOfRegisteredSystems(CancellationToken cancellationToken = default)

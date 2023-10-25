@@ -9,7 +9,9 @@ public class PartyClient : IPartyClient
     {
         Party mock = new()
         {
-            PartyId = 123456789            
+            PartyId = 5001,    
+            OrgNumber = "123456789MVA",
+            Name = "Framifrå Bedrift AS"
         };
 
         return mock;

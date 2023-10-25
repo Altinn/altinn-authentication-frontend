@@ -49,4 +49,23 @@ public static class AuthenticationHelper
         }
         return authenticationLevel;
     }
+
+    public static int GetUsersPartyId(HttpContext context)
+    {
+        int partyId = 0;
+
+        if(context.User is not null)
+        {
+            foreach (Claim claim in context.User.Claims)
+            {
+                if (claim.Type.Equals(AltinnCoreClaimType.PartyId))
+                {
+                    partyId = Convert.ToInt32(claim.Value);
+                }
+
+            }
+        }
+
+        return partyId;
+    }
 }

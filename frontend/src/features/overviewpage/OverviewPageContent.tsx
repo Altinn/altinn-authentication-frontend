@@ -36,9 +36,9 @@ export const OverviewPageContent = () => {
     return reduxObjektArray.map( (SystemUser) => (
       <div key={SystemUser.id}>
         <CollectionBar
-          title=  {SystemUser.title}
-          subtitle= { `${SystemUser.systemType} (${SystemUser.ownedBy})` }
-          additionalText= {`${SystemUser.description} (${SystemUser.controlledBy})`} 
+          title=  {SystemUser.integrationTitle}
+          subtitle= { `${SystemUser.productName} (${SystemUser.ownedByPartyId})` }
+          additionalText= {`${SystemUser.description}`} 
           color={'neutral'}
           collection={[]}
           compact={isSm}
