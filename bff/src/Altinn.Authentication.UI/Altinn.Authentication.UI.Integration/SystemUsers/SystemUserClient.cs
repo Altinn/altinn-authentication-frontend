@@ -15,8 +15,7 @@ public class SystemUserClient : ISystemUserClient
             Title = "Vårt regnskapsystem",
             Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
             SystemType = "Visma Skatt",
-            OwnedBy = "orgno:91235123",
-            ControlledBy = "orgno:92432454",
+            OwnedByPartyId = "orgno:91235123",
             Created = "2023-09-12"
         };
 
@@ -26,8 +25,7 @@ public class SystemUserClient : ISystemUserClient
             Title = "Vårt andre regnskapsystem",
             Description = "Koblet opp mot Visvas. Snakk med Per om abonnement",
             SystemType = "Visma Visvas",
-            OwnedBy = "orgno:91235124",
-            ControlledBy = "orgno:92432455",
+            OwnedByPartyId = "orgno:91235124",
             Created = "2023-09-22"
         };
 
@@ -37,8 +35,7 @@ public class SystemUserClient : ISystemUserClient
             Title = "Et helt annet system",
             Description = "Kai og Guri vet alt om dette systemet.",
             SystemType = "Fiken Superskatt",
-            OwnedBy = "orgno:91235125",
-            ControlledBy = "orgno:92432456",
+            OwnedByPartyId = "orgno:91235125",
             Created = "2023-09-22"
         };
 
@@ -59,9 +56,9 @@ public class SystemUserClient : ISystemUserClient
         {
             Id = Guid.NewGuid().ToString(),
             ClientId = Guid.NewGuid().ToString(), 
-            SystemType = "OnlyForTest",
-            Title = sysdescr.Title,
-            Description = sysdescr.Title,
+            SystemType = sysdescr.SelectedSystemType,
+            Title = sysdescr.IntegrationTitle,
+            Description = sysdescr.Description,
             Created = DateTime.UtcNow.Date.ToString()
 
         };       
@@ -105,5 +102,10 @@ public class SystemUserClient : ISystemUserClient
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(Guid id, CancellationToken cancellationToken = default)
     {
         return _systemUserList;
+    }
+
+    public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 }

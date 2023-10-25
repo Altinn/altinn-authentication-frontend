@@ -12,7 +12,7 @@ namespace Altinn.Authentication.UI.Controllers;
 [Route("authfront/ui/{*AnyValue}")]
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    //private readonly ILogger<HomeController> _logger;
     private readonly IAntiforgery _antiforgery;
     private readonly IWebHostEnvironment _env;
     private readonly IHttpContextAccessor _httpContextAccessor;
