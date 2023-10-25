@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Altinn.Authentication.UI.Models;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
+using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -13,24 +14,28 @@ namespace Altinn.Authentication.UI.Controllers;
 [Route("authfront/api/v1/profile")]
 [ApiController]
 public class ProfileController : ControllerBase
-{
-    //private readonly IProfileClient _profileClient;
+{    
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserProfileService _userProfileService;
+    private readonly IPartyService _partyService;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="ProfileController"/> class
     /// </summary>
     public ProfileController(
         IHttpContextAccessor httpContextAccessor,
-        IUserProfileService userProfileService
+        IUserProfileService userProfileService,
+        IPartyService partyService
         )
     {
         _httpContextAccessor = httpContextAccessor;
         _userProfileService = userProfileService;
+        _partyService = partyService;
     }
 
     /// <summary>
-    /// Method that returns the user information about the user that is logged in
+    /// Method that returns the user information about the user that is logged in.
+    /// The method consumes the UserProfile and Party services
     /// <param name = "UserDTO">The UserProfile as a DTO for the Frontend</param>
     /// </summary>
     [Authorize] 
@@ -44,17 +49,22 @@ public class ProfileController : ControllerBase
         if (context is null) return StatusCode(500);
 
         int userid = AuthenticationHelper.GetUserId(context);
-            if(userid == 0 )return BadRequest("Userid not provided in the context.");
+        if(userid == 0 ) return BadRequest("Userid not provided in the context.");
+
+        int partyId = AuthenticationHelper.GetUsersPartyId(context);
+        if (partyId == 0) return BadRequest("PartyId not provided in the context.");
 
         try
         {
-            UserProfile user = await _userProfileService.GetUserProfile(1);
+            UserProfile user = await _userProfileService.GetUserProfile(userid);
             if (user is null) return NotFound();
-            
+
+            Party party = await _partyService.GetPartyFromReporteeListIfExists(partyId);
+
             userDTO = new()
             {
                 UserName = user.UserName,
-                OrganizationName = user.Party.Name
+                OrganizationName = party.Name
             };
 
         }

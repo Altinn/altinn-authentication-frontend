@@ -142,6 +142,7 @@ void ConfigureFeatureClients(IServiceCollection services, IConfiguration configu
     services.AddSingleton<IUserProfileClient, UserProfileClient>();
     services.AddSingleton<ISystemUserClient, SystemUserClient>();
     services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
+    services.AddSingleton<IPartyClient, PartyClient>();
 }
 
 void ConfigureFeatureServices(IServiceCollection services, IConfiguration configuration)
@@ -149,7 +150,8 @@ void ConfigureFeatureServices(IServiceCollection services, IConfiguration config
     //Altinn Feature Services        
     services.AddSingleton<ISystemUserService, SystemUserService>();
     services.AddSingleton<ISystemRegisterService, SystemRegisterService>();    
-    services.AddSingleton<IUserProfileService, UserProfileService>();    
+    services.AddSingleton<IUserProfileService, UserProfileService>();
+    services.AddSingleton<IPartyService, PartyService>();
 }
 
 void ConfigureDevelopmentAndTestingServices(IServiceCollection services, IConfiguration configuration)

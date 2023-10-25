@@ -6,6 +6,11 @@ public class PartyService : IPartyService
 {
     private readonly IPartyClient _partyLookUpClient;
 
+    public PartyService(IPartyClient partyLookUpClient)
+    {
+        _partyLookUpClient = partyLookUpClient;
+    }
+
     public async Task<Party> GetPartyFromReporteeListIfExists(int partyId)
     {
         Party party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);
