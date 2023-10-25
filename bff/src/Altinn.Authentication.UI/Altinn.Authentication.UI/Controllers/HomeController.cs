@@ -99,7 +99,7 @@ public class HomeController : Controller
         }
         //int userId = 007;
         UserProfile userProfile = await _profileService.GetUserProfile(userId);
-        _ = _antiforgery.GetAndStoreTokens(HttpContext);
+        AntiforgeryTokenSet token = _antiforgery.GetAndStoreTokens(HttpContext); 
         string language = userProfile.ProfileSettingPreference.Language;
         //string language = "no_nb";
 
