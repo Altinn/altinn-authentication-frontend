@@ -11,12 +11,16 @@ export interface SliceState {
   navn: string;
   beskrivelse: string;
   selected: string;
+  posted: boolean;
+  creationError: string;
 }
 
 const initialState: SliceState = {
     navn: '',
     beskrivelse: '', 
     selected: '',
+    posted: false,
+    creationError: '',
 };
 
 // CreationShape form is based on Swagger POST description per 25.10.23
@@ -56,12 +60,11 @@ const creationPageSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(postNewSystemUser.fulfilled, (state, action) => {
-        state.systemUserArray = downLoadedArray;
-        state.overviewLoaded = true;
+      .addCase(postNewSystemUser.fulfilled, (state) => {
+        state.posted = true;
       })
       .addCase(postNewSystemUser.rejected, (state, action) => {
-        state.overviewError = action.error.message ?? 'Unknown error';
+        state.creationError = action.error.message ?? 'Unknown error';
       })
   },
 });
