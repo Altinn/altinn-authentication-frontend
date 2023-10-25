@@ -3,31 +3,25 @@ import axios from 'axios';
 
 // import { getCookie } from '@/resources/Cookie/CookieMethods';
 
-// new overviewPageSlice
-// will reflect API call to Swagger GET /systemuser/{id}
-// but also Runes new SystemUserObject (see Wiki update 23.10.23)
-// The OverviewPage has a list of SystemUserObjects
 
-// based on userInfoSlice code and array code from 
-// delegableApiSlice.ts AccMan repo
+// Ny standard SystemUserObjectsDTO fra Swagger 25.10.23
 
-
-
-export interface SystemUserObject {
+export interface SystemUserObjectDTO {
     id: string;
-    title: string;
+    integrationTitle: string;
     description: string;
-    systemType: string;
-    ownedBy: string;
-    controlledBy: string;
+    productName: string;
+    supplierName: string;
+    supplierOrgno: string;
+    ownedByPartyId: string;
+    created: string;
   }
 // FIX-ME: tror key:value par created:Date; med fordel kan legges til senere
 // det er lettere med en ren String-array i første omgang
-// FIX-ME2: objects received from BFF GET /systemuser/0 
-// does not contain "ownedBy" nor "controlledBy"
+
  
 export interface SliceState {
-  systemUserArray: SystemUserObject[];
+  systemUserArray: SystemUserObjectDTO[];
   overviewLoaded: boolean;
   overviewError: string;
 }
@@ -57,22 +51,26 @@ const overviewPageSlice = createSlice({
     builder
       .addCase(fetchOverviewPage.fulfilled, (state, action) => {
         const dataArray = action.payload;
-        const downLoadedArray: SystemUserObject[] = [];
+        const downLoadedArray: SystemUserObjectDTO[] = [];
 
         for (let i = 0; i < dataArray.length; i++) {
             const id = dataArray[i].id;
-            const title = dataArray[i].title;
+            const integrationTitle = dataArray[i].integrationTitle;
             const description = dataArray[i].description;
-            const systemType = dataArray[i].systemType;
-            const ownedBy = dataArray[i].ownedBy;
-            const controlledBy = dataArray[i].controlledBy;
+            const productName = dataArray[i].productName;
+            const supplierName = dataArray[i].supplierName;
+            const supplierOrgno = dataArray[i].supplierOrgno;
+            const ownedByPartyId = dataArray[i].ownedByPartyId;
+            const created = dataArray[i].created;
             const loopObject = {
                 id,
-                title,
+                integrationTitle,
                 description,
-                systemType,
-                ownedBy,
-                controlledBy,
+                productName,
+                supplierName,
+                supplierOrgno,
+                ownedByPartyId,
+                created
             };
             downLoadedArray.push(loopObject);
         }
