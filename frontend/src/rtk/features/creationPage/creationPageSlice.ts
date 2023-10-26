@@ -32,10 +32,10 @@ export interface CreationRequest {
   ownedByPartyId: string
 }
 
-// temporary form of post call: based on postApiDelegation in AccMan
-// and Swagger POST /authfront/api/v1/systemuser
-// problem is that Request body in Swagger requires 5 key:value pairs
-// while we only have navn, beskrivelse and selected so far...
+// OK let the CreationPage populate the systemUserInfo object,
+// and just accept the object as input here and post it on to BFF
+// seems to work: that is, the POST goes through, and the GET list
+// shows another member in list, but the attributes are "test1", "test2" etc... OK
 export const postNewSystemUser = createAsyncThunk('creationPageSlice/postNewSystemUser', 
   async (systemUserInfo: CreationRequest) => {
   return await axios
@@ -47,7 +47,8 @@ export const postNewSystemUser = createAsyncThunk('creationPageSlice/postNewSyst
     });
 });
 
-// foreløpig lagreOpprettKnapp skal senere gi API POST kall til BFF
+// foreløpig lagreOpprettKnapp skal fjernes
+// vi satser nå på dispatch ved onBlur (a la maskinPortenPage)
 const creationPageSlice = createSlice({
   name: 'creation',
   initialState,
