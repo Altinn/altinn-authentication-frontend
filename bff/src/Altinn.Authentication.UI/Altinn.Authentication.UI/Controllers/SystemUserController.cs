@@ -26,6 +26,7 @@ public class SystemUserController : ControllerBase
         _systemUserService = systemUserService; 
     }
     
+
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
@@ -42,7 +43,7 @@ public class SystemUserController : ControllerBase
     /// Used to upload a certificate for the System User
     /// </summary>
     /// <returns></returns>
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
@@ -64,7 +65,7 @@ public class SystemUserController : ControllerBase
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
     /// <param name = "cancellationToken" ></ param >
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploadjwk")]
     public async Task<ActionResult> UploadCertificate([FromForm] IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
@@ -94,7 +95,6 @@ public class SystemUserController : ControllerBase
         _systemUserService.PostNewSystemUserDescriptor(newSystemUserDescriptor, cancellationToken);
     }
 
-    
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPut("{id}")]
@@ -105,7 +105,6 @@ public class SystemUserController : ControllerBase
         if (modifiedSystemUser.SelectedSystemType is not null) await _systemUserService.ChangeSystemUserProduct(modifiedSystemUser.SelectedSystemType, id, cancellationToken);
     }
 
-    
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpDelete("{id}")]

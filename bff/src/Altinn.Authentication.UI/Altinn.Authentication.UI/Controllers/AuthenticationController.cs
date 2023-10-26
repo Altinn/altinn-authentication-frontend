@@ -37,7 +37,7 @@ public class AuthenticationController : ControllerBase
 
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpGet("authfront/api/v1/authentication/refresh")]
     public async Task<IActionResult> Refresh()
     {
