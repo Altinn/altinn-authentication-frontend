@@ -36,6 +36,7 @@ public static class JwtTokenMock
         }
 
         X509Certificate2 cert = new X509Certificate2(certPath, "qwer1234");
+
         return new X509SigningCredentials(cert, SecurityAlgorithms.RsaSha256);
     }
 }

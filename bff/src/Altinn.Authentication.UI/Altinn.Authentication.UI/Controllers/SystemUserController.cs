@@ -26,7 +26,8 @@ public class SystemUserController : ControllerBase
         _systemUserService = systemUserService; 
     }
     
-    [Authorize]
+
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
     public async Task<ActionResult> GetSystemUserListForLoggedInUser(string id, CancellationToken cancellationToken = default)
@@ -86,7 +87,7 @@ public class SystemUserController : ControllerBase
     }
 
     
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
     public void Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
@@ -94,8 +95,7 @@ public class SystemUserController : ControllerBase
         _systemUserService.PostNewSystemUserDescriptor(newSystemUserDescriptor, cancellationToken);
     }
 
-    
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPut("{id}")]
     public async void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
@@ -105,8 +105,7 @@ public class SystemUserController : ControllerBase
         if (modifiedSystemUser.SelectedSystemType is not null) await _systemUserService.ChangeSystemUserProduct(modifiedSystemUser.SelectedSystemType, id, cancellationToken);
     }
 
-    
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpDelete("{id}")]
     public void Delete(Guid id, CancellationToken cancellationToken = default)

@@ -1,10 +1,8 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
-using Microsoft.AspNetCore.Http.HttpResults;
-using System.Net.Http.Headers;
 
-namespace Altinn.Authentication.UI.Integration.SystemUsers;
+namespace Altinn.Authentication.UI.Mock.SystemUsers;
 
-public class SystemUserClient : ISystemUserClient
+public class SystemUserClientMock : ISystemUserClient
 {
     private static List<SystemUserReal> MockTestHelper()
     {
@@ -14,7 +12,7 @@ public class SystemUserClient : ISystemUserClient
             Id = "37ce1792-3b35-4d50-a07d-636017aa7dbd",
             Title = "Vårt regnskapsystem",
             Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
-            SystemType = "Visma Skatt",
+            SystemType = "visma_vis_v2",
             OwnedByPartyId = "orgno:91235123",
             Created = "2023-09-12",
             IsDeleted = false,
@@ -26,7 +24,7 @@ public class SystemUserClient : ISystemUserClient
             Id = "37ce1792-3b35-4d50-a07d-636017aa7dbe",
             Title = "Vårt andre regnskapsystem",
             Description = "Koblet opp mot Visvas. Snakk med Per om abonnement",
-            SystemType = "Visma Visvas",
+            SystemType = "visma_vis_sys",
             OwnedByPartyId = "orgno:91235124",
             Created = "2023-09-22",
             IsDeleted = false,
@@ -38,7 +36,7 @@ public class SystemUserClient : ISystemUserClient
             Id = "37ce1792-3b35-4d50-a07d-636017aa7dbf",
             Title = "Et helt annet system",
             Description = "Kai og Guri vet alt om dette systemet.",
-            SystemType = "Fiken Superskatt",
+            SystemType = "fiken_superskatt",
             OwnedByPartyId = "orgno:91235125",
             Created = "2023-09-22",
             IsDeleted = false,
@@ -70,7 +68,7 @@ public class SystemUserClient : ISystemUserClient
         };       
     }
 
-    public SystemUserClient()
+    public SystemUserClientMock()
     {
         _systemUserList = MockTestHelper();
     }

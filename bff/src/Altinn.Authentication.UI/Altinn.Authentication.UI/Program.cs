@@ -22,6 +22,10 @@ using Altinn.Authentication.UI.Integration.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Integration.Authentication;
 using System.Net.Security;
+using Altinn.Authentication.UI.Mock.Authentication;
+using Altinn.Authentication.UI.Mock.SystemRegister;
+using Altinn.Authentication.UI.Mock.SystemUsers;
+using Altinn.Authentication.UI.Mock.UserProfiles;
 
 ILogger logger;
 
@@ -137,21 +141,26 @@ void ConfigureAuthenticationAndSecurity (IServiceCollection services, IConfigura
 
 void ConfigureFeatureClients(IServiceCollection services, IConfiguration configuration)
 {
-    //Clients in the Integration layer for the Feature Services
-    services.AddHttpClient<IAuthenticationClient, AuthenticationClient>();
-    services.AddSingleton<IUserProfileClient, UserProfileClient>();
-    services.AddSingleton<ISystemUserClient, SystemUserClient>();
-    services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
-    services.AddSingleton<IPartyClient, PartyClient>();
+    //Clients in the Integration layer for the login user and auth logic
+    //services.AddHttpClient<IAuthenticationClient, AuthenticationClientMock>();
+    services.AddSingleton<IAuthenticationClient, AuthenticationClientMock>();
+    services.AddSingleton<IUserProfileClient, UserProfileClientMock>();
+    services.AddSingleton<IPartyClient, PartyClientMock>();
+
+    //Clients for the actual Features' Services
+    services.AddSingleton<ISystemUserClient, SystemUserClientMock>();
+    services.AddSingleton<ISystemRegisterClient, SystemRegisterClientMock>();    
 }
 
 void ConfigureFeatureServices(IServiceCollection services, IConfiguration configuration)
-{   
-    //Altinn Feature Services        
-    services.AddSingleton<ISystemUserService, SystemUserService>();
-    services.AddSingleton<ISystemRegisterService, SystemRegisterService>();    
+{
+    //Services for the login user and auth logic
     services.AddSingleton<IUserProfileService, UserProfileService>();
     services.AddSingleton<IPartyService, PartyService>();
+
+    //Altinn actual Features' Services        
+    services.AddSingleton<ISystemUserService, SystemUserService>();
+    services.AddSingleton<ISystemRegisterService, SystemRegisterService>();        
 }
 
 void ConfigureDevelopmentAndTestingServices(IServiceCollection services, IConfiguration configuration)
@@ -193,5 +202,4 @@ void ConfigureLogging(ILoggingBuilder loggingBuilder)
     loggingBuilder.AddFilter("Microsoft", LogLevel.Warning);
     loggingBuilder.AddFilter("System", LogLevel.Warning);
     loggingBuilder.AddConsole();
-
 }
