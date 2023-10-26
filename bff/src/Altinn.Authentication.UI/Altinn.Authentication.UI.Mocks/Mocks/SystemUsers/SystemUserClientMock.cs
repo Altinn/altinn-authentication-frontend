@@ -75,11 +75,13 @@ public class SystemUserClientMock : ISystemUserClient
    
     public async Task<SystemUserReal?> GetSpecificSystemUserReal(Guid id, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(50);
         return _systemUserList.Find(i => i.Id == id.ToString());
     }
 
     public async Task<Guid> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
+        await Task.Delay(50);
         var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);
         _systemUserList.Add(sysreal);
         return Guid.Parse(sysreal.Id!);
@@ -87,29 +89,34 @@ public class SystemUserClientMock : ISystemUserClient
 
     public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(50);
         SystemUserReal? toDelete = _systemUserList.Find(i => i.Id == id.ToString());        
         if (toDelete is null) return false;
         _systemUserList.Remove(toDelete);
         return true;
     }
 
-    public Task<bool> ChangeSystemUserRealTitle(string newTitle, Guid id, CancellationToken cancellationToken = default)
+    public async Task<bool> ChangeSystemUserRealTitle(string newTitle, Guid id, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(50);
         throw new NotImplementedException();
     }
 
-    public Task<bool> ChangeSystemUserRealDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
+    public async Task<bool> ChangeSystemUserRealDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(50);
         throw new NotImplementedException();
     }
 
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(Guid id, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(50);
         return _systemUserList;
     }
 
-    public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
+    public async Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
     {
+        await Task.Delay(50);
         throw new NotImplementedException();
     }
 }

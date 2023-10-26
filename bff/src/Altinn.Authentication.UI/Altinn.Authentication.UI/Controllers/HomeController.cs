@@ -6,6 +6,8 @@ using System.Web;
 using Altinn.Platform.Profile.Models;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.UserProfiles;
+using Altinn.Authentication.UI.Core.AppConfiguration;
+using Altinn.Authentication.UI.Integration.Configuration;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -19,6 +21,8 @@ public class HomeController : Controller
     private readonly IWebHostEnvironment _env;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserProfileService _profileService;
+    private readonly GeneralSettings _generalSettings;
+    private readonly PlatformSettings _platformSettings;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="HomeController" /> class.
@@ -34,10 +38,9 @@ public class HomeController : Controller
         IUserProfileService profileService,
         IAntiforgery antiforgery,
         IWebHostEnvironment env,
-        IHttpContextAccessor httpContextAccessor)
-        //IOptions<PlatformSettings> platformSettings,
-        //IOptions<FrontEndEntryPointOptions> frontendEntrypointOptions)
-        //IOptions<GeneralSettings> generalSettings)
+        IHttpContextAccessor httpContextAccessor,
+        IOptions<PlatformSettings> platformSettings,
+        IOptions<GeneralSettings> generalSettings)
         //ILogger<HomeController> logger)
     {
         //_logger = logger;
@@ -45,6 +48,8 @@ public class HomeController : Controller
         _env = env;
         _httpContextAccessor = httpContextAccessor;
         _profileService = profileService;
+        _generalSettings = generalSettings.Value;
+        _platformSettings = platformSettings.Value;
     }
 
 
@@ -80,11 +85,11 @@ public class HomeController : Controller
             return View();
         }
 
-        //string goToUrl = HttpUtility.UrlEncode($"{_generalSettings.FrontendBaseUrl}{Request.Path}");
-        string goToUrl = "https://localhost:7170/authfront/ui/home";
-        string authApiEndpoint = "http://localhost:5101/authentication/api/v1/openid";
-        string redirectUrl = authApiEndpoint + "?goto=" + goToUrl;
-        //string redirectUrl = $"{_platformSettings.ApiAuthenticationEndpoint}authentication?goto={goToUrl}";
+        string goToUrl = HttpUtility.UrlEncode($"{_generalSettings.FrontendBaseUrl}{Request.Path}");
+        //string goToUrl = "https://localhost:7170/authfront/ui/home";
+        //string authApiEndpoint = "http://localhost:5101/authentication/api/v1/openid";
+        //string redirectUrl = authApiEndpoint + "?goto=" + goToUrl;
+        string redirectUrl = $"{_platformSettings.ApiAuthenticationEndpoint}authentication?goto={goToUrl}";
         return Redirect(redirectUrl);
 
     }

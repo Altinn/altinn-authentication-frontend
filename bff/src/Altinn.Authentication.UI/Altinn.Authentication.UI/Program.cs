@@ -26,6 +26,7 @@ using Altinn.Authentication.UI.Mock.SystemRegister;
 using Altinn.Authentication.UI.Mock.SystemUsers;
 using Altinn.Authentication.UI.Mock.UserProfiles;
 using Altinn.Authentication.UI.Integration.Configuration;
+using Altinn.Authentication.UI.Core.AppConfiguration;
 
 ILogger logger;
 
@@ -92,8 +93,11 @@ void ConfigureAppSettings (IServiceCollection services, IConfiguration configura
 {
     //App Configuration
     services.Configure<PlatformSettings>(configuration.GetSection("PlatformSettings"));
-    services.AddSingleton(configuration);
     PlatformSettings? platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>();
+
+    services.Configure<GeneralSettings>(configuration.GetSection("GeneralSettings"));
+
+    services.AddSingleton(configuration);
 }
 
 void ConfigureAuthenticationAndSecurity (IServiceCollection services, IConfiguration configuration)

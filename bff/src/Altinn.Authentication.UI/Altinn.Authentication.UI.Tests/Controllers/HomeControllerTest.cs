@@ -66,7 +66,7 @@ public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory<Home
     {
         //Arrange
         HttpClient client = SetupUtils.GetTestClient(_factory, true);
-        string requestUrl = "http://localhost:5101/authentication/api/v1/openid?goto=https://localhost:7170/authfront/ui/home";
+        string requestUrl = "http://localhost:5101/authentication/api/v1/authentication?goto=http%3a%2f%2flocalhost%3a5101%2fauthfront%2f";
 
         //Act
         HttpResponseMessage response = await client.GetAsync($"authfront/");
@@ -84,7 +84,7 @@ public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory<Home
     {
         string token = PrincipalUtil.GetAccessToken("sbl.authorization");
         HttpClient client = SetupUtils.GetTestClient(_factory, false);
-        HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "authfront/");
+        HttpRequestMessage request = new (HttpMethod.Get, "authfront/");
 
         SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
 
@@ -100,5 +100,20 @@ public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory<Home
         Assert.StartsWith("il8next", cookieHeaders.ElementAt(2));
     }
 
+    [Fact]
+    public async Task GetHome_UnAuthorized_WithInvalidAuthCookie()
+    {
+        string token = "This is an invalid token";
+
+        HttpClient client = SetupUtils.GetTestClient(_factory, true);
+        HttpRequestMessage request = new(HttpMethod.Get, $"authfront/");
+
+        SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
+
+        HttpResponseMessage response = await client.SendAsync(request);
+        string requestUrl = "http://localhost:5101/authentication/api/v1/authentication?goto=http%3a%2f%2flocalhost%3a5101%2fauthfront%2f";
+        
+        Assert.Equal(requestUrl, response.RequestMessage!.RequestUri!.ToString());
+    }
 
 }
