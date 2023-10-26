@@ -49,7 +49,7 @@ public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAut
 
         string method = context.HttpContext.Request.Method;
         if (
-            string.Equals("GET", method, StringComparison.OrdinalIgnoreCase) ||
+            //string.Equals("GET", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("HEAD", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("TRACE", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("OPTIONS", method, StringComparison.OrdinalIgnoreCase)
@@ -58,9 +58,7 @@ public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAut
             return false;
         }
 
-        string? cookieName = _platformSettings.JwtCookieName;
-        if (cookieName is null) return true;
-
+        string? cookieName = _platformSettings.JwtCookieName ?? throw new ArgumentOutOfRangeException(nameof(context));
         string? authcookie = context.HttpContext.Request.Cookies[cookieName];//"AltinnStudioRuntime"
         if (authcookie is null)
         {
