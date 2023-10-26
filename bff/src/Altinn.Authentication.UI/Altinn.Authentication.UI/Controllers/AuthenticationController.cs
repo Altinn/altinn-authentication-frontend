@@ -15,7 +15,7 @@ namespace Altinn.Authentication.UI.Controllers;
 [ApiController]
 [AutoValidateAntiforgeryTokenIfAuthCookie] 
 public class AuthenticationController : ControllerBase
-{
+{ 
     private readonly IAntiforgery _antiforgery;
     private readonly ILogger _logger;
     private readonly PlatformSettings _platformSettings;
@@ -55,8 +55,7 @@ public class AuthenticationController : ControllerBase
                 SameSite = SameSiteMode.Lax
             };
 
-            //string? tokenName = _platformSettings.JwtCookieName;
-            string tokenName = "XSRF-TOKEN";
+            string? tokenName = _platformSettings.JwtCookieName;
             if (string.IsNullOrWhiteSpace(tokenName)) return BadRequest();
             HttpContext.Response.Cookies.Append(tokenName, token, runtimeCookieSetting);
         }
@@ -65,17 +64,6 @@ public class AuthenticationController : ControllerBase
             _logger.LogError(e, "Refresh failed to return an updated token.");
             return StatusCode(500);
         }
-
-        //AntiforgeryTokenSet tokens = _antiforgery.GetAndStoreTokens(HttpContext);
-        //if (tokens.RequestToken is null) return NotFound();
-        //HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions
-        //{
-        //    Domain = "localhost",
-        //    HttpOnly = true,
-        //    Secure = true,
-        //    IsEssential = true,
-        //    SameSite = SameSiteMode.Lax
-        //});
 
         return Ok();
 

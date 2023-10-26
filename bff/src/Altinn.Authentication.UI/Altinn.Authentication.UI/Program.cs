@@ -9,7 +9,6 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using AltinnCore.Authentication.JwtCookie;
-using Altinn.Common.PEP.Configuration;
 using Altinn.Authentication.UI.Extensions;
 using Altinn.Authentication.UI.Filters;
 using Altinn.Common.AccessTokenClient.Services;
@@ -26,6 +25,7 @@ using Altinn.Authentication.UI.Mock.Authentication;
 using Altinn.Authentication.UI.Mock.SystemRegister;
 using Altinn.Authentication.UI.Mock.SystemUsers;
 using Altinn.Authentication.UI.Mock.UserProfiles;
+using Altinn.Authentication.UI.Integration.Configuration;
 
 ILogger logger;
 
