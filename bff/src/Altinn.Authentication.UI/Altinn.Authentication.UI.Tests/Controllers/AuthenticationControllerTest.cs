@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Altinn.Authentication.UI.Tests.Controllers;
 
-namespace Altinn.Authentication.UI.Tests.Controllers
+public class AuthenticationControllerTest 
 {
-    internal class AuthenticationControllerTest
-    {
-    }
 }
