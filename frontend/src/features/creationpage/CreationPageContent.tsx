@@ -5,7 +5,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { lagreOpprettKnapp } from '@/rtk/features/creationPage/creationPageSlice';
+// import { lagreOpprettKnapp } from '@/rtk/features/creationPage/creationPageSlice';
+import { postNewSystemUser, CreationRequest } from '@/rtk/features/creationPage/creationPageSlice';
 
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
@@ -28,6 +29,7 @@ export const CreationPageContent = () => {
   const dispatch = useAppDispatch(); // fix-me: bygger kobling til REDUX 
   const reduxNavn = useAppSelector((state) => state.creationPage.navn);
   const reduxBeskrivelse = useAppSelector((state) => state.creationPage.beskrivelse);
+  
 
   // brukes i h2, ikke vist i Small/mobile view
   const isSm = useMediaQuery('(max-width: 768px)'); // fix-me: trengs denne?
@@ -45,11 +47,29 @@ export const CreationPageContent = () => {
   // til Redux State, som er stabil så lenge app kjører
   // ---> tilgjengelig også fra andre sider
   // ---> API er ennå ikke tilgjengelig per 10.10.23
+
+  // 25.10.23: handleConfirm skal oppdateres med POST i Slice
   const handleConfirm = () => {
-    dispatch(lagreOpprettKnapp( { navn: navn, beskrivelse: beskrivelse, selected: selected } ));
+
+    // tester selve kallet først:
+    const PostObjekt: CreationRequest = {
+      integrationTitle: "test1",
+      description: "test2",
+      selectedSystemType: "test3",
+      clientId: "test4",
+      ownedByPartyId: "test5"
+    };
+
+    void dispatch(postNewSystemUser(PostObjekt)); // generell form... må gi input objekt 
+    // med navn, beskrivelse... etc... type CreationRequest: bare test-verdier ennå
+    
+    // gammel dispatch skal ikke brukes
+    // dispatch(lagreOpprettKnapp( { navn: navn, beskrivelse: beskrivelse, selected: selected } ));
     setNavn('');
     setBeskrivelse('');
     setSelected('');
+    // navigasjon til OverviewPage skal vise med ny GET request den nye SystemBruker
+    // ettersom vi ikke har noen annen suksess-melding ennå
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
