@@ -10,28 +10,28 @@ public class SystemRegisterClientMock : ISystemRegisterClient
 
         RegisteredSystemDTO regsys1 = new()
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = "facny_system_name_v1",
             Navn = "Fancy System Name",
             Beskrivelse = "Vårt nye system som kan brukes til Alt."
         };
 
         RegisteredSystemDTO regsys2 = new()
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = "bra_system_navn_2023",
             Navn = "Bra System Navn",
             Beskrivelse = "Rapporter naboens feilparkering i gata"
         };
 
         RegisteredSystemDTO regsys3 = new()
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = "decent_system_name",
             Navn = "Decent System Name",
             Beskrivelse = "Rapporter helgeovertid"
         };
 
         RegisteredSystemDTO regsys4 = new()
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = "awesome_system_name_121",
             Navn = "Awesome System Name",
             Beskrivelse = "Tja, det virker ihvertfall"
 
@@ -39,7 +39,7 @@ public class SystemRegisterClientMock : ISystemRegisterClient
 
         RegisteredSystemDTO regsys5 = new()
         {
-            Id = Guid.NewGuid().ToString(),
+            Id = "cool_system_name_forest",
             Navn = "Cool System Name",
             Beskrivelse = "Enda bedre enn konkurrentene"
         };
