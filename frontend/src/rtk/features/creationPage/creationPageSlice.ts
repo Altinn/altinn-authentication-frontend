@@ -7,18 +7,12 @@ import axios from 'axios';
 // som blir sendt til BFF
 
 export interface SliceState {
-  navn: string;
-  beskrivelse: string;
-  selected: string;
-  posted: boolean;
+  postConfirmed: boolean;
   creationError: string;
 }
 
 const initialState: SliceState = {
-    navn: '',
-    beskrivelse: '', 
-    selected: '',
-    posted: false,
+    postConfirmed: false,
     creationError: '',
 };
 
@@ -32,9 +26,7 @@ export interface CreationRequest {
 }
 
 // OK let the CreationPage populate the systemUserInfo object,
-// and just accept the object as input here and post it on to BFF
-// seems to work: that is, the POST goes through, and the GET list
-// shows another member in list, but the attributes are "test1", "test2" etc... OK
+// and just accept the object as input here and post parameter on to BFF
 export const postNewSystemUser = createAsyncThunk('creationPageSlice/postNewSystemUser', 
   async (systemUserInfo: CreationRequest) => {
   return await axios
@@ -54,7 +46,7 @@ const creationPageSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(postNewSystemUser.fulfilled, (state) => {
-        state.posted = true;
+        state.postConfirmed = true;
       })
       .addCase(postNewSystemUser.rejected, (state, action) => {
         state.creationError = action.error.message ?? 'Unknown error';
