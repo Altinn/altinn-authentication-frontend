@@ -155,5 +155,4 @@ public class AuthenticationControllerTest : IClassFixture<CustomWebApplicationFa
         Assert.Contains(expectedCookie, actualCookie);
 
     }
-
 }
