@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Antiforgery;
+﻿using Altinn.Authentication.UI.Core.AppConfiguration;
+using Altinn.Authentication.UI.Integration.Configuration;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
@@ -9,12 +11,16 @@ namespace Altinn.Authentication.UI.Filters;
 public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAuthorizationFilter, IAntiforgeryPolicy
 {
     private readonly IAntiforgery _antiforgery;
+    private readonly PlatformSettings _platformSettings;
+    private readonly GeneralSettings _generalSettings;
     //TODO
     
     public ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter(
-        IAntiforgery antiforgery)
+        IAntiforgery antiforgery,
+        IOptionsMonitor<PlatformSettings> platformSettings)
     {
         _antiforgery = antiforgery;
+        _platformSettings = platformSettings.CurrentValue;
     }
 
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
@@ -42,7 +48,8 @@ public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAut
         }
 
         string method = context.HttpContext.Request.Method;
-        if (string.Equals("GET", method, StringComparison.OrdinalIgnoreCase) ||
+        if (
+            string.Equals("GET", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("HEAD", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("TRACE", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("OPTIONS", method, StringComparison.OrdinalIgnoreCase)
@@ -51,8 +58,11 @@ public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAut
             return false;
         }
 
-        string? authcookie = context.HttpContext.Request.Cookies["AltinnStudioRuntime"];//TODO
-        if(authcookie is null)
+        string? cookieName = _platformSettings.JwtCookieName;
+        if (cookieName is null) return true;
+
+        string? authcookie = context.HttpContext.Request.Cookies[cookieName];//"AltinnStudioRuntime"
+        if (authcookie is null)
         {
             return false;
         }

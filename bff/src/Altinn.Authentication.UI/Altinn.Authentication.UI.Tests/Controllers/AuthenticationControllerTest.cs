@@ -15,6 +15,7 @@ using System.Text.Json;
 using Xunit;
 using System.Net.Http.Headers;
 using System.Net;
+using Altinn.Authentication.UI.Tests.Utils;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
 
@@ -89,4 +90,46 @@ public class AuthenticationControllerTest : IClassFixture<CustomWebApplicationFa
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Contains(expectedCookie, actualCookie);
     }
+
+    [Fact]
+    public async Task Refresh_InvalidToke()
+    {
+        //Arrange
+        _client.DefaultRequestHeaders.Remove("Authorization");
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "This is an invalid token");
+
+        //Act
+        HttpResponseMessage response = await _client.GetAsync($"authfront/api/v1/authentication/refresh");
+
+        //Assert
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+
+    }
+
+    [Fact]
+    public async Task Refresh_ReturnsNull()
+    {
+        //Act
+        HttpResponseMessage response = await _clientForNullToken.GetAsync($"authfront/api/v1/authentication/refresh");
+
+        //Assert
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+    [Fact]
+    public async Task Refresh_ValidCookieAndMissingAntiForgeryToken()
+    {
+        //Arrange
+        string token = PrincipalUtil.GetAccessToken("sbl.authorization");
+        HttpRequestMessage request = new(HttpMethod.Get, "authfront/api/v1/authentication/refresh");
+        SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
+
+        //Act
+        HttpResponseMessage response = await _client.SendAsync(request);
+
+        //Assert
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+    }
+
+
 }
