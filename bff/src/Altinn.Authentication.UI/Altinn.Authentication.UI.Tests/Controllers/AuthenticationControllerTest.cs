@@ -5,7 +5,6 @@ using Altinn.Authentication.UI.Mock.Authentication;
 using Altinn.Authentication.UI.Mock.UserProfiles;
 using Altinn.Authentication.UI.Mocks.Mocks;
 using Altinn.Authentication.UI.Mocks.Utils;
-using Altinn.Common.PEP.Implementation;
 using Altinn.Common.PEP.Interfaces;
 using AltinnCore.Authentication.JwtCookie;
 using Microsoft.AspNetCore.TestHost;
@@ -131,5 +130,30 @@ public class AuthenticationControllerTest : IClassFixture<CustomWebApplicationFa
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
+    [Fact]
+    public async Task Refresh_ValidCookieAndAntiforgeryToken()
+    {
+        //Arrange
+        string token = PrincipalUtil.GetAccessToken("sbl.authorization");
+        HttpRequestMessage request = new(HttpMethod.Get, "authfront");
+        SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
+        HttpResponseMessage response = await _client.SendAsync(request);
+        IEnumerable<string> cookieHeaders = response.Headers.GetValues("Set-Cookie");
+        string value = cookieHeaders.ElementAt(1).Split("=")[1].Trim();
+        string antiForgeryToken = value.Split(";")[0].Trim();
+
+        //Act
+        HttpRequestMessage actRequest = new(HttpMethod.Get, "authfront/api/v1/authentication/refresh");
+        SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
+        _client.DefaultRequestHeaders.Add("X-XSRF-TOKEN", antiForgeryToken);
+        HttpResponseMessage actResponse = await _client.SendAsync(actRequest);
+        string expectedCookie = "AltinnStudioRuntime";
+        string actualCookie = actResponse.Headers.GetValues("Set-Cookie").FirstOrDefault()!;
+
+        //Assert
+        Assert.Equal(HttpStatusCode.OK, actResponse.StatusCode);
+        Assert.Contains(expectedCookie, actualCookie);
+
+    }
 
 }
