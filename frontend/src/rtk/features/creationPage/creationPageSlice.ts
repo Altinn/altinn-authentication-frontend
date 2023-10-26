@@ -1,11 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// FIX-ME: må omskrives slik at navn, beskrivelse og selected
+// FIX-ME: muligens omskrives slik at navn, beskrivelse og selected
 // blir tilgjengelig/dispatch i det fokus mistes, a la MaskinportenPage
-// ---> Opprett-knapp bør også inaktiveres til de 3 datapunktene er klare
-
-// slik det er i dag så er det en knapp som flytter data til Redux...
+// Foreløpig er det useState Local State som bærer de 3 tilgjengelige verdiene
+// som blir sendt til BFF
 
 export interface SliceState {
   navn: string;
@@ -47,18 +46,11 @@ export const postNewSystemUser = createAsyncThunk('creationPageSlice/postNewSyst
     });
 });
 
-// foreløpig lagreOpprettKnapp skal fjernes
-// vi satser nå på dispatch ved onBlur (a la maskinPortenPage)
+
 const creationPageSlice = createSlice({
   name: 'creation',
   initialState,
-  reducers: {
-    lagreOpprettKnapp : (state, action) => {
-        state.navn = action.payload.navn;
-        state.beskrivelse = action.payload.beskrivelse;
-        state.selected = action.payload.selected;
-    }
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(postNewSystemUser.fulfilled, (state) => {
@@ -71,4 +63,3 @@ const creationPageSlice = createSlice({
 });
 
 export default creationPageSlice.reducer;
-export const { lagreOpprettKnapp } = creationPageSlice.actions;
