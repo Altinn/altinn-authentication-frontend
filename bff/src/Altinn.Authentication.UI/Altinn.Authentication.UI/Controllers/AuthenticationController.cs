@@ -37,7 +37,7 @@ public class AuthenticationController : ControllerBase
 
     }
 
-    [Authorize]
+    //[Authorize]
     [HttpGet("authfront/api/v1/authentication/refresh")]
     public async Task<IActionResult> Refresh()
     {
@@ -55,8 +55,7 @@ public class AuthenticationController : ControllerBase
                 SameSite = SameSiteMode.Lax
             };
 
-            //string? tokenName = _platformSettings.JwtCookieName;
-            string tokenName = "XSRF-TOKEN";
+            string? tokenName = _platformSettings.JwtCookieName;
             if (string.IsNullOrWhiteSpace(tokenName)) return BadRequest();
             HttpContext.Response.Cookies.Append(tokenName, token, runtimeCookieSetting);
         }

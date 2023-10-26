@@ -17,6 +17,6 @@ public class AuthenticationClientMock : IAuthenticationClient
     }
     public async Task<string> RefreshToken()
     {
-        return PrincipalUtil.GetAccessToken("sbl-authorization");
+        return PrincipalUtil.GetAccessToken("sbl.authorization");
     }
 }
