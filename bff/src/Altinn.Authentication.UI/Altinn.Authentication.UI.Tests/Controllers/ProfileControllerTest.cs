@@ -83,7 +83,6 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
         UserProfile userProfile = await _userProfileService.GetUserProfile(userId);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.IsType<ActionResult<UserProfile>>(response);
         //var content = response.Content;
         //var temp = await content.ReadAsStringAsync();
         //UserProfile? result = JsonSerializer.Deserialize<UserProfile>(temp);
