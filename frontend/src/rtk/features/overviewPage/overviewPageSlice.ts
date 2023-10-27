@@ -5,6 +5,7 @@ import axios from 'axios';
 
 
 // Ny standard SystemUserObjectsDTO fra Swagger 25.10.23
+// Se også issue 23 for ny form på objekt
 
 export interface SystemUserObjectDTO {
     id: string;
@@ -18,6 +19,9 @@ export interface SystemUserObjectDTO {
   }
 // FIX-ME: tror key:value par created:Date; med fordel kan legges til senere
 // det er lettere med en ren String-array i første omgang
+
+// FIX-ME: "supplierOrgno" er feilformet, skal egentlig være "supplierOrgNo"
+// i følge issue 23: kommenterte dette review i dag
 
  
 export interface SliceState {
