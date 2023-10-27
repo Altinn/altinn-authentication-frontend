@@ -21,6 +21,7 @@ using System.Text;
 using System.Text.Json;
 using Xunit;
 using Moq;
+using Newtonsoft.Json;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
 
@@ -87,8 +88,9 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var content = response.Content;
-        var temp = await content.ReadAsStreamAsync();
-        UserProfile? result = JsonSerializer.Deserialize<UserProfile>(temp);
+        var temp = await content.ReadAsStringAsync();
+        UserNameAndOrganizatioNameDTO? result = JsonConvert.DeserializeObject<UserNameAndOrganizatioNameDTO>(temp);
+        //UserProfile? result = JsonSerializer.Deserialize<UserProfile>(temp);
         Assert.Equal(userProfile.UserName, result.UserName);
     }
 

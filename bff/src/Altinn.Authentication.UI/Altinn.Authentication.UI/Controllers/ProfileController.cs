@@ -76,7 +76,7 @@ public class ProfileController : ControllerBase
         }
 
                 
-        return Ok( user);
+        return Ok( userDTO);
     }
 }
 
