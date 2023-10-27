@@ -5,6 +5,7 @@ using Altinn.Authentication.UI.Models;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Platform.Register.Models;
+using System.Net.Http.Headers;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -38,12 +39,13 @@ public class ProfileController : ControllerBase
     /// The method consumes the UserProfile and Party services
     /// <param name = "UserDTO">The UserProfile as a DTO for the Frontend</param>
     /// </summary>
-    //[Authorize] 
+    [Authorize] 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("user")]
     public async Task<ActionResult> GetUser()
     {
         UserNameAndOrganizatioNameDTO? userDTO;
+        UserProfile? user;
 
         var context = _httpContextAccessor.HttpContext;
         if (context is null) return StatusCode(500);
@@ -56,7 +58,7 @@ public class ProfileController : ControllerBase
 
         try
         {
-            UserProfile user = await _userProfileService.GetUserProfile(userid);
+            user = await _userProfileService.GetUserProfile(userid);
             if (user is null) return NotFound();
 
             Party party = await _partyService.GetPartyFromReporteeListIfExists(partyId);
@@ -73,9 +75,8 @@ public class ProfileController : ControllerBase
             return StatusCode(500, e.Message);
         }
 
-
-
-        return Ok(userDTO);
+                
+        return Ok( user);
     }
 }
 

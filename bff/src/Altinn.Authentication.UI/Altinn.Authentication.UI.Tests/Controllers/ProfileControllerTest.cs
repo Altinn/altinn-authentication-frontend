@@ -5,15 +5,19 @@ using Altinn.Authentication.UI.Mock.UserProfiles;
 using Altinn.Authentication.UI.Mocks.Mocks;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Altinn.Authentication.UI.Models;
+using Altinn.Authentication.UI.Tests.Utils;
 using Altinn.Common.PEP.Interfaces;
 using Altinn.Platform.Profile.Models;
 using AltinnCore.Authentication.JwtCookie;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using Xunit;
 
@@ -24,31 +28,14 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
 {
     private readonly CustomWebApplicationFactory<ProfileController> _factory;
     private readonly HttpClient _client;
-    private readonly IUserProfileClient _userProfileClient;    
+    private readonly IUserProfileService _userProfileService;    
 
     public ProfileControllerTest(
         CustomWebApplicationFactory<ProfileController> factory)        
     {
         _factory = factory;
-        _userProfileClient = new UserProfileClientMock();
-        _client = GetTestClient();
-    }
-
-    private HttpClient GetTestClient()
-    {
-        HttpClient client = _factory.WithWebHostBuilder(builder =>
-        {
-            builder.ConfigureServices(services =>
-            {
-                services.AddSingleton<IUserProfileClient, UserProfileClientMock>();
-                services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-                services.AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
-                services.AddSingleton<IPDP, PdpPermitMock>();
-            });
-        }).CreateClient(new Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
-
-        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        return client;
+        _userProfileService = new UserProfileService( new UserProfileClientMock() );
+        _client = SetupUtils.GetTestClient(_factory, false);
     }
 
     private static UserProfile GetMockedUserProfile(int id)
@@ -79,19 +66,35 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
     }
 
     [Fact]
-    public async Task GetUserDTO_UserFound_ReturnUserProfile()
+    public async Task GetUser_UserFound_ReturnUserProfile()
     {
         const int userId = 7007;
+
         UserProfile user = GetMockedUserProfile(userId);
         var token = PrincipalUtil.GetToken(userId, 7007, 2);
-        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        HttpResponseMessage response = await _client.GetAsync("authfront/api/v1/profile/user");
+        
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);        
+        _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/profile/user");        
+        SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
+        
+        HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+                
+        UserProfile userProfile = await _userProfileService.GetUserProfile(userId);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        var content = response.Content;
-        UserNameAndOrganizatioNameDTO? result = JsonSerializer.Deserialize<UserNameAndOrganizatioNameDTO>(await content.ReadAsStringAsync());
+        Assert.IsType<ActionResult<UserProfile>>(response);
+        //var content = response.Content;
+        //var temp = await content.ReadAsStringAsync();
+        //UserProfile? result = JsonSerializer.Deserialize<UserProfile>(temp);
+        //Assert.Equal(userProfile.UserName, result.UserName);
+    }
 
-        //Assert.Equal(userId, result.UserId);
-
+    [Fact]
+    public async Task GetUser_NotAuth()
+    {
+        HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/profile/user");
+        HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
     }
 }

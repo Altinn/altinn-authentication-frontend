@@ -11,7 +11,7 @@ public class UserProfileClientMock : IUserProfileClient
 
         UserProfile user = new()
         {
-            UserId = 20004938,
+            UserId = 7007,
             Email = "1337@altinnstudiotestusers.com",
             PhoneNumber = "90001337",
             UserName = "Testur Testursson Jr",

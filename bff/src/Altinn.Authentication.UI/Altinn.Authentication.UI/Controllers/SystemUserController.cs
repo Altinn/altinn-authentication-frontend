@@ -43,7 +43,7 @@ public class SystemUserController : ControllerBase
     /// Used to upload a certificate for the System User
     /// </summary>
     /// <returns></returns>
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
@@ -65,7 +65,7 @@ public class SystemUserController : ControllerBase
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
     /// <param name = "cancellationToken" ></ param >
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploadjwk")]
     public async Task<ActionResult> UploadCertificate([FromForm] IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
@@ -80,7 +80,6 @@ public class SystemUserController : ControllerBase
         var response = await client.PostAsync("http://localhost:5006/authfront/api/v1/systemuser/uploaddisk", form, cancellationToken);
         response.EnsureSuccessStatusCode();
         var responseString = await response.Content.ReadAsStringAsync(cancellationToken);
-        Debug.WriteLine(responseString);
         response.Dispose();
 
         return Ok();

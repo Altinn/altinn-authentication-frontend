@@ -1,4 +1,8 @@
 ﻿using Altinn.Authentication.UI.Controllers;
+using Altinn.Authentication.UI.Core.Authentication;
+using Altinn.Authentication.UI.Core.UserProfiles;
+using Altinn.Authentication.UI.Mock.Authentication;
+using Altinn.Authentication.UI.Mock.UserProfiles;
 using Altinn.Authentication.UI.Mocks;
 using Altinn.Authentication.UI.Mocks.Mocks;
 using AltinnCore.Authentication.JwtCookie;
@@ -12,17 +16,15 @@ namespace Altinn.Authentication.UI.Tests.Utils;
 
 public static class SetupUtils
 {
-    public static HttpClient GetTestClient(CustomWebApplicationFactory<HomeController> customerFactory, bool allowRedirect = false)
+    public static HttpClient GetTestClient<T>(CustomWebApplicationFactory<T> customerFactory, bool allowRedirect = false)
+        where T : class
     {
-        WebApplicationFactory<HomeController> factory = customerFactory.WithWebHostBuilder(builder =>
+        WebApplicationFactory<T> factory = customerFactory.WithWebHostBuilder(builder =>
         {
             builder.ConfigureTestServices(services =>
-            {
-
-                //services.AddTransient<IResourceRegistryClient, ResourceRegistryClientMock>();
-                //services.AddTransient<IAuthenticationClient, AuthenticationMock>();
-                //services.AddTransient<IProfileClient, ProfileClientMock>();
-
+            {                                
+                services.AddTransient<IAuthenticationClient, AuthenticationClientMock>();
+                services.AddTransient<IUserProfileClient, UserProfileClientMock>();
                 services.AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
             });
         });
