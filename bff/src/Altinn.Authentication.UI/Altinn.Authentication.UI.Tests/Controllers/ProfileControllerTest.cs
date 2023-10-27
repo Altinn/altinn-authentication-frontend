@@ -1,8 +1,10 @@
 ﻿using Altinn.Authentication.UI.Controllers;
+using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Mock.UserProfiles;
 using Altinn.Authentication.UI.Mocks.Mocks;
 using Altinn.Authentication.UI.Mocks.Utils;
+using Altinn.Authentication.UI.Models;
 using Altinn.Common.PEP.Interfaces;
 using Altinn.Platform.Profile.Models;
 using AltinnCore.Authentication.JwtCookie;
@@ -10,23 +12,25 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text.Json;
 using Xunit;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
 
+[Collection("ProfileController Tests")]
 public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<ProfileController>>
 {
     private readonly CustomWebApplicationFactory<ProfileController> _factory;
     private readonly HttpClient _client;
-    private readonly IUserProfileClient _userProfileClient;
+    private readonly IUserProfileClient _userProfileClient;    
 
     public ProfileControllerTest(
-        CustomWebApplicationFactory<ProfileController> factory)
-        //IUserProfileClient userProfileClient)
+        CustomWebApplicationFactory<ProfileController> factory)        
     {
         _factory = factory;
-        //_userProfileClient = userProfileClient;
+        _userProfileClient = new UserProfileClientMock();
         _client = GetTestClient();
     }
 
@@ -41,9 +45,9 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
                 services.AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
                 services.AddSingleton<IPDP, PdpPermitMock>();
             });
-        }).CreateClient(new Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryClientOptions { AllowAutoRedirect =false});
+        }).CreateClient(new Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryClientOptions { AllowAutoRedirect = false });
 
-        client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         return client;
     }
 
@@ -75,7 +79,7 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
     }
 
     [Fact]
-    public async Task GetUser_UserFound_ReturnUserProfile()
+    public async Task GetUserDTO_UserFound_ReturnUserProfile()
     {
         const int userId = 7007;
         UserProfile user = GetMockedUserProfile(userId);
@@ -84,5 +88,10 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
         HttpResponseMessage response = await _client.GetAsync("authfront/api/v1/profile/user");
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        var content = response.Content;
+        UserNameAndOrganizatioNameDTO? result = JsonSerializer.Deserialize<UserNameAndOrganizatioNameDTO>(await content.ReadAsStringAsync());
+
+        //Assert.Equal(userId, result.UserId);
+
     }
 }

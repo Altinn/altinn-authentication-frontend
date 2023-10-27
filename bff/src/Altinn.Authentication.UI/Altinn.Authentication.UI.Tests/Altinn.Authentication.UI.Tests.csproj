@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Altinn.Authentication.UI.Core\Altinn.Authentication.UI.Core.csproj" />
     <ProjectReference Include="..\Altinn.Authentication.UI.Mocks\Altinn.Authentication.UI.Mocks.csproj" />
     <ProjectReference Include="..\Altinn.Authentication.UI\Altinn.Authentication.UI.csproj" />
   </ItemGroup>

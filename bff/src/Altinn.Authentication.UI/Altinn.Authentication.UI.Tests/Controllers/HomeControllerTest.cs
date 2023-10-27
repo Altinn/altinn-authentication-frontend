@@ -78,6 +78,7 @@ public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory<Home
 
     /// <summary>
     /// Test: User has a cookie to authenticate with, should get Home Ok
+    /// and find the chosen language from the UserProfile
     /// </summary>  
     [Fact] 
     public async Task GetHome_Ok_WithAuthCookie()

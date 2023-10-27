@@ -49,7 +49,7 @@ public class ProfileController : ControllerBase
         if (context is null) return StatusCode(500);
 
         int userid = AuthenticationHelper.GetUserId(context);
-        if(userid == 0 ) return BadRequest("Userid not provided in the context.");
+        if (userid == 0) return BadRequest("Userid not provided in the context.");
 
         int partyId = AuthenticationHelper.GetUsersPartyId(context);
         if (partyId == 0) return BadRequest("PartyId not provided in the context.");
@@ -73,7 +73,7 @@ public class ProfileController : ControllerBase
             return StatusCode(500, e.Message);
         }
 
-        
+
 
         return Ok(userDTO);
     }
