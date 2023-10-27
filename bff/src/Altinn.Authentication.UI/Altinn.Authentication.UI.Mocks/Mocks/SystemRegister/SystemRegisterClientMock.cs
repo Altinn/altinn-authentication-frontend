@@ -1,6 +1,6 @@
 ﻿using Altinn.Authentication.UI.Core.SystemRegister;
 
-namespace Altinn.Authentication.UI.Mock.SystemRegister;
+namespace Altinn.Authentication.UI.Mocks.SystemRegister;
 
 public class SystemRegisterClientMock : ISystemRegisterClient
 {

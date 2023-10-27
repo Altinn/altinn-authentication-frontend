@@ -1,7 +1,7 @@
 ﻿using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Platform.Profile.Models;
 
-namespace Altinn.Authentication.UI.Mock.UserProfiles;
+namespace Altinn.Authentication.UI.Mocks.UserProfiles;
 
 public class UserProfileClientMock : IUserProfileClient
 {

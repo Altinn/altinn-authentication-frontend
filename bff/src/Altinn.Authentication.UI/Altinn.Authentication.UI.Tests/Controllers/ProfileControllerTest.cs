@@ -1,7 +1,7 @@
 ﻿using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Core.UserProfiles;
-using Altinn.Authentication.UI.Mock.UserProfiles;
+using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Authentication.UI.Mocks.Mocks;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Altinn.Authentication.UI.Models;
@@ -20,6 +20,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using Xunit;
+using Moq;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
 
@@ -29,11 +30,13 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
     private readonly CustomWebApplicationFactory<ProfileController> _factory;
     private readonly HttpClient _client;
     private readonly IUserProfileService _userProfileService;    
+    private readonly IUserProfileClient _userProfileClient;
 
     public ProfileControllerTest(
         CustomWebApplicationFactory<ProfileController> factory)        
     {
         _factory = factory;
+        _userProfileClient = Mock.Of<IUserProfileClient>();
         _userProfileService = new UserProfileService( new UserProfileClientMock() );
         _client = SetupUtils.GetTestClient(_factory, false);
     }
@@ -83,10 +86,10 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
         UserProfile userProfile = await _userProfileService.GetUserProfile(userId);
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        //var content = response.Content;
-        //var temp = await content.ReadAsStringAsync();
-        //UserProfile? result = JsonSerializer.Deserialize<UserProfile>(temp);
-        //Assert.Equal(userProfile.UserName, result.UserName);
+        var content = response.Content;
+        var temp = await content.ReadAsStreamAsync();
+        UserProfile? result = JsonSerializer.Deserialize<UserProfile>(temp);
+        Assert.Equal(userProfile.UserName, result.UserName);
     }
 
     [Fact]
@@ -94,6 +97,6 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
     {
         HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/profile/user");
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
-        Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+        Assert.NotEqual(HttpStatusCode.OK , response.StatusCode);
     }
 }

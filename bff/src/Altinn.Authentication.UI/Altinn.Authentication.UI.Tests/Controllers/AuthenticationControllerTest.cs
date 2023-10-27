@@ -1,8 +1,8 @@
 ﻿using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.UserProfiles;
-using Altinn.Authentication.UI.Mock.Authentication;
-using Altinn.Authentication.UI.Mock.UserProfiles;
+using Altinn.Authentication.UI.Mocks.Authentication;
+using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Authentication.UI.Mocks.Mocks;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Altinn.Common.PEP.Interfaces;

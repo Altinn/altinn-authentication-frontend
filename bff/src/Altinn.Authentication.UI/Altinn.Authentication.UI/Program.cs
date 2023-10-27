@@ -21,10 +21,10 @@ using Altinn.Authentication.UI.Integration.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Integration.Authentication;
 using System.Net.Security;
-using Altinn.Authentication.UI.Mock.Authentication;
-using Altinn.Authentication.UI.Mock.SystemRegister;
-using Altinn.Authentication.UI.Mock.SystemUsers;
-using Altinn.Authentication.UI.Mock.UserProfiles;
+using Altinn.Authentication.UI.Mocks.Authentication;
+using Altinn.Authentication.UI.Mocks.SystemRegister;
+using Altinn.Authentication.UI.Mocks.SystemUsers;
+using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Core.AppConfiguration;
 

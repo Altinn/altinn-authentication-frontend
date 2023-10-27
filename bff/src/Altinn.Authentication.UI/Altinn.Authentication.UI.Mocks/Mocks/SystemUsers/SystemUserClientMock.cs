@@ -1,6 +1,6 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
 
-namespace Altinn.Authentication.UI.Mock.SystemUsers;
+namespace Altinn.Authentication.UI.Mocks.SystemUsers;
 
 public class SystemUserClientMock : ISystemUserClient
 {
