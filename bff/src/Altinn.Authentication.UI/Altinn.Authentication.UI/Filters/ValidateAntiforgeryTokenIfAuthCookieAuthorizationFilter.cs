@@ -17,10 +17,12 @@ public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAut
     
     public ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter(
         IAntiforgery antiforgery,
-        IOptionsMonitor<PlatformSettings> platformSettings)
+        IOptionsMonitor<PlatformSettings> platformSettings,
+        IOptionsMonitor<GeneralSettings> generalSettings)
     {
         _antiforgery = antiforgery;
         _platformSettings = platformSettings.CurrentValue;
+        _generalSettings = generalSettings.CurrentValue;
     }
 
     public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
@@ -49,7 +51,7 @@ public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAut
 
         string method = context.HttpContext.Request.Method;
         if (
-            //string.Equals("GET", method, StringComparison.OrdinalIgnoreCase) ||
+            //string.Equals("GET", method, StringComparison.OrdinalIgnoreCase) ||  //Why ?
             string.Equals("HEAD", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("TRACE", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("OPTIONS", method, StringComparison.OrdinalIgnoreCase)
@@ -65,7 +67,11 @@ public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAut
             return false;
         }
 
-        return true;
+        if(_generalSettings.DisableCsrfCheck)
+        {
+            return false;
+        }
 
+        return true;
     }
 }

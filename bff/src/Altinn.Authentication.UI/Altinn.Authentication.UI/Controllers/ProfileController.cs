@@ -5,6 +5,7 @@ using Altinn.Authentication.UI.Models;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Platform.Register.Models;
+using System.Net.Http.Headers;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -44,19 +45,20 @@ public class ProfileController : ControllerBase
     public async Task<ActionResult> GetUser()
     {
         UserNameAndOrganizatioNameDTO? userDTO;
+        UserProfile? user;
 
         var context = _httpContextAccessor.HttpContext;
         if (context is null) return StatusCode(500);
 
         int userid = AuthenticationHelper.GetUserId(context);
-        if(userid == 0 ) return BadRequest("Userid not provided in the context.");
+        if (userid == 0) return BadRequest("Userid not provided in the context.");
 
         int partyId = AuthenticationHelper.GetUsersPartyId(context);
         if (partyId == 0) return BadRequest("PartyId not provided in the context.");
 
         try
         {
-            UserProfile user = await _userProfileService.GetUserProfile(userid);
+            user = await _userProfileService.GetUserProfile(userid);
             if (user is null) return NotFound();
 
             Party party = await _partyService.GetPartyFromReporteeListIfExists(partyId);
@@ -73,9 +75,8 @@ public class ProfileController : ControllerBase
             return StatusCode(500, e.Message);
         }
 
-        
-
-        return Ok(userDTO);
+                
+        return Ok( userDTO);
     }
 }
 
