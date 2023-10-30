@@ -30,8 +30,7 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
 {
     private readonly CustomWebApplicationFactory<ProfileController> _factory;
     private readonly HttpClient _client;
-    private readonly IUserProfileService _userProfileService;    
-    //private readonly IUserProfileClient _userProfileClient;
+    private readonly IUserProfileService _userProfileService;   
 
     public ProfileControllerTest(
         CustomWebApplicationFactory<ProfileController> factory)        
@@ -113,4 +112,5 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
 
         Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
+
 }
