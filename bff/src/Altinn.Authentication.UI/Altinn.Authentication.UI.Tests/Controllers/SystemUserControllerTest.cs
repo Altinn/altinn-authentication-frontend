@@ -9,6 +9,7 @@ using Xunit;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
 
+[Collection ("SystemUserController Tests")]
 public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory<SystemUserController>>
 {
     private readonly CustomWebApplicationFactory<SystemUserController> _factory;
