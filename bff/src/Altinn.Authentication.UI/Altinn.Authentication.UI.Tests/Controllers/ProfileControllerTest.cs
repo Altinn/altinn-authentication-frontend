@@ -31,7 +31,7 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
     private readonly CustomWebApplicationFactory<ProfileController> _factory;
     private readonly HttpClient _client;
     private readonly IUserProfileService _userProfileService;    
-    private readonly IUserProfileClient _userProfileClient;
+    //private readonly IUserProfileClient _userProfileClient;
 
     public ProfileControllerTest(
         CustomWebApplicationFactory<ProfileController> factory)        
@@ -100,5 +100,17 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
         HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/profile/user");
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
         Assert.NotEqual(HttpStatusCode.OK , response.StatusCode);
+    }
+
+    //[Fact]
+    public async Task GetUser_NotFound()
+    {
+        const int userId= 1111;
+        var token = PrincipalUtil.GetToken(userId, userId, 2);
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        var response = await _client.GetAsync($"authfront/api/v1/profile/user");
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
     }
 }
