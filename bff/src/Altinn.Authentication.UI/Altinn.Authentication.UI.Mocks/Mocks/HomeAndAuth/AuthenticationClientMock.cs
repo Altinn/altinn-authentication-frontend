@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 
-namespace Altinn.Authentication.UI.Mock.Authentication;
+namespace Altinn.Authentication.UI.Mocks.Authentication;
 
 public class AuthenticationClientMock : IAuthenticationClient
 {

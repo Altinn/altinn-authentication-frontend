@@ -19,20 +19,20 @@ public class AuthenticationController : ControllerBase
     private readonly IAntiforgery _antiforgery;
     private readonly ILogger _logger;
     private readonly PlatformSettings _platformSettings;
-    //private readonly GeneralSettings _generalSettings;
+    private readonly GeneralSettings _generalSettings;
     private readonly IAuthenticationClient _authenticationClient;
 
     public AuthenticationController(
         IAuthenticationClient authenticationClient,
         ILogger<AuthenticationController> logger,
-        //IOptions<GeneralSettings> generalSettings,
+        IOptions<GeneralSettings> generalSettings,
         IOptions<PlatformSettings> platformSettings,
         IAntiforgery antiforgery)
     {
         _antiforgery = antiforgery;
         _logger = logger;
         _platformSettings = platformSettings.Value;
-        //_generalSettings = generalSettings.Value;
+        _generalSettings = generalSettings.Value;
         _authenticationClient = authenticationClient;
 
     }
@@ -48,7 +48,7 @@ public class AuthenticationController : ControllerBase
 
             CookieOptions runtimeCookieSetting = new()
             {
-                Domain = "localhost",//_generalSettings.HostName,
+                Domain = _generalSettings.HostName,
                 HttpOnly = true,
                 Secure = true,
                 IsEssential = true,
