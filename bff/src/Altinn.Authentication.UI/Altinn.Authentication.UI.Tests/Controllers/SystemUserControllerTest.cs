@@ -41,11 +41,10 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
         Assert.True(list is not null);
         Assert.True(list[0].Id is not null);
         Assert.True(list[0].ProductName is not null);
-        //Assert.True(list[0].OwnedByPartyId == partyId.ToString());//The DTO has the orgno
-        
-
-            
+        //Assert.True(list[0].OwnedByPartyId == partyId.ToString());//The DTO has the orgno            
     }
+
+
 
     public async Task CreateSystemUser_ReturnOK()
     {
