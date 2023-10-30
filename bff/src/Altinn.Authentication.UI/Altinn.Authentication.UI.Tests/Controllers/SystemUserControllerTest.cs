@@ -5,6 +5,7 @@ using Altinn.Authentication.UI.Mocks.Utils;
 using Altinn.Authentication.UI.Tests.Utils;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Security.Policy;
 using Xunit;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
@@ -44,6 +45,30 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
         
 
             
+    }
+
+    public async Task CreateSystemUser_ReturnOK()
+    {
+        
+    }
+
+    public async Task CreateSystemUser_Failed()
+    {
+
+    }
+
+    public async Task RemoveSystemUser_ReturnOK()
+    {
+
+    }
+
+    public async Task GetSingleSystemUser_ReturnOK(){
+
+    }
+
+    public async Task GetSingleSystemUser_NotFound()
+    {
+
     }
 
 }
