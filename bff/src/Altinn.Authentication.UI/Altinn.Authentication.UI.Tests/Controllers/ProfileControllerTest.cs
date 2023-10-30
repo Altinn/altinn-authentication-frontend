@@ -20,7 +20,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using Xunit;
-using Moq;
+//using Moq;
 using Newtonsoft.Json;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
@@ -37,7 +37,7 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
         CustomWebApplicationFactory<ProfileController> factory)        
     {
         _factory = factory;
-        _userProfileClient = Mock.Of<IUserProfileClient>();
+        //_userProfileClient = new UserProfileClientMock(); //Mock.Of<IUserProfileClient>();
         _userProfileService = new UserProfileService( new UserProfileClientMock() );
         _client = SetupUtils.GetTestClient(_factory, false);
     }
