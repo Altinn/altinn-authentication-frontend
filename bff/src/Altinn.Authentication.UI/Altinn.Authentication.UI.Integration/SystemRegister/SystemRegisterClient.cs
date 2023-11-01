@@ -10,38 +10,38 @@ public class SystemRegisterClient : ISystemRegisterClient
 
         RegisteredSystemDTO regsys1 = new()
         {
-            Id = Guid.NewGuid().ToString(),
-            Navn = "Fancy System Name",
-            Beskrivelse = "Vårt nye system som kan brukes til Alt."
+            SystemTypeId = "fancy_system_name",
+            SystemVendor = "Fancy System Name",
+            Description = "Vårt nye system som kan brukes til Alt."
         };
 
         RegisteredSystemDTO regsys2 = new()
         {
-            Id = Guid.NewGuid().ToString(),
-            Navn = "Bra System Navn",
-            Beskrivelse = "Rapporter naboens feilparkering i gata"
+            SystemTypeId = "bra_system_navn",
+            SystemVendor = "Bra System Navn",
+            Description  =  "Rapporter naboens feilparkering i gata"
         };
 
         RegisteredSystemDTO regsys3 = new()
         {
-            Id = Guid.NewGuid().ToString(),
-            Navn = "Decent System Name",
-            Beskrivelse = "Rapporter helgeovertid"
+            SystemTypeId = "decent_system_name",
+            SystemVendor = "Decent System Name",
+            Description =  "Rapporter helgeovertid"
         };
 
         RegisteredSystemDTO regsys4 = new()
         {
-            Id = Guid.NewGuid().ToString(),
-            Navn = "Awesome System Name",
-            Beskrivelse = "Tja, det virker ihvertfall"
+            SystemTypeId = "awesome_system_name",
+            SystemVendor ="Awesome System Name",
+            Description = "Tja, det virker ihvertfall"
 
         };
 
         RegisteredSystemDTO regsys5 = new()
         {
-            Id = Guid.NewGuid().ToString(),
-            Navn = "Cool System Name",
-            Beskrivelse = "Enda bedre enn konkurrentene"
+            SystemTypeId = "cool_system_name",
+            SystemVendor ="Cool System Name",
+            Description = "Enda bedre enn konkurrentene"
         };
 
         List<RegisteredSystemDTO> theList = new()

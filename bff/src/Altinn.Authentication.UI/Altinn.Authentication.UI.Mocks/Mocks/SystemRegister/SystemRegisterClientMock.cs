@@ -4,47 +4,47 @@ namespace Altinn.Authentication.UI.Mocks.SystemRegister;
 
 public class SystemRegisterClientMock : ISystemRegisterClient
 {
-    private static async Task<List<RegisteredSystemDTO>> MockTestHelper()
-    {
-        await Task.Delay(250);
-
-        RegisteredSystemDTO regsys1 = new()
+  private static async Task<List<RegisteredSystemDTO>> MockTestHelper()
         {
-            Id = "facny_system_name_v1",
-            Navn = "Fancy System Name",
-            Beskrivelse = "Vårt nye system som kan brukes til Alt."
-        };
+            await Task.Delay(250);
 
-        RegisteredSystemDTO regsys2 = new()
-        {
-            Id = "bra_system_navn_2023",
-            Navn = "Bra System Navn",
-            Beskrivelse = "Rapporter naboens feilparkering i gata"
-        };
+            RegisteredSystemDTO regsys1 = new()
+            {
+                SystemTypeId = "fancy_system_name",
+                SystemVendor = "Fancy System Name",
+                Description = "Vårt nye system som kan brukes til Alt."
+            };
 
-        RegisteredSystemDTO regsys3 = new()
-        {
-            Id = "decent_system_name",
-            Navn = "Decent System Name",
-            Beskrivelse = "Rapporter helgeovertid"
-        };
+            RegisteredSystemDTO regsys2 = new()
+            {
+                SystemTypeId = "bra_system_navn",
+                SystemVendor = "Bra System Navn",
+                Description = "Rapporter naboens feilparkering i gata"
+            };
 
-        RegisteredSystemDTO regsys4 = new()
-        {
-            Id = "awesome_system_name_121",
-            Navn = "Awesome System Name",
-            Beskrivelse = "Tja, det virker ihvertfall"
+            RegisteredSystemDTO regsys3 = new()
+            {
+                SystemTypeId = "decent_system_name",
+                SystemVendor = "Decent System Name",
+                Description = "Rapporter helgeovertid"
+            };
 
-        };
+            RegisteredSystemDTO regsys4 = new()
+            {
+                SystemTypeId = "awesome_system_name",
+                SystemVendor = "Awesome System Name",
+                Description = "Tja, det virker ihvertfall"
 
-        RegisteredSystemDTO regsys5 = new()
-        {
-            Id = "cool_system_name_forest",
-            Navn = "Cool System Name",
-            Beskrivelse = "Enda bedre enn konkurrentene"
-        };
+            };
 
-        List<RegisteredSystemDTO> theList = new()
+            RegisteredSystemDTO regsys5 = new()
+            {
+                SystemTypeId = "cool_system_name",
+                SystemVendor = "Cool System Name",
+                Description = "Enda bedre enn konkurrentene"
+            };
+
+            List<RegisteredSystemDTO> theList = new()
         {
             regsys1,
             regsys2,
@@ -53,10 +53,10 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             regsys5
         };
 
-        return theList;
-    }
+            return theList;
+        }
 
-    public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
+        public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
     {
         return await MockTestHelper();
     }

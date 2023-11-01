@@ -3,7 +3,7 @@ using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Mocks.SystemUsers;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Altinn.Authentication.UI.Tests.Utils;
-using Newtonsoft.Json;
+using System.Text.Json;
 using System.Net.Http.Headers;
 using System.Security.Policy;
 using Xunit;
@@ -16,6 +16,10 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
     private readonly CustomWebApplicationFactory<SystemUserController> _factory;
     private readonly HttpClient _client;
     private readonly SystemUserService _systemUserService;
+    private readonly JsonSerializerOptions jsonOptions = new()
+    {
+        PropertyNameCaseInsensitive = true
+    };
 
     public SystemUserControllerTest(CustomWebApplicationFactory<SystemUserController> factory)
     {
@@ -25,7 +29,7 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
     }
 
     [Fact]
-    public async Task GetSystemUSer_ReturnedOK()
+    public async Task GetSystemUserDTO_ReturnedOK()
     {
         int partyId = 7007;
         HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/systemuser/{partyId}");
@@ -35,7 +39,8 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
 
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
         var result = await response.Content.ReadAsStringAsync();
-        List<SystemUserDTO>? list = JsonConvert.DeserializeObject<List<SystemUserDTO>>(result);
+
+        List<SystemUserDTO>? list = JsonSerializer.Deserialize<List<SystemUserDTO>>(result, jsonOptions);
 
         Assert.True(response.IsSuccessStatusCode);
         Assert.True(list is not null);
