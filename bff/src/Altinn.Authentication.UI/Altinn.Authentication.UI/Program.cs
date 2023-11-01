@@ -27,6 +27,7 @@ using Altinn.Authentication.UI.Mocks.SystemUsers;
 using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Core.AppConfiguration;
+using Altinn.App.Core.Health;
 
 ILogger logger;
 
@@ -76,9 +77,7 @@ app.UseCors();
 app.UseStaticFiles();
 app.MapControllers();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapHealthChecks("/health");
 
 app.Run();
 
@@ -87,6 +86,7 @@ void ConfigureServiceDefaults(IServiceCollection services, IConfiguration config
     //Defaults
     services.AddMvc();
     services.AddControllersWithViews();
+    services.AddHealthChecks().AddCheck<HealthCheck>("authentication_ui_health_check");
 }
 
 void ConfigureAppSettings (IServiceCollection services, IConfiguration configuration)

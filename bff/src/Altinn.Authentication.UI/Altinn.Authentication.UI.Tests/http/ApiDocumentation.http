@@ -28,6 +28,9 @@ GET {{rootHttpUrl}}/authfront/api/v1/profile/user
 ###
 GET {{rootHttpUrl}}/authfront/api/v1/systemuser/1
 
+###
+GET {{rootHttpUrl}}/health
+
 
 ###
 //The endpoint for refreshing a Token
