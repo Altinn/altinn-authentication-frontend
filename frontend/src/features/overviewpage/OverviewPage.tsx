@@ -8,6 +8,7 @@ import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
+import { fetchSystemRegisterVendors } from '@/rtk/features/creationPage/creationPageSlice'; 
 
 
 export const OverviewPage = () => {
@@ -19,11 +20,13 @@ export const OverviewPage = () => {
   // UserInfo er jo bare lastet inn en gang, men igjen om ikke tilstede ved re-rendering
   const overviewLoaded = useAppSelector((state) => state.overviewPage.overviewLoaded);
  
+  // Fix-me: laster inn data bare en gang ved første render
   // må finne mer elegang måte å gjøre dette på: og dynamisk: vil bare laste 1 gang tror jeg
   useEffect(() => {
     if (!overviewLoaded) {
-      console.log("Prøver laste inn overviewPage data til Redux");
+      console.log("Prøver laste inn OverviewPage og CreationPage data til Redux");
       void dispatch(fetchOverviewPage());
+      void dispatch(fetchSystemRegisterVendors());
     }
   }, []);
 
