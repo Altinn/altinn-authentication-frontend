@@ -26,7 +26,7 @@ export const OverviewPage = () => {
     if (!overviewLoaded) {
       console.log("Prøver laste inn OverviewPage og CreationPage data til Redux");
       void dispatch(fetchOverviewPage());
-      void dispatch(fetchSystemRegisterVendors());
+      void dispatch(fetchSystemRegisterVendors()); // for CreationPage: see issue #94
     }
   }, []);
 
