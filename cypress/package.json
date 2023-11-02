@@ -1,0 +1,13 @@
+{
+    "name": "cypress-authentication-frontend",
+    "description": "studio tests",
+    "version": "1.0.0",
+    "devDependencies": {
+        "cypress": "13.4.0"
+    },
+    "main": "index.js",
+    "scripts": {
+        "cy_open": "cypress open",
+        "cy_run": "cypress run"
+    }
+}
