@@ -109,24 +109,6 @@ export const OverviewPageContent = () => {
         }
       />
 
-      <div>
-        <br></br>
-      </div>
-
-      { reduxNavn && (
-      <CollectionBar
-        title=  {reduxBeskrivelse}
-        subtitle= { reduxSelected }
-        additionalText= {reduxNavn}
-        color={'neutral'}
-        collection={[]}
-        compact={isSm}
-        proceedToPath={
-          '/fixpath/'
-        }
-      />
-      )}
-
     </div>
   );
 };
