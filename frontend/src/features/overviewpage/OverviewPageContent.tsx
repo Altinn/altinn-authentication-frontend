@@ -17,17 +17,7 @@ export const OverviewPageContent = () => {
   const { t } = useTranslation('common');
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch(); // fix-me: bygger kobling til REDUX CreationPage
-  // for Runes Demo:
-  const reduxNavn = useAppSelector((state) => state.creationPage.navn);
-  const reduxBeskrivelse = useAppSelector((state) => state.creationPage.beskrivelse);
-  const reduxSelected = useAppSelector((state) => state.creationPage.selected);
-  
-  
-  // 24.10.23: Nytt SystemUserObject har nå 3 SUO i Redux
-  // Lager presentasjons-funksjon reduxCollectionBarArray
-  // der jeg stapper inn alle 6 feltene så får Rune og Mette 
-  // komme opp med et design
+  const dispatch = useAppDispatch();
   
   const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
 
