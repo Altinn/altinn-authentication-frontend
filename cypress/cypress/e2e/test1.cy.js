@@ -1,12 +1,7 @@
-describe('template spec', () => {
-    /*
-    it('passes', () => {
-      cy.visit('https://example.cypress.io')
-    });
-    */
+describe('Autentisering Frontend', () => {
   
     // Dette virket, men bare i Electron, ikke i Chrome
-    it("passes", () => {
+    it("finds the main Overviewpage", () => {
       cy.visit('http://local.altinn.cloud/');
   
       cy.get("h1").contains("Welcome to Altinn App Local Testing");
@@ -14,11 +9,6 @@ describe('template spec', () => {
       cy.url().should("include", "/authfront/ui");
       cy.visit("http://local.altinn.cloud/authfront/ui/auth/overview");
     });
+
   
-    /*
-    it('passes', () => {
-      cy.visit('http://local.altinn.cloud/authfront/ui/auth/overview')
-    });
-  
-    */
   });

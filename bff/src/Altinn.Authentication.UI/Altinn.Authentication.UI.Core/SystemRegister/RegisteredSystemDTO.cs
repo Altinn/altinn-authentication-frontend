@@ -2,7 +2,7 @@
 
 public class RegisteredSystemDTO
 {
-    public string? Id { get; set; }
-    public string? Navn { get; set; }
-    public string? Beskrivelse { get; set; }
+    public string? SystemTypeId { get; set; }
+    public string? SystemVendor { get; set; }
+    public string? Description { get; set; }
 }
