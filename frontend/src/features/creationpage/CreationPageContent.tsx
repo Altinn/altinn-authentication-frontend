@@ -11,12 +11,15 @@ import { useMediaQuery } from '@/resources/hooks';
 
 
 export const CreationPageContent = () => {
+
+  // Merk! Det er multiple design og datastruktur-valg som ikke er gjort ennå
+  // som påvirker denne siden: dette er annotert under hvert punkt
   
   // Local State variables for input-boxes and Nedtrekksmeny:
   const [integrationName, setIntegrationName] = useState('');
   const [descriptionEntered, setDescriptionEntered] = useState('');
   const [selectedSystemType, setSelectedSystemType] = useState('');
-  const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false);
+  const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
   const { t } = useTranslation('common');
   const navigate = useNavigate();
@@ -57,7 +60,6 @@ export const CreationPageContent = () => {
 
   const systemRegisterVendorsArray = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
 
-
   // MOCK VALUES for NedtrekksMeny: List of Firms/Products not available from BFF yet
   // options med label skilt fra value (samme verdi for demo)
   // use inline interface definition for Type her
@@ -68,21 +70,21 @@ export const CreationPageContent = () => {
   // "value er verdien som brukes av onChange-funksjonen.
   // label er teksten som vises i listen.""
 
-  
-
-
-  // Fix-me: Blir kjørt på hver render
-  // Mulig at Redux variabel systemRegisterVendorsLoaded kan brukes
-  // kombinert med en lokal useState-variabel
 
   // BUG: Redux blir tømt ved HardReload på CreationPage siden
-  // som gir tom liste her
+  // som gir semi-tom liste her: bare default testoptions dukker opp
+  // ---> dette skyldes at innlasting av Firma/Vendors nå blir
+  // bare gjort en eneste gang i OverviewPage
 
   // Også uklart hvordan/hvor "description" skal brukes
   // Skal den settes til "Beskrivelse"??
  
-  // Fix-Me: array for NedtrekksMeny verdier blir generert 
-  // multiple ganger om vi skal beholde 2 Mock verdier
+  // DEFAULT valg er TOMT OBJEKT: viss ikke vil øverste linje være
+  // f.eks. Visma, som da for brukeren synes å være et slags
+  // anbefalt valg ---> Altinn kan ikke anbefale firma slik...
+    // ---> mulig løsning er at TOMT OBJEKT blir lagt til i BFF
+  // TOMT OBJEKT er for at Designsystem Nedtrekksmeny ikke skal
+  // ha noe tomt øverst
 
   let testoptions: { label: string, value: string  }[] = [
     {
@@ -97,8 +99,9 @@ export const CreationPageContent = () => {
 
   const systemRegisterVendorsLoaded = useAppSelector((state) => state.creationPage.systemRegisterVendorsLoaded);
 
+  // NB! foreløpig løsning: bør gjøres til funksjonell komponent
   if (systemRegisterVendorsLoaded ) {
-    // console.log("Burde bygge vendorsArray bare en gang");
+    // console.log("Burde bygge vendorsArray bare en gang, men endelig design ikke klart.");
     
     for (let i = 0; i < systemRegisterVendorsArray.length; i++) {
       testoptions.push(
@@ -111,7 +114,6 @@ export const CreationPageContent = () => {
   };
 
 
-  
   // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
   const handleChangeInput = (val: string) => {
     setSelectedSystemType(val);
