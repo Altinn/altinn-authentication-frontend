@@ -1,36 +1,38 @@
 # Altinn-authentication-frontend repo
-Dette er Authentication React frontend med BFF (backend-for-frontend)
+Dette er et monorepo for Authentication React Frontend sub-repo, med tilhørende BFF (backend-for-frontend) sub-repo. 
 
-### Hvordan sette opp bff app og frontend app så de kjører sammen
+Prosjektet er nystartet og informasjon i README i sub-repo kan være midlertidig eller ufullstendig. Det er også opprettet et Repo Wiki: https://github.com/Altinn/altinn-authentication-frontend/wiki
 
-Det er nå fungerende kontakt mellom kjørende React frontend og BFF apper, <br>
-som var et viktig først delmål for utvikling av løsningen.
+### Hvordan sette opp diverse prosesser for lokal utvikling
+<b>03.11.23</b>
+Lokal utvikling med API kall fra React app til BFF dotnet app, og mock av innlogging mot app-localtest dotnet app og Docker, fire prosesser kjørende samtidig. Dette er beskrevet i Repo Wiki (og kort nedunder).
 
-Om en kjører opp React frontend med Vite server <br>
-(se README i /frontend/ sub-repo), <br>
 
-og kjører opp BFF med Kestrel server
-(se README i /bff/ sub-repo, men kort sagt, kjør 
-> dotnet run <br>
-der .csproj filen er)
-
-så er SWAGGER oversikt over API tilgjengelig i browser på 
+SWAGGER oversikt over API tilgjengelig i browser på 
 http://localhost:5191/swagger/index.html
 
-og vår frontend Overview side tilgjengelig på 
-http://localhost:5191/authfront/ui/auth/overview
+Vi har også satt opp de første Cypress testene i eget sub-repo.
 
-Dette fungerer nå både på Mac og på PC.
+### How-to-run BFF integration against app-localtest for mock of login
+The Authentication Frontend BFF needs a set of configurations to integrate and run.
 
-
-### nytt bidrag 10 10 2023
-The AuthenticationFrontend BFF needs a set of configurations to integrate and run.
 During Development it is through local.altinn.cloud
 
-1: See https://github.com/Altinn/app-localtest/tree/AuthFrontLokalTest for changes needed in local-test to run the BFF locally.
-: Need to edit the config file in the loadbalancer to forward the correct route, should be part of the above branch already
-: Run the loadbalancer in Docker, (docker compose up -d --build .) (then close the local-test, since we run that locally)
-: Run the BFF in the local folder (where program.cs is) with dotnet run
-: Run the local-test in the local src folder (where program.cs is) with dotnet run
-: Run the vite server for the Frontend in it's local folder with yarn start
+See the branch named "AuthFrontLocalTest" in the Altinn repo app-localtest ( https://github.com/Altinn/app-localtest/tree/AuthFrontLokalTest ), for the changes needed in local-test to run the BFF locally.
+
+For example, one needs to edit the config file in the loadbalancer to forward the correct route. This should be part of the "AuthFrontLocalTest" branch already.
+
+Run the "loadbalancer" (really NginX reverse proxy) in Docker: 
+> docker compose up -d --build  
+
+However, the Docker container "local-test" should be stopped (since we run that locally)
+
+Run the BFF in the local folder (where program.cs is):  
+> dotnet run
+
+Run the local-test in the local src folder (where program.cs is):
+> dotnet run
+
+Run the Vite server for the Frontend in its local folder: 
+> yarn start
 
