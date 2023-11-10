@@ -1,9 +1,14 @@
-# The new altinn-authentication-frontend
-This is the React frontend part of the new altinn-authentication-frontend.<br>
-A more detailed description of the project is available at this repo wiki.
+#  Altinn-authentication-frontend sub-repo
+Dette er frontend sub-repo for Authentication React monorepo
+
+En mer detaljert beskrivelse av prosjektet og oppdateringer finnes i repo wiki: https://github.com/Altinn/altinn-authentication-frontend/wiki
 
 
-## How-to-use this app per 29.09.23 (this is a work in progress):
+
+
+## How-to-use this app (per 29.09.23) <br>
+(Note! Not updated with Docker, and /app-localtest/ <br>
+processes necessary for login-functionality yet.):
 
 Corepack should be installed and enabled, 
 https://nodejs.org/api/corepack.html <br>
