@@ -1,0 +1,32 @@
+# First setup of pipeline for vite build and cypress component tests
+# in Github Runners
+
+# Note: unsure if Github Runners will be triggered by
+# push to a branch (here cypress6) unless the code
+# is in master-branch... but I think I have seen this before
+# in a demo, where the first push to a branch actually
+# triggered a run
+
+name: First tests of build frontend and run cypress 
+on:
+  push:
+    branches: [ "cypress6" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout repo to Github Runner
+        uses: actions/checkout@v4
+
+      - name: install dependencies in frontend folder
+        working-directory: ./frontend/
+        run: yarn --immutable
+
+      - name: run cypress tests of components
+        working-directory: ./frontend/
+        run: yarn coverage
+
+      - name: run build i.e. Vite build
+        working-directory: ./frontend/
+        run: yarn build
