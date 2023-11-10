@@ -7,6 +7,9 @@
 # in a demo, where the first push to a branch actually
 # triggered a run
 
+# First push to repo cypress6 branch did not trigger
+# a run: try another push
+
 name: First tests of build frontend and run cypress 
 on:
   push:
