@@ -10,11 +10,15 @@
 # First push to repo cypress6 branch did not trigger
 # a run: try another push: no, .github/ folder
 # is not visible in github repo...
+# Possibly the repo is restricted, but no documentation visible
+# Will try merge branch cypress6 to main
+# then try push to a new cypress8 branch
+# Note: the empty .yaml file main.yaml is causing failed runs.
 
 name: First tests of build frontend and run cypress 
 on:
   push:
-    branches: [ "cypress6" ]
+    branches: [ "cypress8" ]
 
 jobs:
   build:
