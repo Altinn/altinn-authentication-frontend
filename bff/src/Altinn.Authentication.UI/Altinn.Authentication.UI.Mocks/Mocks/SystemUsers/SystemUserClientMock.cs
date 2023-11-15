@@ -23,7 +23,7 @@ public class SystemUserClientMock : ISystemUserClient
         {
             Id = "37ce1792-3b35-4d50-a07d-636017aa7dbe",
             Title = "Vårt andre regnskapsystem",
-            Description = "Koblet opp mot Visma. Snakk med Per om abonnement",
+            Description = "Snakk med Per om abonnement",
             SystemType = "visma_vis_sys",
             OwnedByPartyId = "orgno:91235124",
             Created = "2023-09-22",

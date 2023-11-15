@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
-import { useAppDispatch } from '@/rtk/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { postNewSystemUser, CreationRequest } from '@/rtk/features/creationPage/creationPageSlice';
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
@@ -11,11 +11,15 @@ import { useMediaQuery } from '@/resources/hooks';
 
 
 export const CreationPageContent = () => {
+
+  // Merk! Det er multiple design og datastruktur-valg som ikke er gjort ennå
+  // som påvirker denne siden: dette er annotert under hvert punkt
   
   // Local State variables for input-boxes and Nedtrekksmeny:
   const [integrationName, setIntegrationName] = useState('');
   const [descriptionEntered, setDescriptionEntered] = useState('');
-  const [selectedSystemType, setSelectedSystemType] = useState(''); 
+  const [selectedSystemType, setSelectedSystemType] = useState('');
+  const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
   const { t } = useTranslation('common');
   const navigate = useNavigate();
@@ -54,10 +58,34 @@ export const CreationPageContent = () => {
   }
 
 
+  const systemRegisterVendorsArray = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
+
   // MOCK VALUES for NedtrekksMeny: List of Firms/Products not available from BFF yet
   // options med label skilt fra value (samme verdi for demo)
   // use inline interface definition for Type her
   // https://stackoverflow.com/questions/35435042/how-can-i-define-an-array-of-objects
+   
+  // merk at Storyboard dokumentasjon på Designsystemet
+  // skiller mellom "label" og "value"
+  // "value er verdien som brukes av onChange-funksjonen.
+  // label er teksten som vises i listen.""
+
+
+  // BUG: Redux blir tømt ved HardReload på CreationPage siden
+  // som gir semi-tom liste her: bare default testoptions dukker opp
+  // ---> dette skyldes at innlasting av Firma/Vendors nå blir
+  // bare gjort en eneste gang i OverviewPage
+
+  // Også uklart hvordan/hvor "description" skal brukes
+  // Skal den settes til "Beskrivelse"??
+ 
+  // DEFAULT valg er TOMT OBJEKT: viss ikke vil øverste linje være
+  // f.eks. Visma, som da for brukeren synes å være et slags
+  // anbefalt valg ---> Altinn kan ikke anbefale firma slik...
+    // ---> mulig løsning er at TOMT OBJEKT blir lagt til i BFF
+  // TOMT OBJEKT er for at Designsystem Nedtrekksmeny ikke skal
+  // ha noe tomt øverst
+
   let testoptions: { label: string, value: string  }[] = [
     {
       "label": "",
@@ -67,40 +95,25 @@ export const CreationPageContent = () => {
       "label": "Visma AS (936796702): Visma Økonomi",
       "value": "Visma AS (936796702): Visma Økonomi"
     },
-    {
-      "label": "Visma AS (936796702): Visma HR",
-      "value": "Visma AS (936796702): Visma HR"
-    },
-    {
-      "label": "4Human AS (897757222): 4Human HRM",
-      "value": "4Human AS (897757222): 4Human HRM"
-    },
-    {
-      "label": "Aqua Group (931693670): Salmon King",
-      "value": "Aqua Group (931693670): Salmon King"
-    },
-    {
-      "label": "Snekkerbua ANS (92341234): Materialadmin",
-      "value": "Snekkerbua ANS (92341234): Materialadmin"
-    },
-    {
-      "label": "Vei og bil AS (9234523423): Prikk remover",
-      "value": "Vei og bil AS (9234523423): Prikk remover"
-    }
-  ]; // merk at Storyboard dokumentasjon på Designsystemet
-  // skiller mellom "label" og "value"
-  // "value er verdien som brukes av onChange-funksjonen.
-  // label er teksten som vises i listen.""
+  ];
 
-  // TextField er også importert fra Designsystemet,
-  // men selv om size="medium" er nevnt i første linje i Docs på Storyboard
-  // så er det ikke godtatt i importert TextField
-  // Faktisk er ikke TextField nevnt i Storyboard, men Textfield [SIC!]
-  // ---> Dokumentasjon er fortsatt ikke det helt store for Digdir...
-  // Nå er vel sikkert størrelse flyttet inn i CSS eller noe... 
-  // som igjen er gjemt i Figma Tokens... Herre!
+  const systemRegisterVendorsLoaded = useAppSelector((state) => state.creationPage.systemRegisterVendorsLoaded);
 
-  
+  // NB! foreløpig løsning: bør gjøres til funksjonell komponent
+  if (systemRegisterVendorsLoaded ) {
+    // console.log("Burde bygge vendorsArray bare en gang, men endelig design ikke klart.");
+    
+    for (let i = 0; i < systemRegisterVendorsArray.length; i++) {
+      testoptions.push(
+        {
+          label: `${systemRegisterVendorsArray[i].systemTypeId} : ${systemRegisterVendorsArray[i].systemVendor} `,
+          value: `${systemRegisterVendorsArray[i].systemTypeId} : ${systemRegisterVendorsArray[i].systemVendor} `  
+        }
+      );
+    };
+  };
+
+
   // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
   const handleChangeInput = (val: string) => {
     setSelectedSystemType(val);
