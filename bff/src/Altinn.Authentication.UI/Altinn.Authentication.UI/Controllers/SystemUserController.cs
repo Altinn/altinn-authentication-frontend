@@ -89,9 +89,15 @@ public class SystemUserController : ControllerBase
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
-    public void Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
-        _systemUserService.PostNewSystemUserDescriptor(newSystemUserDescriptor, cancellationToken);
+        Guid? sid = await _systemUserService.PostNewSystemUserDescriptor(newSystemUserDescriptor, cancellationToken);
+        if (sid is not null && !string.IsNullOrEmpty(sid.ToString()))
+        {
+            return Ok(new { Id = sid.ToString() });
+        }
+
+        return NotFound();
     }
 
     //[Authorize]

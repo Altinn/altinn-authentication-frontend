@@ -2,7 +2,7 @@
 
 public class RegisteredSystemDTO
 {
-    public string? SystemTypeId { get; set; }
-    public string? SystemVendor { get; set; }
-    public string? Description { get; set; }
+    public string SystemTypeId { get; set; } = string.Empty;
+    public string SystemVendor { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 }
