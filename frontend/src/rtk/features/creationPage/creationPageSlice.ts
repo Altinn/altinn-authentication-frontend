@@ -12,8 +12,13 @@ export interface SystemRegisterObjectDTO {
   description: string;
 }
 
+export interface SystemRegisterObjectPresented {
+  label: string;
+  value: string;
+}
+
 export interface SliceState {
-  systemRegisterVendorsArray: SystemRegisterObjectDTO[];
+  systemRegisterVendorsArray: SystemRegisterObjectPresented[];
   systemRegisterVendorsLoaded: boolean;
   systemRegisterError: string;
   postConfirmed: boolean;
@@ -70,19 +75,27 @@ const creationPageSlice = createSlice({
     builder
       .addCase(fetchSystemRegisterVendors.fulfilled, (state, action) => {
         const dataArray = action.payload;
-        const downLoadedArray: SystemRegisterObjectDTO[] = [];
+        const downLoadedArray: SystemRegisterObjectPresented[] = [];
 
         for (let i = 0; i < dataArray.length; i++) {
           const systemTypeId = dataArray[i].systemTypeId;
           const systemVendor = dataArray[i].systemVendor;
-          const description = dataArray[i].description;
+          // const description = dataArray[i].description; // not in use per 15.11.23
 
-          const loopObject = {
+          /* const loopObject = {
               systemTypeId,
               systemVendor,
               description,
             };
-            downLoadedArray.push(loopObject);
+            */
+          // transform to DesignSystem PullDownMenu shape
+          // we do not use "description" (so far: designers might )
+          const loopObject2 = {
+            'label': `${systemTypeId} : ${systemVendor}`,
+            'value': `${systemTypeId} : ${systemVendor}`
+          }
+
+          downLoadedArray.push(loopObject2);
         }
 
         state.systemRegisterVendorsArray = downLoadedArray;

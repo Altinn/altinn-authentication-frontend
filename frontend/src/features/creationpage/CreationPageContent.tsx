@@ -13,11 +13,13 @@ import { useMediaQuery } from '@/resources/hooks';
 export const CreationPageContent = () => {
 
   // Merk! Det er multiple design og datastruktur-valg som ikke er gjort ennå
-  // som påvirker denne siden: dette er annotert under hvert punkt
+  // som påvirker denne siden: dette er annotert nedunder
   
   // Local State variables for input-boxes and Nedtrekksmeny:
   const [integrationName, setIntegrationName] = useState('');
-  const [descriptionEntered, setDescriptionEntered] = useState('');
+  const [descriptionEntered, setDescriptionEntered] = useState(''); // mulig denne skal populeres fra 
+  // fra nedtrekksmeny??
+  
   const [selectedSystemType, setSelectedSystemType] = useState('');
   const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
@@ -58,7 +60,10 @@ export const CreationPageContent = () => {
   }
 
 
-  const systemRegisterVendorsArray = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
+  // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux
+  const vendorsList : { label: string, value: string  }[] = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
+
+  // const systemRegisterVendorsArray = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
 
   // MOCK VALUES for NedtrekksMeny: List of Firms/Products not available from BFF yet
   // options med label skilt fra value (samme verdi for demo)
@@ -86,6 +91,7 @@ export const CreationPageContent = () => {
   // TOMT OBJEKT er for at Designsystem Nedtrekksmeny ikke skal
   // ha noe tomt øverst
 
+  /* 
   let testoptions: { label: string, value: string  }[] = [
     {
       "label": "",
@@ -96,9 +102,13 @@ export const CreationPageContent = () => {
       "value": "Visma AS (936796702): Visma Økonomi"
     },
   ];
+  */
 
-  const systemRegisterVendorsLoaded = useAppSelector((state) => state.creationPage.systemRegisterVendorsLoaded);
+   
+  
+  // const systemRegisterVendorsLoaded = useAppSelector((state) => state.creationPage.systemRegisterVendorsLoaded);
 
+  /*
   // NB! foreløpig løsning: bør gjøres til funksjonell komponent
   if (systemRegisterVendorsLoaded ) {
     // console.log("Burde bygge vendorsArray bare en gang, men endelig design ikke klart.");
@@ -112,6 +122,7 @@ export const CreationPageContent = () => {
       );
     };
   };
+  */
 
 
   // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
@@ -155,9 +166,9 @@ export const CreationPageContent = () => {
           <div className={classes.selectWrapper}>
             <Select
               label="Velg systemleverandør og system"
-              options={testoptions}
-              onChange={handleChangeInput}
-              value={selectedSystemType}
+              options={ vendorsList }
+              onChange={ handleChangeInput }
+              value={ selectedSystemType }
             />
           </div>
         </div>
