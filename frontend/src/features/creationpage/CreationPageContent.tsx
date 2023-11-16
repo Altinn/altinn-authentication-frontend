@@ -56,7 +56,8 @@ export const CreationPageContent = () => {
     // NB! navigasjon til OverviewPage skal vise med ny GET request den nye SystemBruker
     // ettersom vi ikke har noen annen suksess-melding ennå:
     // Men vi har creationPageSlice status "posted" nå... men den virker bare først gang
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    console.log("Automatisk navigering til OverviewPage er inaktivert");
+    // navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
 
@@ -129,7 +130,13 @@ export const CreationPageContent = () => {
   const handleChangeInput = (val: string) => {
     setSelectedSystemType(val);
   };
+
+  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
+  const postConfirmationId = useAppSelector((state) => state.creationPage.postConfirmationId);
  
+  // console.log("postConfirmed: " + postConfirmed); // Github Copilot
+  // console.log("postConfirmationId: " + postConfirmationId); // Github Copilot
+
   return (
     <div className={classes.creationPageContainer}>
       <div className={classes.inputContainer}> 
@@ -184,6 +191,7 @@ export const CreationPageContent = () => {
             .
           </p>
 
+          { !postConfirmed &&
           <div className={classes.buttonContainer}>
             <div className={classes.cancelButton}>
               <Button
@@ -204,7 +212,21 @@ export const CreationPageContent = () => {
                 Opprett 
               </Button> 
             </div>
+            
+
           </div>
+          }
+          {
+              postConfirmed && 
+              <div className={classes.confirmationText}>
+                <p>Systembruker opprettet med id: {postConfirmationId}</p>
+                <br></br>
+                <p>Github Copilot skrev denne blokken for meg.</p>
+                <br></br>
+                <button>Gå til oversiktsside</button>
+                
+              </div>
+            }
 
         </div>      
       </div>
