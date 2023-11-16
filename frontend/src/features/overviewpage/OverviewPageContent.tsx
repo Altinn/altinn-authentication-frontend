@@ -1,37 +1,34 @@
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { AuthenticationPath } from '@/routes/paths';
-
 import classes from './OverviewPageContent.module.css';
-import { CollectionBar, ActionBar } from '@/components';
+import { CollectionBar } from '@/components';
 import { ReactComponent as Add } from '@/assets/Add.svg';
-import { Button, Spinner } from '@digdir/design-system-react';
+import { Button } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { resetPostConfirmation } from '@/rtk/features/creationPage/creationPageSlice';
 import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
-import { use } from 'chai';
 
 
 export const OverviewPageContent = () => {
+  // Fix-me: CollectionBar links go nowhere yet
 
   const dispatch = useAppDispatch();
   const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
   const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
  
-  
   useEffect(() => { 
-    // if user reverts to OverviewPage aftrer New SystemUser creation,
+    // If user reverts to OverviewPage after New SystemUser creation,
+    // using BrowserBackButton,
     // we need to reset postConfirmed and do fetchOverviewPage here
     if (postConfirmed) {
-      console.log("postConfirmed er true, kjører resetPostConfirmation() og fetchOverviewPage()");
       void dispatch(resetPostConfirmation()); 
       void dispatch(fetchOverviewPage());
     }
   }, [reduxObjektArray, postConfirmed ]);
-
 
   const { t } = useTranslation('common'); // not used yet
   const navigate = useNavigate();
@@ -59,14 +56,10 @@ export const OverviewPageContent = () => {
   overviewText = t('authentication_dummy.auth_overview_text_administrere'); 
   // Fix-me: h2 below, not in Small/mobile view
 
-
-  // Fix-me: setup dispatch for this step, if necessary:
   const goToStartNewSystemUser = () => {
-    // dispatch(restoreAllSoftDeletedItems());
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Creation);
   };
 
-  // Fix-me: CollectionBar links go nowhere yet
 
   return (
     <div className={classes.overviewPageContainer}>
