@@ -23,6 +23,7 @@ export interface SliceState {
   systemRegisterError: string;
   postConfirmed: boolean;
   creationError: string;
+  postConfirmationId: string;
 }
 
 const initialState: SliceState = {
@@ -31,6 +32,7 @@ const initialState: SliceState = {
     systemRegisterError: '',
     postConfirmed: false,
     creationError: '',
+    postConfirmationId: '',
 };
 
 // CreationRequest form is based on Swagger POST description per 25.10.23
@@ -104,8 +106,9 @@ const creationPageSlice = createSlice({
       .addCase(fetchSystemRegisterVendors.rejected, (state, action) => {
         state.systemRegisterError = action.error.message ?? 'Unknown error';
       })
-      .addCase(postNewSystemUser.fulfilled, (state) => {
+      .addCase(postNewSystemUser.fulfilled, (state, action) => {
         state.postConfirmed = true;
+        state.postConfirmationId = action.payload;
       })
       .addCase(postNewSystemUser.rejected, (state, action) => {
         state.creationError = action.error.message ?? 'Unknown error';
