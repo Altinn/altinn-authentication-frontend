@@ -108,7 +108,7 @@ const creationPageSlice = createSlice({
       })
       .addCase(postNewSystemUser.fulfilled, (state, action) => {
         state.postConfirmed = true;
-        state.postConfirmationId = action.payload;
+        state.postConfirmationId = action.payload.id;
       })
       .addCase(postNewSystemUser.rejected, (state, action) => {
         state.creationError = action.error.message ?? 'Unknown error';
