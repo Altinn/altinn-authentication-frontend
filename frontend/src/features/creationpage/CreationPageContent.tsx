@@ -19,13 +19,16 @@ export const CreationPageContent = () => {
 
   // Local State variables for input-boxes and Nedtrekksmeny:
   const [integrationName, setIntegrationName] = useState('');
-  const [descriptionEntered, setDescriptionEntered] = useState(''); // mulig denne skal populeres fra 
-  // fra nedtrekksmeny??
+
+  // mulig denne skal populeres fra nedtrekksmeny?? Design mangler
+  const [descriptionEntered, setDescriptionEntered] = useState(''); 
+  
   
   const [selectedSystemType, setSelectedSystemType] = useState('');
-  const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
+  
+  // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation('common'); // ikke i bruk ennå
   const navigate = useNavigate();
   const dispatch = useAppDispatch(); 
   
@@ -54,89 +57,20 @@ export const CreationPageContent = () => {
     setIntegrationName('');
     setDescriptionEntered('');
     setSelectedSystemType('');
-
-    // NB! navigasjon til OverviewPage skal vise med ny GET request den nye SystemBruker
-    // ettersom vi ikke har noen annen suksess-melding ennå:
-    // Men vi har creationPageSlice status "posted" nå... men den virker bare først gang
-    console.log("Automatisk navigering til OverviewPage er inaktivert");
-    // navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
   const handlePostConfirmation = () => {
     // skrevet av Github Copilot
-    void dispatch(resetPostConfirmation()); // Github Copilot
-    void dispatch(fetchOverviewPage()); // så får vi se om Redux responderer
+    void dispatch(resetPostConfirmation());
+    void dispatch(fetchOverviewPage()); 
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
-    
   }
-
 
   // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux
   const vendorsList : { label: string, value: string  }[] = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
 
-  // const systemRegisterVendorsArray = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
-
-  // MOCK VALUES for NedtrekksMeny: List of Firms/Products not available from BFF yet
-  // options med label skilt fra value (samme verdi for demo)
-  // use inline interface definition for Type her
-  // https://stackoverflow.com/questions/35435042/how-can-i-define-an-array-of-objects
-   
-  // merk at Storyboard dokumentasjon på Designsystemet
-  // skiller mellom "label" og "value"
-  // "value er verdien som brukes av onChange-funksjonen.
-  // label er teksten som vises i listen.""
-
-
-  // BUG: Redux blir tømt ved HardReload på CreationPage siden
-  // som gir semi-tom liste her: bare default testoptions dukker opp
-  // ---> dette skyldes at innlasting av Firma/Vendors nå blir
-  // bare gjort en eneste gang i OverviewPage
-
-  // Også uklart hvordan/hvor "description" skal brukes
-  // Skal den settes til "Beskrivelse"??
- 
-  // DEFAULT valg er TOMT OBJEKT: viss ikke vil øverste linje være
-  // f.eks. Visma, som da for brukeren synes å være et slags
-  // anbefalt valg ---> Altinn kan ikke anbefale firma slik...
-    // ---> mulig løsning er at TOMT OBJEKT blir lagt til i BFF
-  // TOMT OBJEKT er for at Designsystem Nedtrekksmeny ikke skal
-  // ha noe tomt øverst
-
-  /* 
-  let testoptions: { label: string, value: string  }[] = [
-    {
-      "label": "",
-      "value": ""
-    },
-    {
-      "label": "Visma AS (936796702): Visma Økonomi",
-      "value": "Visma AS (936796702): Visma Økonomi"
-    },
-  ];
-  */
-
-   
-  
-  // const systemRegisterVendorsLoaded = useAppSelector((state) => state.creationPage.systemRegisterVendorsLoaded);
-
-  /*
-  // NB! foreløpig løsning: bør gjøres til funksjonell komponent
-  if (systemRegisterVendorsLoaded ) {
-    // console.log("Burde bygge vendorsArray bare en gang, men endelig design ikke klart.");
-    
-    for (let i = 0; i < systemRegisterVendorsArray.length; i++) {
-      testoptions.push(
-        {
-          label: `${systemRegisterVendorsArray[i].systemTypeId} : ${systemRegisterVendorsArray[i].systemVendor} `,
-          value: `${systemRegisterVendorsArray[i].systemTypeId} : ${systemRegisterVendorsArray[i].systemVendor} `  
-        }
-      );
-    };
-  };
-  */
-
-
   // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
+  // Fix-me: Bør sjekke om DesignSystem dokumentasjon er oppdatert
   const handleChangeInput = (val: string) => {
     setSelectedSystemType(val);
   };
@@ -144,9 +78,6 @@ export const CreationPageContent = () => {
   const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
   const postConfirmationId = useAppSelector((state) => state.creationPage.postConfirmationId);
  
-  // console.log("postConfirmed: " + postConfirmed); // Github Copilot
-  // console.log("postConfirmationId: " + postConfirmationId); // Github Copilot
-
   return (
     <div className={classes.creationPageContainer}>
       <div className={classes.inputContainer}> 
@@ -222,10 +153,9 @@ export const CreationPageContent = () => {
                 Opprett 
               </Button> 
             </div>
-            
-
           </div>
           }
+
           {
               postConfirmed && 
               <div className={classes.confirmationText}>
