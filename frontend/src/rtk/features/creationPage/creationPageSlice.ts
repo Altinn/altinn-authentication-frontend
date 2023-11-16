@@ -72,7 +72,13 @@ export const postNewSystemUser = createAsyncThunk('creationPageSlice/postNewSyst
 const creationPageSlice = createSlice({
   name: 'creation',
   initialState,
-  reducers: {},
+  reducers: {
+    resetPostConfirmation: (state) => {
+      state.postConfirmed = false;
+      state.postConfirmationId = '';
+      // skrevet av Github Copilot
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSystemRegisterVendors.fulfilled, (state, action) => {
@@ -116,4 +122,5 @@ const creationPageSlice = createSlice({
   },
 });
 
+export const { resetPostConfirmation } = creationPageSlice.actions; // Github Copilot
 export default creationPageSlice.reducer;

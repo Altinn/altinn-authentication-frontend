@@ -24,7 +24,7 @@ export const OverviewPage = () => {
   // må finne mer elegang måte å gjøre dette på: og dynamisk: vil bare laste 1 gang tror jeg
   useEffect(() => {
     if (!overviewLoaded) {
-      console.log("Prøver laste inn OverviewPage og CreationPage data til Redux");
+      console.log("Førstegangs innlasting av OverviewPage og CreationPage data til Redux");
       void dispatch(fetchOverviewPage());
       void dispatch(fetchSystemRegisterVendors()); // for CreationPage: see issue #94
     }

@@ -4,17 +4,19 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { postNewSystemUser, CreationRequest } from '@/rtk/features/creationPage/creationPageSlice';
+import { postNewSystemUser, CreationRequest, resetPostConfirmation } from '@/rtk/features/creationPage/creationPageSlice';
+import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
+
 
 
 export const CreationPageContent = () => {
 
   // Merk! Det er multiple design og datastruktur-valg som ikke er gjort ennå
   // som påvirker denne siden: dette er annotert nedunder
-  
+
   // Local State variables for input-boxes and Nedtrekksmeny:
   const [integrationName, setIntegrationName] = useState('');
   const [descriptionEntered, setDescriptionEntered] = useState(''); // mulig denne skal populeres fra 
@@ -58,6 +60,14 @@ export const CreationPageContent = () => {
     // Men vi har creationPageSlice status "posted" nå... men den virker bare først gang
     console.log("Automatisk navigering til OverviewPage er inaktivert");
     // navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+  }
+
+  const handlePostConfirmation = () => {
+    // skrevet av Github Copilot
+    void dispatch(resetPostConfirmation()); // Github Copilot
+    void dispatch(fetchOverviewPage()); // så får vi se om Redux responderer
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    
   }
 
 
@@ -223,7 +233,9 @@ export const CreationPageContent = () => {
                 <br></br>
                 <p>Github Copilot skrev denne blokken for meg.</p>
                 <br></br>
-                <button>Gå til oversiktsside</button>
+                <button
+                  onClick={handlePostConfirmation}
+                >Gå til oversiktsside</button>
                 
               </div>
             }
