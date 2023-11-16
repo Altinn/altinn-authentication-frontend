@@ -4,20 +4,24 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { postNewSystemUser, CreationRequest } from '@/rtk/features/creationPage/creationPageSlice';
+import { postNewSystemUser, CreationRequest, resetPostConfirmation } from '@/rtk/features/creationPage/creationPageSlice';
+import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
 
 
+
 export const CreationPageContent = () => {
 
   // Merk! Det er multiple design og datastruktur-valg som ikke er gjort ennå
-  // som påvirker denne siden: dette er annotert under hvert punkt
-  
+  // som påvirker denne siden: dette er annotert nedunder
+
   // Local State variables for input-boxes and Nedtrekksmeny:
   const [integrationName, setIntegrationName] = useState('');
-  const [descriptionEntered, setDescriptionEntered] = useState('');
+  const [descriptionEntered, setDescriptionEntered] = useState(''); // mulig denne skal populeres fra 
+  // fra nedtrekksmeny??
+  
   const [selectedSystemType, setSelectedSystemType] = useState('');
   const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
@@ -54,11 +58,23 @@ export const CreationPageContent = () => {
     // NB! navigasjon til OverviewPage skal vise med ny GET request den nye SystemBruker
     // ettersom vi ikke har noen annen suksess-melding ennå:
     // Men vi har creationPageSlice status "posted" nå... men den virker bare først gang
+    console.log("Automatisk navigering til OverviewPage er inaktivert");
+    // navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+  }
+
+  const handlePostConfirmation = () => {
+    // skrevet av Github Copilot
+    void dispatch(resetPostConfirmation()); // Github Copilot
+    void dispatch(fetchOverviewPage()); // så får vi se om Redux responderer
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    
   }
 
 
-  const systemRegisterVendorsArray = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
+  // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux
+  const vendorsList : { label: string, value: string  }[] = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
+
+  // const systemRegisterVendorsArray = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
 
   // MOCK VALUES for NedtrekksMeny: List of Firms/Products not available from BFF yet
   // options med label skilt fra value (samme verdi for demo)
@@ -86,6 +102,7 @@ export const CreationPageContent = () => {
   // TOMT OBJEKT er for at Designsystem Nedtrekksmeny ikke skal
   // ha noe tomt øverst
 
+  /* 
   let testoptions: { label: string, value: string  }[] = [
     {
       "label": "",
@@ -96,9 +113,13 @@ export const CreationPageContent = () => {
       "value": "Visma AS (936796702): Visma Økonomi"
     },
   ];
+  */
 
-  const systemRegisterVendorsLoaded = useAppSelector((state) => state.creationPage.systemRegisterVendorsLoaded);
+   
+  
+  // const systemRegisterVendorsLoaded = useAppSelector((state) => state.creationPage.systemRegisterVendorsLoaded);
 
+  /*
   // NB! foreløpig løsning: bør gjøres til funksjonell komponent
   if (systemRegisterVendorsLoaded ) {
     // console.log("Burde bygge vendorsArray bare en gang, men endelig design ikke klart.");
@@ -112,13 +133,20 @@ export const CreationPageContent = () => {
       );
     };
   };
+  */
 
 
   // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
   const handleChangeInput = (val: string) => {
     setSelectedSystemType(val);
   };
+
+  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
+  const postConfirmationId = useAppSelector((state) => state.creationPage.postConfirmationId);
  
+  // console.log("postConfirmed: " + postConfirmed); // Github Copilot
+  // console.log("postConfirmationId: " + postConfirmationId); // Github Copilot
+
   return (
     <div className={classes.creationPageContainer}>
       <div className={classes.inputContainer}> 
@@ -155,9 +183,9 @@ export const CreationPageContent = () => {
           <div className={classes.selectWrapper}>
             <Select
               label="Velg systemleverandør og system"
-              options={testoptions}
-              onChange={handleChangeInput}
-              value={selectedSystemType}
+              options={ vendorsList }
+              onChange={ handleChangeInput }
+              value={ selectedSystemType }
             />
           </div>
         </div>
@@ -173,6 +201,7 @@ export const CreationPageContent = () => {
             .
           </p>
 
+          { !postConfirmed &&
           <div className={classes.buttonContainer}>
             <div className={classes.cancelButton}>
               <Button
@@ -193,7 +222,23 @@ export const CreationPageContent = () => {
                 Opprett 
               </Button> 
             </div>
+            
+
           </div>
+          }
+          {
+              postConfirmed && 
+              <div className={classes.confirmationText}>
+                <p>Systembruker opprettet med id: {postConfirmationId}</p>
+                <br></br>
+                <p>Github Copilot skrev denne blokken for meg.</p>
+                <br></br>
+                <button
+                  onClick={handlePostConfirmation}
+                >Gå til oversiktsside</button>
+                
+              </div>
+            }
 
         </div>      
       </div>

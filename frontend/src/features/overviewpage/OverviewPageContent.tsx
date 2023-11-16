@@ -14,6 +14,10 @@ import { useTranslation } from 'react-i18next';
 
 export const OverviewPageContent = () => {
 
+  console.log(" ");
+  console.log("Teller antall ganger OverviewPageContent rendres"); //Copilot!
+  console.log("***********************************************");
+
   const { t } = useTranslation('common');
   const navigate = useNavigate();
 
@@ -80,34 +84,6 @@ export const OverviewPageContent = () => {
       </h2>
 
       { reduxCollectionBarArray() }
-
-
-      <CollectionBar
-        title='System lakselus rapportering'
-        subtitle='AQUA POWER'
-        color={'neutral'}
-        collection={[]}
-        compact={isSm}
-        proceedToPath={
-          '/fixpath/'
-        }
-      />
-
-      <div>
-        <br></br>
-      </div>
-
-      <CollectionBar
-        title='Økonomisystem'
-        subtitle='VISMA ACCOUNTING'
-        additionalText='Delegert til Visma AS'
-        color={ 'neutral' }
-        collection={[]}
-        compact={isSm}
-        proceedToPath={
-          '/fixpath/'
-        }
-      />
 
     </div>
   );
