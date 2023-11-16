@@ -1,5 +1,5 @@
 import * as React from 'react';
-// import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { AuthenticationPath } from '@/routes/paths';
@@ -10,22 +10,32 @@ import { ReactComponent as Add } from '@/assets/Add.svg';
 import { Button, Spinner } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
+import { resetPostConfirmation } from '@/rtk/features/creationPage/creationPageSlice';
+import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
+import { use } from 'chai';
 
 
 export const OverviewPageContent = () => {
 
-  console.log(" ");
-  console.log("Teller antall ganger OverviewPageContent rendres"); //Copilot!
-  console.log("***********************************************");
+  const dispatch = useAppDispatch();
+  const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
+  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
+ 
+  
+  useEffect(() => { 
+    // if user reverts to OverviewPage aftrer New SystemUser creation,
+    // we need to reset postConfirmed and do fetchOverviewPage here
+    if (postConfirmed) {
+      console.log("postConfirmed er true, kjører resetPostConfirmation() og fetchOverviewPage()");
+      void dispatch(resetPostConfirmation()); 
+      void dispatch(fetchOverviewPage());
+    }
+  }, [reduxObjektArray, postConfirmed ]);
 
-  const { t } = useTranslation('common');
+
+  const { t } = useTranslation('common'); // not used yet
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch();
-  
-  const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
-
-  // testet: tolerer initial rendering da reduxState er tom OK
   const reduxCollectionBarArray = () => {
     return reduxObjektArray.map( (SystemUser) => (
       <div key={SystemUser.id}>
@@ -38,9 +48,6 @@ export const OverviewPageContent = () => {
           compact={isSm}
           proceedToPath={ '/fixpath/' }
         />
-        <div>
-          <br></br>
-        </div>
       </div>
     ));
   };
@@ -78,13 +85,10 @@ export const OverviewPageContent = () => {
           </Button>
         </div>
       
-
       <h2 className={classes.pageContentText}>
         {'Du har tidligere opprettet disse systembrukerne'} 
       </h2>
-
       { reduxCollectionBarArray() }
-
     </div>
   );
 };
