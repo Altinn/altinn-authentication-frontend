@@ -1,12 +1,10 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import * as React from 'react';
 
-import { OverviewPage as AuthenticationOverviewPage } from '@/features/overviewpage/OverviewPage';
-import { CreationPage } from '@/features/creationpage/CreationPage';
-import { CustomCreationPage } from '@/features/customCreationPage/CustomCreationPage';
-
-import { DirectConsentPage } from '@/features/directconsentpage/DirectConsentPage';
-import { MaskinportenIntAdmPage } from '@/features/maskinportenIntAdm/MaskinportenIntAdmPage';
+import { OverviewPage } from '@/features/overviewPage/OverviewPage';
+import { CreationPage } from '@/features/creationPage/CreationPage';
+import { DirectConsentPage } from '@/features/directConsentPage/DirectConsentPage';
+import { MaskinportenAdmPage } from '@/features/maskinportenAdm/MaskinportenAdmPage';
 
 import { NotFoundSite } from '@/sites/NotFoundSite';
 import { GeneralPath, AuthenticationPath } from '../paths';
@@ -25,7 +23,7 @@ export const Router = createBrowserRouter(
       >
         <Route
           path={AuthenticationPath.Overview}
-          element={<AuthenticationOverviewPage />}
+          element={<OverviewPage />}
           errorElement={<NotFoundSite />}
         />
 
@@ -36,21 +34,14 @@ export const Router = createBrowserRouter(
         />
 
         <Route
-          path={AuthenticationPath.CustomCreation}
-          element={<CustomCreationPage />}
-          errorElement={<NotFoundSite />}
-        />
-
-        <Route
           path={AuthenticationPath.DirectConsent}
           element={<DirectConsentPage />}
           errorElement={<NotFoundSite />}
         />
 
-
         <Route
           path={AuthenticationPath.MaskinportenAdm}
-          element={<MaskinportenIntAdmPage />}
+          element={<MaskinportenAdmPage />}
           errorElement={<NotFoundSite />}
         />
 
