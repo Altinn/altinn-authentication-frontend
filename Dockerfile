@@ -14,7 +14,7 @@ RUN dotnet build src/Altinn.Authentication.UI/Altinn.Authentication.UI/Altinn.Au
 RUN dotnet publish src/Altinn.Authentication.UI/Altinn.Authentication.UI/Altinn.Authentication.UI.csproj -c Release -o /app_output
 
 #Building the final image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
+FROM mcr.microsoft.com/dotnet/aspnet:7.0-alpine AS final
 EXPOSE 80
 #EXPOSE 443
 WORKDIR /app

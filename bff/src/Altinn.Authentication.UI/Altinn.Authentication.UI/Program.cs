@@ -31,6 +31,7 @@ using Altinn.App.Core.Health;
 
 ILogger logger;
 
+Console.WriteLine("test");
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 //string applicationInsightsKeySecretName = "ApplicationInsights--InstrumentationKey";
@@ -43,8 +44,8 @@ await SetConfigurationProviders(builder.Configuration);
 //ConfigureLogging(builder.Logging);
 
 //string frontendProdFolder = AppEnvironment.GetVariable("FRONTEND_PROD_FOLDER", "wwwroot/Authentication/");
-string frontendProdFolder = "wwwroot/Authentication/";
-
+Console.WriteLine("test before wwwroot");
+string frontendProdFolder = "wwwroot/authentication/";
 builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, true);
 ConfigureServiceDefaults(builder.Services, builder.Configuration);
 ConfigureAppSettings(builder.Services, builder.Configuration);
@@ -54,6 +55,7 @@ ConfigureFeatureServices(builder.Services, builder.Configuration);
 ConfigureDevelopmentAndTestingServices(builder.Services, builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 
+Console.WriteLine("test before build");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
