@@ -5,8 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>08807b2d-cebf-48e6-bbb1-6618c41970fc</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-	<DockerfileRunArguments>-p "4040:443" -p "5050:80"</DockerfileRunArguments>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>	
   </PropertyGroup>
 
   <ItemGroup>
