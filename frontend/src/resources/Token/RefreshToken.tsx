@@ -17,7 +17,7 @@ export const RefreshToken = () => {
       });
 
       return await instance
-        .get('accessmanagement/api/v1/authentication/refresh')
+        .get('authfront/api/v1/authentication/refresh')
         .then((response) => response.data)
         .catch((refreshError) => {
           // Most likely due to expired token so we redirect to login

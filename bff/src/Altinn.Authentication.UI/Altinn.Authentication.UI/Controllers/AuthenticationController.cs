@@ -13,9 +13,9 @@ using Microsoft.IdentityModel.Tokens;
 namespace Altinn.Authentication.UI.Controllers;
 
 [ApiController]
-[AutoValidateAntiforgeryTokenIfAuthCookie] 
+[AutoValidateAntiforgeryTokenIfAuthCookie]
 public class AuthenticationController : ControllerBase
-{ 
+{
     private readonly IAntiforgery _antiforgery;
     private readonly ILogger _logger;
     private readonly PlatformSettings _platformSettings;

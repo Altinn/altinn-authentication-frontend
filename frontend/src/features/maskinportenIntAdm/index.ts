@@ -1,1 +1,0 @@
-export { MaskinportenIntAdmPage } from './MaskinportenIntAdmPage';
