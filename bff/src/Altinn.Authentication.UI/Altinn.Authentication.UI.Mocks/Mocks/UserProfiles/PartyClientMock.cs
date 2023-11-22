@@ -11,7 +11,7 @@ public class PartyClientMock : IPartyClient
         {
             PartyId = 5001,    
             OrgNumber = "123456789MVA",
-            Name = "Framifrå Bedrift AS"
+            Name = "Framifrå Verksemd AS"
         };
 
         return mock;
