@@ -9,7 +9,6 @@ using Altinn.Authentication.UI.Core.AppConfiguration;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Integration.Authentication;
 using Microsoft.IdentityModel.Tokens;
-using System.Diagnostics;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -38,7 +37,6 @@ public class AuthenticationController : ControllerBase
 
     }
 
-    //[Conditional()]
     [Authorize]
     [HttpGet("authfront/api/v1/authentication/refresh")]
     public async Task<IActionResult> Refresh()
