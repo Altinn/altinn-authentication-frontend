@@ -22,10 +22,7 @@ public class SystemRegisterController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetListOfRegisteredSystems(CancellationToken cancellationToken = default)
     {
-        List<RegisteredSystemDTO> lista = new()
-        {
-            new RegisteredSystemDTO() // start the list with a blank line for the drop down menu in the Frontend
-        };
+        List<RegisteredSystemDTO> lista = new();
 
         lista.AddRange( await _systemRegisterService.GetListRegSys(cancellationToken));
 
