@@ -1,7 +1,7 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import * as React from 'react';
 
-import { OverviewPage } from '@/features/overviewPage/OverviewPage';
+import { OverviewPage } from '@/features/overviewpage/OverviewPage';
 import { CreationPage } from '@/features/creationPage/CreationPage';
 import { DirectConsentPage } from '@/features/directConsentPage/DirectConsentPage';
 import { MaskinportenAdmPage } from '@/features/maskinportenAdm/MaskinportenAdmPage';
