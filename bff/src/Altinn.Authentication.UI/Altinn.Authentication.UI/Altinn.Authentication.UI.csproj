@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>08807b2d-cebf-48e6-bbb1-6618c41970fc</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	<DockerfileRunArguments>-p "4040:443" -p "5050:80"</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,6 +23,10 @@
     <ProjectReference Include="..\Altinn.Authentication.UI.Core\Altinn.Authentication.UI.Core.csproj" />
     <ProjectReference Include="..\Altinn.Authentication.UI.Integration\Altinn.Authentication.UI.Integration.csproj" />
     <ProjectReference Include="..\Altinn.Authentication.UI.Mocks\Altinn.Authentication.UI.Mocks.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\authentication\" />
   </ItemGroup>
 
 </Project>

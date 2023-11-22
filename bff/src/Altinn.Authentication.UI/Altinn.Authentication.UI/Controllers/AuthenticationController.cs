@@ -9,13 +9,14 @@ using Altinn.Authentication.UI.Core.AppConfiguration;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Integration.Authentication;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
 
 namespace Altinn.Authentication.UI.Controllers;
 
 [ApiController]
-[AutoValidateAntiforgeryTokenIfAuthCookie] 
+[AutoValidateAntiforgeryTokenIfAuthCookie]
 public class AuthenticationController : ControllerBase
-{ 
+{
     private readonly IAntiforgery _antiforgery;
     private readonly ILogger _logger;
     private readonly PlatformSettings _platformSettings;
@@ -37,6 +38,7 @@ public class AuthenticationController : ControllerBase
 
     }
 
+    //[Conditional()]
     [Authorize]
     [HttpGet("authfront/api/v1/authentication/refresh")]
     public async Task<IActionResult> Refresh()

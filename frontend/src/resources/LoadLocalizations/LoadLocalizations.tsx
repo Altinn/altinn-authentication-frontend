@@ -19,7 +19,7 @@ const LoadLocalizations = ({ children }: Props) => {
   };
 
   const backupLang = getBackupLanguage();
-  const envUrl = import.meta.env.DEV ? 'src/' : 'accessmanagement/';
+  const envUrl = import.meta.env.DEV ? 'src/' : 'authentication/';
   const baseUrl = import.meta.env.BASE_URL + envUrl;
   const localizationsFilePath = `${baseUrl}localizations/${backupLang}.json`;
   const localizationsFileUrl = new URL(localizationsFilePath, import.meta.url).href;
