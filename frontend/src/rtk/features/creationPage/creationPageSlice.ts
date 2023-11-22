@@ -12,12 +12,18 @@ export interface SystemRegisterObjectDTO {
   description: string;
 }
 
+export interface SystemRegisterObjectPresented {
+  label: string;
+  value: string;
+}
+
 export interface SliceState {
-  systemRegisterVendorsArray: SystemRegisterObjectDTO[];
+  systemRegisterVendorsArray: SystemRegisterObjectPresented[];
   systemRegisterVendorsLoaded: boolean;
   systemRegisterError: string;
   postConfirmed: boolean;
   creationError: string;
+  postConfirmationId: string;
 }
 
 const initialState: SliceState = {
@@ -26,6 +32,7 @@ const initialState: SliceState = {
     systemRegisterError: '',
     postConfirmed: false,
     creationError: '',
+    postConfirmationId: '',
 };
 
 // CreationRequest form is based on Swagger POST description per 25.10.23
@@ -65,24 +72,38 @@ export const postNewSystemUser = createAsyncThunk('creationPageSlice/postNewSyst
 const creationPageSlice = createSlice({
   name: 'creation',
   initialState,
-  reducers: {},
+  reducers: {
+    resetPostConfirmation: (state) => {
+      state.postConfirmed = false;
+      state.postConfirmationId = '';
+      // skrevet av Github Copilot
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchSystemRegisterVendors.fulfilled, (state, action) => {
         const dataArray = action.payload;
-        const downLoadedArray: SystemRegisterObjectDTO[] = [];
+        const downLoadedArray: SystemRegisterObjectPresented[] = [];
 
         for (let i = 0; i < dataArray.length; i++) {
           const systemTypeId = dataArray[i].systemTypeId;
           const systemVendor = dataArray[i].systemVendor;
-          const description = dataArray[i].description;
+          // const description = dataArray[i].description; // not in use per 15.11.23
 
-          const loopObject = {
+          /* const loopObject = {
               systemTypeId,
               systemVendor,
               description,
             };
-            downLoadedArray.push(loopObject);
+            */
+          // transform to DesignSystem PullDownMenu shape
+          // we do not use "description" (so far: designers might )
+          const loopObject2 = {
+            'label': `${systemTypeId} : ${systemVendor}`,
+            'value': `${systemTypeId} : ${systemVendor}`
+          }
+
+          downLoadedArray.push(loopObject2);
         }
 
         state.systemRegisterVendorsArray = downLoadedArray;
@@ -91,8 +112,9 @@ const creationPageSlice = createSlice({
       .addCase(fetchSystemRegisterVendors.rejected, (state, action) => {
         state.systemRegisterError = action.error.message ?? 'Unknown error';
       })
-      .addCase(postNewSystemUser.fulfilled, (state) => {
+      .addCase(postNewSystemUser.fulfilled, (state, action) => {
         state.postConfirmed = true;
+        state.postConfirmationId = action.payload.id;
       })
       .addCase(postNewSystemUser.rejected, (state, action) => {
         state.creationError = action.error.message ?? 'Unknown error';
@@ -100,4 +122,5 @@ const creationPageSlice = createSlice({
   },
 });
 
+export const { resetPostConfirmation } = creationPageSlice.actions; // Github Copilot
 export default creationPageSlice.reducer;

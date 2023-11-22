@@ -3,14 +3,13 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { lagreNavn, lagreBeskrivelse } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
-
 import { TextField } from '@digdir/design-system-react';
-import classes from './MaskinportenIntAdmPageContent.module.css';
+import classes from './MaskinportenAdmPageContent.module.css';
 // import { useMediaQuery } from '@/resources/hooks';
 import { UploadComponent } from './UploadComponent';
 
 
-export const MaskinportenIntAdmPageContent = () => {
+export const MaskinportenAdmPageContent = () => {
   
   const { t } = useTranslation('common');
 
