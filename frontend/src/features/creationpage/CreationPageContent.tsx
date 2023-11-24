@@ -122,15 +122,7 @@ export const CreationPageContent = () => {
         </div>
 
         <div className={classes.rightContainer}>
-          <h3 className={classes.header}>Eget system?</h3>
-          <p className={classes.contentText}>
-            Hvis du har et eget system du ønsker å benytte, 
-            opprett integrasjon i maskinporten 
-            <Link
-            to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.MaskinportenAdm}
-            > her</Link> 
-            .
-          </p>
+          
 
           { !postConfirmed &&
           <div className={classes.buttonContainer}>
@@ -158,17 +150,22 @@ export const CreationPageContent = () => {
 
           {
               postConfirmed && 
-              <div className={classes.confirmationText}>
-                <p>Systembruker opprettet med id: {postConfirmationId}</p>
-                <br></br>
-                <p>Github Copilot skrev denne blokken for meg.</p>
-                <br></br>
-                <button
-                  onClick={handlePostConfirmation}
-                >Gå til oversiktsside</button>
-                
+              <div className={classes.buttonContainer}>
+                <div className={classes.confirmationText}>
+                  <p>Systembruker opprettet</p>
+                </div>
+
+                <div className={classes.confirmButton}>
+                  <Button
+                    color='success'
+                    size='small'
+                    onClick={handlePostConfirmation}
+                  >
+                    OK 
+                  </Button> 
+                </div>
               </div>
-            }
+          }
 
         </div>      
       </div>
