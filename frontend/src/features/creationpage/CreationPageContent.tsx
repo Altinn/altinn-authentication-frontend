@@ -133,7 +133,7 @@ export const CreationPageContent = () => {
                 size='small'
                 onClick={handleReject}
               >
-                Avbryt 
+                Avbryt
               </Button> 
             </div>
             <div className={classes.confirmButton}>
@@ -150,7 +150,8 @@ export const CreationPageContent = () => {
 
           {
               postConfirmed && 
-              <div className={classes.buttonContainer}>
+              <div className={classes.confirmationContainer}>
+
                 <div className={classes.confirmationText}>
                   <p>Systembruker opprettet</p>
                 </div>
