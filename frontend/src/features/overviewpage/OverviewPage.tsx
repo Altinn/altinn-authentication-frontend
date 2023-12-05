@@ -36,7 +36,7 @@ export const OverviewPage = () => {
         color='dark'
         size={isSm ? 'small' : 'medium'}
       >
-        <PageHeader icon={<ApiIcon />}>{t('api_delegation.api_delegations')}</PageHeader>
+        <PageHeader icon={<ApiIcon />}>{t('authent_overviewpage.banner_title')}</PageHeader>
         <PageContent>
           <OverviewPageContent />
         </PageContent>

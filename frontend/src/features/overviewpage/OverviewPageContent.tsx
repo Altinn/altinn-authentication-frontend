@@ -33,13 +33,16 @@ export const OverviewPageContent = () => {
   const { t } = useTranslation('common'); // not used yet
   const navigate = useNavigate();
 
+  // Fix-me: additionalText prop into CollectionBar is removed in Design of 24.11.23:
+  // set to empty string for now: if this persists the props should be reorganized
+
   const reduxCollectionBarArray = () => {
     return reduxObjektArray.map( (SystemUser) => (
       <div key={SystemUser.id}>
         <CollectionBar
           title=  {SystemUser.integrationTitle}
-          subtitle= { `${SystemUser.productName} (${SystemUser.ownedByPartyId})` }
-          additionalText= {`${SystemUser.description}`} 
+          subtitle= { `${SystemUser.productName}` }
+          additionalText= {""} 
           color={'neutral'}
           collection={[]}
           compact={isSm}
@@ -52,8 +55,9 @@ export const OverviewPageContent = () => {
 
   // Eldre greier: bør byttes ut, men kan trenges for Mobil-optimering
   const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger
+
   let overviewText: string;
-  overviewText = t('authentication_dummy.auth_overview_text_administrere'); 
+  overviewText = t('authent_overviewpage.sub_title'); // Fix-me: mulig skal settes direkte
   // Fix-me: h2 below, not in Small/mobile view
 
   const goToStartNewSystemUser = () => {
@@ -74,12 +78,12 @@ export const OverviewPageContent = () => {
             fullWidth={isSm}
             size='medium'
           >
-            {t('authentication_dummy.auth_new_system_user_opprett')}
+            {t('authent_overviewpage.new_system_user_button')}
           </Button>
         </div>
       
       <h2 className={classes.pageContentText}>
-        {'Du har tidligere opprettet disse systembrukerne'} 
+        {t('authent_overviewpage.existing_system_users_title')} 
       </h2>
       { reduxCollectionBarArray() }
     </div>
