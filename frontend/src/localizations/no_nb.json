@@ -60,7 +60,20 @@
     "content_text2": "Nedenfor listast alle leverandørar og systemer som har meldt at dei leverer slike tenester. Altinn har ikkje gjort noko vurdering av desse.",
     "pull_down_menu_label": "Velg systemleverandør og system",
     "confirm_button": "Opprett systembrukar",
-    "cancel_button": "Avbryt"},
+    "cancel_button": "Avbryt"
+  },
+  "authentication_dummy": {
+    "auth_title_systembrukere": "Systembrukere",
+    "auth_overview_text_administrere": "Her kan du administrere dine systembrukere",
+    "auth_new_system_user_opprett": "Opprett ny systembruker",
+    "auth_card_title_tidligere_opprettet": "Du har tidligere opprettet disse systembrukerne",
+    "auth_api_panel_content": "Her skulle vært en liste over systembrukere",
+    "auth_edit_button_systembruker": "Rediger systembruker",
+
+    "auth_overview_text_creation": "Opprett ny systembruker for systemintegrasjon ved bruk av Maskinporten",
+    
+    "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
+  },
 
   "api_delegation": {
     "businesses": "Verksemder",
