@@ -69,21 +69,6 @@
     "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
   },
 
-  "authent_overviewpage": {
-    "banner_title": "Administrera systembrukarar",
-    "sub_title": "Her kan du administrera dine systembrukarar",
-    "new_system_user_button": "Opprett ny systembrukar",
-    "existing_system_users_title": "Dine systembrukarar",
-    "rights_added": "Rettar lagt til",
-    "rights_not_added": "Rettar ikkje lagt til",
-
-    "auth_api_panel_content": "Her skulle vært en liste over systembrukere",
-    "auth_edit_button_systembruker": "Rediger systembruker",
-
-    "auth_overview_text_creation": "Opprett ny systembruker for systemintegrasjon ved bruk av Maskinporten",
-    
-    "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
-  },
   "api_delegation": {
     "businesses": "Verksemder",
     "delegated_apis": "Delegerte API",
