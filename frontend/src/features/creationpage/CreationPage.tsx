@@ -9,16 +9,14 @@ import { CreationPageContent } from './CreationPageContent';
 export const CreationPage = () => {
   const { t } = useTranslation('common');
   const isSm = useMediaQuery('(max-width: 768px)');
-
-  // fix-me: set language key in <PageHeader>
-
+  
   return (
     <PageContainer>
       <Page
         color='dark'
         size={isSm ? 'small' : 'medium'}
       >
-        <PageHeader icon={<ApiIcon />}>{'Opprett ny systembruker'}</PageHeader>
+        <PageHeader icon={<ApiIcon />}>{t('authent_creationpage.banner_title')}</PageHeader>
         <PageContent>
           <CreationPageContent />
         </PageContent>

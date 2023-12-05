@@ -50,7 +50,16 @@
     "new_system_user_button": "Opprett ny systembrukar",
     "existing_system_users_title": "Dine systembrukarar",
     "rights_added": "Rettar lagt til",
-    "rights_not_added": "Rettar ikkje lagt til",
+    "rights_not_added": "Rettar ikkje lagt til"
+  },
+  "authent_creationpage": {
+    "banner_title": "Opprett ny systembrukar",
+
+    "sub_title": "Her kan du administrere dine systembrukere",
+    "new_system_user_button": "Opprett ny systembruker",
+    "existing_system_users_title": "Dine systembrukere",
+    "rights_added": "Rettigheter lagt til",
+    "rights_not_added": "Rettigheter ikke lagt til",
 
     "auth_api_panel_content": "Her skulle vært en liste over systembrukere",
     "auth_edit_button_systembruker": "Rediger systembruker",
@@ -59,6 +68,7 @@
     
     "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
   },
+
   "api_delegation": {
     "businesses": "Verksemder",
     "delegated_apis": "Delegerte API",

@@ -51,6 +51,17 @@
     "new_system_user_button": "Opprett ny systembruker",
     "existing_system_users_title": "Dine systembrukere",
     "rights_added": "Rettigheter lagt til",
+    "rights_not_added": "Rettigheter ikke lagt til"
+  },
+
+  "authent_creationpage": {
+    "banner_title": "Opprett ny systembruker",
+    "input_field_label": "Navn på systembruker",
+
+    "sub_title": "Her kan du administrere dine systembrukere",
+    "new_system_user_button": "Opprett ny systembruker",
+    "existing_system_users_title": "Dine systembrukere",
+    "rights_added": "Rettigheter lagt til",
     "rights_not_added": "Rettigheter ikke lagt til",
 
     "auth_api_panel_content": "Her skulle vært en liste over systembrukere",

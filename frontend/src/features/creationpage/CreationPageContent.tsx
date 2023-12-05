@@ -28,7 +28,8 @@ export const CreationPageContent = () => {
   
   // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
-  const { t } = useTranslation('common'); // ikke i bruk ennå
+  const { t } = useTranslation('common'); 
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch(); 
   
@@ -83,16 +84,9 @@ export const CreationPageContent = () => {
       <div className={classes.inputContainer}> 
         <div className={classes.nameWrapper}>
             <TextField 
-              label = 'Integrasjonsnavn'
+              label = {t('authent_creationpage.input_field_label')} 
               value = { integrationName }
               onChange={e => setIntegrationName(e.target.value)}
-            />
-        </div>
-        <div className={classes.descriptionWrapper}>
-            <TextField 
-              label= 'Beskrivelse' 
-              value = { descriptionEntered }
-              onChange={e => setDescriptionEntered(e.target.value)}
             />
         </div>
       </div>
