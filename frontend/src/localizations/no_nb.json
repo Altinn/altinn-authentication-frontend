@@ -63,7 +63,7 @@
     "pull_down_menu_label": "Velg systemleverandør og system",
     "confirm_button": "Opprett systembruker",
     "cancel_button": "Avbryt"
-},
+  },
   
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
