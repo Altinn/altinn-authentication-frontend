@@ -16,6 +16,9 @@ import { ActionBar, type ActionBarProps } from '../ActionBar';
 import classes from './CollectionBar.module.css';
 
 // added/extended subtitle and additionalText as props of CollectionBar as child ActionBar has such props
+// 05.12.23: Beskrivelse/comment/addtionalText is removed in Design of 24.11.23:
+// if this persists the props should be reorganized
+
 export interface CollectionBarProps extends Pick<ActionBarProps, 'color' | 'title'| 'subtitle' | 'additionalText' > {
   /** The list of selected objects */
   collection: React.ReactNode[];
@@ -39,11 +42,16 @@ export const CollectionBar = ({
   const { t } = useTranslation('common');
   const navigate = useNavigate();
 
+  // Edit Button is not used: but might be added back later
   const proceedClick = () => {
     if (proceedToPath) {
       navigate(proceedToPath);
     }
   };
+
+  // color of Rettigheter should be red or black, depending on external boolean
+  // color={color === 'dark' ? 'inverted' : undefined}
+  // for now hard code: color={"danger"}
 
   return (
     <>
@@ -68,11 +76,11 @@ export const CollectionBar = ({
             <Button
               variant='quiet'
               size='small'
-              icon={<Edit />}
-              color={color === 'dark' ? 'inverted' : undefined}
+              
+              color={"danger"}
               onClick={proceedClick}
             >
-              {t('authentication_dummy.auth_edit_button_systembruker')}
+              {t('authent_overviewpage.rights_not_added')}
             </Button>
           )
         }
