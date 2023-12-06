@@ -62,6 +62,13 @@
     "confirm_button": "Opprett systembrukar",
     "cancel_button": "Avbryt"
   },
+  "authent_confirmationpage": {
+    "banner_title": "Ny systembrukar er oppretta",
+    "sub_title": "Du har no oppretta systembrukaren Turboskatt, som er knytta til Visma Accounting",
+    "content_text": "Du kan velga å gå vidare og gje systembrukaren rettar, eller avslutte og komme attende seinare.",  
+    "add_rights_button": "Legg til rettar",
+    "add_no_rights_button": "Legg til rettar seinare"
+  },
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
     "auth_overview_text_administrere": "Her kan du administrere dine systembrukere",

@@ -64,6 +64,14 @@
     "confirm_button": "Opprett systembruker",
     "cancel_button": "Avbryt"
   },
+
+  "authent_confirmationpage": {
+    "banner_title": "Ny systembruker er opprettet",
+    "sub_title": "Du har nå opprettet systembrukeren Turboskatt, som er knyttet til Visma Accounting",
+    "content_text": "Du kan velge å gå videre og gi systembrukeren rettigheter, eller avslutte og komme tilbake senere.",
+    "add_rights_button": "Legg til rettigheter",
+    "add_no_rights_button": "Legg til rettigheter senere" 
+  },
   
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
