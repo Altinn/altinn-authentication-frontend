@@ -28,7 +28,8 @@ export const CreationPageContent = () => {
   
   // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
-  const { t } = useTranslation('common'); // ikke i bruk ennå
+  const { t } = useTranslation('common'); 
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch(); 
   
@@ -83,37 +84,28 @@ export const CreationPageContent = () => {
       <div className={classes.inputContainer}> 
         <div className={classes.nameWrapper}>
             <TextField 
-              label = 'Integrasjonsnavn'
+              label = {t('authent_creationpage.input_field_label')} 
               value = { integrationName }
               onChange={e => setIntegrationName(e.target.value)}
             />
         </div>
-        <div className={classes.descriptionWrapper}>
-            <TextField 
-              label= 'Beskrivelse' 
-              value = { descriptionEntered }
-              onChange={e => setDescriptionEntered(e.target.value)}
-            />
-        </div>
       </div>
 
-      <h2 className={classes.header}>{overviewText}</h2>
+      <h2 className={classes.header}>{t('authent_creationpage.sub_title')}</h2>
 
       <p className={classes.contentText}>
-            I de fleste tilfeller vil systembrukeren benyttes i sammenheng med 
-            sluttbrukersystemer levert av forskjellige leverandører. Det er en 
-            rekke leverandører og systemer i markedet som tilbyr systemer 
-            for forskjellig bruk. Du må selv gjøre en selvstendig vurdering på valg 
-            av leverandør og system. Nedenfor listes alle leverandører og systemer 
-            som har meldt at de leverer slike tjenester. Altinn har ikke gjort noen 
-            vurdering av disse.
+        {t('authent_creationpage.content_text1')}
+      </p>
+
+      <p className={classes.contentText}>
+        {t('authent_creationpage.content_text2')}
       </p>
 
       <div className={classes.flexContainer}>
         <div className={classes.leftContainer}>
           <div className={classes.selectWrapper}>
             <Select
-              label="Velg systemleverandør og system"
+              label={t('authent_creationpage.pull_down_menu_label')}
               options={ vendorsList }
               onChange={ handleChangeInput }
               value={ selectedSystemType }
@@ -126,23 +118,23 @@ export const CreationPageContent = () => {
 
           { !postConfirmed &&
           <div className={classes.buttonContainer}>
-            <div className={classes.cancelButton}>
-              <Button
-                color='primary'
-                variant='outline'
-                size='small'
-                onClick={handleReject}
-              >
-                Avbryt
-              </Button> 
-            </div>
             <div className={classes.confirmButton}>
               <Button
                 color='primary'
                 size='small'
                 onClick={handleConfirm}
               >
-                Opprett 
+                {t('authent_creationpage.confirm_button')} 
+              </Button> 
+            </div>
+            <div className={classes.cancelButton}>
+              <Button
+                color='primary'
+                variant='quiet'
+                size='small'
+                onClick={handleReject}
+              >
+                {t('authent_creationpage.cancel_button')} 
               </Button> 
             </div>
           </div>
