@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { OverviewPage } from '@/features/overviewpage/OverviewPage';
 import { CreationPage } from '@/features/creationpage/CreationPage';
+import { ConfirmationPage } from '@/features/confirmationpage/ConfirmationPage';
 import { DirectConsentPage } from '@/features/directconsentpage/DirectConsentPage';
 import { MaskinportenAdmPage } from '@/features/maskinportenAdm/MaskinportenAdmPage';
 
@@ -30,6 +31,12 @@ export const Router = createBrowserRouter(
         <Route
           path={AuthenticationPath.Creation}
           element={<CreationPage />}
+          errorElement={<NotFoundSite />}
+        />
+
+        <Route
+          path={AuthenticationPath.Confirmation}
+          element={<ConfirmationPage />}
           errorElement={<NotFoundSite />}
         />
 

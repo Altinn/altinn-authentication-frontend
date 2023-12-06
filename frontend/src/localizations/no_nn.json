@@ -64,6 +64,17 @@
     "confirm_button": "Opprett systembruker",
     "cancel_button": "Avbryt"
   },
+
+  "authent_confirmationpage": {
+    "banner_title": "Opprett ny systembruker",
+    "input_field_label": "Navn på systembruker",
+    "sub_title": "Knytt systembruker til systemleverandør",
+    "content_text1": "I de fleste tilfeller vil systembrukeren benyttes i sammenheng med  sluttbrukersystemer levert av forskjellige leverandører. Det er en rekke leverandører og systemer i markedet som tilbyr systemer for forskjellig bruk. Du må selv gjøre en selvstendig vurdering på valg av leverandør og system.",
+    "content_text2": "Nedenfor listes alle leverandører og systemer som har meldt at de leverer slike tjenester. Altinn har ikke gjort noen vurdering av disse.",
+    "pull_down_menu_label": "Velg systemleverandør og system",
+    "confirm_button": "Opprett systembruker",
+    "cancel_button": "Avbryt"
+  },
   
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
