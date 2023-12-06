@@ -16,7 +16,7 @@ export const ConfirmationPage = () => {
         color='dark'
         size={isSm ? 'small' : 'medium'}
       >
-        <PageHeader icon={<ApiIcon />}>{t('authent_creationpage.banner_title')}</PageHeader>
+        <PageHeader icon={<ApiIcon />}>{t('authent_confirmationpage.banner_title')}</PageHeader>
         <PageContent>
           <ConfirmationPageContent />
         </PageContent>

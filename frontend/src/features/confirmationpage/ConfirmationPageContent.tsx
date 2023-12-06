@@ -81,83 +81,40 @@ export const ConfirmationPageContent = () => {
  
   return (
     <div className={classes.confirmationPageContainer}>
-      <div className={classes.inputContainer}> 
-        <div className={classes.nameWrapper}>
-            <TextField 
-              label = {t('authent_creationpage.input_field_label')} 
-              value = { integrationName }
-              onChange={e => setIntegrationName(e.target.value)}
-            />
-        </div>
-      </div>
 
-      <h2 className={classes.header}>{t('authent_creationpage.sub_title')}</h2>
+      <h2 className={classes.header}>{t('authent_confirmationpage.sub_title')}</h2>
 
       <p className={classes.contentText}>
-        {t('authent_creationpage.content_text1')}
+        {t('authent_confirmationpage.content_text')}
       </p>
 
-      <p className={classes.contentText}>
-        {t('authent_creationpage.content_text2')}
-      </p>
 
       <div className={classes.flexContainer}>
-        <div className={classes.leftContainer}>
-          <div className={classes.selectWrapper}>
-            <Select
-              label={t('authent_creationpage.pull_down_menu_label')}
-              options={ vendorsList }
-              onChange={ handleChangeInput }
-              value={ selectedSystemType }
-            />
-          </div>
-        </div>
-
         <div className={classes.rightContainer}>
           
-
           { !postConfirmed &&
           <div className={classes.buttonContainer}>
-            <div className={classes.confirmButton}>
+
+            <div className={classes.addRightsButton}>
               <Button
                 color='primary'
-                size='small'
-                onClick={handleConfirm}
-              >
-                {t('authent_creationpage.confirm_button')} 
-              </Button> 
-            </div>
-            <div className={classes.cancelButton}>
-              <Button
-                color='primary'
-                variant='quiet'
                 size='small'
                 onClick={handleReject}
               >
-                {t('authent_creationpage.cancel_button')} 
+                {t('authent_confirmationpage.add_rights_button')} 
+              </Button> 
+            </div>
+            <div className={classes.addNoRightsButton}>
+              <Button
+                color='primary'
+                variant='outline'
+                size='small'
+                onClick={handleReject}
+              >
+                {t('authent_confirmationpage.add_no_rights_button')} 
               </Button> 
             </div>
           </div>
-          }
-
-          {
-              postConfirmed && 
-              <div className={classes.confirmationContainer}>
-
-                <div className={classes.confirmationText}>
-                  <p>Systembruker opprettet</p>
-                </div>
-
-                <div className={classes.confirmButton}>
-                  <Button
-                    color='success'
-                    size='small'
-                    onClick={handlePostConfirmation}
-                  >
-                    OK 
-                  </Button> 
-                </div>
-              </div>
           }
 
         </div>      

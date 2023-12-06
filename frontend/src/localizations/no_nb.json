@@ -63,14 +63,11 @@
     "cancel_button": "Avbryt"
   },
   "authent_confirmationpage": {
-    "banner_title": "Opprett ny systembrukar",
-    "input_field_label": "Namn på systembrukar",
-    "sub_title": "Knytt systembrukar til systemleverandør",
-    "content_text1": "I dei fleste tilfelle vil systembrukaren nyttast i samanheng med sluttbrukarsystemer levert av ulike leverandørar. Det fins ei rekke leverandørar og systemer i marknaden som tilbyr systemer for ulike typar bruk. Du må sjølv gjere ei sjølvstendig vurdering på valg av leverandør og system.",
-    "content_text2": "Nedenfor listast alle leverandørar og systemer som har meldt at dei leverer slike tenester. Altinn har ikkje gjort noko vurdering av desse.",
-    "pull_down_menu_label": "Velg systemleverandør og system",
-    "confirm_button": "Opprett systembrukar",
-    "cancel_button": "Avbryt"
+    "banner_title": "Ny systembrukar er oppretta",
+    "sub_title": "Du har no oppretta systembrukaren Turboskatt, som er knytta til Visma Accounting",
+    "content_text": "Du kan velga å gå vidare og gje systembrukaren rettar, eller avslutte og komme attende seinare.",  
+    "add_rights_button": "Legg til rettar",
+    "add_no_rights_button": "Legg til rettar seinare"
   },
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
