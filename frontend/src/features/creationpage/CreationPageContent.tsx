@@ -54,12 +54,20 @@ export const CreationPageContent = () => {
 
     void dispatch(postNewSystemUser(PostObjekt));  
     
-    // Clean up local State variables before returning to main page
+    // Clean up local State variables before returning to main page, was old solution
+    // update 07.12.23: New Design of 24.11.23 specifies navigation
+    // to ConfirmationPage: OK, but if CreationRequest fails we need to
+    // notify the user, but perhaps we could do it on the ConfirmationPage?
     setIntegrationName('');
     setDescriptionEntered('');
     setSelectedSystemType('');
+
+    // Crude first pass at problem: no Error handling here or at ConfirmationPage OK
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Confirmation);
   }
 
+  // The old solution: waited for confirmation before
+  // navigating to OverviewPage: 
   const handlePostConfirmation = () => {
     // skrevet av Github Copilot
     void dispatch(resetPostConfirmation());
