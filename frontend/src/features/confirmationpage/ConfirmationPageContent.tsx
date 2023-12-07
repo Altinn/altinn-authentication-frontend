@@ -93,6 +93,9 @@ export const ConfirmationPageContent = () => {
         <div className={classes.rightContainer}>
           
           { !postConfirmed &&
+            <p>Ikke helt bekreftet ennå: må håndteres</p>
+          }
+
           <div className={classes.buttonContainer}>
 
             <div className={classes.addRightsButton}>
@@ -115,7 +118,7 @@ export const ConfirmationPageContent = () => {
               </Button> 
             </div>
           </div>
-          }
+          
 
         </div>      
       </div>
