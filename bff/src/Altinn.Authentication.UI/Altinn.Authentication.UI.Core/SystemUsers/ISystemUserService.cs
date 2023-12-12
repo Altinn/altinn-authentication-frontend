@@ -6,9 +6,9 @@
 /// </summary>
 public interface ISystemUserService
 {
-    Task<List<SystemUserDTO>> GetAllSystemUserDTOsForChosenUser(Guid id, CancellationToken cancellationToken = default);
-    Task<SystemUserDTO?> GetSpecificSystemUserDTO(Guid id, CancellationToken cancellationToken = default);
-    Task<Guid> PostNewSystemUserDescriptor(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
+    Task<List<SystemUserDTO>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default);
+    Task<SystemUserDTO?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default);
+    Task<SystemUserReal> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
     Task<bool> DeleteSystemUser(Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserTitle(string newTitle, Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default);

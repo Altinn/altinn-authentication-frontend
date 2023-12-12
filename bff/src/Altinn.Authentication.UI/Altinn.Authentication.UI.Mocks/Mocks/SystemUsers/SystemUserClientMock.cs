@@ -73,18 +73,18 @@ public class SystemUserClientMock : ISystemUserClient
         _systemUserList = MockTestHelper();
     }
    
-    public async Task<SystemUserReal?> GetSpecificSystemUserReal(Guid id, CancellationToken cancellationToken = default)
+    public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
         return _systemUserList.Find(i => i.Id == id.ToString());
     }
 
-    public async Task<Guid> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUserReal> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         await Task.Delay(50);
         var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);
         _systemUserList.Add(sysreal);
-        return Guid.Parse(sysreal.Id!);
+        return sysreal;
     }
 
     public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
@@ -108,7 +108,7 @@ public class SystemUserClientMock : ISystemUserClient
         throw new NotImplementedException();
     }
 
-    public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(Guid id, CancellationToken cancellationToken = default)
+    public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
         return _systemUserList;
