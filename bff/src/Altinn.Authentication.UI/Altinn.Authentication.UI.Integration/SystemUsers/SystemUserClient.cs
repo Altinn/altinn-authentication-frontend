@@ -1,60 +1,16 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Platform.Register.Models;
+using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Http.HttpResults;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
 public class SystemUserClient : ISystemUserClient
 {
-    private static List<SystemUserReal> MockTestHelper()
-    {
-        //Mock Data
-        SystemUserReal systemUser1 = new()
-        {
-            Id = "37ce1792-3b35-4d50-a07d-636017aa7dbd",
-            Title = "Vårt regnskapsystem",
-            Description = "Koblet opp mot Visma. Snakk med Pål om abonnement",
-            SystemType = "Visma Skatt",
-            OwnedByPartyId = "orgno:91235123",
-            Created = "2023-09-12",
-            IsDeleted = false,
-            ClientId = ""
-        };
-
-        SystemUserReal systemUser2 = new()
-        {
-            Id = "37ce1792-3b35-4d50-a07d-636017aa7dbe",
-            Title = "Vårt andre regnskapsystem",
-            Description = "Koblet opp mot Visvas. Snakk med Per om abonnement",
-            SystemType = "Visma Visvas",
-            OwnedByPartyId = "orgno:91235124",
-            Created = "2023-09-22",
-            IsDeleted = false,
-            ClientId = ""
-        };
-
-        SystemUserReal systemUser3 = new()
-        {
-            Id = "37ce1792-3b35-4d50-a07d-636017aa7dbf",
-            Title = "Et helt annet system",
-            Description = "Kai og Guri vet alt om dette systemet.",
-            SystemType = "Fiken Superskatt",
-            OwnedByPartyId = "orgno:91235125",
-            Created = "2023-09-22",
-            IsDeleted = false,
-            ClientId = ""
-        };
-
-    List<SystemUserReal> systemUserList = new()
-        {
-            systemUser1,
-            systemUser2,
-            systemUser3
-        };
-        return systemUserList;
-    }
-
-    private static List<SystemUserReal> _systemUserList = new();
+    private readonly HttpClient _httpClient;
 
     private static SystemUserReal MapDescriptorToSystemUserReal(SystemUserDescriptor sysdescr)
     {
@@ -70,29 +26,57 @@ public class SystemUserClient : ISystemUserClient
         };       
     }
 
-    public SystemUserClient()
+    public SystemUserClient(HttpClient httpClient)
     {
-        _systemUserList = MockTestHelper();
+        _httpClient = httpClient;
     }
    
-    public async Task<SystemUserReal?> GetSpecificSystemUserReal(Guid id, CancellationToken cancellationToken = default)
+    public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        return _systemUserList.Find(i => i.Id == id.ToString());
+        HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{partyId}/{id}");
+        HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<SystemUserReal>(await response.Content.ReadAsStringAsync(cancellationToken))!;
+        }
+
+        return null;
     }
 
-    public async Task<Guid> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUserReal?> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);
-        _systemUserList.Add(sysreal);
-        return Guid.Parse(sysreal.Id!);
+        var requestObject = new
+        { 
+            PartyId = newSystemUserDescriptor.OwnedByPartyId!,
+            IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
+            ProductName = newSystemUserDescriptor.SelectedSystemType!
+        };
+
+        HttpRequestMessage request = new(HttpMethod.Post, $"authentication/api/v1/systemuser")
+        {
+            Content = JsonContent.Create(requestObject, new MediaTypeHeaderValue("application/json"))
+        };
+
+        HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellation);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<SystemUserReal>(await response.Content.ReadAsStringAsync(cancellation))!;
+        }
+
+        return null;
+        
+        
     }
 
     public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
     {
-        SystemUserReal? toDelete = _systemUserList.Find(i => i.Id == id.ToString());        
-        if (toDelete is null) return false;
-        _systemUserList.Remove(toDelete);
-        return true;
+        //    SystemUserReal? toDelete = _systemUserList.Find(i => i.Id == id.ToString());        
+        //    if (toDelete is null) return false;
+        //    _systemUserList.Remove(toDelete);
+        //    return true;
+        throw new NotImplementedException();
     }
 
     public Task<bool> ChangeSystemUserRealTitle(string newTitle, Guid id, CancellationToken cancellationToken = default)
@@ -105,9 +89,19 @@ public class SystemUserClient : ISystemUserClient
         throw new NotImplementedException();
     }
 
-    public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(Guid id, CancellationToken cancellationToken = default)
+    public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
-        return _systemUserList;
+        List<SystemUserReal> list = new();
+
+        HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{id}");
+        HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
+
+        if (response.IsSuccessStatusCode)
+        {
+            list = JsonSerializer.Deserialize<List<SystemUserReal>>(await response.Content.ReadAsStringAsync(cancellationToken))!;
+        }
+
+        return list;
     }
 
     public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)

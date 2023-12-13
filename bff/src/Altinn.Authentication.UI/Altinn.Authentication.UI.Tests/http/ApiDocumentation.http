@@ -66,3 +66,6 @@ POST {{rootHttpUrl}}/authfront/api/v1/systemuser/uploadjwk -H 'accept: */*' -H '
 
 ###
 GET http://localhost:5006/authfront/api/v1/systemregister
+
+###
+GET https://localhost:44377/authentication/api/v1/systemuser/1

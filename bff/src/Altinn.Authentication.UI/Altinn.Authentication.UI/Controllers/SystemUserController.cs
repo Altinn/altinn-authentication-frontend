@@ -30,9 +30,9 @@ public class SystemUserController : ControllerBase
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("{id}")]
-    public async Task<ActionResult> GetSystemUserListForLoggedInUser(string id, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> GetSystemUserListForLoggedInUser(int id, CancellationToken cancellationToken = default)
     {
-        var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(Guid.NewGuid(), cancellationToken);
+        var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(id, cancellationToken);
 
         return Ok(list);
     }
@@ -88,13 +88,13 @@ public class SystemUserController : ControllerBase
     
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpPost]
-    public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
+    [HttpPost("{partyId}")]
+    public async Task<ActionResult> Post(int partyId ,[FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
-        Guid? sid = await _systemUserService.PostNewSystemUserDescriptor(newSystemUserDescriptor, cancellationToken);
-        if (sid is not null && !string.IsNullOrEmpty(sid.ToString()))
+        var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
+        if (usr is not null)
         {
-            return Ok(new { Id = sid.ToString() });
+            return Ok(new { Id = usr?.Id?.ToString() });
         }
 
         return NotFound();

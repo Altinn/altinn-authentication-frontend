@@ -24,7 +24,7 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.DeleteSystemUserReal(id, cancellationToken);
     }
 
-    public async Task<List<SystemUserDTO>> GetAllSystemUserDTOsForChosenUser(Guid id, CancellationToken cancellationToken = default)
+    public async Task<List<SystemUserDTO>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         var listofReal = await _systemUserClient.GetSystemUserRealsForChosenUser(id, cancellationToken);
         List<SystemUserDTO> listofDTOs = new();
@@ -35,9 +35,9 @@ public class SystemUserService : ISystemUserService
         return listofDTOs;
     }
 
-    public async Task<SystemUserDTO?> GetSpecificSystemUserDTO(Guid id, CancellationToken cancellationToken = default)
+    public async Task<SystemUserDTO?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
     {              
-        return MapFromSystemUserRealToDTO(await _systemUserClient.GetSpecificSystemUserReal(id, cancellationToken));
+        return MapFromSystemUserRealToDTO(await _systemUserClient.GetSpecificSystemUserReal(partyId ,id, cancellationToken));
     }
 
     private static SystemUserDTO? MapFromSystemUserRealToDTO(SystemUserReal? systemUserReal)
@@ -61,7 +61,7 @@ public class SystemUserService : ISystemUserService
         return systemUserDTO;
     }
 
-    public async Task<Guid> PostNewSystemUserDescriptor(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUserReal?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         return await _systemUserClient.PostNewSystemUserReal(newSystemUserDescriptor, cancellation);
     }
