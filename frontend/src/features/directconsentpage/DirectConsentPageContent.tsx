@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { Button, Spinner } from '@digdir/design-system-react';
+import { Button, Checkbox } from '@digdir/design-system-react';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from '@/resources/hooks';
 import classes from './DirectConsentPageContent.module.css';
@@ -19,7 +19,7 @@ export const DirectConsentPageContent = () => {
   const isSm = useMediaQuery('(max-width: 768px)');
 
   let overviewText: string;
-  overviewText = t('authentication_dummy.auth_overview_text_directconsent'); // h2 below, not in Small/mobile view
+  overviewText = t('authent_directconsentpage.sub_title'); // h2 below, not in Small/mobile view
 
   // skal nå bare gå tilbake til OverviewPage
   // selv om vi må vurdere en sletting av ting?
@@ -35,8 +35,16 @@ export const DirectConsentPageContent = () => {
     console.log("Her skulle det skjedd noe")
   }
 
+  const handleCheck1 = () => {
+    console.log("Her skulle det skjedd noe")
+  }
 
-  // Må sette inn lag med Page, PageContainer etc... så det ligner
+  const handleCheck2 = () => {
+    console.log("Her skulle det skjedd noe")
+  }
+
+
+  // Fix-me: Må sette inn lag med Page, PageContainer etc... så det ligner
   // på andre sider.
 
   return (
@@ -48,57 +56,63 @@ export const DirectConsentPageContent = () => {
         <div className={classes.leftContainer}>
 
           <p className={classes.contentText}>
-            Fiken AS ber om tilgangsgrupper blir gitt til systemet. <br></br>
-            Tilgangsgruppene vil gi systemintegrasjonen rett til <br></br>
-            å aksessere digitale tjenester på vegne av Pølsebu AS<br></br>
-            <br></br> 
-            <a href="https://altinn.github.io/docs/"> Les mer her</a> og  
-            <a href="https://docs.altinn.studio/nb/"> her</a>. 
-          </p>
-            
-
-            <br></br>
-          <p className={classes.contentText}>
-            Tilgangsgruppene er: <br></br>
-              <br></br>
-              - MVA (se tjenester)<br></br>
-              - Sykemelding (se tjenester)
-              <br></br>
+          {t('authent_directconsentpage.consent_text')}
           </p>
 
-            <br></br>
+          <br></br>
 
           <p className={classes.contentText}>
-            Innholdet i tilgangsgruppene kan endre seg hvis nye
-            tjenester for områdetet blir tilgjengelig.
+          {t('authent_directconsentpage.consent_buttons_top_text')}
           </p>
-            
-          <p className={classes.contentText}>
-            Tilgangsgruppene kan fjernes når som helst senere fra Altinn profil.
-          </p>
-      
+          
+          <div className={classes.checkboxContainer}>
+            <div className={classes.confirmButton}>
+              <Checkbox
+                color='primary'
+                size='small'
+                onClick={handleCheck1}
+              >
+                {t('authent_directconsentpage.add_consent_checkbox1')} 
+              </Checkbox> 
+            </div>
+
+            <div className={classes.confirmButton}>
+              <Checkbox
+                color='primary'
+                size='small'
+                onClick={handleCheck2}
+              >
+                {t('authent_directconsentpage.add_consent_checkbox2')} 
+              </Checkbox> 
+            </div>
+
+          </div>
+          <br></br>
+          <br></br>
 
           <div className={classes.buttonContainer}>
-
-            <div className={classes.cancelButton}>
-              <Button
-                color='primary'
-                variant='outline'
-                size='small'
-                onClick={handleReject}
-              >
-                Avbryt 
-              </Button> 
-            </div>
 
             <div className={classes.confirmButton}>
               <Button
                 color='primary'
                 size='small'
-                onClick={handleConfirm}
+                onClick={handleReject}
               >
-                Opprett 
+                {t('authent_directconsentpage.add_consent_button1')} 
               </Button> 
+              
+            </div>
+
+            <div className={classes.cancelButton}>
+              <Button
+                color='primary'
+                variant='quiet'
+                size='small'
+                onClick={handleReject}
+              >
+                {t('authent_directconsentpage.add_consent_button2')} 
+              </Button> 
+               
             </div>
 
           </div>

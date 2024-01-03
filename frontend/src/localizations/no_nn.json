@@ -72,6 +72,16 @@
     "add_rights_button": "Legg til rettigheter",
     "add_no_rights_button": "Legg til rettigheter senere" 
   },
+  "authent_directconsentpage": {
+    "banner_title": "Gi tilgang til system",
+    "sub_title": "Visma AS ønsker å opprette en systemtilgang for Olsen Regnskap AS",
+    "consent_text": "Systembrukeren vil benyttes for behandling av data for Olsen Regnskap AS eller kunder av Olsen Regnskap AS.",
+    "consent_buttons_top_text": "Jeg samtykker til at:",
+    "add_consent_checkbox1": "Visma AS kan behandle data for Olsen Regnskap AS",
+    "add_consent_checkbox2": "Visma AS kan behandle data for kunder av Olsen Regnskap AS",
+    "add_consent_button1": "Ja, jeg gir samtykke",
+    "add_consent_button2": "Avbryt" 
+  },
   
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
