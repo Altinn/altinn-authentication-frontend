@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
+import { storeCheckbox1, storeCheckbox2 } from '@/rtk/features/directConsentPage/directConsentPageSlice';
 import { Button, Checkbox } from '@digdir/design-system-react';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from '@/resources/hooks';
@@ -10,47 +11,48 @@ import { useTranslation } from 'react-i18next';
 
 
 export const DirectConsentPageContent = () => {
-  const [saveDisabled, setSaveDisabled] = useState(false);
-  const [isEditable, setIsEditable] = useState(false);
+  const [checkbox1, setCheckbox1] = useState(false);
+  const [checkbox2, setCheckbox2] = useState(false);
+  // Fix-me: synchronize Redux state og local state
+  // const checkbox1State: boolean = useAppSelector((state) => state.directConsentPage.checkbox1);
+  // or just fix simple boolean reversion inside Reducer function: but 
+
   const { t } = useTranslation('common');
   const navigate = useNavigate();
   
-  const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch(); // Redux for DirectConsentPage: design not ready
   const isSm = useMediaQuery('(max-width: 768px)');
 
   let overviewText: string;
   overviewText = t('authent_directconsentpage.sub_title'); // h2 below, not in Small/mobile view
 
-  // skal nå bare gå tilbake til OverviewPage
-  // selv om vi må vurdere en sletting av ting?
+  // for now, return to OverviewPage: design not ready
   const handleReject = () => {
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
-   // Mulig at her skal man trigge en dispatch
-  // og så navigere til OverviewPage
-  // har opprettet en creationPageSlice som nå er synlig i 
-  // Chrome DevTools --> må ut og løpe...
+  // possibly handleConfirm should be dependent on both checkboxes
+  // being checked... or perhaps ConfirmButton should be disabled
   const handleConfirm = () => {
     console.log("Her skulle det skjedd noe")
   }
 
   const handleCheck1 = () => {
-    console.log("Her skulle det skjedd noe")
+    // Fix-me: could probably simplify in Reducer itself
+    const invertedCheckbox1State: boolean = !checkbox1;
+    setCheckbox1(invertedCheckbox1State); // update local state
+    dispatch(storeCheckbox1( { checkbox1: invertedCheckbox1State} )); 
   }
 
   const handleCheck2 = () => {
-    console.log("Her skulle det skjedd noe")
+    // Fix-me: could probably simplify in Reducer itself
+    const invertedCheckbox2State: boolean = !checkbox2;
+    setCheckbox2(invertedCheckbox2State); // update local state
+    dispatch(storeCheckbox2( { checkbox1: invertedCheckbox2State} )); 
   }
 
-
-  // Fix-me: Må sette inn lag med Page, PageContainer etc... så det ligner
-  // på andre sider.
-
   return (
-
     <div className={classes.directConsentPageContainer}>
-
       <h2 className={classes.header}>{overviewText}</h2>
       <div className={classes.flexContainer}>
         <div className={classes.leftContainer}>
@@ -97,6 +99,7 @@ export const DirectConsentPageContent = () => {
                 color='primary'
                 size='small'
                 onClick={handleReject}
+                disabled={!checkbox1 || !checkbox2}
               >
                 {t('authent_directconsentpage.add_consent_button1')} 
               </Button> 
