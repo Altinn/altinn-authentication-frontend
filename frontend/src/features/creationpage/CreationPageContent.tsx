@@ -6,7 +6,7 @@ import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { postNewSystemUser, CreationRequest, resetPostConfirmation } from '@/rtk/features/creationPage/creationPageSlice';
 import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
-import { TextField, Button, Select } from '@digdir/design-system-react';
+import { TextField, Button, Select, HelpText } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
 
@@ -91,12 +91,20 @@ export const CreationPageContent = () => {
     <div className={classes.creationPageContainer}>
       <div className={classes.inputContainer}> 
         <div className={classes.nameWrapper}>
-            <TextField 
-              label = {t('authent_creationpage.input_field_label')} 
-              value = { integrationName }
-              onChange={e => setIntegrationName(e.target.value)}
-            />
+          <TextField 
+            label = {t('authent_creationpage.input_field_label')} 
+            value = { integrationName }
+            onChange={e => setIntegrationName(e.target.value)}
+          />   
         </div>
+        <div className={classes.nameWrapper}>
+          <HelpText
+            size="small"
+            title="Hjelpetekst for systembrukar"
+          >
+            Hjelpetekst for systembrukar
+          </HelpText>
+          </div>
       </div>
 
       <h2 className={classes.header}>{t('authent_creationpage.sub_title')}</h2>
