@@ -110,8 +110,7 @@ public class SystemUserController : ControllerBase
     [HttpPut("{id}")]
     public async void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
     {
-        if (modifiedSystemUser.IntegrationTitle is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.IntegrationTitle, id, cancellationToken);
-        if (modifiedSystemUser.Description is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.Description, id, cancellationToken);
+        if (modifiedSystemUser.IntegrationTitle is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.IntegrationTitle, id, cancellationToken);      
         if (modifiedSystemUser.SelectedSystemType is not null) await _systemUserService.ChangeSystemUserProduct(modifiedSystemUser.SelectedSystemType, id, cancellationToken);
     }
 
