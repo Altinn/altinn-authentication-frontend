@@ -3,7 +3,7 @@ import axios from 'axios';
 
 // FIX-ME: muligens omskrives slik at navn, beskrivelse og selected
 // blir tilgjengelig/dispatch i det fokus mistes, a la MaskinportenPage
-// Foreløpig er det useState Local State som bærer de 3 tilgjengelige verdiene
+// Foreløpig er det useState Local State som bærer de tilgjengelige verdiene
 // som blir sendt til BFF
 
 export interface SystemRegisterObjectDTO {
@@ -35,13 +35,10 @@ const initialState: SliceState = {
     postConfirmationId: '',
 };
 
-// CreationRequest form is based on Swagger POST description per 25.10.23
+// Update 08.01.23: CreationRequest form is simplified to two key:value pairs
 export interface CreationRequest {
   integrationTitle: string,
-  description: string,
   selectedSystemType: string,
-  clientId: string,
-  ownedByPartyId: string
 }
 
 export const fetchSystemRegisterVendors = createAsyncThunk('creation/fetchCreationPageSlice', async () => {
@@ -55,8 +52,8 @@ export const fetchSystemRegisterVendors = createAsyncThunk('creation/fetchCreati
 });
 
 
-// OK let the CreationPage populate the systemUserInfo object,
-// and just accept the object as input here and post parameter on to BFF
+// The CreationPage populate the systemUserInfo object,
+// The object is here just input and is posted on to BFF
 export const postNewSystemUser = createAsyncThunk('creationPageSlice/postNewSystemUser', 
   async (systemUserInfo: CreationRequest) => {
   return await axios

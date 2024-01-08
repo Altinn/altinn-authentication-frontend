@@ -44,12 +44,11 @@ export const CreationPageContent = () => {
 
   const handleConfirm = () => {
     // POST 3 useState variables, while the last two not yet implemented
+    // Update 08.01.24: agreement with Simen-backend that only two
+    // key:value pairs are needed
     const PostObjekt: CreationRequest = {
       integrationTitle: integrationName,
-      description: descriptionEntered,
       selectedSystemType: selectedSystemType,
-      clientId: "notImplemented",
-      ownedByPartyId: "notImplemented"
     };
 
     void dispatch(postNewSystemUser(PostObjekt));  
