@@ -9,13 +9,19 @@ import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './RightsIncludedPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
+import { CollectionBar } from '@/components';
 
 
 
 export const RightsIncludedPageContent = () => {
 
+  // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
+  // Siden er basert på ConfirmationPage og OverviewPage så koden er ikke finpusset ennå.
   // Merk! Det er multiple design og datastruktur-valg som ikke er gjort ennå
   // som påvirker denne siden: dette er annotert nedunder
+
+  const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
+
 
   // Local State variables for input-boxes and Nedtrekksmeny:
   const [integrationName, setIntegrationName] = useState('');
@@ -79,6 +85,25 @@ export const RightsIncludedPageContent = () => {
   const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
   const postConfirmationId = useAppSelector((state) => state.creationPage.postConfirmationId);
  
+  // Fetched from OverviewPage
+  // Fix-me: additionalText prop into CollectionBar is removed in Design of 24.11.23:
+  // set to empty string for now: if this persists the props should be reorganized
+  const reduxRightsCollectionBarArray = () => {
+    return reduxObjektArray.map( (SystemUser) => (
+      <div key={SystemUser.id}>
+        <CollectionBar
+          title=  {SystemUser.integrationTitle}
+          subtitle= { `${SystemUser.productName}` }
+          additionalText= {""} 
+          color={'neutral'}
+          collection={[]}
+          compact={isSm}
+          proceedToPath={ '/fixpath/' }
+        />
+      </div>
+    ));
+  };
+
   return (
     <div className={classes.confirmationPageContainer}>
 
@@ -92,7 +117,9 @@ export const RightsIncludedPageContent = () => {
       <div className={classes.flexContainer}>
         <div className={classes.rightContainer}>
           
-          
+          <div className={classes.rightsArrayContainer}>
+            { reduxRightsCollectionBarArray() }
+          </div>
 
           <div className={classes.buttonContainer}>
 
