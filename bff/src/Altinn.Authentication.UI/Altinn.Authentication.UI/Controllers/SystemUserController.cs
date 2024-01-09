@@ -1,4 +1,5 @@
-﻿using Altinn.Authentication.UI.Core.SystemUsers;
+﻿using Altinn.Authentication.UI.Core.Authentication;
+using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,13 +18,15 @@ namespace Altinn.Authentication.UI.Controllers;
 public class SystemUserController : ControllerBase
 {
     ISystemUserService _systemUserService;
+    IHttpContextAccessor _httpContextAccessor;
 
     /// <summary>
     /// Constructor for <see cref="SystemUserController"/>
     /// </summary>
-    public SystemUserController(ISystemUserService systemUserService)
+    public SystemUserController(ISystemUserService systemUserService, IHttpContextAccessor httpContextAccessor)
     {
-        _systemUserService = systemUserService; 
+        _systemUserService = systemUserService;
+        _httpContextAccessor = httpContextAccessor;
     }
     
 
@@ -88,9 +91,11 @@ public class SystemUserController : ControllerBase
     
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpPost("{partyId}")]
-    public async Task<ActionResult> Post(int partyId ,[FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
+    [HttpPost]
+    public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
+        int partyId = AuthenticationHelper.GetUsersPartyId( _httpContextAccessor.HttpContext!);
+
         var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
         if (usr is not null)
         {
@@ -105,8 +110,7 @@ public class SystemUserController : ControllerBase
     [HttpPut("{id}")]
     public async void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
     {
-        if (modifiedSystemUser.IntegrationTitle is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.IntegrationTitle, id, cancellationToken);
-        if (modifiedSystemUser.Description is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.Description, id, cancellationToken);
+        if (modifiedSystemUser.IntegrationTitle is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.IntegrationTitle, id, cancellationToken);      
         if (modifiedSystemUser.SelectedSystemType is not null) await _systemUserService.ChangeSystemUserProduct(modifiedSystemUser.SelectedSystemType, id, cancellationToken);
     }
 
