@@ -4,5 +4,6 @@ export enum AuthenticationPath {
   Confirmation = 'confirmation',
   Overview = 'overview',
   DirectConsent = 'directconsent',
-  MaskinportenAdm = 'maskinportenadm'
+  MaskinportenAdm = 'maskinportenadm',
+  RightsIncluded = 'rightsincluded'
 }
