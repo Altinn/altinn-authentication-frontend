@@ -82,19 +82,17 @@ export const RightsIncludedPageContent = () => {
   return (
     <div className={classes.confirmationPageContainer}>
 
-      <h2 className={classes.header}>RightsIncludedPage {t('authent_confirmationpage.sub_title')}</h2>
+      <h2 className={classes.header}>{t('authent_includedrightspage.sub_title')}</h2>
 
       <p className={classes.contentText}>
-        {t('authent_confirmationpage.content_text')}
+        {t('authent_includedrightspage.content_text')}
       </p>
 
 
       <div className={classes.flexContainer}>
         <div className={classes.rightContainer}>
           
-          { !postConfirmed &&
-            <p>Ikke helt bekreftet ennå: må håndteres uansett RightsIncludedPage nå</p>
-          }
+          
 
           <div className={classes.buttonContainer}>
 
@@ -104,7 +102,7 @@ export const RightsIncludedPageContent = () => {
                 size='small'
                 onClick={handleReject}
               >
-                {t('authent_confirmationpage.add_rights_button')} 
+                {t('authent_includedrightspage.confirm_button')} 
               </Button> 
             </div>
             <div className={classes.addNoRightsButton}>
@@ -114,7 +112,7 @@ export const RightsIncludedPageContent = () => {
                 size='small'
                 onClick={handleReject}
               >
-                {t('authent_confirmationpage.add_no_rights_button')} 
+                {t('authent_includedrightspage.cancel_button')} 
               </Button> 
             </div>
           </div>

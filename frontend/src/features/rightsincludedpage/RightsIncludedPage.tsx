@@ -16,7 +16,7 @@ export const RightsIncludedPage = () => {
         color='dark'
         size={isSm ? 'small' : 'medium'}
       >
-        <PageHeader icon={<ApiIcon />}>{t('authent_confirmationpage.banner_title')}</PageHeader>
+        <PageHeader icon={<ApiIcon />}>{t('authent_includedrightspage.banner_title')}</PageHeader>
         <PageContent>
           <RightsIncludedPageContent />
         </PageContent>
