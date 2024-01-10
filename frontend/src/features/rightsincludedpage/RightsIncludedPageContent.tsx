@@ -18,9 +18,13 @@ export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
   // Siden er basert på ConfirmationPage og OverviewPage så koden er ikke finpusset ennå.
   // Merk! Det er nå denne RightsIncludedPageContent som skal kjøre POST til backend
-  // og ikke CreationPageContent som tidligere.
+  // og ikke CreationPageContent som tidligere (men den kjører foreløpig fortsatt POST)
 
-  // denne skal hente array av RightsDTO fra Redux (henter nå bare systemUserArray a la OverviewPage)
+  // denne skal hente array av RightsDTO fra Redux 
+  // (henter nå bare systemUserArray a la OverviewPage)
+  // men vi har ennå ikke en redux slice for RightsIncludedPage
+  // eller et GET kall til backend for å hente RightsDTO
+  // men Simen har laget dette endepunktet: se Swagger per 10.01.24
   const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
 
 
@@ -101,6 +105,7 @@ export const RightsIncludedPageContent = () => {
           compact={isSm}
           proceedToPath={ '/fixpath/' }
         />
+        <p>Separasjon av Rights bør gjøres med CSS og egen div her</p>
       </div>
     ));
   };

@@ -8,7 +8,8 @@ import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
-import { fetchSystemRegisterVendors } from '@/rtk/features/creationPage/creationPageSlice'; 
+import { fetchSystemRegisterVendors } from '@/rtk/features/creationPage/creationPageSlice';
+import { fetchSystemRegisterProducts } from '@/rtk/features/rightsIncludedPage/rightsIncludedPageSlice';
 
 
 export const OverviewPage = () => {
@@ -16,17 +17,16 @@ export const OverviewPage = () => {
   const isSm = useMediaQuery('(max-width: 768px)');
   const dispatch = useAppDispatch();
 
-  // Tester ny Redux overviewPageSlice her, med kode fra UserInfoBar.tsx
-  // UserInfo er jo bare lastet inn en gang, men igjen om ikke tilstede ved re-rendering
   const overviewLoaded = useAppSelector((state) => state.overviewPage.overviewLoaded);
  
   // Fix-me: laster inn data bare en gang ved første render
-  // må finne mer elegang måte å gjøre dette på: og dynamisk: vil bare laste 1 gang tror jeg
+  // må finne mer elegant måte å gjøre dette på: og dynamisk: vil bare laste 1 gang
   useEffect(() => {
     if (!overviewLoaded) {
       console.log("Førstegangs innlasting av OverviewPage og CreationPage data til Redux");
       void dispatch(fetchOverviewPage());
-      void dispatch(fetchSystemRegisterVendors()); // for CreationPage: see issue #94
+      void dispatch(fetchSystemRegisterVendors()); // for CreationPage
+      void dispatch(fetchSystemRegisterProducts()); // for RightsIncludedPage
     }
   }, []);
 

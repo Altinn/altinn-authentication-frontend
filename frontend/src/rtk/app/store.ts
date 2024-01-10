@@ -5,6 +5,7 @@ import overviewPageReducer from '../features/overviewPage/overviewPageSlice';
 import creationPageReducer from '../features/creationPage/creationPageSlice';
 import maskinportenPageReducer from '../features/maskinportenPage/maskinportenPageSlice';
 import directConsentPageReducer from '../features/directConsentPage/directConsentPageSlice';
+import rightsIncludedPageSlice from '../features/rightsIncludedPage/rightsIncludedPageSlice';
 
 const logger = createLogger();
 
@@ -17,6 +18,7 @@ const store = import.meta.env.PROD
         creationPage: creationPageReducer,
         maskinportenPage: maskinportenPageReducer,
         directConsentPage: directConsentPageReducer,
+        rightsIncludedPage: rightsIncludedPageSlice,
       },
     })
   : configureStore({
@@ -26,6 +28,7 @@ const store = import.meta.env.PROD
         creationPage: creationPageReducer,
         maskinportenPage: maskinportenPageReducer,
         directConsentPage: directConsentPageReducer,
+        rightsIncludedPage: rightsIncludedPageSlice,
       },
       middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(logger),
