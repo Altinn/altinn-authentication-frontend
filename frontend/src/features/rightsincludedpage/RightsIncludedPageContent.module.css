@@ -18,6 +18,10 @@
   flex: 3;
 }
 
+.rightsSeparator {
+  margin-top: 5px;
+}
+
 .buttonContainer {
   display: flex;
   margin-top: 6rem;

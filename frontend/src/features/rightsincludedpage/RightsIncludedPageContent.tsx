@@ -9,7 +9,7 @@ import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice
 import { TextField, Button, Select } from '@digdir/design-system-react';
 import classes from './RightsIncludedPageContent.module.css';
 import { useMediaQuery } from '@/resources/hooks';
-import { CollectionBar } from '@/components';
+import { RightsCollectionBar } from '@/components';
 
 
 
@@ -25,7 +25,7 @@ export const RightsIncludedPageContent = () => {
   // men vi har ennå ikke en redux slice for RightsIncludedPage
   // eller et GET kall til backend for å hente RightsDTO
   // men Simen har laget dette endepunktet: se Swagger per 10.01.24
-  const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
+  const reduxObjektArray = useAppSelector((state) => state.rightsIncludedPage.systemRegisterProductsArray);
 
 
   // FIX-ME: Local State variables for input-boxes and Nedtrekksmeny:
@@ -90,22 +90,22 @@ export const RightsIncludedPageContent = () => {
   const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
   const postConfirmationId = useAppSelector((state) => state.creationPage.postConfirmationId);
  
-  // Fetched from OverviewPage
-  // Fix-me: additionalText prop into CollectionBar is removed in Design of 24.11.23:
-  // set to empty string for now: if this persists the props should be reorganized
+  // Note: array key set to ProductRight.right, which should be unique
+  // additionalText is not used yet
+  // and we probably need a CollectionBar without button at right side
   const reduxRightsCollectionBarArray = () => {
-    return reduxObjektArray.map( (SystemUser) => (
-      <div key={SystemUser.id}>
-        <CollectionBar
-          title=  {SystemUser.integrationTitle}
-          subtitle= { `${SystemUser.productName}` }
+    return reduxObjektArray.map( (ProductRight) => (
+      <div key={ProductRight.right}>
+        <RightsCollectionBar
+          title=  {ProductRight.right}
+          subtitle= { `${ProductRight.serviceProvider}` }
           additionalText= {""} 
           color={'neutral'}
           collection={[]}
           compact={isSm}
           proceedToPath={ '/fixpath/' }
         />
-        <p>Separasjon av Rights bør gjøres med CSS og egen div her</p>
+        <div className={classes.rightsSeparator} > </div>
       </div>
     ));
   };
