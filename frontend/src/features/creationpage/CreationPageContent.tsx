@@ -14,16 +14,12 @@ import { useMediaQuery } from '@/resources/hooks';
 
 export const CreationPageContent = () => {
 
-  // Merk! Det er multiple design og datastruktur-valg som ikke er gjort ennå
-  // som påvirker denne siden: dette er annotert nedunder
+  // NB! This page now (10.01.24) should go to RightsIncludedPageContent before
+  // actually creating a new systemUser, but since the button there returns
+  // to OverviewPageContent, in effect the user sees no difference.
 
   // Local State variables for input-boxes and Nedtrekksmeny:
-  const [integrationName, setIntegrationName] = useState('');
-
-  // mulig denne skal populeres fra nedtrekksmeny?? Design mangler
-  const [descriptionEntered, setDescriptionEntered] = useState(''); 
-  
-  
+  const [integrationName, setIntegrationName] = useState(''); 
   const [selectedSystemType, setSelectedSystemType] = useState('');
   
   // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
@@ -58,20 +54,10 @@ export const CreationPageContent = () => {
     // to ConfirmationPage: OK, but if CreationRequest fails we need to
     // notify the user, but perhaps we could do it on the ConfirmationPage?
     setIntegrationName('');
-    setDescriptionEntered('');
     setSelectedSystemType('');
 
-    // Crude first pass at problem: no Error handling here or at ConfirmationPage OK
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Confirmation);
-  }
-
-  // The old solution: waited for confirmation before
-  // navigating to OverviewPage: 
-  const handlePostConfirmation = () => {
-    // skrevet av Github Copilot
-    void dispatch(resetPostConfirmation());
-    void dispatch(fetchOverviewPage()); 
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    // new per 10.01.24: we navigate to RightsIncludedPage
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.RightsIncluded);
   }
 
   // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux
@@ -153,26 +139,6 @@ export const CreationPageContent = () => {
               </Button> 
             </div>
           </div>
-          }
-
-          {
-              postConfirmed && 
-              <div className={classes.confirmationContainer}>
-
-                <div className={classes.confirmationText}>
-                  <p>Systembruker opprettet</p>
-                </div>
-
-                <div className={classes.confirmButton}>
-                  <Button
-                    color='success'
-                    size='small'
-                    onClick={handlePostConfirmation}
-                  >
-                    OK 
-                  </Button> 
-                </div>
-              </div>
           }
 
         </div>      

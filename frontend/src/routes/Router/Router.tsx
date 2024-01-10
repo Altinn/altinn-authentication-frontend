@@ -9,6 +9,7 @@ import { MaskinportenAdmPage } from '@/features/maskinportenAdm/MaskinportenAdmP
 
 import { NotFoundSite } from '@/sites/NotFoundSite';
 import { GeneralPath, AuthenticationPath } from '../paths';
+import { RightsIncludedPage } from '@/features/rightsincludedpage';
 
 
 export const Router = createBrowserRouter(
@@ -31,6 +32,12 @@ export const Router = createBrowserRouter(
         <Route
           path={AuthenticationPath.Creation}
           element={<CreationPage />}
+          errorElement={<NotFoundSite />}
+        />
+
+        <Route
+          path={AuthenticationPath.RightsIncluded}
+          element={<RightsIncludedPage />}
           errorElement={<NotFoundSite />}
         />
 
