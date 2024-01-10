@@ -62,7 +62,6 @@ public class SystemUserClientMock : ISystemUserClient
             ClientId = Guid.NewGuid().ToString(), 
             SystemType = sysdescr.SelectedSystemType,
             Title = sysdescr.IntegrationTitle,
-            Description = sysdescr.Description,
             Created = DateTime.UtcNow.Date.ToString()
 
         };       

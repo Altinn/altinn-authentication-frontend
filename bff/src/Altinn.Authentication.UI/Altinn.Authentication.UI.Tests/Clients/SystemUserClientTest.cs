@@ -10,11 +10,11 @@ namespace Altinn.Authentication.UI.Tests.Clients;
 /// Needs a running instance of the Authentication Component on localhost on port 44377
 /// </summary>
 [Collection ("SystemUserClient Integration Test vs Authentication Component")]
-public class SystemUserClientTest : IClassFixture<CustomWebApplicationFactory<SystemUserController>>
+public class SystemUserClientIntegrationTest : IClassFixture<CustomWebApplicationFactory<SystemUserController>>
 {
     private readonly ISystemUserClient _systemUserClient;
 
-    public SystemUserClientTest()
+    public SystemUserClientIntegrationTest()
     {
         _systemUserClient = new SystemUserClient(
             new HttpClient{BaseAddress = new UriBuilder("https://localhost:44377/").Uri});

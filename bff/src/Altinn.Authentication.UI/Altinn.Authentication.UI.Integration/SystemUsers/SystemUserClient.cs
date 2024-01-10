@@ -20,7 +20,6 @@ public class SystemUserClient : ISystemUserClient
             ClientId = Guid.NewGuid().ToString(), 
             SystemType = sysdescr.SelectedSystemType,
             Title = sysdescr.IntegrationTitle,
-            Description = sysdescr.Description,
             Created = DateTime.UtcNow.Date.ToString()
 
         };       
@@ -66,8 +65,6 @@ public class SystemUserClient : ISystemUserClient
         }
 
         return null;
-        
-        
     }
 
     public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)

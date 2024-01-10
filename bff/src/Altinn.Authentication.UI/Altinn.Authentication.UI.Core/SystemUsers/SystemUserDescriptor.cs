@@ -12,12 +12,6 @@ public class SystemUserDescriptor
     public string? IntegrationTitle { get; set; }
 
     /// <summary>
-    /// Either set by the end-user as instructions to self,
-    /// or provided by the SystemType as extra info
-    /// </summary>
-    public string? Description { get; set; }
-
-    /// <summary>
     /// The actual chosen systemType that this SystemUser
     /// creates an integration / delegation for
     /// </summary>
