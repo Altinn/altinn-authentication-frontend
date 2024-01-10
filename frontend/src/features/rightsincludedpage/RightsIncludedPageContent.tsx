@@ -17,13 +17,14 @@ export const RightsIncludedPageContent = () => {
 
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
   // Siden er basert på ConfirmationPage og OverviewPage så koden er ikke finpusset ennå.
-  // Merk! Det er multiple design og datastruktur-valg som ikke er gjort ennå
-  // som påvirker denne siden: dette er annotert nedunder
+  // Merk! Det er nå denne RightsIncludedPageContent som skal kjøre POST til backend
+  // og ikke CreationPageContent som tidligere.
 
+  // denne skal hente array av RightsDTO fra Redux (henter nå bare systemUserArray a la OverviewPage)
   const reduxObjektArray = useAppSelector((state) => state.overviewPage.systemUserArray);
 
 
-  // Local State variables for input-boxes and Nedtrekksmeny:
+  // FIX-ME: Local State variables for input-boxes and Nedtrekksmeny:
   const [integrationName, setIntegrationName] = useState('');
 
   // mulig denne skal populeres fra nedtrekksmeny?? Design mangler

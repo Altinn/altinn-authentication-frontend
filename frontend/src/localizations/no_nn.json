@@ -59,7 +59,7 @@
     "content_text1": "I dei fleste tilfelle vil systembrukaren nyttast i samanheng med sluttbrukarsystemer levert av ulike leverandørar. Det fins ei rekke leverandørar og systemer i marknaden som tilbyr systemer for ulike typar bruk. Du må sjølv gjere ei sjølvstendig vurdering på valg av leverandør og system.",
     "content_text2": "Nedenfor listast alle leverandørar og systemer som har meldt at dei leverer slike tenester. Altinn har ikkje gjort noko vurdering av desse.",
     "pull_down_menu_label": "Velg systemleverandør og system",
-    "confirm_button": "Opprett systembrukar",
+    "confirm_button": "Gå vidare",
     "cancel_button": "Avbryt"
   },
   "authent_includedrightspage": {
