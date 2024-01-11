@@ -40,13 +40,15 @@ export const CollectionBar = ({
   proceedToPath,
 }: CollectionBarProps) => {
   const { t } = useTranslation('common');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Edit Button is not used: but might be added back later
   const proceedClick = () => {
-    if (proceedToPath) {
-      navigate(proceedToPath);
-    }
+    console.log("User clicked on CollectionBar rights added hidden button");
+    
+    // if (proceedToPath) {
+    //  navigate(proceedToPath);
+    // }
   };
 
   // color of Rettigheter should be red or black, depending on external boolean
@@ -77,10 +79,10 @@ export const CollectionBar = ({
               variant='quiet'
               size='small'
               
-              color={"danger"}
+              color={"success"}
               onClick={proceedClick}
             >
-              XXX_fixme_{t('authent_overviewpage.rights_not_added')}
+              {t('authent_overviewpage.rights_added')}
             </Button>
           )
         }
