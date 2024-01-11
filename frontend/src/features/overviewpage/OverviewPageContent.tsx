@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { AuthenticationPath } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
-import { CollectionBar } from '@/components';
+import { CollectionBar, ActionBar } from '@/components';
 import { ReactComponent as Add } from '@/assets/Add.svg';
+import { MinusCircleIcon } from '@navikt/aksel-icons';
 import { Button } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
@@ -36,6 +37,47 @@ export const OverviewPageContent = () => {
   // Fix-me: additionalText prop into CollectionBar is removed in Design of 24.11.23:
   // set to empty string for now: if this persists the props should be reorganized
 
+  // Experiment 11.01.24: I need to find out what these bars do : code is from
+  // AccMan repo: /src/features/singleRight/components/ResourceCollectionBar
+
+  // this functional component selectedResourcesActionBars
+  // is fed into the collection prop of CollectionBar, which I have
+  // left empty so far. I hack resources to the new rights-array in Redux:
+  // systemRegisterProductsArray: used in RightsIncludedPage
+
+  const rightsObjektArray = useAppSelector((state) => state.rightsIncludedPage.systemRegisterProductsArray);
+
+  const compact: boolean = false; // not used yet
+  const handleClick = () => {
+    console.log('handleClick');
+  }; // Copilot
+
+  // used in CollectionBar below
+  const selectedResourcesActionBars = rightsObjektArray.map((ProductRight, index) => (
+    <ActionBar
+      key={index}
+      title={ProductRight.right}
+      subtitle={ProductRight.serviceProvider}
+      size='small'
+      color='success'
+      actions={
+        <Button
+          variant='filled'
+          size={compact ? 'medium' : 'small'}
+          onClick={handleClick}
+          icon={compact && <MinusCircleIcon title={t('common.remove')} />}
+        >
+          {!compact && t('common.remove')}
+        </Button>
+      }
+    ></ActionBar>
+  ));
+
+
+  // added pilot right collection ( from above, was [] before)
+  // Note! CollectionBar has so far been hard-coded in component to
+  // say "Rettigheter ikke lagt til":
+  // but should probably be responsive to whether collection input is empty
   const reduxCollectionBarArray = () => {
     return reduxObjektArray.map( (SystemUser) => (
       <div key={SystemUser.id}>
@@ -44,7 +86,7 @@ export const OverviewPageContent = () => {
           subtitle= { `${SystemUser.productName}` }
           additionalText= {""} 
           color={'neutral'}
-          collection={[]}
+          collection={selectedResourcesActionBars}
           compact={isSm}
           proceedToPath={ '/fixpath/' }
         />
