@@ -103,7 +103,7 @@ export const DirectConsentPageContent = () => {
               <Button
                 color='primary'
                 size='small'
-                onClick={handleReject}
+                onClick={handleConfirm}
                 disabled={!checkbox1 || !checkbox2}
               >
                 {t('authent_directconsentpage.add_consent_button1')} 
