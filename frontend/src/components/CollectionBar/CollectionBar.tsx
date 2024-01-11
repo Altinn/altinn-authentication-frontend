@@ -80,7 +80,7 @@ export const CollectionBar = ({
               color={"danger"}
               onClick={proceedClick}
             >
-              {t('authent_overviewpage.rights_not_added')}
+              XXX_fixme_{t('authent_overviewpage.rights_not_added')}
             </Button>
           )
         }
