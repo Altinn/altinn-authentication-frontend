@@ -103,7 +103,7 @@
   }
 
   .inputContainer {
-    flex-direction: column;
+    flex-direction: column-reverse;
   }
 
   .creationPageContainer {
