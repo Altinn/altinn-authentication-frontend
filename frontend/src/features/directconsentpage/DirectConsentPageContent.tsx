@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthenticationPath } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { storeCheckbox1, storeCheckbox2 } from '@/rtk/features/directConsentPage/directConsentPageSlice';
+import { postNewSystemUser, CreationRequest } from '@/rtk/features/creationPage/creationPageSlice';
 import { Button, Checkbox } from '@digdir/design-system-react';
 import { useEffect, useState } from 'react';
 import { useMediaQuery } from '@/resources/hooks';
@@ -31,10 +32,15 @@ export const DirectConsentPageContent = () => {
     navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
-  // possibly handleConfirm should be dependent on both checkboxes
-  // being checked... or perhaps ConfirmButton should be disabled
+  // confirm is a temporary solution, as backend and Maskinporten is not ready
+  // is to dispatch a mock systemUser object and return to OverviewPage
   const handleConfirm = () => {
-    console.log("Her skulle det skjedd noe")
+    const PostObjekt: CreationRequest = {
+      integrationTitle: "Direkte Tilgangsløsning",
+      selectedSystemType: "direct_consent_system : Direct Consent System",
+    };
+    void dispatch(postNewSystemUser(PostObjekt));  
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
   }
 
   const handleCheck1 = () => {
@@ -87,13 +93,12 @@ export const DirectConsentPageContent = () => {
                 {t('authent_directconsentpage.add_consent_checkbox2')} 
               </Checkbox> 
             </div>
-
           </div>
+
           <br></br>
           <br></br>
 
           <div className={classes.buttonContainer}>
-
             <div className={classes.confirmButton}>
               <Button
                 color='primary'
@@ -103,9 +108,7 @@ export const DirectConsentPageContent = () => {
               >
                 {t('authent_directconsentpage.add_consent_button1')} 
               </Button> 
-              
             </div>
-
             <div className={classes.cancelButton}>
               <Button
                 color='primary'
@@ -115,11 +118,8 @@ export const DirectConsentPageContent = () => {
               >
                 {t('authent_directconsentpage.add_consent_button2')} 
               </Button> 
-               
             </div>
-
           </div>
-          
         </div>
       </div>
     </div>
