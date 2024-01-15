@@ -48,14 +48,12 @@ public class SystemUserService : ISystemUserService
             IntegrationTitle = systemUserReal.Title,
             Description = systemUserReal.Description,
             Created = systemUserReal.Created,
-            //ClientId = systemUserReal.ClientId,//Not a deliverable in the first Phase of the Project
+            // ClientId = systemUserReal.ClientId,//Not a deliverable in the first Phase of the Project
             ProductName = systemUserReal.SystemType,
             SupplierName = "Not implemented yet",
             SupplierOrgno = "999999999MVA", 
             Id = systemUserReal.Id,
             OwnedByPartyId = systemUserReal.OwnedByPartyId,
-            //ControlledBy = systemUserReal.ControlledBy
-
         };
 
         return systemUserDTO;
