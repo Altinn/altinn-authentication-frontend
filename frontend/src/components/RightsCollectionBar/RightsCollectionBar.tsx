@@ -5,21 +5,22 @@ import {
   FilesFillIcon,
   ChevronRightDoubleIcon,
 } from '@navikt/aksel-icons'; // Fix-me: should be non-filled icon
-import { ReactComponent as Edit } from '@/assets/Edit.svg';
-
 import { Button, Paragraph } from '@digdir/design-system-react';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
-
 import { ActionBar, type ActionBarProps } from '../ActionBar';
+import classes from './RightsCollectionBar.module.css';
 
-import classes from './CollectionBar.module.css';
+// The component RightsCollectionBar is a version of CollectionBar for RightsIncludedPage
+// It has no text on the right (although button is not removed yet, the consensus in meetings
+// seems to be that Rights should not be edited here in our app, but in AccessManagement)
+// FIX-ME: component should be cleaned up and simplified if no further changes arrive from Design
 
 // added/extended subtitle and additionalText as props of CollectionBar as child ActionBar has such props
 // 05.12.23: Beskrivelse/comment/addtionalText is removed in Design of 24.11.23:
 // if this persists the props should be reorganized
 
-export interface CollectionBarProps extends Pick<ActionBarProps, 'color' | 'title'| 'subtitle' | 'additionalText' > {
+export interface RightsCollectionBarProps extends Pick<ActionBarProps, 'color' | 'title'| 'subtitle' | 'additionalText' > {
   /** The list of selected objects */
   collection: React.ReactNode[];
 
@@ -30,7 +31,7 @@ export interface CollectionBarProps extends Pick<ActionBarProps, 'color' | 'titl
   proceedToPath?: string;
 }
 
-export const CollectionBar = ({
+export const RightsCollectionBar = ({
   color = 'neutral',
   title,
   subtitle,
@@ -38,22 +39,17 @@ export const CollectionBar = ({
   collection,
   compact = false,
   proceedToPath,
-}: CollectionBarProps) => {
+}: RightsCollectionBarProps) => {
   const { t } = useTranslation('common');
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   // Edit Button is not used: but might be added back later
   const proceedClick = () => {
-    console.log("User clicked on CollectionBar rights added hidden button");
-    
-    // if (proceedToPath) {
-    //  navigate(proceedToPath);
-    // }
+    if (proceedToPath) {
+      navigate(proceedToPath);
+    }
   };
 
-  // color of Rettigheter should be red or black, depending on external boolean
-  // color={color === 'dark' ? 'inverted' : undefined}
-  // for now hard code: color={"danger"}
 
   return (
     <>
@@ -79,10 +75,9 @@ export const CollectionBar = ({
               variant='quiet'
               size='small'
               
-              color={"success"}
+              color={"danger"}
               onClick={proceedClick}
             >
-              {t('authent_overviewpage.rights_added')}
             </Button>
           )
         }
