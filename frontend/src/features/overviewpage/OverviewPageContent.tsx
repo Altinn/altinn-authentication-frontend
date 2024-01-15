@@ -56,43 +56,74 @@ export const OverviewPageContent = () => {
     return (<></>)
   };
 
-  // used in CollectionBar below: only use two key:value pairs, but is extendable
-  // based on AccMan repo: /src/features/singleRight/components/ResourceCollectionBar
-  // Button probably will not be used: but might be added back later
-  const selectedRightsActionBars = rightsObjektArray.map((ProductRight, index) => (
+  // mock array for ActionBar array below: not rendered correctly
+  // will access new currentRights API (see issue #8, no.8)
+  // This array should probably have two properties per line: right (read, right...)
+  // and a boolean on/off flag for whether it is active...
+  const mockRightsActionsArray = [
+    {"right_action": "Lese"},
+    {"right_action": "Skrive"}, 
+    {"right_action": "Signere"},
+    {"right_action": "Les arkiv"}
+  ];
+
+  // INNERMOST LAYER of CollectionBar-inside-CollectionBar setup: used as collection below
+  // ---> need to REWRITE COMPONENT for horizontal list of blue ovals
+  //  (or red depending on action available)
+  // ---> possibly AccMan has such a component already...
+  // ---> or Designsystemet ---> tar det på Mac i morgen...
+  // mangler også Info-tekst: subtitle={"Eventuell tekst om rettighetene kjem her."}
+  const mockRightActionBars = mockRightsActionsArray.map((mockRightsActions, index) => (
     <ActionBar
       key={index}
-      title={ProductRight.right}
-      subtitle={ProductRight.serviceProvider}
+      title={mockRightsActions.right_action}
       size='small'
-      color='success'
+      color='danger'
       actions={ButtonPlaceholder()}
     ></ActionBar>
   ));
+  
 
 
-  // Note! CollectionBar has so far been hard-coded in component to
-  // say "Rettigheter ikke lagt til" --> now the opposite
-  // but should probably be responsive to whether collection input is empty
+  // MIDDLE LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
+  // uses ActionBar-array inside collection
+  // also CollectionBar has hardcoded "Rettigheter lagt til" ---> probaby need custom CollectionBar
+  // for this MIDDLE LAYER
+  const currentRightsCollectionBars = rightsObjektArray.map((ProductRight, index) => (
+    <div key={index}>
+      <CollectionBar
+        title={ProductRight.right}
+        subtitle={ProductRight.serviceProvider}
+        color='success'
+        collection={mockRightActionBars}
+      ></CollectionBar>
+    </div>
+    
+  ));
 
-  // added pilot rights collection ( from above, was [] before)
-  // Also note that each SystemUser now has the same 3 rights
-  // ---> must be linked to real rights of a given SystemUser
+
+
+
+  // OUTERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
   const reduxCollectionBarArray = () => {
-    return reduxObjektArray.map( (SystemUser) => (
-      <div key={SystemUser.id}>
+    return reduxObjektArray.map( (SystemUser, index) => (
+      <div key={index}>
         <CollectionBar
           title=  {SystemUser.integrationTitle}
           subtitle= { `${SystemUser.productName}` }
           additionalText= {""} 
           color={'neutral'}
-          collection={selectedRightsActionBars}
+          collection={currentRightsCollectionBars}
           compact={isSm}
         />
       </div>
     ));
   };
   
+
+
+
+
   // Eldre greier: bør byttes ut, men kan trenges for Mobil-optimering
   const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger
 
