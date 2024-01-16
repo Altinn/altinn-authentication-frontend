@@ -4,10 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { AuthenticationPath } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
-import { CollectionBar, ActionBar } from '@/components';
+import { CollectionBar } from '@/components';
 import { ReactComponent as Add } from '@/assets/Add.svg';
 import { MinusCircleIcon } from '@navikt/aksel-icons';
-import { Button } from '@digdir/design-system-react';
+import { Button, Tag } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { resetPostConfirmation } from '@/rtk/features/creationPage/creationPageSlice';
@@ -34,75 +34,73 @@ export const OverviewPageContent = () => {
   const { t } = useTranslation('common'); // not used yet
   const navigate = useNavigate();
 
-
-  // Experiment 11.01.24: CollectionBar should have collection: experiment with
-  // AccMan repo: /src/features/singleRight/components/ResourceCollectionBar
-
-  // this functional component selectedResourcesActionBars
-  // is fed into the collection prop of CollectionBar, which I have
-  // left empty so far. I hack resources to the new rights-array in Redux:
-  // systemRegisterProductsArray: used in RightsIncludedPage
-
   const rightsObjektArray = useAppSelector((state) => state.rightsIncludedPage.systemRegisterProductsArray);
-
   const compact: boolean = false; // not used yet
-  const handleClick = () => {
-    console.log('handleClick');
-  }; // Copilot
 
-  
-  // not used in ActionBar: but Button might be added back later
-  const ButtonPlaceholder = () => {
-    return (<></>)
-  };
-
-  // mock array for ActionBar array below: not rendered correctly
-  // will access new currentRights API (see issue #8, no.8)
-  // This array should probably have two properties per line: right (read, right...)
-  // and a boolean on/off flag for whether it is active...
+  // INNERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
+  // mock array for ActionTags such as Read, Write, Sign etc: 
+  // *********API not ready************
+  // but should be flexible for future new actions, such as Rune´s Launch-Rocket
   const mockRightsActionsArray = [
-    {"right_action": "Lese"},
-    {"right_action": "Skrive"}, 
-    {"right_action": "Signere"},
-    {"right_action": "Les arkiv"}
+    { "name" : "Lese", "on" : true  },
+    { "name" : "Skrive", "on" : false },
+    { "name" : "Signere", "on" : true  },
+    { "name" : "Les arkiv", "on" : false },
+    { "name" : "Launch-Rune´s-Rocket", "on" : true }
   ];
 
-  // INNERMOST LAYER of CollectionBar-inside-CollectionBar setup: used as collection below
-  // ---> need to REWRITE COMPONENT for horizontal list of blue ovals
-  //  (or red depending on action available)
-  // ---> possibly AccMan has such a component already...
-  // ---> or Designsystemet ---> tar det på Mac i morgen...
-  // mangler også Info-tekst: subtitle={"Eventuell tekst om rettighetene kjem her."}
-  const mockRightActionBars = mockRightsActionsArray.map((mockRightsActions, index) => (
-    <ActionBar
-      key={index}
-      title={mockRightsActions.right_action}
-      size='small'
-      color='danger'
-      actions={ButtonPlaceholder()}
-    ></ActionBar>
+
+  // The Tags are mapped out of the mockRightsActionsArray 
+  const onlyTags = mockRightsActionsArray.map((mockRightsActions, index) => (
+    <div className={classes.tagSeparator}>
+      <Tag
+        key={index}
+        size="large"
+        color={ mockRightsActions.on ? "primary" : "danger" }
+      >{mockRightsActions.name}</Tag>
+    </div>
+    
   ));
+
+  // CollectionBar expects an array, so the Tags are wrapped as such
+  // and a explanatory text is added (Design not in yet)
+  const mockRightActionTags = [
+    <div>
+      <p>Eventuell tekst om rettighetene kommer her.</p>
+      <div className={classes.rightActionTagsWrapper}>  
+        {onlyTags}
+      </div>
+    </div>
+  ];
   
 
 
   // MIDDLE LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
-  // uses ActionBar-array inside collection
+  // consumes Tag-array as collection
   // also CollectionBar has hardcoded "Rettigheter lagt til" ---> probaby need custom CollectionBar
-  // for this MIDDLE LAYER
+  // for this MIDDLE LAYER: bars should not have "Rettigheter lagt til"
+
   const currentRightsCollectionBars = rightsObjektArray.map((ProductRight, index) => (
     <div key={index}>
       <CollectionBar
         title={ProductRight.right}
         subtitle={ProductRight.serviceProvider}
         color='success'
-        collection={mockRightActionBars}
+        collection={mockRightActionTags}
       ></CollectionBar>
     </div>
-    
   ));
 
-
-
+ 
+  // Add inner layer heading
+  const middleLayerCollectionBarWrapperArray = [
+    <div>
+      <h3 className={classes.middleLayerHeading}>
+        Systembrukeren har disse rettighetene:
+      </h3>
+      {currentRightsCollectionBars}
+    </div>
+  ];
 
   // OUTERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
   const reduxCollectionBarArray = () => {
@@ -113,7 +111,7 @@ export const OverviewPageContent = () => {
           subtitle= { `${SystemUser.productName}` }
           additionalText= {""} 
           color={'neutral'}
-          collection={currentRightsCollectionBars}
+          collection={middleLayerCollectionBarWrapperArray}
           compact={isSm}
         />
       </div>
