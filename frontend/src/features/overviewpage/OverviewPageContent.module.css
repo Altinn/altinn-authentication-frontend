@@ -1,4 +1,15 @@
 
+.rightActionTagsWrapper {
+  display: flex;
+  justify-content: flex-left;
+  align-items: left;
+  margin-top: 0.5rem;
+}
+
+.tagSeparator {
+  margin-left: 0.5rem;
+}
+
 .spinnerContainer {
   margin-top: 3rem;
   display: flex;
