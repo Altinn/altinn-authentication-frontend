@@ -10,6 +10,11 @@
   margin-left: 0.5rem;
 }
 
+.middleLayerHeading {
+  font-size: 20px;
+  font-weight: 500;
+}
+
 .spinnerContainer {
   margin-top: 3rem;
   display: flex;

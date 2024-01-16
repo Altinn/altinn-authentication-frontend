@@ -35,7 +35,6 @@ export const OverviewPageContent = () => {
   const navigate = useNavigate();
 
   const rightsObjektArray = useAppSelector((state) => state.rightsIncludedPage.systemRegisterProductsArray);
-
   const compact: boolean = false; // not used yet
 
   // INNERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
@@ -63,7 +62,7 @@ export const OverviewPageContent = () => {
     
   ));
 
-  // CollectionBar expects an array, som the Tags are wrapped as such
+  // CollectionBar expects an array, so the Tags are wrapped as such
   // and a explanatory text is added (Design not in yet)
   const mockRightActionTags = [
     <div>
@@ -79,7 +78,8 @@ export const OverviewPageContent = () => {
   // MIDDLE LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
   // consumes Tag-array as collection
   // also CollectionBar has hardcoded "Rettigheter lagt til" ---> probaby need custom CollectionBar
-  // for this MIDDLE LAYER
+  // for this MIDDLE LAYER: bars should not have "Rettigheter lagt til"
+
   const currentRightsCollectionBars = rightsObjektArray.map((ProductRight, index) => (
     <div key={index}>
       <CollectionBar
@@ -91,8 +91,16 @@ export const OverviewPageContent = () => {
     </div>
   ));
 
-
-
+ 
+  // Add inner layer heading
+  const middleLayerCollectionBarWrapperArray = [
+    <div>
+      <h3 className={classes.middleLayerHeading}>
+        Systembrukeren har disse rettighetene:
+      </h3>
+      {currentRightsCollectionBars}
+    </div>
+  ];
 
   // OUTERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
   const reduxCollectionBarArray = () => {
@@ -103,7 +111,7 @@ export const OverviewPageContent = () => {
           subtitle= { `${SystemUser.productName}` }
           additionalText= {""} 
           color={'neutral'}
-          collection={currentRightsCollectionBars}
+          collection={middleLayerCollectionBarWrapperArray}
           compact={isSm}
         />
       </div>
