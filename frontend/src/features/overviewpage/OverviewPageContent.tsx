@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { AuthenticationPath } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
-import { CollectionBar } from '@/components';
+import { CollectionBar, InnerCollectionBar, OuterCollectionBar } from '@/components';
 import { ReactComponent as Add } from '@/assets/Add.svg';
 import { MinusCircleIcon } from '@navikt/aksel-icons';
 import { Button, Tag } from '@digdir/design-system-react';
@@ -55,7 +55,7 @@ export const OverviewPageContent = () => {
     <div className={classes.tagSeparator}>
       <Tag
         key={index}
-        size="large"
+        size="small"
         color={ mockRightsActions.on ? "primary" : "danger" }
       >{mockRightsActions.name}</Tag>
     </div>
@@ -77,17 +77,17 @@ export const OverviewPageContent = () => {
 
   // MIDDLE LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
   // consumes Tag-array as collection
-  // also CollectionBar has hardcoded "Rettigheter lagt til" ---> probaby need custom CollectionBar
-  // for this MIDDLE LAYER: bars should not have "Rettigheter lagt til"
-
+  // uses custom CollectionBar InnerCollectionBar
+  // Fix-me: colors very restricted via base "class" ActionBar... should port 
+  // light blue such as "tertiary", "third" or something later
   const currentRightsCollectionBars = rightsObjektArray.map((ProductRight, index) => (
     <div key={index}>
-      <CollectionBar
+      <InnerCollectionBar
         title={ProductRight.right}
         subtitle={ProductRight.serviceProvider}
-        color='success'
+        color='warning'
         collection={mockRightActionTags}
-      ></CollectionBar>
+      ></InnerCollectionBar>
     </div>
   ));
 
@@ -103,13 +103,13 @@ export const OverviewPageContent = () => {
   ];
 
   // OUTERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
-  const reduxCollectionBarArray = () => {
+  const SysterUserCollectionBarArray = () => {
     return reduxObjektArray.map( (SystemUser, index) => (
       <div key={index}>
-        <CollectionBar
+        <OuterCollectionBar
           title=  {SystemUser.integrationTitle}
           subtitle= { `${SystemUser.productName}` }
-          additionalText= {""} 
+          additionalText= {t('authent_overviewpage.rights_added')} 
           color={'neutral'}
           collection={middleLayerCollectionBarWrapperArray}
           compact={isSm}
@@ -150,7 +150,7 @@ export const OverviewPageContent = () => {
       <h2 className={classes.pageContentText}>
         {t('authent_overviewpage.existing_system_users_title')} 
       </h2>
-      { reduxCollectionBarArray() }
+      { SysterUserCollectionBarArray() }
     </div>
   );
 };

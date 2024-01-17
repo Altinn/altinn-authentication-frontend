@@ -9,6 +9,8 @@ export { Page, PageHeader, PageContent, type PageColor, type PageSize } from './
 export { DelegationActionBar } from './DelegationActionBar';
 export { ErrorPanel } from './ErrorPanel';
 export { CollectionBar, type CollectionBarProps } from './CollectionBar';
+export { InnerCollectionBar, type InnerCollectionBarProps } from './InnerCollectionBar';
+export { OuterCollectionBar, type OuterCollectionBarProps } from './OuterCollectionBar';
 export { RightsCollectionBar, type RightsCollectionBarProps } from './RightsCollectionBar';
 export { Filter, type FilterOption } from './Filter';
 export { Dialog, DialogContent, type DialogProps } from './Dialog';

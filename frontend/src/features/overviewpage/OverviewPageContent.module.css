@@ -1,7 +1,7 @@
 
 .rightActionTagsWrapper {
   display: flex;
-  justify-content: flex-left;
+  flex-direction: row;
   align-items: left;
   margin-top: 0.5rem;
 }
@@ -11,7 +11,7 @@
 }
 
 .middleLayerHeading {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -93,5 +93,13 @@
     align-items: center;
     justify-content: end;
     margin-bottom: 0.3rem;
+  }
+
+  .rightActionTagsWrapper {
+    flex-direction: column;
+  }
+
+  .tagSeparator {
+    margin-top: 0.5rem;
   }
 }
