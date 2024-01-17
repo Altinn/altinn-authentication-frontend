@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { AuthenticationPath } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
-import { CollectionBar, InnerCollectionBar } from '@/components';
+import { CollectionBar, InnerCollectionBar, OuterCollectionBar } from '@/components';
 import { ReactComponent as Add } from '@/assets/Add.svg';
 import { MinusCircleIcon } from '@navikt/aksel-icons';
 import { Button, Tag } from '@digdir/design-system-react';
@@ -103,13 +103,13 @@ export const OverviewPageContent = () => {
   ];
 
   // OUTERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
-  const reduxCollectionBarArray = () => {
+  const SysterUserCollectionBarArray = () => {
     return reduxObjektArray.map( (SystemUser, index) => (
       <div key={index}>
-        <CollectionBar
+        <OuterCollectionBar
           title=  {SystemUser.integrationTitle}
           subtitle= { `${SystemUser.productName}` }
-          additionalText= {""} 
+          additionalText= {t('authent_overviewpage.rights_added')} 
           color={'neutral'}
           collection={middleLayerCollectionBarWrapperArray}
           compact={isSm}
@@ -150,7 +150,7 @@ export const OverviewPageContent = () => {
       <h2 className={classes.pageContentText}>
         {t('authent_overviewpage.existing_system_users_title')} 
       </h2>
-      { reduxCollectionBarArray() }
+      { SysterUserCollectionBarArray() }
     </div>
   );
 };
