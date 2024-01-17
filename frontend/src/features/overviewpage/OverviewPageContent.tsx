@@ -77,15 +77,15 @@ export const OverviewPageContent = () => {
 
   // MIDDLE LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
   // consumes Tag-array as collection
-  // also CollectionBar has hardcoded "Rettigheter lagt til" ---> probaby need custom CollectionBar
-  // for this MIDDLE LAYER: bars should not have "Rettigheter lagt til"
-
+  // uses custom CollectionBar InnerCollectionBar
+  // Fix-me: colors very restricted via base "class" ActionBar... should port 
+  // light blue such as "tertiary", "third" or something later
   const currentRightsCollectionBars = rightsObjektArray.map((ProductRight, index) => (
     <div key={index}>
       <InnerCollectionBar
         title={ProductRight.right}
         subtitle={ProductRight.serviceProvider}
-        color='success'
+        color='warning'
         collection={mockRightActionTags}
       ></InnerCollectionBar>
     </div>

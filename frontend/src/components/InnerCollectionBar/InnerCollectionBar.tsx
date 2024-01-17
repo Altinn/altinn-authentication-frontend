@@ -4,7 +4,7 @@ import {
   ChevronRightDoubleCircleFillIcon,
   FilesFillIcon,
   ChevronRightDoubleIcon,
-} from '@navikt/aksel-icons'; // Fix-me: should be non-filled icon
+} from '@navikt/aksel-icons'; // Fix-me: should be non-filled icon: note ActionBar size medium uses this
 import { ReactComponent as Edit } from '@/assets/Edit.svg';
 
 import { Button, Paragraph } from '@digdir/design-system-react';
@@ -32,7 +32,7 @@ export interface InnerCollectionBarProps extends Pick<ActionBarProps, 'color' | 
 }
 
 export const InnerCollectionBar = ({
-  color = 'neutral',
+  color = 'warning',
   title,
   subtitle,
   additionalText,
@@ -41,70 +41,17 @@ export const InnerCollectionBar = ({
   proceedToPath,
 }: InnerCollectionBarProps) => {
   const { t } = useTranslation('common');
-  // const navigate = useNavigate();
-
-  // Edit Button is not used: but might be added back later
-  const proceedClick = () => {
-    console.log("User clicked on CollectionBar rights added hidden button");
-    
-    // if (proceedToPath) {
-    //  navigate(proceedToPath);
-    // }
-  };
-
-  // color of Rettigheter should be red or black, depending on external boolean
-  // color={color === 'dark' ? 'inverted' : undefined}
-  // for now hard code: color={"danger"}
 
   return (
     <>
       <ActionBar
         title={ title }
         subtitle={ subtitle }
-        additionalText={
-          !compact && (
-            <Paragraph
-              as={'span'}
-              role='status'
-              size='small'
-              className={cn(classes.counterText, classes[color])}
-            > 
-              {additionalText}
-            </Paragraph>
-          )
-        }
-        actions={
-
-          !compact && (
-            <Button
-              variant='quiet'
-              size='small'
-              
-              color={"success"}
-              onClick={proceedClick}
-            >
-              XXX{t('authent_overviewpage.rights_added')}
-            </Button>
-          )
-        }
-        size='large'
-        color={color}
+        size='medium'
+        color={"warning"}
       >
         <div className={cn(classes.content, { [classes.compact]: compact })}>{collection}</div>
       </ActionBar>
-
-      {compact && (
-        <Button
-          className={classes.compactProceedButton}
-          variant='quiet'
-          size='small'
-          icon={<ChevronRightDoubleCircleFillIcon />}
-          iconPlacement='right'
-          onClick={proceedClick}
-        >
-          {t('common.proceed')}
-        </Button>
-      )}
     </>
   );
 };
