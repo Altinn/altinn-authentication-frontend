@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { AuthenticationPath } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
-import { CollectionBar } from '@/components';
+import { CollectionBar, InnerCollectionBar } from '@/components';
 import { ReactComponent as Add } from '@/assets/Add.svg';
 import { MinusCircleIcon } from '@navikt/aksel-icons';
 import { Button, Tag } from '@digdir/design-system-react';
@@ -82,12 +82,12 @@ export const OverviewPageContent = () => {
 
   const currentRightsCollectionBars = rightsObjektArray.map((ProductRight, index) => (
     <div key={index}>
-      <CollectionBar
+      <InnerCollectionBar
         title={ProductRight.right}
         subtitle={ProductRight.serviceProvider}
         color='success'
         collection={mockRightActionTags}
-      ></CollectionBar>
+      ></InnerCollectionBar>
     </div>
   ));
 
