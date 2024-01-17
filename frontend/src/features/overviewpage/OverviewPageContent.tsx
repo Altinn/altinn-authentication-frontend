@@ -55,7 +55,7 @@ export const OverviewPageContent = () => {
     <div className={classes.tagSeparator}>
       <Tag
         key={index}
-        size="large"
+        size="small"
         color={ mockRightsActions.on ? "primary" : "danger" }
       >{mockRightsActions.name}</Tag>
     </div>
