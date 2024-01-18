@@ -97,6 +97,7 @@ export const DirectConsentPageContent = () => {
           </p>
 
           <div className={classes.rightsArrayContainer}>
+            <p>XXX</p>
             { reduxRightsCollectionBarArray() }
           </div>
           
