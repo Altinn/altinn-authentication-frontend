@@ -80,6 +80,12 @@ export const DirectConsentPageContent = () => {
     ));
   };
 
+  /* 
+            <p className={classes.contentText}>
+            {t('authent_directconsentpage.consent_buttons_top_text')}
+          </p>
+  */
+
   return (
     <div className={classes.directConsentPageContainer}>
       <h2 className={classes.header}>{overviewText}</h2>
@@ -90,38 +96,19 @@ export const DirectConsentPageContent = () => {
           {t('authent_directconsentpage.consent_text')}
           </p>
 
-          <br></br>
+          <br></br><br></br><br></br>
+
+          <h2 className={classes.header}>{t('authent_includedrightspage.sub_title')}</h2>
 
           <p className={classes.contentText}>
-          {t('authent_directconsentpage.consent_buttons_top_text')}
+            {t('authent_includedrightspage.content_text')}
           </p>
 
           <div className={classes.rightsArrayContainer}>
-            <p>XXX</p>
             { reduxRightsCollectionBarArray() }
           </div>
           
-          <div className={classes.checkboxContainer}>
-            <div className={classes.confirmButton}>
-              <Checkbox
-                color='primary'
-                size='small'
-                onClick={handleCheck1}
-              >
-                {t('authent_directconsentpage.add_consent_checkbox1')} 
-              </Checkbox> 
-            </div>
-
-            <div className={classes.confirmButton}>
-              <Checkbox
-                color='primary'
-                size='small'
-                onClick={handleCheck2}
-              >
-                {t('authent_directconsentpage.add_consent_checkbox2')} 
-              </Checkbox> 
-            </div>
-          </div>
+          
 
           <br></br>
           <br></br>
@@ -132,7 +119,6 @@ export const DirectConsentPageContent = () => {
                 color='primary'
                 size='small'
                 onClick={handleConfirm}
-                disabled={!checkbox1 || !checkbox2}
               >
                 {t('authent_directconsentpage.add_consent_button1')} 
               </Button> 
