@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useMediaQuery } from '@/resources/hooks';
 import classes from './DirectConsentPageContent.module.css';
 import { useTranslation } from 'react-i18next';
+import { RightsCollectionBar } from '@/components';
 
 
 export const DirectConsentPageContent = () => {
@@ -57,6 +58,34 @@ export const DirectConsentPageContent = () => {
     dispatch(storeCheckbox2( { checkbox1: invertedCheckbox2State} )); 
   }
 
+  const reduxObjektArray = useAppSelector((state) => state.rightsIncludedPage.systemRegisterProductsArray);
+
+  // Note: array key set to ProductRight.right, which should be unique
+  // additionalText is not used yet
+  // and we probably need a CollectionBar without button at right side
+  const reduxRightsCollectionBarArray = () => {
+    return reduxObjektArray.map( (ProductRight) => (
+      <div key={ProductRight.right}>
+        <RightsCollectionBar
+          title=  {ProductRight.right}
+          subtitle= { `${ProductRight.serviceProvider}` }
+          additionalText= {""} 
+          color={'neutral'}
+          collection={[]}
+          compact={isSm}
+          proceedToPath={ '/fixpath/' }
+        />
+        <div className={classes.rightsSeparator} > </div>
+      </div>
+    ));
+  };
+
+  /* 
+            <p className={classes.contentText}>
+            {t('authent_directconsentpage.consent_buttons_top_text')}
+          </p>
+  */
+
   return (
     <div className={classes.directConsentPageContainer}>
       <h2 className={classes.header}>{overviewText}</h2>
@@ -67,33 +96,19 @@ export const DirectConsentPageContent = () => {
           {t('authent_directconsentpage.consent_text')}
           </p>
 
-          <br></br>
+          <br></br><br></br><br></br>
+
+          <h2 className={classes.header}>{t('authent_includedrightspage.sub_title')}</h2>
 
           <p className={classes.contentText}>
-          {t('authent_directconsentpage.consent_buttons_top_text')}
+            {t('authent_includedrightspage.content_text')}
           </p>
-          
-          <div className={classes.checkboxContainer}>
-            <div className={classes.confirmButton}>
-              <Checkbox
-                color='primary'
-                size='small'
-                onClick={handleCheck1}
-              >
-                {t('authent_directconsentpage.add_consent_checkbox1')} 
-              </Checkbox> 
-            </div>
 
-            <div className={classes.confirmButton}>
-              <Checkbox
-                color='primary'
-                size='small'
-                onClick={handleCheck2}
-              >
-                {t('authent_directconsentpage.add_consent_checkbox2')} 
-              </Checkbox> 
-            </div>
+          <div className={classes.rightsArrayContainer}>
+            { reduxRightsCollectionBarArray() }
           </div>
+          
+          
 
           <br></br>
           <br></br>
@@ -104,7 +119,6 @@ export const DirectConsentPageContent = () => {
                 color='primary'
                 size='small'
                 onClick={handleConfirm}
-                disabled={!checkbox1 || !checkbox2}
               >
                 {t('authent_directconsentpage.add_consent_button1')} 
               </Button> 
