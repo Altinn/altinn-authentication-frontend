@@ -1,19 +1,14 @@
-
-
 .gjemInputButton {
   display: none;
 }
 
 .uploadButtonContainer {
   display: flex;
+  flex-direction: row;
   margin-top: 10px;
+  gap: 1rem;
   align-items: center;
 }
-
-.uploadButtonWrapper {
-  margin-right: 10px;
-}
-
 
 .fileChosenTextWrapper {
   font-size: 16px;
@@ -25,19 +20,9 @@
   margin-top: 2rem;
 }
 
-
 .buttonContainer {
   display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
-.cancelButton {
-  margin: 10px;
-  display: flex;
-}
-
-.confirmButton {
-  margin: 10px;
-  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 1rem;
 }

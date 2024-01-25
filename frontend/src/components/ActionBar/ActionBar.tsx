@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useId, useState, forwardRef } from 'react';
+import React, { useId, useState, forwardRef } from 'react';
 
 import type { ClickHandler } from './Context';
 import { ActionBarContext } from './Context';
@@ -24,9 +23,6 @@ export interface ActionBarProps {
 
   /** Heading level. Use this to make sure the heading is correct according to you page heading levels */
   headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
-
-  /** The click event handler for the ActionBar header. */
-  onClick?: ClickHandler;
 
   /** Specifies whether the ActionBar is open or closed. */
   open?: boolean;
@@ -53,7 +49,6 @@ export interface ActionBarProps {
  *    color="neutral"
  *    size="medium"
  *    headingLevel={1}
- *    onClick={handleActionBarClick}
  *    open={openState}
  *    subtitle={<div>"Subtitle"</div>}
  *    title={<div>"Title"</div>}
@@ -67,7 +62,6 @@ export interface ActionBarProps {
  * @property {'light' | 'neutral' | 'warning' | 'success' | 'danger'} [color='neutral'] - The color variant of the ActionBar.
  * @property {'small' | 'medium' | 'large'} [size='medium'] - The size variant of the ActionBar.
  * @property {1 | 2 | 3 | 4 | 5 | 6} [headingLevel] - The headingLevel ActionBar title.
- * @property {ClickHandler} [onClick] - The click event handler for the ActionBar header.
  * @property {boolean} [open] - Specifies whether the ActionBar is open or closed.
  * @property {boolean} [defaultOpen=false] - Defaults the ActionBar to open if not controlled.
  * @property {React.ReactNode} [subtitle] - The subtitle to be displayed in the header of the ActionBar.
@@ -83,7 +77,6 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
       children,
       color = 'neutral',
       size = 'medium',
-      onClick,
       open,
       defaultOpen = false,
       subtitle,
@@ -98,14 +91,9 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
     const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen);
     const isOpen = open ?? internalOpen;
 
-    let toggleOpen: ClickHandler | undefined;
-    if (!children) {
-      toggleOpen = undefined;
-    } else {
-      toggleOpen = () => {
-        onClick !== undefined ? onClick() : setInternalOpen((openState) => !openState);
-      };
-    }
+    const toggleOpen: ClickHandler | undefined = children
+      ? () => setInternalOpen((openState) => !openState)
+      : undefined;
 
     return (
       <div ref={ref}>

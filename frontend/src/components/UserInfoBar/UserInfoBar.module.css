@@ -2,17 +2,14 @@
   margin-left: auto;
   margin-right: auto;
   margin-top: 1rem;
-  background-color: #1eadf7;
   display: flex;
-  min-width: 280px;
-  max-width: 1056px;
 }
 
 .userInfoContent {
   flex: 1;
   display: flex;
   justify-content: flex-end;
-  margin-right: 13px;
+  margin-right: 6px;
 }
 
 .userInfoText {
@@ -26,11 +23,4 @@
 
 .companyIconContainer {
   align-self: center;
-}
-
-@media only screen and (max-width: 576px) {
-  .userInfoBar {
-    margin-left: 8px;
-    margin-right: 8px;
-  }
 }

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 import cn from 'classnames';
 
 import classes from './ActionBarContent.module.css';

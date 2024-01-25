@@ -12,13 +12,8 @@ export interface SystemRegisterObjectDTO {
   description: string;
 }
 
-export interface SystemRegisterObjectPresented {
-  label: string;
-  value: string;
-}
-
-export interface SliceState {
-  systemRegisterVendorsArray: SystemRegisterObjectPresented[];
+export interface CreationPageSliceState {
+  systemRegisterVendorsArray: SystemRegisterObjectDTO[];
   systemRegisterVendorsLoaded: boolean;
   systemRegisterError: string;
   postConfirmed: boolean;
@@ -26,45 +21,48 @@ export interface SliceState {
   postConfirmationId: string;
 }
 
-const initialState: SliceState = {
-    systemRegisterVendorsArray: [],
-    systemRegisterVendorsLoaded: false,
-    systemRegisterError: '',
-    postConfirmed: false,
-    creationError: '',
-    postConfirmationId: '',
+const initialState: CreationPageSliceState = {
+  systemRegisterVendorsArray: [],
+  systemRegisterVendorsLoaded: false,
+  systemRegisterError: '',
+  postConfirmed: false,
+  creationError: '',
+  postConfirmationId: '',
 };
 
 // Update 08.01.23: CreationRequest form is simplified to two key:value pairs
 export interface CreationRequest {
-  integrationTitle: string,
-  selectedSystemType: string,
+  integrationTitle: string;
+  selectedSystemType: string;
 }
 
-export const fetchSystemRegisterVendors = createAsyncThunk('creation/fetchCreationPageSlice', async () => {
-  return await axios
-    .get('/authfront/api/v1/systemregister')
-    .then((response) => response.data)
-    .catch((error) => {
-      console.error(error);
-      throw new Error(String(error.response.data));
-    });
-});
-
+export const fetchSystemRegisterVendors = createAsyncThunk(
+  'creation/fetchCreationPageSlice',
+  async () => {
+    return await axios
+      .get('/authfront/api/v1/systemregister')
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(error);
+        throw new Error(String(error.response.data));
+      });
+  },
+);
 
 // The CreationPage populate the systemUserInfo object,
 // The object is here just input and is posted on to BFF
-export const postNewSystemUser = createAsyncThunk('creationPageSlice/postNewSystemUser', 
+export const postNewSystemUser = createAsyncThunk(
+  'creationPageSlice/postNewSystemUser',
   async (systemUserInfo: CreationRequest) => {
-  return await axios
-    .post('/authfront/api/v1/systemuser', systemUserInfo)
-    .then((response) => response.data)
-    .catch((error) => {
-      console.error(error);
-      throw new Error(String(error.response.data));
-    });
-});
-
+    return await axios
+      .post('/authfront/api/v1/systemuser', systemUserInfo)
+      .then((response) => response.data)
+      .catch((error) => {
+        console.error(error);
+        throw new Error(String(error.response.data));
+      });
+  },
+);
 
 const creationPageSlice = createSlice({
   name: 'creation',
@@ -79,31 +77,9 @@ const creationPageSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchSystemRegisterVendors.fulfilled, (state, action) => {
-        const dataArray = action.payload;
-        const downLoadedArray: SystemRegisterObjectPresented[] = [];
+        const dataArray: SystemRegisterObjectDTO[] = action.payload;
 
-        for (let i = 0; i < dataArray.length; i++) {
-          const systemTypeId = dataArray[i].systemTypeId;
-          const systemVendor = dataArray[i].systemVendor;
-          // const description = dataArray[i].description; // not in use per 15.11.23
-
-          /* const loopObject = {
-              systemTypeId,
-              systemVendor,
-              description,
-            };
-            */
-          // transform to DesignSystem PullDownMenu shape
-          // we do not use "description" (so far: designers might )
-          const loopObject2 = {
-            'label': `${systemTypeId} : ${systemVendor}`,
-            'value': `${systemTypeId} : ${systemVendor}`
-          }
-
-          downLoadedArray.push(loopObject2);
-        }
-
-        state.systemRegisterVendorsArray = downLoadedArray;
+        state.systemRegisterVendorsArray = dataArray;
         state.systemRegisterVendorsLoaded = true;
       })
       .addCase(fetchSystemRegisterVendors.rejected, (state, action) => {
@@ -115,7 +91,7 @@ const creationPageSlice = createSlice({
       })
       .addCase(postNewSystemUser.rejected, (state, action) => {
         state.creationError = action.error.message ?? 'Unknown error';
-      })
+      });
   },
 });
 

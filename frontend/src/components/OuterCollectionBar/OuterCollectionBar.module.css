@@ -2,11 +2,7 @@
   display: flex;
   gap: 2px;
   align-items: center;
-  margin-right: 2rem !important;
-}
-
-.counterText.dark {
-  color: var(--fds-semantic-text-neutral-on_inverted);
+  padding-right: 2rem;
 }
 
 .content {
@@ -18,9 +14,4 @@
 
 .content.compact {
   margin: 0.5rem;
-}
-
-.compactProceedButton {
-  margin-top: 2px;
-  float: right;
 }

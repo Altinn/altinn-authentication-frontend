@@ -20,9 +20,10 @@ import classes from './RightsCollectionBar.module.css';
 // 05.12.23: Beskrivelse/comment/addtionalText is removed in Design of 24.11.23:
 // if this persists the props should be reorganized
 
-export interface RightsCollectionBarProps extends Pick<ActionBarProps, 'color' | 'title'| 'subtitle' | 'additionalText' > {
+export interface RightsCollectionBarProps
+  extends Pick<ActionBarProps, 'color' | 'title' | 'subtitle' | 'additionalText'> {
   /** The list of selected objects */
-  collection: React.ReactNode[];
+  children?: React.ReactNode[];
 
   /** When true saves as much space as possible. Usually used for smaller screens */
   compact?: boolean;
@@ -36,7 +37,7 @@ export const RightsCollectionBar = ({
   title,
   subtitle,
   additionalText,
-  collection,
+  children,
   compact = false,
   proceedToPath,
 }: RightsCollectionBarProps) => {
@@ -50,12 +51,11 @@ export const RightsCollectionBar = ({
     }
   };
 
-
   return (
     <>
       <ActionBar
-        title={ title }
-        subtitle={ subtitle }
+        title={title}
+        subtitle={subtitle}
         additionalText={
           !compact && (
             <Paragraph
@@ -63,40 +63,22 @@ export const RightsCollectionBar = ({
               role='status'
               size='small'
               className={cn(classes.counterText, classes[color])}
-            > 
+            >
               {additionalText}
             </Paragraph>
           )
         }
-        actions={
-
-          !compact && (
-            <Button
-              variant='quiet'
-              size='small'
-              
-              color={"danger"}
-              onClick={proceedClick}
-            >
-            </Button>
-          )
-        }
+        actions={!compact && <Button size='small' color={'danger'} onClick={proceedClick}></Button>}
         size='large'
         color={color}
       >
-        <div className={cn(classes.content, { [classes.compact]: compact })}>{collection}</div>
+        <div className={cn(classes.content, { [classes.compact]: compact })}>{children}</div>
       </ActionBar>
 
       {compact && (
-        <Button
-          className={classes.compactProceedButton}
-          variant='quiet'
-          size='small'
-          icon={<ChevronRightDoubleCircleFillIcon />}
-          iconPlacement='right'
-          onClick={proceedClick}
-        >
+        <Button className={classes.compactProceedButton} size='small' onClick={proceedClick}>
           {t('common.proceed')}
+          <ChevronRightDoubleCircleFillIcon />
         </Button>
       )}
     </>
