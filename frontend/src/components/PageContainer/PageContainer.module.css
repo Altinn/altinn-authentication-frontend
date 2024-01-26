@@ -16,11 +16,15 @@
   border-radius: 50%;
   background-color: var(--fds-semantic-background-default);
   border: none;
-  padding: 0px;
-  height: 36px;
-  padding-top: 3px;
+  padding: 2px;
   cursor: pointer;
   margin-bottom: 10px;
+}
+
+.closeButtonIcon {
+  height: 2rem;
+  width: 2rem;
+  vertical-align: middle;
 }
 
 .closeButton:hover {

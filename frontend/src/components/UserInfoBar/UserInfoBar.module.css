@@ -21,6 +21,8 @@
   word-break: break-word;
 }
 
-.companyIconContainer {
+.companyIcon {
   align-self: center;
+  width: 24px;
+  height: 24px;
 }

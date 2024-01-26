@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { SvgIcon } from '@altinn/altinn-design-system';
 import { Office1Filled } from '@navikt/ds-icons';
 
 import { ReactComponent as AltinnLogo } from '@/assets/AltinnTextLogo.svg';
@@ -31,9 +30,7 @@ export const UserInfoBar = () => {
             {userName && <h5 className={classes.userInfoText}>{userName}</h5>}
             {organizationName && <h5 className={classes.userInfoText}>for {organizationName}</h5>}
           </div>
-          <div className={classes.companyIconContainer}>
-            <SvgIcon width={24} height={24} svgIconComponent={<Office1Filled />}></SvgIcon>
-          </div>
+          <Office1Filled className={classes.companyIcon} />
         </div>
       </div>
     </div>

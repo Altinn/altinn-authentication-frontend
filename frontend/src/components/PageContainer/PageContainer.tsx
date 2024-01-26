@@ -29,10 +29,7 @@ export const PageContainer = ({ children }: PageContainerProps) => {
             aria-label={String(t('common.close'))}
             onClick={redirectToProfile}
           >
-            <CloseIcon
-              width={36}
-              height={30}
-            />
+            <CloseIcon className={classes.closeButtonIcon} />
           </button>
         </div>
         <div>{children}</div>
