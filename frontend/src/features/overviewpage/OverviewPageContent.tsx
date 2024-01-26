@@ -27,7 +27,7 @@ export const OverviewPageContent = () => {
       void dispatch(resetPostConfirmation());
       void dispatch(fetchOverviewPage());
     }
-  }, [reduxObjektArray, postConfirmed]);
+  }, [dispatch, postConfirmed]);
 
   const { t } = useTranslation('common'); // not used yet
   const navigate = useNavigate();

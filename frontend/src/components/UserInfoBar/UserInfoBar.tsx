@@ -18,7 +18,7 @@ export const UserInfoBar = () => {
     if (userLoading) {
       void dispatch(fetchUserInfo());
     }
-  }, []);
+  }, [dispatch, userLoading]);
 
   return (
     <div>

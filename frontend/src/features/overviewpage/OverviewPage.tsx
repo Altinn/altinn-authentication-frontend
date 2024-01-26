@@ -25,7 +25,7 @@ export const OverviewPage = () => {
       void dispatch(fetchSystemRegisterVendors()); // for CreationPage
       void dispatch(fetchSystemRegisterProducts()); // for RightsIncludedPage
     }
-  }, []);
+  }, [dispatch, overviewLoaded]);
 
   return (
     <PageContainer>
