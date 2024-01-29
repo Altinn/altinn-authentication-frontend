@@ -1,76 +1,53 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
 import * as React from 'react';
 
-import { ChooseApiPage } from '@/features/apiDelegation/offered/ChooseApiPage';
-import { OverviewPage as OfferedOverviewPage } from '@/features/apiDelegation/offered/OverviewPage';
-import { OverviewPage as ReceivedOverviewPage } from '@/features/apiDelegation/received/OverviewPage';
-import { ChooseOrgPage } from '@/features/apiDelegation/offered/ChooseOrgPage';
-import { ReceiptPage } from '@/features/apiDelegation/offered/ReceiptPage';
-import { ConfirmationPage } from '@/features/apiDelegation/offered/ConfirmationPage';
-import { NotFoundSite } from '@/sites/NotFoundSite';
-import { ChooseServicePage } from '@/features/singleRight/delegate/ChooseServicePage/ChooseServicePage';
-import { ChooseRightsPage } from '@/features/singleRight/delegate/ChooseRightsPage/ChooseRightsPage';
+import { OverviewPage } from '@/features/overviewpage/OverviewPage';
+import { CreationPage } from '@/features/creationpage/CreationPage';
+import { ConfirmationPage } from '@/features/confirmationpage/ConfirmationPage';
+import { DirectConsentPage } from '@/features/directconsentpage/DirectConsentPage';
+import { MaskinportenAdmPage } from '@/features/maskinportenAdm/MaskinportenAdmPage';
 
-import { GeneralPath, SingleRightPath, ApiDelegationPath } from '../paths';
+import { NotFoundSite } from '@/sites/NotFoundSite';
+import { GeneralPath, AuthenticationPath } from '../paths';
+import { RightsIncludedPage } from '@/features/rightsincludedpage';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
-    <Route
-      path='/'
-      errorElement={<NotFoundSite />}
-    >
-      <Route
-        path={ApiDelegationPath.OfferedApiDelegations}
-        errorElement={<NotFoundSite />}
-      >
+    <Route path='/' errorElement={<NotFoundSite />}>
+      <Route path={AuthenticationPath.Auth} errorElement={<NotFoundSite />}>
         <Route
-          path={ApiDelegationPath.Overview}
-          element={<OfferedOverviewPage />}
+          path={AuthenticationPath.Overview}
+          element={<OverviewPage />}
           errorElement={<NotFoundSite />}
         />
+
         <Route
-          path={ApiDelegationPath.ChooseOrg}
-          element={<ChooseOrgPage />}
+          path={AuthenticationPath.Creation}
+          element={<CreationPage />}
           errorElement={<NotFoundSite />}
         />
+
         <Route
-          path={ApiDelegationPath.ChooseApi}
-          element={<ChooseApiPage />}
+          path={AuthenticationPath.RightsIncluded}
+          element={<RightsIncludedPage />}
           errorElement={<NotFoundSite />}
         />
+
         <Route
-          path={ApiDelegationPath.Confirmation}
+          path={AuthenticationPath.Confirmation}
           element={<ConfirmationPage />}
           errorElement={<NotFoundSite />}
         />
+
         <Route
-          path={ApiDelegationPath.Receipt}
-          element={<ReceiptPage />}
+          path={AuthenticationPath.DirectConsent}
+          element={<DirectConsentPage />}
           errorElement={<NotFoundSite />}
         />
-      </Route>
-      <Route
-        path={ApiDelegationPath.ReceivedApiDelegations}
-        errorElement={<NotFoundSite />}
-      >
+
         <Route
-          path={ApiDelegationPath.Overview}
-          element={<ReceivedOverviewPage />}
-          errorElement={<NotFoundSite />}
-        />
-      </Route>
-      <Route
-        path={SingleRightPath.DelegateSingleRights}
-        errorElement={<NotFoundSite />}
-      >
-        <Route
-          path={SingleRightPath.ChooseService}
-          element={<ChooseServicePage />}
-          errorElement={<NotFoundSite />}
-        />
-        <Route
-          path={SingleRightPath.ChooseRights}
-          element={<ChooseRightsPage />}
+          path={AuthenticationPath.MaskinportenAdm}
+          element={<MaskinportenAdmPage />}
           errorElement={<NotFoundSite />}
         />
       </Route>

@@ -1,0 +1,1 @@
+export { DirectConsentPage } from './DirectConsentPage';

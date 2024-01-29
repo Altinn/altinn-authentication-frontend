@@ -1,5 +1,4 @@
 export enum GeneralPath {
-  BasePath = '/accessmanagement/ui',
+  BasePath = '/authfront/ui',
   Profile = 'ui/Profile',
-  Altinn2SingleRights = 'ui/AccessManagement/ServicesAvailableForActor',
 }

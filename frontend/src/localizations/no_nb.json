@@ -45,22 +45,81 @@
     "add_new_employee": "Legg til ny ansatt",
     "change_rights": "Endre rettigheter"
   },
+  "authent_overviewpage": {
+    "banner_title": "Administrere systembrukere",
+    "sub_title": "Her kan du administrere dine systembrukere",
+    "new_system_user_button": "Opprett ny systembruker",
+    "existing_system_users_title": "Dine systembrukere",
+    "rights_added": "Rettigheter lagt til",
+    "rights_not_added": "Rettigheter ikke lagt til"
+  },
+
+  "authent_creationpage": {
+    "banner_title": "Opprett ny systembruker",
+    "input_field_label": "Navn på systembruker",
+    "sub_title": "Knytt systembruker til systemleverandør",
+    "content_text1": "I de fleste tilfeller vil systembrukeren benyttes i sammenheng med  sluttbrukersystemer levert av forskjellige leverandører. Det er en rekke leverandører og systemer i markedet som tilbyr systemer for forskjellig bruk. Du må selv gjøre en selvstendig vurdering på valg av leverandør og system.",
+    "content_text2": "Nedenfor listes alle leverandører og systemer som har meldt at de leverer slike tjenester. Altinn har ikke gjort noen vurdering av disse.",
+    "pull_down_menu_label": "Velg systemleverandør og system",
+    "confirm_button": "Gå videre",
+    "cancel_button": "Avbryt"
+    
+  },
+  "authent_includedrightspage": {
+    "banner_title": "Inkluderte rettigheter",
+    "sub_title": "Systembrukeren vil få disse rettighetene",
+    "content_text": "Disse rettighetene er inkludert. Har du behov for andre rettigheter, kan du legge til flere senere. Du kan også enkelt administrere systembrukere på Altinn senere.",  
+    "confirm_button": "Opprett systembruker",
+    "cancel_button": "Avbryt"
+  },
+
+  "authent_confirmationpage": {
+    "banner_title": "Ny systembruker er opprettet",
+    "sub_title": "Du har nå opprettet systembrukeren Turboskatt, som er knyttet til Visma Accounting",
+    "content_text": "Du kan velge å gå videre og gi systembrukeren rettigheter, eller avslutte og komme tilbake senere.",
+    "add_rights_button": "Legg til rettigheter",
+    "add_no_rights_button": "Legg til rettigheter senere" 
+  },
+  "authent_directconsentpage": {
+    "banner_title": "Gi tilgang til system",
+    "sub_title": "Visma AS ønsker å opprette en systemtilgang for Olsen Regnskap AS",
+    "consent_text": "Systembrukeren vil benyttes for behandling av data for Olsen Regnskap AS eller kunder av Olsen Regnskap AS.",
+    "consent_buttons_top_text": "Jeg samtykker til at:",
+    "add_consent_checkbox1": "Visma AS kan behandle data for Olsen Regnskap AS",
+    "add_consent_checkbox2": "Visma AS kan behandle data for kunder av Olsen Regnskap AS",
+    "add_consent_button1": "Ja, jeg gir samtykke",
+    "add_consent_button2": "Avbryt" 
+  },
+  
+  "authentication_dummy": {
+    "auth_title_systembrukere": "Systembrukere",
+    "auth_overview_text_administrere": "Her kan du administrere dine systembrukere",
+    "auth_new_system_user_opprett": "Opprett ny systembruker",
+    "auth_card_title_tidligere_opprettet": "Du har tidligere opprettet disse systembrukerne",
+    "auth_api_panel_content": "Her skulle vært en liste over systembrukere",
+    "auth_edit_button_systembruker": "Rediger systembruker",
+
+    "auth_overview_text_creation": "Opprett ny systembruker for systemintegrasjon ved bruk av Maskinporten",
+    
+    "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
+  },
+    
   "api_delegation": {
     "businesses": "Virksomheter",
     "delegated_apis": "Delegerte API",
     "api_accesses": "API-tilganger",
     "delegate_new_api": "Deleger nytt API",
     "delete": "Slett",
-    "delegate_new_org": "Deleger nytt API",
+    "delegate_new_org": "Opprett ny systembruker",
     "save": "Lagre",
-    "api_delegations": "Delegerte tilganger til programmerings\u00adgrensesnitt - API",
+    "api_delegations": "Systembrukere",
     "api_delegations_received": "Mottatte tilganger til programmerings\u00adgrensesnitt - API",
     "you_have_delegated_accesses": "Du har tidligere delegert disse tilgangene:",
     "you_have_received_accesses": "Du har mottatt disse tilgangene:",
-    "api_panel_content": "Her kan du styre tilgang til APIer sikret gjennom",
+    "api_panel_content": "Her skulle vært en liste over systembrukere",
     "org_nr": "Org.nr.",
     "edit_accesses": "Rediger tilganger",
-    "api_overview_text": "Her finner du oversikt over de API-tilganger din virksomhet har delegert til andre virksomheter.",
+    "api_overview_text": "Her kan du administrere dine systembrukere.",
     "api_received_overview_text": "Her finner du oversikt over de API-tilganger din virksomhet har blitt tildelt av andre virksomheter.",
     "give_access_to_new_api": "Gi tilgang til nytt API",
     "new_org_content_text": "Velg hvilke brukere som skal få tilgang ved å klikke pluss-tegnet. Du kan også legge til ny virksomhet ved å benytte søkefeltet.",
@@ -74,7 +133,7 @@
     "previous":"Forrige",
     "next": "Neste",
     "add_new_business": "Legg til ny virksomhet",
-    "card_title": "Programmerings\u00adgrensesnitt - API",
+    "card_title": "Du har tidligere opprettet disse systembrukerne",
     "confirmation_page_content_top_text": "Du ønsker å gi rettigheter til følgende API:",
     "confirmation_page_content_second_text": "API-tilgangene blir gitt til:",
     "confirmation_page_content_bottom_text": "Tilgangene vil bli gitt og er gyldige til de aktivt slettes eller trekkes tilbake.",

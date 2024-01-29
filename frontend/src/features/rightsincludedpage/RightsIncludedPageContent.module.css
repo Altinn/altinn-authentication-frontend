@@ -1,0 +1,10 @@
+.rightsSeparator {
+  margin-top: 5px;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  margin-top: 6rem;
+  gap: 1rem;
+}

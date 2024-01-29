@@ -1,0 +1,15 @@
+.rightActionTagsWrapper {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.tagSeparator {
+  margin-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.systemUserNewButton {
+  margin-bottom: 3rem;
+}

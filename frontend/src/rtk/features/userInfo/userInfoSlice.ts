@@ -3,38 +3,23 @@ import axios from 'axios';
 
 import { getCookie } from '@/resources/Cookie/CookieMethods';
 
-export interface SliceState {
+export interface UserInfoSliceState {
   userLoading: boolean;
-  reporteeLoading: boolean;
-  personName: string;
-  reporteeName: string;
+  userName: string;
+  organizationName: string;
   userInfoError: string;
-  reporteeError: string;
 }
 
-const initialState: SliceState = {
+const initialState: UserInfoSliceState = {
   userLoading: true,
-  reporteeLoading: true,
-  personName: '',
-  reporteeName: '',
+  userName: '',
+  organizationName: '',
   userInfoError: '',
-  reporteeError: '',
 };
 
 export const fetchUserInfo = createAsyncThunk('userInfo/fetchUserInfoSlice', async () => {
   return await axios
-    .get('/accessmanagement/api/v1/profile/user')
-    .then((response) => response.data)
-    .catch((error) => {
-      console.error(error);
-      throw new Error(String(error.response.data));
-    });
-});
-
-export const fetchReportee = createAsyncThunk('userInfo/fetchReportee', async () => {
-  const altinnPartyId = getCookie('AltinnPartyId');
-  return await axios
-    .get(`/accessmanagement/api/v1/lookup/reportee/${altinnPartyId}`)
+    .get('/authfront/api/v1/profile/user')
     .then((response) => response.data)
     .catch((error) => {
       console.error(error);
@@ -49,20 +34,13 @@ const userInfoSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserInfo.fulfilled, (state, action) => {
-        const dataArray = action.payload;
-        state.personName = dataArray.party.name;
+        const dataObject = action.payload;
+        state.userName = dataObject.userName;
+        state.organizationName = dataObject.organizationName;
         state.userLoading = false;
       })
       .addCase(fetchUserInfo.rejected, (state, action) => {
         state.userInfoError = action.error.message ?? 'Unknown error';
-      })
-      .addCase(fetchReportee.fulfilled, (state, action) => {
-        const reporteeDataArray = action.payload;
-        state.reporteeName = reporteeDataArray.name;
-        state.reporteeLoading = false;
-      })
-      .addCase(fetchReportee.rejected, (state, action) => {
-        state.reporteeError = action.error.message ?? 'Unknown error';
       });
   },
 });

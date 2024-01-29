@@ -1,14 +1,10 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import * as React from 'react';
+import React, { forwardRef } from 'react';
 import cn from 'classnames';
-import { forwardRef } from 'react';
 import { Paragraph } from '@digdir/design-system-react';
 
 import { useActionBarContext } from './Context';
 import classes from './ActionBarHeader.module.css';
 import { ActionBarIcon } from './ActionBarIcon';
-import { ActionBarActions } from './ActionBarActions';
 import { type ActionBarProps } from './ActionBar';
 
 export interface ActionBarHeaderProps
@@ -38,6 +34,19 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
         break;
     }
 
+    const actionBarContent: React.ReactNode = (
+      <div className={classes.actionBarTexts}>
+        <Paragraph as={renderAsElem} size={headingSize} className={classes.title}>
+          {title}
+        </Paragraph>
+        {subtitle && (
+          <Paragraph as='div' size='xsmall' className={classes.subtitle}>
+            {subtitle}
+          </Paragraph>
+        )}
+      </div>
+    );
+
     return (
       <div
         className={cn(classes.actionBar, classes[color], classes[size], {
@@ -61,68 +70,17 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
               <div className={cn(classes.actionBarIcon, classes[size])}>
                 <ActionBarIcon />
               </div>
-              <div className={classes.actionBarTexts}>
-                <Paragraph
-                  as={renderAsElem}
-                  size={headingSize}
-                  className={classes.title}
-                >
-                  {title}
-                </Paragraph>
-                {subtitle && (
-                  <Paragraph
-                    as='div'
-                    size='xsmall'
-                    className={classes.subtitle}
-                  >
-                    {subtitle}
-                  </Paragraph>
-                )}
-              </div>
+              {actionBarContent}
             </div>
           </button>
         ) : (
-          <div
-            className={cn(classes.actionBarHeader)}
-            id={headerId}
-            data-testid='action-bar'
-          >
-            <div className={classes.actionBarTexts}>
-              <Paragraph
-                as={renderAsElem}
-                size={headingSize}
-                className={classes.title}
-              >
-                {title}
-              </Paragraph>
-              {subtitle && (
-                <Paragraph
-                  as='div'
-                  size='xsmall'
-                  className={classes.subtitle}
-                >
-                  {subtitle}
-                </Paragraph>
-              )}
-            </div>
+          <div className={cn(classes.actionBarHeader)} id={headerId} data-testid='action-bar'>
+            {actionBarContent}
           </div>
         )}
-        {additionalText && (
-          <button
-            className={cn(classes.actionBarAdditionalText, {
-              [classes.clickable]: toggleOpen,
-            })}
-            onClick={toggleOpen}
-            tabIndex={-1}
-          >
-            {additionalText}
-          </button>
-        )}
-        {actions && (
-          <div className={classes.actionBarActions}>
-            <ActionBarActions>{actions}</ActionBarActions>
-          </div>
-        )}
+        {additionalText}
+
+        {actions && <div className={classes.actionBarActions}>{actions}</div>}
       </div>
     );
   },

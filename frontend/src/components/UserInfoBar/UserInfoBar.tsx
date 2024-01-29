@@ -1,27 +1,23 @@
-import { SvgIcon } from '@altinn/altinn-design-system';
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { Office1Filled } from '@navikt/ds-icons';
-import { useEffect } from 'react';
 
 import { ReactComponent as AltinnLogo } from '@/assets/AltinnTextLogo.svg';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { fetchUserInfo, fetchReportee } from '@/rtk/features/userInfo/userInfoSlice';
+import { fetchUserInfo } from '@/rtk/features/userInfo/userInfoSlice';
 
 import classes from './UserInfoBar.module.css';
 
 export const UserInfoBar = () => {
-  const userInfoName = useAppSelector((state) => state.userInfo.personName);
-  const reporteeName = useAppSelector((state) => state.userInfo.reporteeName);
+  const userName = useAppSelector((state) => state.userInfo.userName);
+  const organizationName = useAppSelector((state) => state.userInfo.organizationName);
   const userLoading = useAppSelector((state) => state.userInfo.userLoading);
-  const reporteeLoading = useAppSelector((state) => state.userInfo.reporteeLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (userLoading || reporteeLoading) {
+    if (userLoading) {
       void dispatch(fetchUserInfo());
-      void dispatch(fetchReportee());
     }
-  }, []);
+  }, [dispatch, userLoading]);
 
   return (
     <div>
@@ -31,16 +27,10 @@ export const UserInfoBar = () => {
         </div>
         <div className={classes.userInfoContent}>
           <div>
-            {userInfoName && <h5 className={classes.userInfoText}>{userInfoName}</h5>}
-            {reporteeName && <h5 className={classes.userInfoText}>for {reporteeName}</h5>}
+            {userName && <h5 className={classes.userInfoText}>{userName}</h5>}
+            {organizationName && <h5 className={classes.userInfoText}>for {organizationName}</h5>}
           </div>
-          <div className={classes.companyIconContainer}>
-            <SvgIcon
-              width={24}
-              height={24}
-              svgIconComponent={<Office1Filled />}
-            ></SvgIcon>
-          </div>
+          <Office1Filled className={classes.companyIcon} />
         </div>
       </div>
     </div>

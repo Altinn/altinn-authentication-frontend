@@ -1,0 +1,71 @@
+﻿//Change to the correct rootUrl for testing locally or towards servers
+//Within VS debugger
+//@rootUrl = https://localhost:44349
+@rootHttpsUrl = https://localhost:7170
+@rootHttpUrl = http://localhost:5006
+@authApiRootUrl = http://localhost:5101
+@localAltinCloud = http://local.altinn.cloud
+
+###
+//The Homecontroller returns the index.html which launches the React SPA
+//Expected result: React SPA index.html with minified js bundle
+//Requires either a valid cookie with XSRF Token in the header
+//or the Developer/Tester must switch off the Authorize attribute in the Controller.
+GET {{rootHttpUrl}}/authfront/ui/
+
+###
+//The endpoint for retrieving the name and info of the logged in user
+//Expected result: a DTO with only username and organizationname
+//Should either be already logged in via DialogPorten, mock a test Cookie 
+//or switch off the Authorize attribute in the Controller.
+{
+  "userName": "Testur Testursson",
+  "organizationName": "TestParty"
+}
+
+GET {{rootHttpUrl}}/authfront/api/v1/profile/user
+
+###
+GET {{rootHttpUrl}}/authfront/api/v1/systemuser/1
+
+###
+GET {{rootHttpUrl}}/health
+
+
+###
+//The endpoint for refreshing a Token
+//Expected result: a new Token
+//Needs a valid cookie with XSRF Token in the header to work,
+//or the Developer/Tester must switch off the Authorize attribute in the Controller.
+GET {{rootHttpUrl}}/authfront/api/v1/authentication/refresh
+
+
+###
+//GET {{AuthApiRootUrl}}/authentication/api/v1/authentication
+
+###
+GET {{rootHttpUrl}}/authfront/ui/auth/overview
+
+# //
+# ------WebKitFormBoundaryKxEcAc9apIaN6cPu
+# Content-Disposition: form-data; name="file"; filename="test.jwk"
+# Content-Type: application/octet-stream
+
+
+# ------WebKitFormBoundaryKxEcAc9apIaN6cPu
+# Content-Disposition: form-data; name="navn"
+
+# Det går sikkert ann å skrive lange ting her med øæå
+# ------WebKitFormBoundaryKxEcAc9apIaN6cPu
+# Content-Disposition: form-data; name="beskrivelse"
+
+# Og her også?? zxy {[]}!
+# ------WebKitFormBoundaryKxEcAc9apIaN6cPu--
+###
+POST {{rootHttpUrl}}/authfront/api/v1/systemuser/uploadjwk -H 'accept: */*' -H 'Content-Type: multipart/form-data' -F 'file=@test.txt;type=text/plain' -F 'navn=Hei' -F 'beskrivelse=Der'
+
+###
+GET http://localhost:5006/authfront/api/v1/systemregister
+
+###
+GET https://localhost:44377/authentication/api/v1/systemuser/1
