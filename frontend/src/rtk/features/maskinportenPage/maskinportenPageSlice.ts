@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface SliceState {
+export interface MaskinportenPageSliceState {
   navn: string;
   beskrivelse: string;
-  onJwkFileAvailable: boolean
+  onJwkFileAvailable: boolean;
 }
 
-const initialState: SliceState = {
-    navn: '',
-    beskrivelse: '', 
-    onJwkFileAvailable: false,
+const initialState: MaskinportenPageSliceState = {
+  navn: '',
+  beskrivelse: '',
+  onJwkFileAvailable: false,
 };
 
 // foreløpig lagreNavnBeskrivelseKnapp skal senere gi API POST kall til BFF
@@ -19,16 +19,16 @@ const maskinportenPageSlice = createSlice({
   name: 'maskinporten',
   initialState,
   reducers: {
-    lagreNavn : (state, action) => {
-        state.navn = action.payload.navn;
+    lagreNavn: (state, action) => {
+      state.navn = action.payload.navn;
     },
-    lagreBeskrivelse : (state, action) => {
+    lagreBeskrivelse: (state, action) => {
       state.beskrivelse = action.payload.beskrivelse;
     },
-    bekreftJwkTilgjengelighet : (state, action) => {
+    bekreftJwkTilgjengelighet: (state, action) => {
       state.onJwkFileAvailable = action.payload.onJwkFileAvailable;
     },
-    clearStateAfterApi : (state) => {
+    clearStateAfterApi: (state) => {
       state.navn = '';
       state.beskrivelse = '';
       state.onJwkFileAvailable = false;
@@ -37,4 +37,5 @@ const maskinportenPageSlice = createSlice({
 });
 
 export default maskinportenPageSlice.reducer;
-export const { lagreNavn, lagreBeskrivelse, bekreftJwkTilgjengelighet, clearStateAfterApi } = maskinportenPageSlice.actions;
+export const { lagreNavn, lagreBeskrivelse, bekreftJwkTilgjengelighet, clearStateAfterApi } =
+  maskinportenPageSlice.actions;

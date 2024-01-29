@@ -116,7 +116,16 @@
   color: inherit;
   line-height: 16px;
   word-break: break-word;
-  composes: focusable from '@/resources/utils/utility.module.css';
+}
+
+.actionBarHeader:focus-visible {
+  --fds-inner-focus-border-color: #1e2b3c;
+  --fds-outer-focus-border-color: #fadf4b;
+  --fds-focus-border-width: 3px;
+
+  outline: var(--fds-focus-border-width) solid var(--fds-outer-focus-border-color);
+  outline-offset: var(--fds-focus-border-width);
+  box-shadow: 0 0 0 var(--fds-focus-border-width) var(--fds-inner-focus-border-color);
 }
 
 .actionBarHeader.clickable {
@@ -157,25 +166,6 @@
   margin-left: 8px;
 }
 
-.actionBarAdditionalText {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  border-style: none;
-  color: inherit;
-  background-color: inherit;
-  padding: 0;
-  word-break: break-word;
-  font-size: 16px;
-  font-weight: 400;
-  margin-right: 10px;
-  margin-left: 10px;
-}
-
-.actionBarAdditionalText.clickable {
-  cursor: pointer;
-}
-
 .actionBarTexts {
   display: flex;
   flex-direction: column;
@@ -184,15 +174,11 @@
 
 .title,
 .subtitle {
-  color: var(--text-color) !important;
+  color: var(--text-color);
 }
 
 .title {
-  font-weight: 500 !important;
-}
-
-.title > p {
-  margin: 0px;
+  font-weight: 500;
 }
 
 .actionBarButtonContainer {

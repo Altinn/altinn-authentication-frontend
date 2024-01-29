@@ -11,18 +11,10 @@ import { NotFoundSite } from '@/sites/NotFoundSite';
 import { GeneralPath, AuthenticationPath } from '../paths';
 import { RightsIncludedPage } from '@/features/rightsincludedpage';
 
-
 export const Router = createBrowserRouter(
   createRoutesFromElements(
-    <Route
-      path='/'
-      errorElement={<NotFoundSite />}
-    >
-      
-      <Route
-        path={AuthenticationPath.Auth}
-        errorElement={<NotFoundSite />}
-      >
+    <Route path='/' errorElement={<NotFoundSite />}>
+      <Route path={AuthenticationPath.Auth} errorElement={<NotFoundSite />}>
         <Route
           path={AuthenticationPath.Overview}
           element={<OverviewPage />}
@@ -58,8 +50,6 @@ export const Router = createBrowserRouter(
           element={<MaskinportenAdmPage />}
           errorElement={<NotFoundSite />}
         />
-
-        
       </Route>
     </Route>,
   ),

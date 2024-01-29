@@ -1,105 +1,15 @@
-
 .rightActionTagsWrapper {
   display: flex;
   flex-direction: row;
-  align-items: left;
+  flex-wrap: wrap;
   margin-top: 0.5rem;
 }
 
 .tagSeparator {
   margin-left: 0.5rem;
+  margin-top: 0.5rem;
 }
 
-.middleLayerHeading {
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.spinnerContainer {
-  margin-top: 3rem;
-  display: flex;
-  justify-content: center;
-}
-
-.pageContentText {
-  margin-top: -2rem;
-  font-weight: 500;
-}
-
-.link {
-  color: black;
-  text-decoration-line: underline;
-  text-decoration-color: #1eadf7;
-  display: inline-block;
-  background: transparent;
-}
-
-.actionBarWrapper {
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-@media only screen and (min-width: 769px) {
-  .overviewPageContainer {
-    margin-top: 3rem;
-  }
-
-  .systemUserNewButton {
-    margin-bottom: 6rem;
-  }
-
-  .activeDelegationsHeader {
-    margin-top: 2rem;
-    display: flex;
-    align-items: center;
-  }
-
-  .saveSection {
-    margin-right: 0.5rem;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .editButton {
-    justify-content: flex-end;
-    align-items: center;
-    display: flex;
-    flex: 1;
-  }
-
-  .explanatoryContainer {
-    margin-top: 30px;
-    display: flex;
-  }
-}
-
-
-
-@media only screen and (max-width: 768px) {
-  .overviewAccordionsContainer {
-    margin-top: 0rem;
-  }
-
-  .systemUserNewButton {
-    margin-bottom: 3rem;
-    margin-top: 0rem;
-  }
-
-  .activeDelegationsHeader {
-    margin-top: 0.1rem;
-  }
-
-  .editButton {
-    align-items: center;
-    justify-content: end;
-    margin-bottom: 0.3rem;
-  }
-
-  .rightActionTagsWrapper {
-    flex-direction: column;
-  }
-
-  .tagSeparator {
-    margin-top: 0.5rem;
-  }
+.systemUserNewButton {
+  margin-bottom: 3rem;
 }

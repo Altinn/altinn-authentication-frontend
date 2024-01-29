@@ -1,10 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import * as React from 'react';
-import { Page, PageHeader, PageContent, PageContainer } from '@/components';
+import { Page, PageHeader, PageContainer } from '@/components';
 import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
 import { useMediaQuery } from '@/resources/hooks';
 import { MaskinportenAdmPageContent } from './MaskinportenAdmPageContent';
-
 
 export const MaskinportenAdmPage = () => {
   const { t } = useTranslation('common');
@@ -17,11 +16,10 @@ export const MaskinportenAdmPage = () => {
       <Page
         color='dark'
         size={isSm ? 'small' : 'medium'}
+        icon={<ApiIcon />}
+        title={'Administrere maskinporten integrasjoner'}
       >
-        <PageHeader icon={<ApiIcon />}>{'Administrere maskinporten integrasjoner'}</PageHeader>
-        <PageContent>
-          <MaskinportenAdmPageContent />
-        </PageContent>
+        <MaskinportenAdmPageContent />
       </Page>
     </PageContainer>
   );

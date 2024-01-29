@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useId, useState, forwardRef } from 'react';
+import React, { useId, useState, forwardRef } from 'react';
 
 import type { ClickHandler } from './Context';
 import { ActionBarContext } from './Context';
@@ -53,8 +52,8 @@ export interface ActionBarProps {
  *    color="neutral"
  *    size="medium"
  *    headingLevel={1}
- *    onClick={handleActionBarClick}
  *    open={openState}
+ *    onClick={handleActionBarClick}
  *    subtitle={<div>"Subtitle"</div>}
  *    title={<div>"Title"</div>}
  *   >
@@ -67,8 +66,8 @@ export interface ActionBarProps {
  * @property {'light' | 'neutral' | 'warning' | 'success' | 'danger'} [color='neutral'] - The color variant of the ActionBar.
  * @property {'small' | 'medium' | 'large'} [size='medium'] - The size variant of the ActionBar.
  * @property {1 | 2 | 3 | 4 | 5 | 6} [headingLevel] - The headingLevel ActionBar title.
- * @property {ClickHandler} [onClick] - The click event handler for the ActionBar header.
  * @property {boolean} [open] - Specifies whether the ActionBar is open or closed.
+ * @property {ClickHandler} [onClick] - The click event handler for the ActionBar header.
  * @property {boolean} [defaultOpen=false] - Defaults the ActionBar to open if not controlled.
  * @property {React.ReactNode} [subtitle] - The subtitle to be displayed in the header of the ActionBar.
  * @property {React.ReactNode} [title] - The title to be displayed in the header of the ActionBar.
