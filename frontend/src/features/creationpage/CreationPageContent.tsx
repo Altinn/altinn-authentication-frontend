@@ -36,16 +36,6 @@ export const CreationPageContent = () => {
   };
 
   const handleConfirm = () => {
-    // POST 3 useState variables, while the last two not yet implemented
-    // Update 08.01.24: agreement with Simen-backend that only two
-    // key:value pairs are needed
-    const PostObjekt: CreationRequest = {
-      integrationTitle: integrationName,
-      selectedSystemType: selectedSystemType,
-    };
-
-    void dispatch(postNewSystemUser(PostObjekt));
-
     // Clean up local State variables before returning to main page, was old solution
     // update 07.12.23: New Design of 24.11.23 specifies navigation
     // to ConfirmationPage: OK, but if CreationRequest fails we need to
@@ -54,7 +44,12 @@ export const CreationPageContent = () => {
     setSelectedSystemType('');
 
     // new per 10.01.24: we navigate to RightsIncludedPage
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.RightsIncluded);
+    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.RightsIncluded, {
+      state: {
+        integrationName: integrationName,
+        selectedSystemType: selectedSystemType,
+      },
+    });
   };
 
   // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux

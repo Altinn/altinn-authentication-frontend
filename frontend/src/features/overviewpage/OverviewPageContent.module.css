@@ -13,3 +13,11 @@
 .systemUserNewButton {
   margin-bottom: 3rem;
 }
+
+.rightsHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}

@@ -10,6 +10,7 @@ import { MaskinportenAdmPage } from '@/features/maskinportenAdm/MaskinportenAdmP
 import { NotFoundSite } from '@/sites/NotFoundSite';
 import { GeneralPath, AuthenticationPath } from '../paths';
 import { RightsIncludedPage } from '@/features/rightsincludedpage';
+import { DetailPage } from '@/features/detailpage/DetailPage';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -50,6 +51,7 @@ export const Router = createBrowserRouter(
           element={<MaskinportenAdmPage />}
           errorElement={<NotFoundSite />}
         />
+        <Route path={`details/:id`} element={<DetailPage />} errorElement={<NotFoundSite />} />
       </Route>
     </Route>,
   ),

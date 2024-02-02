@@ -11,7 +11,7 @@ import { Button, Checkbox, Heading } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import classes from './DirectConsentPageContent.module.css';
 import { useTranslation } from 'react-i18next';
-import { RightsCollectionBar } from '@/components';
+import { ActionBar } from '@/components';
 
 export const DirectConsentPageContent = () => {
   const [checkbox1, setCheckbox1] = useState(false);
@@ -68,15 +68,12 @@ export const DirectConsentPageContent = () => {
   const reduxRightsCollectionBarArray = () => {
     return reduxObjektArray.map((ProductRight) => (
       <div key={ProductRight.right}>
-        <RightsCollectionBar
+        <ActionBar
           title={ProductRight.right}
           subtitle={`${ProductRight.serviceProvider}`}
           additionalText={''}
           color={'neutral'}
-          compact={isSm}
-          proceedToPath={'/fixpath/'}
         />
-        <div className={classes.rightsSeparator}> </div>
       </div>
     ));
   };

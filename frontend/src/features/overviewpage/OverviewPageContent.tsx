@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { AuthenticationPath } from '@/routes/paths';
+import cn from 'classnames';
 import classes from './OverviewPageContent.module.css';
-import { InnerCollectionBar, OuterCollectionBar } from '@/components';
-import { ReactComponent as Add } from '@/assets/Add.svg';
-import { MinusCircleIcon } from '@navikt/aksel-icons';
-import { Button, Heading, Tag } from '@digdir/design-system-react';
+import { ActionBar } from '@/components';
+import { MinusCircleIcon, PlusIcon, PencilWritingIcon } from '@navikt/aksel-icons';
+import { Button, Heading, Tag, Link } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { resetPostConfirmation } from '@/rtk/features/creationPage/creationPageSlice';
@@ -65,16 +65,22 @@ export const OverviewPageContent = () => {
   // light blue such as "tertiary", "third" or something later
   const currentRightsCollectionBars = rightsObjektArray.map((ProductRight, index) => (
     <div key={index}>
-      <InnerCollectionBar
+      <ActionBar
         title={ProductRight.right}
         subtitle={ProductRight.serviceProvider}
-        color='warning'
+        color='neutral'
+        actions={
+          <Button variant='tertiary' size='small'>
+            Fjern rettighet
+            <MinusCircleIcon />
+          </Button>
+        }
       >
         <div>
           <p>Eventuell tekst om rettighetene kommer her.</p>
           <div className={classes.rightActionTagsWrapper}>{onlyTags}</div>
         </div>
-      </InnerCollectionBar>
+      </ActionBar>
     </div>
   ));
 
@@ -82,20 +88,34 @@ export const OverviewPageContent = () => {
   const SysterUserCollectionBarArray = () => {
     return reduxObjektArray.map((SystemUser, index) => (
       <div key={index}>
-        <OuterCollectionBar
+        <ActionBar
           title={SystemUser.integrationTitle}
           subtitle={`${SystemUser.productName}`}
-          additionalText={t('authent_overviewpage.rights_added')}
-          color={'neutral'}
-          compact={isSm}
+          color='light'
+          size='large'
         >
-          <>
-            <Heading level={3} size='xxsmall' spacing>
-              Systembrukeren har disse rettighetene:
-            </Heading>
-            {currentRightsCollectionBars}
-          </>
-        </OuterCollectionBar>
+          <div className={cn(classes.accordionContent, { [classes.compact]: isSm })}>
+            <div className={classes.rightsHeader}>
+              <Heading level={3} size='xxsmall' spacing>
+                Systembrukeren har disse rettighetene:
+              </Heading>
+              <Link as={RouterLink} to={`/auth/details/${SystemUser.id}`}>
+                <PencilWritingIcon height={'1.25rem'} width={'1.25rem'} />
+                Rediger systembruker
+              </Link>
+            </div>
+            {rightsObjektArray.map((right) => {
+              return (
+                <ActionBar
+                  key={right.right}
+                  title={right.right}
+                  subtitle={right.serviceProvider}
+                  color='neutral'
+                />
+              );
+            })}
+          </div>
+        </ActionBar>
       </div>
     ));
   };
@@ -117,7 +137,7 @@ export const OverviewPageContent = () => {
       </Heading>
       <div className={classes.systemUserNewButton}>
         <Button variant='secondary' onClick={goToStartNewSystemUser} fullWidth={isSm}>
-          <Add />
+          <PlusIcon />
           {t('authent_overviewpage.new_system_user_button')}
         </Button>
       </div>

@@ -1,0 +1,24 @@
+.rightsHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.buttonContainer {
+  display: flex;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.nameField {
+  max-width: 30rem;
+}
+
+.backLink {
+  text-align: right;
+  margin-bottom: 2rem;
+}

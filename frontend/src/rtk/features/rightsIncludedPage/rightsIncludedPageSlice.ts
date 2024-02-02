@@ -1,9 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const mockRightsActionsArray = [
+  { name: 'Lese', on: true },
+  { name: 'Skrive', on: false },
+  { name: 'Signere', on: true },
+  { name: 'Les arkiv', on: false },
+  { name: 'Launch-Rune´s-Rocket', on: true },
+];
+
 export interface SystemRegisterProductObjectDTO {
   right: string;
   serviceProvider: string;
+  actions?: { name: string; on: boolean }[];
 }
 
 export interface RightsIncludedPageSliceState {
@@ -40,7 +49,12 @@ const rightsIncludedPageSlice = createSlice({
       .addCase(fetchSystemRegisterProducts.fulfilled, (state, action) => {
         const dataArray: SystemRegisterProductObjectDTO[] = action.payload;
 
-        state.systemRegisterProductsArray = dataArray;
+        state.systemRegisterProductsArray = dataArray.map((x) => {
+          return {
+            ...x,
+            actions: [...mockRightsActionsArray],
+          };
+        });
         state.systemRegisterProductsLoaded = true;
       })
       .addCase(fetchSystemRegisterProducts.rejected, (state, action) => {
