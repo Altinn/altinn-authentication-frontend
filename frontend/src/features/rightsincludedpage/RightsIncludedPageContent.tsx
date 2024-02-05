@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { AuthenticationPath } from '@/routes/paths';
+import { AuthenticationRoute } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import {
   postNewSystemUser,
@@ -48,12 +48,12 @@ export const RightsIncludedPageContent = () => {
     };
 
     void dispatch(postNewSystemUser(PostObjekt)).then(() => {
-      navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+      navigate(AuthenticationRoute.Overview);
     });
   };
 
   const handleReject = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   // Note: array key set to ProductRight.right, which should be unique

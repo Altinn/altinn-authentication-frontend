@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationPath } from '@/routes/paths';
+import { AuthenticationRoute } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import {
   storeCheckbox1,
@@ -30,7 +30,7 @@ export const DirectConsentPageContent = () => {
 
   // for now, return to OverviewPage: design not ready
   const handleReject = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   // confirm is a temporary solution, as backend and Maskinporten is not ready
@@ -41,7 +41,7 @@ export const DirectConsentPageContent = () => {
       selectedSystemType: 'direct_consent_system : Direct Consent System',
     };
     void dispatch(postNewSystemUser(PostObjekt));
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   const handleCheck1 = () => {

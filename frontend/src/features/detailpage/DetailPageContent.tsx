@@ -18,9 +18,9 @@ import {
 } from '@navikt/aksel-icons';
 import classes from './DetailPage.module.css';
 import { ActionBar } from '@/components';
-import { useAppSelector } from '@/rtk/app/hooks';
+import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { SystemUserObjectDTO } from '@/rtk/features/overviewPage/overviewPageSlice';
-import { AuthenticationPath } from '@/routes/paths';
+import { AuthenticationRoute } from '@/routes/paths';
 import { SystemRegisterProductObjectDTO } from '@/rtk/features/rightsIncludedPage/rightsIncludedPageSlice';
 
 interface DetailPageContentProps {
@@ -29,7 +29,6 @@ interface DetailPageContentProps {
 
 export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
-  const navigate = useNavigate();
 
   const rightsObjektArray = useAppSelector(
     (state) => state.rightsIncludedPage.systemRegisterProductsArray,
@@ -37,6 +36,25 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
   const [selectedRights, setSelectedRights] =
     useState<(SystemRegisterProductObjectDTO & { deleted?: boolean })[]>(rightsObjektArray);
   const [name, setName] = useState<string>(systemUser.integrationTitle);
+
+  const toggleAction = (
+    right: SystemRegisterProductObjectDTO & { deleted?: boolean },
+    action: { name: string; on: boolean },
+  ): void => {
+    setSelectedRights((oldRights) => {
+      return oldRights.map((oldRight) => {
+        if (oldRight.right === right.right) {
+          return {
+            ...oldRight,
+            actions: oldRight.actions?.map((y) =>
+              y.name === action.name ? { ...y, on: !y.on } : y,
+            ),
+          };
+        }
+        return oldRight;
+      });
+    });
+  };
 
   return (
     <div>
@@ -49,8 +67,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           <Button
             color='danger'
             onClick={() => {
-              // TODO: delete
-              navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+              /** */
             }}
           >
             Slett systembruker
@@ -60,11 +77,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Link
-        as={RouterLink}
-        to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview}
-        className={classes.backLink}
-      >
+      <Link as={RouterLink} to={AuthenticationRoute.Overview} className={classes.backLink}>
         <ArrowLeftIcon />
         Tilbake til oversikt
       </Link>
@@ -139,20 +152,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
                       <Chip.Toggle
                         key={action.name}
                         selected={action.on}
-                        onClick={() => {
-                          setSelectedRights((old) => {
-                            return old.map((x) => {
-                              return x.right === right.right
-                                ? {
-                                    ...x,
-                                    actions: x.actions?.map((y) =>
-                                      y.name === action.name ? { ...y, on: !y.on } : y,
-                                    ),
-                                  }
-                                : x;
-                            });
-                          });
-                        }}
+                        onClick={() => toggleAction(right, action)}
                       >
                         {action.name}
                       </Chip.Toggle>
@@ -166,12 +166,14 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
       })}
 
       <div className={classes.buttonContainer}>
-        <Button>Lagre endringer</Button>
         <Button
-          variant='tertiary'
-          as={RouterLink}
-          to={'/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview}
+          onClick={() => {
+            /** */
+          }}
         >
+          Lagre endringer
+        </Button>
+        <Button variant='tertiary' as={RouterLink} to={AuthenticationRoute.Overview}>
           Avbryt
         </Button>
       </div>

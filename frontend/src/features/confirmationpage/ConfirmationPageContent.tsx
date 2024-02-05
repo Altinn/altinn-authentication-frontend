@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthenticationPath } from '@/routes/paths';
+import { AuthenticationRoute } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import {
   postNewSystemUser,
@@ -34,7 +34,7 @@ export const ConfirmationPageContent = () => {
   const overviewText = 'Knytt systembruker til systemleverandør';
 
   const handleReject = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   const handleConfirm = () => {
@@ -56,7 +56,7 @@ export const ConfirmationPageContent = () => {
     // skrevet av Github Copilot
     void dispatch(resetPostConfirmation());
     void dispatch(fetchOverviewPage());
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny

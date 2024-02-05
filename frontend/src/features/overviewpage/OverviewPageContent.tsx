@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { AuthenticationPath } from '@/routes/paths';
+import { AuthenticationRoute } from '@/routes/paths';
 import cn from 'classnames';
 import classes from './OverviewPageContent.module.css';
 import { ActionBar } from '@/components';
@@ -84,42 +84,6 @@ export const OverviewPageContent = () => {
     </div>
   ));
 
-  // OUTERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
-  const SysterUserCollectionBarArray = () => {
-    return reduxObjektArray.map((SystemUser, index) => (
-      <div key={index}>
-        <ActionBar
-          title={SystemUser.integrationTitle}
-          subtitle={`${SystemUser.productName}`}
-          color='light'
-          size='large'
-        >
-          <div className={cn(classes.accordionContent, { [classes.compact]: isSm })}>
-            <div className={classes.rightsHeader}>
-              <Heading level={3} size='xxsmall' spacing>
-                Systembrukeren har disse rettighetene:
-              </Heading>
-              <Link as={RouterLink} to={`/auth/details/${SystemUser.id}`}>
-                <PencilWritingIcon height={'1.25rem'} width={'1.25rem'} />
-                Rediger systembruker
-              </Link>
-            </div>
-            {rightsObjektArray.map((right) => {
-              return (
-                <ActionBar
-                  key={right.right}
-                  title={right.right}
-                  subtitle={right.serviceProvider}
-                  color='neutral'
-                />
-              );
-            })}
-          </div>
-        </ActionBar>
-      </div>
-    ));
-  };
-
   // Eldre greier: bør byttes ut, men kan trenges for Mobil-optimering
   const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger
 
@@ -127,7 +91,7 @@ export const OverviewPageContent = () => {
   // Fix-me: h2 below, not in Small/mobile view
 
   const goToStartNewSystemUser = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Creation);
+    navigate(AuthenticationRoute.Creation);
   };
 
   return (
@@ -144,7 +108,37 @@ export const OverviewPageContent = () => {
       <Heading level={2} size='small' spacing>
         {t('authent_overviewpage.existing_system_users_title')}
       </Heading>
-      {SysterUserCollectionBarArray()}
+      {reduxObjektArray.map((systemUser) => (
+        <ActionBar
+          key={systemUser.id}
+          title={systemUser.integrationTitle}
+          subtitle={`${systemUser.productName}`}
+          color='light'
+          size='large'
+        >
+          <div className={cn(classes.accordionContent, { [classes.compact]: isSm })}>
+            <div className={classes.rightsHeader}>
+              <Heading level={3} size='xxsmall' spacing>
+                Systembrukeren har disse rettighetene:
+              </Heading>
+              <Link as={RouterLink} to={`${AuthenticationRoute.Details}/${systemUser.id}`}>
+                <PencilWritingIcon height={'1.25rem'} width={'1.25rem'} />
+                Rediger systembruker
+              </Link>
+            </div>
+            {rightsObjektArray.map((right) => {
+              return (
+                <ActionBar
+                  key={right.right}
+                  title={right.right}
+                  subtitle={right.serviceProvider}
+                  color='neutral'
+                />
+              );
+            })}
+          </div>
+        </ActionBar>
+      ))}
     </div>
   );
 };

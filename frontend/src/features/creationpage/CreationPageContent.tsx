@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthenticationPath } from '@/routes/paths';
+import { AuthenticationRoute } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import {
   postNewSystemUser,
@@ -32,7 +32,7 @@ export const CreationPageContent = () => {
   const overviewText = 'Knytt systembruker til systemleverandør';
 
   const handleReject = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   const handleConfirm = () => {
@@ -44,7 +44,7 @@ export const CreationPageContent = () => {
     setSelectedSystemType('');
 
     // new per 10.01.24: we navigate to RightsIncludedPage
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.RightsIncluded, {
+    navigate(AuthenticationRoute.RightsIncluded, {
       state: {
         integrationName: integrationName,
         selectedSystemType: selectedSystemType,
