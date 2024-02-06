@@ -1,18 +1,26 @@
 import * as React from 'react';
 
-import { type PageColor, PageContext, type PageSize } from './Context';
 import classes from './Page.module.css';
+import cn from 'classnames';
+import { PageHeader } from './';
 
 export interface PageProps {
   children?: React.ReactNode;
-  color?: PageColor;
-  size?: PageSize;
+  icon?: React.ReactNode;
+  title?: React.ReactNode;
+  color?: 'dark' | 'light' | 'success' | 'danger';
+  size?: 'small' | 'medium';
 }
 
-export const Page = ({ children, color = 'dark', size = 'medium' }: PageProps) => {
+export const Page = ({ children, icon, title, color = 'dark', size = 'medium' }: PageProps) => {
   return (
     <div className={classes.page}>
-      <PageContext.Provider value={{ color, size }}>{children}</PageContext.Provider>
+      {title && (
+        <PageHeader color={color} size={size} icon={icon}>
+          {title}
+        </PageHeader>
+      )}
+      <div className={cn(classes.pageContent, classes[size])}>{children}</div>
     </div>
   );
 };

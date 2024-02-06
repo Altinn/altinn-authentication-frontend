@@ -3,17 +3,17 @@ import axios from 'axios';
 
 import { getCookie } from '@/resources/Cookie/CookieMethods';
 
-export interface SliceState {
+export interface UserInfoSliceState {
   userLoading: boolean;
   userName: string;
   organizationName: string;
   userInfoError: string;
 }
 
-const initialState: SliceState = {
+const initialState: UserInfoSliceState = {
   userLoading: true,
   userName: '',
-  organizationName: '', 
+  organizationName: '',
   userInfoError: '',
 };
 
@@ -41,7 +41,7 @@ const userInfoSlice = createSlice({
       })
       .addCase(fetchUserInfo.rejected, (state, action) => {
         state.userInfoError = action.error.message ?? 'Unknown error';
-      })
+      });
   },
 });
 
