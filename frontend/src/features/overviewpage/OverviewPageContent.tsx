@@ -35,54 +35,6 @@ export const OverviewPageContent = () => {
   const rightsObjektArray = useAppSelector(
     (state) => state.rightsIncludedPage.systemRegisterProductsArray,
   );
-  const compact: boolean = false; // not used yet
-
-  // INNERMOST LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
-  // mock array for ActionTags such as Read, Write, Sign etc:
-  // *********API not ready************
-  // but should be flexible for future new actions, such as Rune´s Launch-Rocket
-  const mockRightsActionsArray = [
-    { name: 'Lese', on: true },
-    { name: 'Skrive', on: false },
-    { name: 'Signere', on: true },
-    { name: 'Les arkiv', on: false },
-    { name: 'Launch-Rune´s-Rocket', on: true },
-  ];
-
-  // The Tags are mapped out of the mockRightsActionsArray
-  const onlyTags = mockRightsActionsArray.map((mockRightsActions, index) => (
-    <div key={index} className={classes.tagSeparator}>
-      <Tag size='small' color={mockRightsActions.on ? 'info' : 'danger'}>
-        {mockRightsActions.name}
-      </Tag>
-    </div>
-  ));
-
-  // MIDDLE LAYER of RightCollectionBar-inside-SystemUserCollectionBar setup
-  // consumes Tag-array as collection
-  // uses custom CollectionBar InnerCollectionBar
-  // Fix-me: colors very restricted via base "class" ActionBar... should port
-  // light blue such as "tertiary", "third" or something later
-  const currentRightsCollectionBars = rightsObjektArray.map((ProductRight, index) => (
-    <div key={index}>
-      <ActionBar
-        title={ProductRight.right}
-        subtitle={ProductRight.serviceProvider}
-        color='neutral'
-        actions={
-          <Button variant='tertiary' size='small'>
-            Fjern rettighet
-            <MinusCircleIcon />
-          </Button>
-        }
-      >
-        <div>
-          <p>Eventuell tekst om rettighetene kommer her.</p>
-          <div className={classes.rightActionTagsWrapper}>{onlyTags}</div>
-        </div>
-      </ActionBar>
-    </div>
-  ));
 
   // Eldre greier: bør byttes ut, men kan trenges for Mobil-optimering
   const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger

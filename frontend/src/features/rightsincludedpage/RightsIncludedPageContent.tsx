@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { Button, Heading } from '@digdir/design-system-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import {
-  postNewSystemUser,
-  CreationRequest,
-  resetPostConfirmation,
-} from '@/rtk/features/creationPage/creationPageSlice';
-import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
-import { Button, Heading } from '@digdir/design-system-react';
+import { postNewSystemUser, CreationRequest } from '@/rtk/features/creationPage/creationPageSlice';
 import classes from './RightsIncludedPageContent.module.css';
-import { useMediaQuery } from '@/resources/hooks';
 import { ActionBar } from '@/components';
 
 export const RightsIncludedPageContent = () => {
@@ -34,41 +28,22 @@ export const RightsIncludedPageContent = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // brukes i h2, ikke vist i Small/mobile view
-  const isSm = useMediaQuery('(max-width: 768px)'); // fix-me: trengs denne?
-  const overviewText = 'Knytt systembruker til systemleverandør';
-
   const handleConfirm = () => {
     // POST 3 useState variables, while the last two not yet implemented
     // Update 08.01.24: agreement with Simen-backend that only two
     // key:value pairs are needed
-    const PostObjekt: CreationRequest = {
+    const postObjekt: CreationRequest = {
       integrationTitle: location.state.integrationName,
       selectedSystemType: location.state.selectedSystemType,
     };
 
-    void dispatch(postNewSystemUser(PostObjekt)).then(() => {
+    void dispatch(postNewSystemUser(postObjekt)).then(() => {
       navigate(AuthenticationRoute.Overview);
     });
   };
 
   const handleReject = () => {
     navigate(AuthenticationRoute.Overview);
-  };
-
-  // Note: array key set to ProductRight.right, which should be unique
-  // additionalText is not used yet
-  // and we probably need a CollectionBar without button at right side
-  const reduxRightsCollectionBarArray = () => {
-    return reduxObjektArray.map((ProductRight) => (
-      <div key={ProductRight.right}>
-        <ActionBar
-          title={ProductRight.right}
-          subtitle={`${ProductRight.serviceProvider}`}
-          color={'neutral'}
-        />
-      </div>
-    ));
   };
 
   return (
@@ -78,7 +53,14 @@ export const RightsIncludedPageContent = () => {
       </Heading>
       <p className={classes.contentText}>{t('authent_includedrightspage.content_text')}</p>
       <div>
-        <div>{reduxRightsCollectionBarArray()}</div>
+        {reduxObjektArray.map((ProductRight) => (
+          <ActionBar
+            key={ProductRight.right}
+            title={ProductRight.right}
+            subtitle={`${ProductRight.serviceProvider}`}
+            color={'neutral'}
+          />
+        ))}
         <div className={classes.buttonContainer}>
           <Button size='small' onClick={handleConfirm}>
             {t('authent_includedrightspage.confirm_button')}

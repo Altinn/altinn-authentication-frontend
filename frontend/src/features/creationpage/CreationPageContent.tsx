@@ -1,14 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthenticationRoute } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import {
-  postNewSystemUser,
-  CreationRequest,
-  resetPostConfirmation,
-} from '@/rtk/features/creationPage/creationPageSlice';
-import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
 import { Textfield, Button, HelpText, Heading, Combobox } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
 
@@ -25,11 +19,11 @@ export const CreationPageContent = () => {
 
   const { t } = useTranslation('common');
 
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux
+  const vendorsList = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
+  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
 
-  // brukes i h2, ikke vist i Small/mobile view
-  const overviewText = 'Knytt systembruker til systemleverandør';
+  const navigate = useNavigate();
 
   const handleReject = () => {
     navigate(AuthenticationRoute.Overview);
@@ -52,17 +46,11 @@ export const CreationPageContent = () => {
     });
   };
 
-  // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux
-  const vendorsList = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
-
   // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
   // Fix-me: Bør sjekke om DesignSystem dokumentasjon er oppdatert
   const handleChangeInput = (val: string) => {
     setSelectedSystemType(val);
   };
-
-  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
-  const postConfirmationId = useAppSelector((state) => state.creationPage.postConfirmationId);
 
   return (
     <div className={classes.creationPageContainer}>

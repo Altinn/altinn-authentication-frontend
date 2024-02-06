@@ -37,7 +37,7 @@ const initialState: OverviewPageSliceState = {
 // URL er hardkodet til GET "0" i Swagger ---> fix-me senere
 export const fetchOverviewPage = createAsyncThunk('overview/fetchOverviewPageSlice', async () => {
   return await axios
-    .get('/authfront/api/v1/systemuser/0')
+    .get('/authfront/api/v1/systemuser')
     .then((response) => response.data)
     .catch((error) => {
       console.error(error);
