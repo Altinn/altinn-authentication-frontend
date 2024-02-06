@@ -1,3 +1,6 @@
+import '@altinn/figma-design-tokens/dist/tokens.css';
+import '@digdir/design-system-tokens/brand/altinn/tokens.css';
+
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
@@ -49,15 +52,14 @@ use(LanguageDetector)
       ReactDOM.createRoot(document.getElementById('root')).render(
         // if you ever wonder why the components render twice it's because of React.StrictMode
         // comment it out if it causes trouble: https://react.dev/reference/react/StrictMode
-        
-          <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-              <LoadLocalizations>
-                
-                <RouterProvider router={Router}></RouterProvider>
-              </LoadLocalizations>
-            </QueryClientProvider>
-          </Provider>,
+
+        <Provider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <LoadLocalizations>
+              <RouterProvider router={Router}></RouterProvider>
+            </LoadLocalizations>
+          </QueryClientProvider>
+        </Provider>,
       );
     },
   );

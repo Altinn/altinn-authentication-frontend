@@ -14,8 +14,6 @@ export const ActionBarIcon = () => {
     },
   ];
   const props = {
-    height: 30,
-    width: 30,
     className: cn(iconClassnames, classes[size]),
     'data-testid': 'action-bar-icon',
   };
@@ -25,15 +23,9 @@ export const ActionBarIcon = () => {
   return (
     <>
       {isLarge ? (
-        <ChevronDownCircleFillIcon
-          {...props}
-          aria-hidden
-        />
+        <ChevronDownCircleFillIcon {...props} aria-hidden />
       ) : (
-        <Chevron
-          {...props}
-          aria-hidden
-        />
+        <Chevron {...props} aria-hidden />
       )}
     </>
   );

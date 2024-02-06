@@ -3,3 +3,17 @@
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
 }
+
+.pageContent {
+  background-color: var(--fds-semantic-background-default);
+  box-sizing: inherit;
+  padding: var(--component-page-content-padding);
+}
+
+.pageContent.small {
+  --component-page-content-padding: 0.5rem;
+}
+
+.pageContent.medium {
+  --component-page-content-padding: 3rem;
+}
