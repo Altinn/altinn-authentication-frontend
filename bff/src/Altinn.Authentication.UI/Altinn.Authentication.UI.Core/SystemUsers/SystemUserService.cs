@@ -1,6 +1,4 @@
-﻿using System.Reflection.Metadata.Ecma335;
-
-namespace Altinn.Authentication.UI.Core.SystemUsers;
+﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 public class SystemUserService : ISystemUserService
 {
