@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as CloseIcon } from '@/assets/RedClose.svg';
 import { getCookie } from '@/resources/Cookie/CookieMethods';

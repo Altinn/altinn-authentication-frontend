@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useRouteError } from 'react-router-dom';
-import * as React from 'react';
+import React from 'react';
 
 import { Page, PageContainer } from '@/components';
 import { ReactComponent as SeagullIcon } from '@/assets/Seagull.svg';

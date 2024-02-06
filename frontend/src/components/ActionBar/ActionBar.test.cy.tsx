@@ -3,7 +3,7 @@ import '@digdir/design-system-tokens/brand/altinn/tokens.css'; // need to import
 import { Provider } from 'react-redux';
 import { mount } from 'cypress/react18';
 import { Button } from '@digdir/design-system-react';
-import * as React from 'react';
+import React from 'react';
 
 import store from '@/rtk/app/store';
 import { ActionBar, type ActionBarProps } from '@/components';
@@ -38,14 +38,7 @@ const nonExpandableActionBar = (props: Partial<ActionBarProps> = {}) => (
 );
 
 const sizes: Array<'small' | 'medium' | 'large'> = ['small', 'medium', 'large'];
-const colors: Array<'light' | 'dark' | 'neutral' | 'warning' | 'success' | 'danger'> = [
-  'light',
-  'dark',
-  'neutral',
-  'warning',
-  'success',
-  'danger',
-];
+const colors: Array<'light' | 'neutral'> = ['light', 'neutral'];
 
 describe('ActionBar', () => {
   describe('Variants', () => {
@@ -163,10 +156,7 @@ describe('ActionBar', () => {
       const handleActionClickSpy = cy.spy(handleActionClick).as('handleActionClickSpy');
 
       const actionButton = (
-        <Button
-          onClick={handleActionClickSpy}
-          aria-label='add'
-        >
+        <Button onClick={handleActionClickSpy} aria-label='add'>
           Placeholder
         </Button>
       );

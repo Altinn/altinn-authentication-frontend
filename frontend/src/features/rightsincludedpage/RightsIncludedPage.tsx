@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import * as React from 'react';
+import React from 'react';
 import { Page, PageContainer } from '@/components';
 import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
 import { useMediaQuery } from '@/resources/hooks';

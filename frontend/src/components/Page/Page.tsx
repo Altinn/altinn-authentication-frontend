@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import classes from './Page.module.css';
 import cn from 'classnames';
