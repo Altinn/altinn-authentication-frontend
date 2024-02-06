@@ -11,7 +11,6 @@
 /// When the "Real" Authentication Component implements SystemUser, this model should be exposed in a nuget.
 /// </summary>
 public sealed class SystemUserReal
-
 {
     /// <summary>
     /// GUID created by the "real" Authentication Component
@@ -56,5 +55,4 @@ public sealed class SystemUserReal
     /// and the need to maintain consistent logging, and possible compliance rules.
     /// </summary>
     public bool IsDeleted { get; set; }
-
 }

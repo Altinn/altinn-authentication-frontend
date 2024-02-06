@@ -32,12 +32,27 @@ public class SystemUserController : ControllerBase
 
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpGet("{id}")]
-    public async Task<ActionResult> GetSystemUserListForLoggedInUser(int id, CancellationToken cancellationToken = default)
+    [HttpGet]
+    public async Task<ActionResult> GetSystemUserListForLoggedInUser(CancellationToken cancellationToken = default)
     {
-        var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(id, cancellationToken);
+        var (partyId, actionResult) = ResolvePartyId();
+        if (partyId == 0) return actionResult;
+
+        var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(partyId, cancellationToken);
 
         return Ok(list);
+    }
+
+    //[Authorize]
+    [HttpGet("{id}")]
+    public async Task<ActionResult> GetSystemUserDetailsById(Guid guid, CancellationToken cancellationToken)
+    {
+        var (partyId, actionResult) = ResolvePartyId();
+        if (partyId == 0) return actionResult;
+
+        SystemUserDTO? details = await _systemUserService.GetSpecificSystemUserDTO(partyId, guid, cancellationToken);
+
+        return Ok(details);
     }
 
     //https://brokul.dev/sending-files-and-additional-data-using-httpclient-in-net-core
@@ -120,6 +135,27 @@ public class SystemUserController : ControllerBase
     public void Delete(Guid id, CancellationToken cancellationToken = default)
     {
         _systemUserService.DeleteSystemUser(id, cancellationToken);
+    }
+
+    private (int partyId, ActionResult actionResult) ResolvePartyId()
+    { 
+        if (_httpContextAccessor.HttpContext is null) 
+        {
+            return (0, StatusCode(500));
+        }
+
+        int _userid = AuthenticationHelper.GetUserId(_httpContextAccessor.HttpContext);
+        if (_userid == 0) {
+            return (0, BadRequest("Userid not provided in the context."));            
+        }
+
+        int _partyId = AuthenticationHelper.GetUsersPartyId(_httpContextAccessor.HttpContext);
+        if (_partyId == 0)
+        {
+            return (0, BadRequest("PartyId not provided in the context."));
+        }
+
+        return (_partyId, Ok(_partyId));
     }
 }
 
