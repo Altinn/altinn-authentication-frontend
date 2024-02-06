@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationPath } from '@/routes/paths';
+import { AuthenticationRoute } from '@/routes/paths';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import {
   storeCheckbox1,
@@ -11,7 +11,7 @@ import { Button, Checkbox, Heading } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import classes from './DirectConsentPageContent.module.css';
 import { useTranslation } from 'react-i18next';
-import { RightsCollectionBar } from '@/components';
+import { ActionBar } from '@/components';
 
 export const DirectConsentPageContent = () => {
   const [checkbox1, setCheckbox1] = useState(false);
@@ -30,7 +30,7 @@ export const DirectConsentPageContent = () => {
 
   // for now, return to OverviewPage: design not ready
   const handleReject = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   // confirm is a temporary solution, as backend and Maskinporten is not ready
@@ -41,7 +41,7 @@ export const DirectConsentPageContent = () => {
       selectedSystemType: 'direct_consent_system : Direct Consent System',
     };
     void dispatch(postNewSystemUser(PostObjekt));
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   const handleCheck1 = () => {
@@ -68,15 +68,12 @@ export const DirectConsentPageContent = () => {
   const reduxRightsCollectionBarArray = () => {
     return reduxObjektArray.map((ProductRight) => (
       <div key={ProductRight.right}>
-        <RightsCollectionBar
+        <ActionBar
           title={ProductRight.right}
           subtitle={`${ProductRight.serviceProvider}`}
           additionalText={''}
           color={'neutral'}
-          compact={isSm}
-          proceedToPath={'/fixpath/'}
         />
-        <div className={classes.rightsSeparator}> </div>
       </div>
     ));
   };

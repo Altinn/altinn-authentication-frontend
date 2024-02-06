@@ -1,7 +1,6 @@
 import React, { useId, useState, forwardRef } from 'react';
 
-import type { ClickHandler } from './Context';
-import { ActionBarContext } from './Context';
+import { type ClickHandler, ActionBarContext } from './Context';
 import { ActionBarContent } from './ActionBarContent';
 import { ActionBarHeader } from './ActionBarHeader';
 
@@ -16,7 +15,7 @@ export interface ActionBarProps {
   children?: React.ReactNode;
 
   /** The color variant of the ActionBar. */
-  color?: 'light' | 'dark' | 'neutral' | 'warning' | 'success' | 'danger';
+  color?: 'light' | 'neutral';
 
   /** The size variant of the ActionBar. */
   size?: 'small' | 'medium' | 'large';

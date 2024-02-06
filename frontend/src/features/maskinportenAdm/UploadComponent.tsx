@@ -9,7 +9,7 @@ import {
   clearStateAfterApi,
 } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
 import { useNavigate, Link } from 'react-router-dom';
-import { AuthenticationPath } from '@/routes/paths';
+import { AuthenticationRoute } from '@/routes/paths';
 
 // FIX-ME: om fil er lastet opp, og bruker navigerer
 // til annen side, og kommer tilbake: ER FIKSET
@@ -70,7 +70,7 @@ export const UploadComponent = ({ opprettKnappBlokkert }: IUploadComponentProps)
   const handleAvbryt = () => {
     // om man trykker Avbryt etter å ha lastet opp fil, må Redux også tømmes OK
     dispatch(clearStateAfterApi());
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   // sender fil til BFF om bruker trykker Opprett:
@@ -112,7 +112,7 @@ export const UploadComponent = ({ opprettKnappBlokkert }: IUploadComponentProps)
     // Tømmer Redux
     dispatch(clearStateAfterApi());
     // Navigerer så til Hovedside: burde oppdatere Redux også
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+    navigate(AuthenticationRoute.Overview);
   };
 
   return (
