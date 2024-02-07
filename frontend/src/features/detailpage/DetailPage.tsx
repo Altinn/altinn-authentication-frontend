@@ -1,26 +1,17 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Page, PageContainer } from '@/components';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
-import React, { useEffect, useState } from 'react';
 import { DetailPageContent } from './DetailPageContent';
 import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
 import { useMediaQuery } from '@/resources/hooks';
-import { useParams } from 'react-router-dom';
-import { fetchSystemRegisterProducts } from '@/rtk/features/rightsIncludedPage/rightsIncludedPageSlice';
+import { useGetSystemUserQuery } from '@/rtk/features/systemUserApi';
 
 export const DetailPage = (): React.ReactNode => {
-  const dispatch = useAppDispatch();
   const isSm = useMediaQuery('(max-width: 768px)');
   const { id } = useParams();
 
-  const systemUserArray = useAppSelector((state) => state.overviewPage.systemUserArray);
+  const { data: systemUser } = useGetSystemUserQuery(id || '');
 
-  useEffect(() => {
-    dispatch(fetchSystemRegisterProducts()); // TODO, move?
-    dispatch(fetchOverviewPage());
-  }, [dispatch]);
-
-  const systemUser = systemUserArray?.find((user) => user.id === id);
   return (
     <PageContainer>
       <Page

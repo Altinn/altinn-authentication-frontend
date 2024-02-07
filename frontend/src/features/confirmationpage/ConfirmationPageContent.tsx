@@ -1,9 +1,8 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationRoute } from '@/routes/paths';
-import { useAppSelector } from '@/rtk/app/hooks';
+import { useTranslation } from 'react-i18next';
 import { Button, Heading } from '@digdir/design-system-react';
+import { AuthenticationRoute } from '@/routes/paths';
 import classes from './ConfirmationPageContent.module.css';
 
 export const ConfirmationPageContent = () => {
@@ -17,15 +16,12 @@ export const ConfirmationPageContent = () => {
     navigate(AuthenticationRoute.Overview);
   };
 
-  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
-
   return (
     <div>
       <Heading level={2} size='small'>
         {t('authent_confirmationpage.sub_title')}
       </Heading>
       <p>{t('authent_confirmationpage.content_text')}</p>
-      {!postConfirmed && <p>Ikke helt bekreftet ennå: må håndteres</p>}
       <div className={classes.buttonContainer}>
         <Button variant='primary' size='small' onClick={handleReject}>
           {t('authent_confirmationpage.add_rights_button')}

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { AuthenticationRoute } from '@/routes/paths';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { Textfield, Button, HelpText, Heading, Combobox } from '@digdir/design-system-react';
+import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
+import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 
 export const CreationPageContent = () => {
   // NB! This page now (10.01.24) should go to RightsIncludedPageContent before
@@ -17,11 +17,8 @@ export const CreationPageContent = () => {
 
   // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
+  const { data: vendors } = useGetVendorsQuery();
   const { t } = useTranslation('common');
-
-  // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux
-  const vendorsList = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
-  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
 
   const navigate = useNavigate();
 
@@ -85,7 +82,7 @@ export const CreationPageContent = () => {
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
         >
-          {vendorsList.map((vendor) => {
+          {vendors?.map((vendor) => {
             return (
               <Combobox.Option
                 key={vendor.systemTypeId}
@@ -98,17 +95,14 @@ export const CreationPageContent = () => {
           })}
         </Combobox>
       </div>
-
-      {!postConfirmed && (
-        <div className={classes.buttonContainer}>
-          <Button variant='primary' size='small' onClick={handleConfirm}>
-            {t('authent_creationpage.confirm_button')}
-          </Button>
-          <Button variant='tertiary' size='small' onClick={handleReject}>
-            {t('authent_creationpage.cancel_button')}
-          </Button>
-        </div>
-      )}
+      <div className={classes.buttonContainer}>
+        <Button variant='primary' size='small' onClick={handleConfirm}>
+          {t('authent_creationpage.confirm_button')}
+        </Button>
+        <Button variant='tertiary' size='small' onClick={handleReject}>
+          {t('authent_creationpage.cancel_button')}
+        </Button>
+      </div>
     </div>
   );
 };

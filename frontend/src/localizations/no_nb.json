@@ -11,7 +11,7 @@
     "error_status_code": "Feilmeldingens statuskode",
     "error_time_stamp": "Tidsstempel",
     "date": "Dato",
-    "time":"Tidspunkt",
+    "time": "Tidspunkt",
     "reset_choices": "Nullstill valg",
     "apply": "Bruk",
     "search": "Søk",
@@ -21,7 +21,7 @@
     "to": "Til",
     "proceed": "Gå videre",
     "added": "lagt til",
-    "previous":"Forrige",
+    "previous": "Forrige",
     "next": "Neste",
     "general_error_title": "Beklager, men det har skjedd en feil",
     "general_error_paragraph": "Vi klarer ikke å hente informasjonen du ser etter akkurat nå. Vennligst prøv igjen senere. Om problemet vedvarer, ta kontakt med Altinn Servicedesk.",
@@ -63,12 +63,11 @@
     "pull_down_menu_label": "Velg systemleverandør og system",
     "confirm_button": "Gå videre",
     "cancel_button": "Avbryt"
-    
   },
   "authent_includedrightspage": {
     "banner_title": "Inkluderte rettigheter",
-    "sub_title": "Systembrukeren vil få disse rettighetene",
-    "content_text": "Disse rettighetene er inkludert. Har du behov for andre rettigheter, kan du legge til flere senere. Du kan også enkelt administrere systembrukere på Altinn senere.",  
+    "sub_title": "Systembrukeren \"{{name}}\" vil få disse rettighetene",
+    "content_text": "Disse rettighetene er inkludert. Har du behov for andre rettigheter, kan du legge til flere senere. Du kan også enkelt administrere systembrukere på Altinn senere.",
     "confirm_button": "Opprett systembruker",
     "cancel_button": "Avbryt"
   },
@@ -78,7 +77,7 @@
     "sub_title": "Du har nå opprettet systembrukeren Turboskatt, som er knyttet til Visma Accounting",
     "content_text": "Du kan velge å gå videre og gi systembrukeren rettigheter, eller avslutte og komme tilbake senere.",
     "add_rights_button": "Legg til rettigheter",
-    "add_no_rights_button": "Legg til rettigheter senere" 
+    "add_no_rights_button": "Legg til rettigheter senere"
   },
   "authent_directconsentpage": {
     "banner_title": "Gi tilgang til system",
@@ -88,9 +87,9 @@
     "add_consent_checkbox1": "Visma AS kan behandle data for Olsen Regnskap AS",
     "add_consent_checkbox2": "Visma AS kan behandle data for kunder av Olsen Regnskap AS",
     "add_consent_button1": "Ja, jeg gir samtykke",
-    "add_consent_button2": "Avbryt" 
+    "add_consent_button2": "Avbryt"
   },
-  
+
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
     "auth_overview_text_administrere": "Her kan du administrere dine systembrukere",
@@ -100,10 +99,10 @@
     "auth_edit_button_systembruker": "Rediger systembruker",
 
     "auth_overview_text_creation": "Opprett ny systembruker for systemintegrasjon ved bruk av Maskinporten",
-    
+
     "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
   },
-    
+
   "api_delegation": {
     "businesses": "Virksomheter",
     "delegated_apis": "Delegerte API",
@@ -129,8 +128,8 @@
     "buisness_search_notfound_content": "Dersom du er usikker, kan du gjøre et søk på navn på sidene til",
     "buisness_search_info_title": "Ny virksomhet?",
     "buisness_search_info_content": "Søk etter virksomheten du ønsker å delegere til ved å fylle inn virksomhetens komplette 9-sifrede organisasjonsnummer",
-    "businesses_going_to_get_access":"Virksomheter som skal få rettighet:",
-    "previous":"Forrige",
+    "businesses_going_to_get_access": "Virksomheter som skal få rettighet:",
+    "previous": "Forrige",
     "next": "Neste",
     "add_new_business": "Legg til ny virksomhet",
     "card_title": "Du har tidligere opprettet disse systembrukerne",

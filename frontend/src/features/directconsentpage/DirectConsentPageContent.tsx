@@ -3,20 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, Heading } from '@digdir/design-system-react';
 import { AuthenticationRoute } from '@/routes/paths';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { postNewSystemUser, CreationRequest } from '@/rtk/features/creationPage/creationPageSlice';
 import classes from './DirectConsentPageContent.module.css';
 import { ActionBar } from '@/components';
+import { useCreateSystemUserMutation, useGetRightsQuery } from '@/rtk/features/systemUserApi';
 
 export const DirectConsentPageContent = () => {
   const { t } = useTranslation('common');
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch(); // Redux for DirectConsentPage: design not ready
-
-  const reduxObjektArray = useAppSelector(
-    (state) => state.rightsIncludedPage.systemRegisterProductsArray,
-  );
+  const [postNewSystemUser] = useCreateSystemUserMutation();
+  const { data: rights } = useGetRightsQuery();
 
   // for now, return to OverviewPage: design not ready
   const handleReject = () => {
@@ -26,12 +22,13 @@ export const DirectConsentPageContent = () => {
   // confirm is a temporary solution, as backend and Maskinporten is not ready
   // is to dispatch a mock systemUser object and return to OverviewPage
   const handleConfirm = () => {
-    const PostObjekt: CreationRequest = {
+    const postObject = {
       integrationTitle: 'Direkte Tilgangsløsning',
-      selectedSystemType: 'direct_consent_system : Direct Consent System',
+      selectedSystemType: 'direct_consent_system',
     };
-    void dispatch(postNewSystemUser(PostObjekt));
-    navigate(AuthenticationRoute.Overview);
+    postNewSystemUser(postObject)
+      .unwrap()
+      .then(() => navigate(AuthenticationRoute.Overview));
   };
 
   return (
@@ -47,7 +44,7 @@ export const DirectConsentPageContent = () => {
           </Heading>
           <p>{t('authent_includedrightspage.content_text')}</p>
           <div>
-            {reduxObjektArray.map((productRight) => (
+            {rights?.map((productRight) => (
               <ActionBar
                 key={productRight.right}
                 title={productRight.right}

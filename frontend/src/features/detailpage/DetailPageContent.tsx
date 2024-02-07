@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Button,
@@ -18,27 +18,37 @@ import {
 } from '@navikt/aksel-icons';
 import classes from './DetailPage.module.css';
 import { ActionBar } from '@/components';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { SystemUserObjectDTO } from '@/rtk/features/overviewPage/overviewPageSlice';
 import { AuthenticationRoute } from '@/routes/paths';
-import { SystemRegisterProductObjectDTO } from '@/rtk/features/rightsIncludedPage/rightsIncludedPageSlice';
+import {
+  useDeleteSystemuserMutation,
+  useGetRightsQuery,
+  useUpdateSystemuserMutation,
+} from '@/rtk/features/systemUserApi';
+import { SystemRight, SystemUser } from '@/types';
 
 interface DetailPageContentProps {
-  systemUser: SystemUserObjectDTO;
+  systemUser: SystemUser;
 }
 
 export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
+  const navigate = useNavigate();
 
-  const rightsObjektArray = useAppSelector(
-    (state) => state.rightsIncludedPage.systemRegisterProductsArray,
-  );
-  const [selectedRights, setSelectedRights] =
-    useState<(SystemRegisterProductObjectDTO & { deleted?: boolean })[]>(rightsObjektArray);
+  const { data: rights } = useGetRightsQuery();
+  const [deleteSystemUser, { isLoading: isDeleting }] = useDeleteSystemuserMutation();
+  const [updateSystemUser, {}] = useUpdateSystemuserMutation();
+
+  useEffect(() => {
+    if (rights) {
+      setSelectedRights(rights);
+    }
+  }, [rights]);
+
+  const [selectedRights, setSelectedRights] = useState<(SystemRight & { deleted?: boolean })[]>([]);
   const [name, setName] = useState<string>(systemUser.integrationTitle);
 
   const toggleAction = (
-    right: SystemRegisterProductObjectDTO & { deleted?: boolean },
+    right: SystemRight & { deleted?: boolean },
     action: { name: string; on: boolean },
   ): void => {
     setSelectedRights((oldRights) => {
@@ -66,9 +76,11 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         <Modal.Footer>
           <Button
             color='danger'
-            onClick={() => {
-              /** */
-            }}
+            onClick={() =>
+              deleteSystemUser(systemUser.id)
+                .unwrap()
+                .then(() => navigate(AuthenticationRoute.Overview))
+            }
           >
             Slett systembruker
           </Button>
@@ -168,7 +180,10 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
       <div className={classes.buttonContainer}>
         <Button
           onClick={() => {
-            /** */
+            updateSystemUser({
+              ...systemUser,
+              integrationTitle: name,
+            });
           }}
         >
           Lagre endringer
