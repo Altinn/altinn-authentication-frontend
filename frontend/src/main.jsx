@@ -1,8 +1,7 @@
 import '@altinn/figma-design-tokens/dist/tokens.css';
 import '@digdir/design-system-tokens/brand/altinn/tokens.css';
-
-import * as React from 'react';
-import * as ReactDOM from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { RouterProvider } from 'react-router-dom';
 import { initReactI18next } from 'react-i18next';

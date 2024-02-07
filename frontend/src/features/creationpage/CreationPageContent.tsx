@@ -5,48 +5,37 @@ import { Textfield, Button, HelpText, Heading, Combobox } from '@digdir/design-s
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
+import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
+import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
 
 export const CreationPageContent = () => {
-  // NB! This page now (10.01.24) should go to RightsIncludedPageContent before
-  // actually creating a new systemUser, but since the button there returns
-  // to OverviewPageContent, in effect the user sees no difference.
+  const dispatch = useAppDispatch();
 
-  // Local State variables for input-boxes and Nedtrekksmeny:
-  const [integrationName, setIntegrationName] = useState('');
-  const [selectedSystemType, setSelectedSystemType] = useState('');
-
-  // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
+  const createValues = useAppSelector((state) => state.createSystemUser);
+  const [integrationTitle, setIntegrationTitle] = useState<string>(
+    createValues.integrationTitle ?? '',
+  );
+  const [selectedSystemType, setSelectedSystemType] = useState<string>(
+    createValues.selectedSystemType ?? '',
+  );
 
   const { data: vendors } = useGetVendorsQuery();
   const { t } = useTranslation('common');
 
   const navigate = useNavigate();
 
-  const handleReject = () => {
+  const handleCancel = () => {
     navigate(AuthenticationRoute.Overview);
   };
 
   const handleConfirm = () => {
-    // Clean up local State variables before returning to main page, was old solution
-    // update 07.12.23: New Design of 24.11.23 specifies navigation
-    // to ConfirmationPage: OK, but if CreationRequest fails we need to
-    // notify the user, but perhaps we could do it on the ConfirmationPage?
-    setIntegrationName('');
-    setSelectedSystemType('');
-
-    // new per 10.01.24: we navigate to RightsIncludedPage
-    navigate(AuthenticationRoute.RightsIncluded, {
-      state: {
-        integrationName: integrationName,
+    dispatch(
+      setCreateValues({
+        integrationTitle: integrationTitle,
         selectedSystemType: selectedSystemType,
-      },
-    });
-  };
-
-  // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
-  // Fix-me: Bør sjekke om DesignSystem dokumentasjon er oppdatert
-  const handleChangeInput = (val: string) => {
-    setSelectedSystemType(val);
+      }),
+    );
+    navigate(AuthenticationRoute.RightsIncluded);
   };
 
   return (
@@ -61,8 +50,8 @@ export const CreationPageContent = () => {
               </HelpText>
             </div>
           }
-          value={integrationName}
-          onChange={(e) => setIntegrationName(e.target.value)}
+          value={integrationTitle}
+          onChange={(e) => setIntegrationTitle(e.target.value)}
         />
       </div>
       <div>
@@ -77,7 +66,7 @@ export const CreationPageContent = () => {
           label={t('authent_creationpage.pull_down_menu_label')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
-              handleChangeInput(newValue[0]);
+              setSelectedSystemType(newValue[0]);
             }
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
@@ -96,10 +85,15 @@ export const CreationPageContent = () => {
         </Combobox>
       </div>
       <div className={classes.buttonContainer}>
-        <Button variant='primary' size='small' onClick={handleConfirm}>
+        <Button
+          variant='primary'
+          size='small'
+          onClick={handleConfirm}
+          disabled={!integrationTitle.trim() || !selectedSystemType}
+        >
           {t('authent_creationpage.confirm_button')}
         </Button>
-        <Button variant='tertiary' size='small' onClick={handleReject}>
+        <Button variant='tertiary' size='small' onClick={handleCancel}>
           {t('authent_creationpage.cancel_button')}
         </Button>
       </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { lagreNavn, lagreBeskrivelse } from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
+import { lagreNavn, lagreBeskrivelse } from '@/rtk/features/maskinportenPageSlice';
 import { Heading, Textfield } from '@digdir/design-system-react';
 import classes from './MaskinportenAdmPageContent.module.css';
 import { UploadComponent } from './UploadComponent';

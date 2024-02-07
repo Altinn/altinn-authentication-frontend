@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import {
   bekreftJwkTilgjengelighet,
   clearStateAfterApi,
-} from '@/rtk/features/maskinportenPage/maskinportenPageSlice';
+} from '@/rtk/features/maskinportenPageSlice';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthenticationRoute } from '@/routes/paths';
 

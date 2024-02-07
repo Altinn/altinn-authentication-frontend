@@ -1,23 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { AuthenticationRoute } from '@/routes/paths';
 import cn from 'classnames';
 import classes from './OverviewPageContent.module.css';
 import { ActionBar } from '@/components';
-import { MinusCircleIcon, PlusIcon, PencilWritingIcon } from '@navikt/aksel-icons';
+import { PlusIcon, PencilWritingIcon } from '@navikt/aksel-icons';
 import { Button, Heading, Link } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
+import { useAppDispatch } from '@/rtk/app/hooks';
+import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
 
 export const OverviewPageContent = () => {
   // Fix-me: CollectionBar links go nowhere yet
-
   const { data: systemUsers } = useGetSystemUsersQuery();
   const { data: rights } = useGetRightsQuery();
 
+  const dispatch = useAppDispatch();
   const { t } = useTranslation('common'); // not used yet
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // reset create wizard values when overviewPage is rendered; the user ends up here after create, cancel or back navigation
+    dispatch(setCreateValues({ integrationTitle: '', selectedSystemType: '' }));
+  }, [dispatch]);
 
   // Eldre greier: bør byttes ut, men kan trenges for Mobil-optimering
   const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger

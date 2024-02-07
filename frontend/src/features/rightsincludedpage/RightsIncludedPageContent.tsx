@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Button, Heading } from '@digdir/design-system-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
 import { ActionBar } from '@/components';
 import { useCreateSystemUserMutation, useGetRightsQuery } from '@/rtk/features/systemUserApi';
+import { useAppSelector } from '@/rtk/app/hooks';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -13,42 +14,46 @@ export const RightsIncludedPageContent = () => {
   // Merk! Det er nå denne RightsIncludedPageContent som skal kjøre POST til backend
   // og ikke CreationPageContent som tidligere (men den kjører foreløpig fortsatt POST)
 
-  const location = useLocation();
   const { t } = useTranslation('common');
   const [postNewSystemUser] = useCreateSystemUserMutation();
   const { data: rights } = useGetRightsQuery();
 
+  const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
+  const selectedSystemType = useAppSelector((state) => state.createSystemUser.selectedSystemType);
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!location.state?.integrationName || !location.state?.selectedSystemType) {
+    if (!integrationTitle || !selectedSystemType) {
       navigate(AuthenticationRoute.Creation);
     }
-  }, [location.state?.integrationName, location.state?.selectedSystemType]);
+  }, [integrationTitle, selectedSystemType]);
+
+  const navigateToOverview = (): void => {
+    navigate(AuthenticationRoute.Overview);
+  };
 
   const handleConfirm = () => {
     // POST 3 useState variables, while the last two not yet implemented
     // Update 08.01.24: agreement with Simen-backend that only two
     // key:value pairs are needed
     const postObjekt = {
-      integrationTitle: location.state.integrationName,
-      selectedSystemType: location.state.selectedSystemType,
+      integrationTitle: integrationTitle,
+      selectedSystemType: selectedSystemType,
     };
 
-    postNewSystemUser(postObjekt)
-      .unwrap()
-      .then(() => navigate(AuthenticationRoute.Overview));
+    postNewSystemUser(postObjekt).unwrap().then(navigateToOverview);
   };
 
   const handleReject = () => {
-    navigate(AuthenticationRoute.Overview);
+    navigateToOverview();
   };
 
   return (
     <div>
       <Heading level={2} size='small'>
         {t('authent_includedrightspage.sub_title', {
-          name: location.state?.integrationName,
+          name: integrationTitle,
         })}
       </Heading>
       <p className={classes.contentText}>{t('authent_includedrightspage.content_text')}</p>

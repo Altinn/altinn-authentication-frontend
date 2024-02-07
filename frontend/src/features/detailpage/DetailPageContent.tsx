@@ -185,6 +185,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
               integrationTitle: name,
             });
           }}
+          disabled={!name.trim()}
         >
           Lagre endringer
         </Button>
