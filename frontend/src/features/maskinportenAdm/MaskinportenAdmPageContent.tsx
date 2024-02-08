@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Heading, Paragraph, Textfield } from '@digdir/design-system-react';
+import { Alert, Button, Heading, Paragraph, Textfield } from '@digdir/design-system-react';
 import classes from './MaskinportenAdmPageContent.module.css';
 import { useUploadJwkMutation } from '@/rtk/features/maskinportenApi';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ export const MaskinportenAdmPageContent = () => {
   const [description, setDescription] = useState<string>('');
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
 
-  const [uploadJwk] = useUploadJwkMutation();
+  const [uploadJwk, { error: isUploadError }] = useUploadJwkMutation();
 
   const handleKlikkSynligKnapp = () => {
     if (inputRefSkjultKnapp) {
@@ -93,13 +93,14 @@ export const MaskinportenAdmPageContent = () => {
             integrasjonen slutte å virke.
           </Paragraph>
         </div>
+        {isUploadError && <Alert severity='danger'>Kunne ikke opprette integrasjon</Alert>}
         <div className={classes.buttonContainer}>
           <Button
             size='small'
             onClick={handleConfirm}
             disabled={!name || !description || !uploadedFile}
           >
-            Opprett
+            Opprett integrasjon
           </Button>
           <Button variant='tertiary' size='small' onClick={handleCancel}>
             Avbryt

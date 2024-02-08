@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Heading } from '@digdir/design-system-react';
+import { Alert, Button, Heading } from '@digdir/design-system-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './DirectConsentPageContent.module.css';
 import { ActionBar } from '@/components';
@@ -11,8 +11,8 @@ export const DirectConsentPageContent = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const [postNewSystemUser] = useCreateSystemUserMutation();
-  const { data: rights } = useGetRightsQuery();
+  const [postNewSystemUser, { isError: isCreateSystemUserError }] = useCreateSystemUserMutation();
+  const { data: rights, isError: isGetRightsError } = useGetRightsQuery();
 
   // for now, return to OverviewPage: design not ready
   const handleReject = () => {
@@ -43,6 +43,7 @@ export const DirectConsentPageContent = () => {
             {t('authent_includedrightspage.sub_title')}
           </Heading>
           <p>{t('authent_includedrightspage.content_text')}</p>
+          {isGetRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
           <div>
             {rights?.map((productRight) => (
               <ActionBar
@@ -54,6 +55,9 @@ export const DirectConsentPageContent = () => {
               />
             ))}
           </div>
+          {isCreateSystemUserError && (
+            <Alert severity='danger'>Kunne ikke opprette systembruker</Alert>
+          )}
           <div className={classes.buttonContainer}>
             <Button size='small' onClick={handleConfirm}>
               {t('authent_directconsentpage.add_consent_button1')}

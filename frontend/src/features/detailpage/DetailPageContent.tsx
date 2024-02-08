@@ -8,6 +8,7 @@ import {
   Paragraph,
   Link,
   Textfield,
+  Alert,
 } from '@digdir/design-system-react';
 import {
   MinusCircleIcon,
@@ -34,9 +35,9 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
   const navigate = useNavigate();
 
-  const { data: rights } = useGetRightsQuery();
-  const [deleteSystemUser, { isLoading: isDeleting }] = useDeleteSystemuserMutation();
-  const [updateSystemUser, {}] = useUpdateSystemuserMutation();
+  const { data: rights, isError: isLoadRightsError } = useGetRightsQuery();
+  const [deleteSystemUser, { isError: isDeleteError }] = useDeleteSystemuserMutation();
+  const [updateSystemUser, { isError: isUpdateError }] = useUpdateSystemuserMutation();
 
   useEffect(() => {
     if (rights) {
@@ -73,6 +74,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         <Modal.Content>
           {`Er du sikker på at du vil slette systembrukeren "${systemUser.integrationTitle}"?`}
         </Modal.Content>
+        {isDeleteError && <Alert severity='danger'>Kunne ikke slette systembruker</Alert>}
         <Modal.Footer>
           <Button
             color='danger'
@@ -113,6 +115,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           Legg til rettighet
         </Button>
       </div>
+      {isLoadRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
       {selectedRights.length === 0 && <div>Systembrukeren har ingen rettigheter</div>}
       {selectedRights.map((right) => {
         return (
@@ -176,7 +179,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           </ActionBar>
         );
       })}
-
+      {isUpdateError && <Alert severity='danger'>Kunne ikke oppdatere systembruker</Alert>}
       <div className={classes.buttonContainer}>
         <Button
           onClick={() => {

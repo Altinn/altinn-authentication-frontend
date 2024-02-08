@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Textfield, Button, HelpText, Heading, Combobox } from '@digdir/design-system-react';
+import { Textfield, Button, HelpText, Heading, Combobox, Alert } from '@digdir/design-system-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
 
 export const CreationPageContent = () => {
+  const { t } = useTranslation();
+
   const dispatch = useAppDispatch();
 
   const createValues = useAppSelector((state) => state.createSystemUser);
@@ -19,8 +21,7 @@ export const CreationPageContent = () => {
     createValues.selectedSystemType ?? '',
   );
 
-  const { data: vendors } = useGetVendorsQuery();
-  const { t } = useTranslation();
+  const { data: vendors, isError: isLoadVendorError } = useGetVendorsQuery();
 
   const navigate = useNavigate();
 
@@ -83,6 +84,7 @@ export const CreationPageContent = () => {
             );
           })}
         </Combobox>
+        {isLoadVendorError && <Alert severity='danger'>Kunne ikke laste systemleverandører</Alert>}
       </div>
       <div className={classes.buttonContainer}>
         <Button

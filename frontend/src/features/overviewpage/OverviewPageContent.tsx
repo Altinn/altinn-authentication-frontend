@@ -5,7 +5,7 @@ import cn from 'classnames';
 import classes from './OverviewPageContent.module.css';
 import { ActionBar } from '@/components';
 import { PlusIcon, PencilWritingIcon } from '@navikt/aksel-icons';
-import { Button, Heading, Link } from '@digdir/design-system-react';
+import { Alert, Button, Heading, Link } from '@digdir/design-system-react';
 import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
@@ -14,8 +14,8 @@ import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
 
 export const OverviewPageContent = () => {
   // Fix-me: CollectionBar links go nowhere yet
-  const { data: systemUsers } = useGetSystemUsersQuery();
-  const { data: rights } = useGetRightsQuery();
+  const { data: systemUsers, isError: isLoadSystemUsersError } = useGetSystemUsersQuery();
+  const { data: rights, isError: isLoadRightsError } = useGetRightsQuery();
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation(); // not used yet
@@ -47,6 +47,8 @@ export const OverviewPageContent = () => {
       <Heading level={2} size='small' spacing>
         {t('authent_overviewpage.existing_system_users_title')}
       </Heading>
+      {isLoadSystemUsersError && <Alert severity='danger'>Kunne ikke laste systembrukere</Alert>}
+      {isLoadRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
       {systemUsers?.map((systemUser) => (
         <ActionBar
           key={systemUser.id}

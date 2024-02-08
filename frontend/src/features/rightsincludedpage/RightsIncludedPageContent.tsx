@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Heading } from '@digdir/design-system-react';
+import { Alert, Button, Heading } from '@digdir/design-system-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
 import { ActionBar } from '@/components';
@@ -15,8 +15,8 @@ export const RightsIncludedPageContent = () => {
   // og ikke CreationPageContent som tidligere (men den kjører foreløpig fortsatt POST)
 
   const { t } = useTranslation();
-  const [postNewSystemUser] = useCreateSystemUserMutation();
-  const { data: rights } = useGetRightsQuery();
+  const [postNewSystemUser, { isError: isCreateSystemUserError }] = useCreateSystemUserMutation();
+  const { data: rights, isError: isLoadRightsError } = useGetRightsQuery();
 
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
   const selectedSystemType = useAppSelector((state) => state.createSystemUser.selectedSystemType);
@@ -58,6 +58,7 @@ export const RightsIncludedPageContent = () => {
       </Heading>
       <p className={classes.contentText}>{t('authent_includedrightspage.content_text')}</p>
       <div>
+        {isLoadRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
         {rights?.map((productRight) => (
           <ActionBar
             key={productRight.right}
@@ -66,6 +67,9 @@ export const RightsIncludedPageContent = () => {
             color={'neutral'}
           />
         ))}
+        {isCreateSystemUserError && (
+          <Alert severity='danger'>Kunne ikke opprette systembruker</Alert>
+        )}
         <div className={classes.buttonContainer}>
           <Button size='small' onClick={handleConfirm}>
             {t('authent_includedrightspage.confirm_button')}
