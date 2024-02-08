@@ -154,7 +154,7 @@ export const DetailPageContent = ({ systemUser, rights }: DetailPageContentProps
                   Dersom du ønsker å begrense tilgangen som blir gitt, kan du klikke på knappene
                   nedenfor for å fjerne de.
                 </Paragraph>
-                <Chip.Group size='small'>
+                <Chip.Group className={classes.rightsList} size='small'>
                   {right.actions.map((action) => {
                     return (
                       <Chip.Toggle
