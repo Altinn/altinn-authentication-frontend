@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Button,
@@ -22,30 +22,24 @@ import { ActionBar } from '@/components';
 import { AuthenticationRoute } from '@/routes/paths';
 import {
   useDeleteSystemuserMutation,
-  useGetRightsQuery,
   useUpdateSystemuserMutation,
 } from '@/rtk/features/systemUserApi';
 import { SystemRight, SystemUser } from '@/types';
 
 interface DetailPageContentProps {
   systemUser: SystemUser;
+  rights: SystemRight[];
 }
 
-export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
+export const DetailPageContent = ({ systemUser, rights }: DetailPageContentProps) => {
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
   const navigate = useNavigate();
 
-  const { data: rights, isError: isLoadRightsError } = useGetRightsQuery();
   const [deleteSystemUser, { isError: isDeleteError }] = useDeleteSystemuserMutation();
   const [updateSystemUser, { isError: isUpdateError }] = useUpdateSystemuserMutation();
 
-  useEffect(() => {
-    if (rights) {
-      setSelectedRights(rights);
-    }
-  }, [rights]);
-
-  const [selectedRights, setSelectedRights] = useState<(SystemRight & { deleted?: boolean })[]>([]);
+  const [selectedRights, setSelectedRights] =
+    useState<(SystemRight & { deleted?: boolean })[]>(rights);
   const [name, setName] = useState<string>(systemUser.integrationTitle);
 
   const toggleAction = (
@@ -115,7 +109,6 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           Legg til rettighet
         </Button>
       </div>
-      {isLoadRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
       {selectedRights.length === 0 && <div>Systembrukeren har ingen rettigheter</div>}
       {selectedRights.map((right) => {
         return (
