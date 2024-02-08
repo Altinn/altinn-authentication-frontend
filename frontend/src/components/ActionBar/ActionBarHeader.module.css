@@ -14,13 +14,16 @@
   cursor: pointer;
 }
 
+.actionBar.small {
+  min-height: 30px;
+}
+
 .actionBar.medium {
   min-height: 56px;
 }
 
 .actionBar.large {
   min-height: 100px;
-  border-width: 1px;
 }
 
 .actionBar.open {
