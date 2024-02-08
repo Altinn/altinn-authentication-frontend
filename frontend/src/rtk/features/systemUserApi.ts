@@ -1,5 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { SystemRight, SystemUser, User, VendorSystem } from '@/types';
+import { api } from './api';
+import { SystemRight, SystemUser, VendorSystem } from '@/types';
 
 const mockRightsActionsArray = [
   { name: 'Lese', on: true },
@@ -14,15 +14,10 @@ interface CreationRequest {
   selectedSystemType: string;
 }
 
-// Define a service using a base URL and expected endpoints
-export const systemUserApi = createApi({
-  reducerPath: 'systemUserApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/authfront/api/v1/' }),
-  tagTypes: ['SystemUsers'],
+const apiWithTag = api.enhanceEndpoints({ addTagTypes: ['SystemUsers'] });
+
+export const systemUserApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
-    getLoggedInUser: builder.query<User, void>({
-      query: () => `profile/user`,
-    }),
     getSystemUsers: builder.query<SystemUser[], void>({
       query: () => `systemuser`,
       providesTags: (result) =>
@@ -80,5 +75,4 @@ export const {
   useUpdateSystemuserMutation,
   useGetRightsQuery,
   useGetVendorsQuery,
-  useGetLoggedInUserQuery,
 } = systemUserApi;

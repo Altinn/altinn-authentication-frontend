@@ -2,7 +2,7 @@ import React from 'react';
 import { Office1Filled } from '@navikt/ds-icons';
 import { ReactComponent as AltinnLogo } from '@/assets/AltinnTextLogo.svg';
 import classes from './UserInfoBar.module.css';
-import { useGetLoggedInUserQuery } from '@/rtk/features/systemUserApi';
+import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 
 export const UserInfoBar = () => {
   const { data: userInfo } = useGetLoggedInUserQuery();

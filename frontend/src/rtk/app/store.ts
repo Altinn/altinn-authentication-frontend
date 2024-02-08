@@ -1,22 +1,18 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
-import maskinportenPageReducer, {
-  MaskinportenPageSliceState,
-} from '../features/maskinportenPageSlice';
 import createSystemUserReducer, { CreateSystemUserState } from '../features/createSystemUserSlice';
-import { systemUserApi } from '../features/systemUserApi';
+import { api } from '../features/api';
 
 const logger = createLogger();
 
 // turn off redux-logger in production
 const store = configureStore({
   reducer: {
-    [systemUserApi.reducerPath]: systemUserApi.reducer,
-    maskinportenPage: maskinportenPageReducer,
+    [api.reducerPath]: api.reducer,
     createSystemUser: createSystemUserReducer,
   },
   middleware: (getDefaultMiddleware) => {
-    const middleWares = getDefaultMiddleware().concat(systemUserApi.middleware);
+    const middleWares = getDefaultMiddleware().concat(api.middleware);
     if (!import.meta.env.PROD) {
       return middleWares.concat(logger);
     }
@@ -26,7 +22,6 @@ const store = configureStore({
 
 export default store;
 export type RootState = {
-  maskinportenPage: MaskinportenPageSliceState;
   createSystemUser: CreateSystemUserState;
 };
 export type AppDispatch = typeof store.dispatch;
