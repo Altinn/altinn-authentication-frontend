@@ -85,9 +85,11 @@ export const DetailPageContent = ({ systemUser, rights }: DetailPageContentProps
           </Button>
         </Modal.Footer>
       </Modal>
-      <Link as={RouterLink} to={AuthenticationRoute.Overview} className={classes.backLink}>
-        <ArrowLeftIcon />
-        Tilbake til oversikt
+      <Link asChild>
+        <RouterLink to={AuthenticationRoute.Overview} className={classes.backLink}>
+          <ArrowLeftIcon />
+          Tilbake til oversikt
+        </RouterLink>
       </Link>
       <Heading level={2} size='medium'>
         {systemUser.integrationTitle}
@@ -185,8 +187,8 @@ export const DetailPageContent = ({ systemUser, rights }: DetailPageContentProps
         >
           Lagre endringer
         </Button>
-        <Button variant='tertiary' as={RouterLink} to={AuthenticationRoute.Overview}>
-          Avbryt
+        <Button variant='tertiary' asChild>
+          <RouterLink to={AuthenticationRoute.Overview}>Avbryt</RouterLink>
         </Button>
       </div>
       <Button variant='tertiary' color='danger' onClick={() => deleteModalRef.current?.showModal()}>

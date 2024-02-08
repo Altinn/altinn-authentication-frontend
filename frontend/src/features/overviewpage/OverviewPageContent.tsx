@@ -61,9 +61,11 @@ export const OverviewPageContent = () => {
               <Heading level={3} size='xxsmall' spacing>
                 Systembrukeren har disse rettighetene:
               </Heading>
-              <Link as={RouterLink} to={`${AuthenticationRoute.Details}/${systemUser.id}`}>
-                <PencilWritingIcon height={'1.25rem'} width={'1.25rem'} />
-                Rediger systembruker
+              <Link asChild>
+                <RouterLink to={`${AuthenticationRoute.Details}/${systemUser.id}`}>
+                  <PencilWritingIcon height={'1.25rem'} width={'1.25rem'} />
+                  Rediger systembruker
+                </RouterLink>
               </Link>
             </div>
             {rights?.map((right) => {
