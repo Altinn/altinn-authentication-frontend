@@ -6,7 +6,7 @@ import { useMediaQuery } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 
 export const OverviewPage = () => {
-  const { t } = useTranslation('common'); // Fix-me: skift til auth-språknøkkel
+  const { t } = useTranslation(); // Fix-me: skift til auth-språknøkkel
   const isSm = useMediaQuery('(max-width: 768px)');
 
   return (

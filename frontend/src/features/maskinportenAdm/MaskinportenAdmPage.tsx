@@ -6,7 +6,7 @@ import { useMediaQuery } from '@/resources/hooks';
 import { MaskinportenAdmPageContent } from './MaskinportenAdmPageContent';
 
 export const MaskinportenAdmPage = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const isSm = useMediaQuery('(max-width: 768px)');
 
   // fix-me: set language key in <PageHeader>

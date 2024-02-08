@@ -12,7 +12,7 @@ export const NotFoundSite = () => {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const error: any = useRouteError();
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   return (
     <div>

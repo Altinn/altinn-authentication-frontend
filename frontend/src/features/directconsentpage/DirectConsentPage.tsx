@@ -6,7 +6,7 @@ import { useMediaQuery } from '@/resources/hooks';
 import { DirectConsentPageContent } from './DirectConsentPageContent';
 
 export const DirectConsentPage = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const isSm = useMediaQuery('(max-width: 768px)');
 
   return (

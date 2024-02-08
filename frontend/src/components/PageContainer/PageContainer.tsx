@@ -10,7 +10,7 @@ export interface PageContainerProps {
 }
 
 export const PageContainer = ({ children }: PageContainerProps) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   const redirectToProfile = () => {
     const cleanHostname = window.location.hostname.replace('am.ui.', '');

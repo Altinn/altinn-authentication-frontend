@@ -14,7 +14,7 @@ export const RightsIncludedPageContent = () => {
   // Merk! Det er nå denne RightsIncludedPageContent som skal kjøre POST til backend
   // og ikke CreationPageContent som tidligere (men den kjører foreløpig fortsatt POST)
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const [postNewSystemUser] = useCreateSystemUserMutation();
   const { data: rights } = useGetRightsQuery();
 
@@ -27,7 +27,7 @@ export const RightsIncludedPageContent = () => {
     if (!integrationTitle || !selectedSystemType) {
       navigate(AuthenticationRoute.Creation);
     }
-  }, [integrationTitle, selectedSystemType]);
+  }, [integrationTitle, selectedSystemType, navigate]);
 
   const navigateToOverview = (): void => {
     navigate(AuthenticationRoute.Overview);

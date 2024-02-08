@@ -8,7 +8,7 @@ import classes from './ConfirmationPageContent.module.css';
 export const ConfirmationPageContent = () => {
   // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 

@@ -6,7 +6,7 @@ import { useMediaQuery } from '@/resources/hooks';
 import { ConfirmationPageContent } from './ConfirmationPageContent';
 
 export const ConfirmationPage = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const isSm = useMediaQuery('(max-width: 768px)');
 
   return (

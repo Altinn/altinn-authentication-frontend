@@ -18,7 +18,7 @@ export const OverviewPageContent = () => {
   const { data: rights } = useGetRightsQuery();
 
   const dispatch = useAppDispatch();
-  const { t } = useTranslation('common'); // not used yet
+  const { t } = useTranslation(); // not used yet
   const navigate = useNavigate();
 
   useEffect(() => {

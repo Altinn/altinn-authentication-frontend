@@ -8,7 +8,7 @@ import { ActionBar } from '@/components';
 import { useCreateSystemUserMutation, useGetRightsQuery } from '@/rtk/features/systemUserApi';
 
 export const DirectConsentPageContent = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [postNewSystemUser] = useCreateSystemUserMutation();

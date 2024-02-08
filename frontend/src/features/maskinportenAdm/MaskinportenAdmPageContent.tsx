@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthenticationRoute } from '@/routes/paths';
 
 export const MaskinportenAdmPageContent = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const inputRefSkjultKnapp = useRef<HTMLInputElement>(null);
 

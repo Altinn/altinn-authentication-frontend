@@ -20,7 +20,7 @@ export const CreationPageContent = () => {
   );
 
   const { data: vendors } = useGetVendorsQuery();
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
 
