@@ -9,8 +9,6 @@ export const MaskinportenAdmPage = () => {
   const { t } = useTranslation();
   const isSm = useMediaQuery('(max-width: 768px)');
 
-  // fix-me: set language key in <PageHeader>
-
   return (
     <PageContainer>
       <Page

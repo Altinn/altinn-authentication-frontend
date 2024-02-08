@@ -13,12 +13,11 @@ import { useAppDispatch } from '@/rtk/app/hooks';
 import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
 
 export const OverviewPageContent = () => {
-  // Fix-me: CollectionBar links go nowhere yet
   const { data: systemUsers, isError: isLoadSystemUsersError } = useGetSystemUsersQuery();
   const { data: rights, isError: isLoadRightsError } = useGetRightsQuery();
 
   const dispatch = useAppDispatch();
-  const { t } = useTranslation(); // not used yet
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {

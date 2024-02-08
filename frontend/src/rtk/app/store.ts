@@ -5,7 +5,6 @@ import { api } from '../features/api';
 
 const logger = createLogger();
 
-// turn off redux-logger in production
 const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
@@ -13,6 +12,7 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) => {
     const middleWares = getDefaultMiddleware().concat(api.middleware);
+    // turn off redux-logger in production
     if (!import.meta.env.PROD) {
       return middleWares.concat(logger);
     }
