@@ -1,5 +1,5 @@
 import React from 'react';
-import { Office1Filled } from '@navikt/ds-icons';
+import { Buildings3FillIcon } from '@navikt/aksel-icons';
 import { ReactComponent as AltinnLogo } from '@/assets/AltinnTextLogo.svg';
 import classes from './UserInfoBar.module.css';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
@@ -20,7 +20,7 @@ export const UserInfoBar = () => {
               <h5 className={classes.userInfoText}>for {userInfo.organizationName}</h5>
             )}
           </div>
-          <Office1Filled className={classes.companyIcon} />
+          <Buildings3FillIcon className={classes.companyIcon} />
         </div>
       </div>
     </div>

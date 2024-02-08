@@ -1,12 +1,10 @@
 import React from 'react';
 import cn from 'classnames';
-import { SvgIcon } from '@altinn/altinn-design-system';
-
 import classes from './PageHeader.module.css';
 
 export interface PageHeaderProps {
   children?: React.ReactNode;
-  icon?: React.ReactNode;
+  icon?: React.JSX.Element;
   color: 'dark' | 'light' | 'success' | 'danger';
   size: 'small' | 'medium';
 }
@@ -14,7 +12,10 @@ export interface PageHeaderProps {
 export const PageHeader = ({ children, icon, color, size }: PageHeaderProps) => {
   return (
     <header className={cn(classes.pageHeader, classes[color], classes[size])}>
-      <SvgIcon className={cn(classes.icon, classes[size])} svgIconComponent={icon} />
+      {icon &&
+        React.cloneElement(icon, {
+          className: cn(icon.props.className, classes.icon, classes[size]),
+        })}
       <h1 className={classes.headerText}>{children}</h1>
     </header>
   );

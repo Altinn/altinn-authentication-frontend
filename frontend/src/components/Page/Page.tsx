@@ -7,7 +7,7 @@ import { useMediaQuery } from '@/resources/hooks';
 
 export interface PageProps {
   children?: React.ReactNode;
-  icon?: React.ReactNode;
+  icon?: React.JSX.Element;
   title?: React.ReactNode;
   color?: 'dark' | 'light' | 'success' | 'danger';
 }
