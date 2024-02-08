@@ -3,16 +3,17 @@ import React from 'react';
 import classes from './Page.module.css';
 import cn from 'classnames';
 import { PageHeader } from './';
+import { useMediaQuery } from '@/resources/hooks';
 
 export interface PageProps {
   children?: React.ReactNode;
   icon?: React.ReactNode;
   title?: React.ReactNode;
   color?: 'dark' | 'light' | 'success' | 'danger';
-  size?: 'small' | 'medium';
 }
 
-export const Page = ({ children, icon, title, color = 'dark', size = 'medium' }: PageProps) => {
+export const Page = ({ children, icon, title, color = 'dark' }: PageProps) => {
+  const size = useMediaQuery('(max-width: 768px)') ? 'small' : 'medium';
   return (
     <div className={classes.page}>
       {title && (

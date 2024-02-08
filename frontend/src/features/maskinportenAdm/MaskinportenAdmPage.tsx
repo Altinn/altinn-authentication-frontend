@@ -2,21 +2,14 @@ import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { Page, PageContainer } from '@/components';
 import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
-import { useMediaQuery } from '@/resources/hooks';
 import { MaskinportenAdmPageContent } from './MaskinportenAdmPageContent';
 
 export const MaskinportenAdmPage = () => {
   const { t } = useTranslation();
-  const isSm = useMediaQuery('(max-width: 768px)');
 
   return (
     <PageContainer>
-      <Page
-        color='dark'
-        size={isSm ? 'small' : 'medium'}
-        icon={<ApiIcon />}
-        title={'Administrere maskinporten integrasjoner'}
-      >
+      <Page color='dark' icon={<ApiIcon />} title={'Administrere maskinporten integrasjoner'}>
         <MaskinportenAdmPageContent />
       </Page>
     </PageContainer>
