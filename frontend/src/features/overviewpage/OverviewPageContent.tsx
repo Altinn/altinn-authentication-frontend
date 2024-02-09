@@ -12,6 +12,7 @@ import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/system
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
 import { useFirstRenderEffect } from '@/resources/hooks/useFirstRenderEffect';
+import { normalizeUrl } from '@/utils/urlUtils';
 
 export const OverviewPageContent = () => {
   const { data: systemUsers, isError: isLoadSystemUsersError } = useGetSystemUsersQuery();
@@ -63,7 +64,7 @@ export const OverviewPageContent = () => {
                 Systembrukeren har disse rettighetene:
               </Heading>
               <Link asChild>
-                <RouterLink to={`${AuthenticationRoute.Details}/${systemUser.id}`}>
+                <RouterLink to={`${AuthenticationRoute.Details}/${normalizeUrl`${systemUser.id}`}`}>
                   <PencilWritingIcon height={'1.25rem'} width={'1.25rem'} />
                   Rediger systembruker
                 </RouterLink>
