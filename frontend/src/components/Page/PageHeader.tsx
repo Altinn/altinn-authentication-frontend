@@ -12,10 +12,7 @@ export interface PageHeaderProps {
 export const PageHeader = ({ children, icon, color, size }: PageHeaderProps) => {
   return (
     <header className={cn(classes.pageHeader, classes[color], classes[size])}>
-      {icon &&
-        React.cloneElement(icon, {
-          className: cn(icon.props.className, classes.icon, classes[size]),
-        })}
+      <span className={classes.icon}>{icon}</span>
       <h1 className={classes.headerText}>{children}</h1>
     </header>
   );

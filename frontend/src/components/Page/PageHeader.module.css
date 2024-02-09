@@ -46,12 +46,12 @@
   padding-left: 2rem;
 }
 
-.icon.small {
+.pageHeader.small .icon > * {
   min-width: 28px;
   min-height: 28px;
 }
 
-.icon.medium {
+.pageHeader.medium .icon > * {
   min-width: 40px;
   min-height: 40px;
 }
