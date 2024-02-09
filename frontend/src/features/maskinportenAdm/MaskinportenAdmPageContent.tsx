@@ -49,7 +49,7 @@ export const MaskinportenAdmPageContent = () => {
     <div>
       <div className={classes.flexContainer}>
         <Heading level={2} size='small'>
-          {'Opprett og administrer maskinporten integrasjon'}
+          {t('authent_maskinporten.sub_title')}
         </Heading>
         <Textfield
           label='Navn'

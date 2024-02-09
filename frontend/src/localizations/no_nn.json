@@ -86,7 +86,10 @@
     "add_consent_button1": "Ja, eg gjev samtykke",
     "add_consent_button2": "Avbryt"
   },
-
+  "authent_maskinporten": {
+    "banner_title": "Administrere maskinporten integrasjoner",
+    "sub_title": "Opprett og administrer maskinporten integrasjon"
+  },
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
     "auth_overview_text_administrere": "Her kan du administrere dine systembrukere",

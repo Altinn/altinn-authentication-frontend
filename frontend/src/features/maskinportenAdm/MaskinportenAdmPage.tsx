@@ -9,7 +9,7 @@ export const MaskinportenAdmPage = () => {
 
   return (
     <PageContainer>
-      <Page color='dark' icon={<ApiIcon />} title={'Administrere maskinporten integrasjoner'}>
+      <Page color='dark' icon={<ApiIcon />} title={t('authent_maskinporten.banner_title')}>
         <MaskinportenAdmPageContent />
       </Page>
     </PageContainer>
