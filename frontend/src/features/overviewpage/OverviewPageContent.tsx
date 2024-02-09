@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { AuthenticationRoute } from '@/routes/paths';
 import cn from 'classnames';
@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
+import { useFirstRenderEffect } from '@/resources/hooks/useFirstRenderEffect';
 
 export const OverviewPageContent = () => {
   const { data: systemUsers, isError: isLoadSystemUsersError } = useGetSystemUsersQuery();
@@ -20,10 +21,10 @@ export const OverviewPageContent = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // reset create wizard values when overviewPage is rendered; the user ends up here after create, cancel or back navigation
+  // reset create wizard values when overviewPage is rendered; the user ends up here after create, cancel or back navigation
+  useFirstRenderEffect(() => {
     dispatch(setCreateValues({ integrationTitle: '', selectedSystemType: '' }));
-  }, [dispatch]);
+  });
 
   // Eldre greier: bør byttes ut, men kan trenges for Mobil-optimering
   const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger
