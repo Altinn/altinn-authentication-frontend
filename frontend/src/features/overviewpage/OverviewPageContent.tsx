@@ -6,12 +6,11 @@ import classes from './OverviewPageContent.module.css';
 import { ActionBar } from '@/components';
 import { PlusIcon, PencilWritingIcon } from '@navikt/aksel-icons';
 import { Alert, Button, Heading, Link } from '@digdir/design-system-react';
-import { useMediaQuery } from '@/resources/hooks';
+import { useMediaQuery, useFirstRenderEffect } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
-import { useFirstRenderEffect } from '@/resources/hooks/useFirstRenderEffect';
 import { normalizeUrl } from '@/utils/urlUtils';
 
 export const OverviewPageContent = () => {

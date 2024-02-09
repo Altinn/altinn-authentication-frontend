@@ -7,7 +7,7 @@ import classes from './RightsIncludedPageContent.module.css';
 import { ActionBar } from '@/components';
 import { useCreateSystemUserMutation, useGetRightsQuery } from '@/rtk/features/systemUserApi';
 import { useAppSelector } from '@/rtk/app/hooks';
-import { useFirstRenderEffect } from '@/resources/hooks/useFirstRenderEffect';
+import { useFirstRenderEffect } from '@/resources/hooks';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
