@@ -1,9 +1,7 @@
 import React from 'react';
 
 import classes from './Page.module.css';
-import cn from 'classnames';
 import { PageHeader } from './';
-import { useMediaQuery } from '@/resources/hooks';
 
 export interface PageProps {
   children?: React.ReactNode;
@@ -13,15 +11,14 @@ export interface PageProps {
 }
 
 export const Page = ({ children, icon, title, color = 'dark' }: PageProps) => {
-  const size = useMediaQuery('(max-width: 768px)') ? 'small' : 'medium';
   return (
     <div className={classes.page}>
       {title && (
-        <PageHeader color={color} size={size} icon={icon}>
+        <PageHeader color={color} icon={icon}>
           {title}
         </PageHeader>
       )}
-      <div className={cn(classes.pageContent, classes[size])}>{children}</div>
+      <div className={classes.pageContent}>{children}</div>
     </div>
   );
 };

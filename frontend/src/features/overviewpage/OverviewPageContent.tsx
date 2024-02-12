@@ -1,12 +1,11 @@
 import React from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { AuthenticationRoute } from '@/routes/paths';
-import cn from 'classnames';
 import classes from './OverviewPageContent.module.css';
 import { ActionBar } from '@/components';
 import { PlusIcon, PencilWritingIcon } from '@navikt/aksel-icons';
 import { Alert, Button, Heading, Link } from '@digdir/design-system-react';
-import { useMediaQuery, useFirstRenderEffect } from '@/resources/hooks';
+import { useFirstRenderEffect } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch } from '@/rtk/app/hooks';
@@ -26,9 +25,6 @@ export const OverviewPageContent = () => {
     dispatch(setCreateValues({ integrationTitle: '', selectedSystemType: '' }));
   });
 
-  // Eldre greier: bør byttes ut, men kan trenges for Mobil-optimering
-  const isSm = useMediaQuery('(max-width: 768px)'); // ikke i bruk lenger
-
   const goToStartNewSystemUser = () => {
     navigate(AuthenticationRoute.Creation);
   };
@@ -39,7 +35,7 @@ export const OverviewPageContent = () => {
         {t('authent_overviewpage.sub_title')}
       </Heading>
       <div className={classes.systemUserNewButton}>
-        <Button variant='secondary' onClick={goToStartNewSystemUser} fullWidth={isSm}>
+        <Button variant='secondary' onClick={goToStartNewSystemUser}>
           <PlusIcon />
           {t('authent_overviewpage.new_system_user_button')}
         </Button>
@@ -57,7 +53,7 @@ export const OverviewPageContent = () => {
           color='light'
           size='large'
         >
-          <div className={cn(classes.accordionContent, { [classes.compact]: isSm })}>
+          <div>
             <div className={classes.rightsHeader}>
               <Heading level={3} size='xxsmall' spacing>
                 Systembrukeren har disse rettighetene:
