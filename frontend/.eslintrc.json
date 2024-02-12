@@ -19,7 +19,7 @@
     "no-duplicate-imports": "error",
     "@typescript-eslint/no-use-before-define": "off",
     "@typescript-eslint/no-explicit-any": "error",
-    "no-unused-vars": "warn"
+    "@typescript-eslint/no-unused-vars": "warn"
   },
 
   "overrides": [
