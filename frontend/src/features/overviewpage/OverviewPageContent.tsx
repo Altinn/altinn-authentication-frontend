@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
-import { normalizeUrl } from '@/utils/urlUtils';
+import { url } from '@/utils/urlUtils';
 
 export const OverviewPageContent = () => {
   const { data: systemUsers, isError: isLoadSystemUsersError } = useGetSystemUsersQuery();
@@ -22,6 +22,7 @@ export const OverviewPageContent = () => {
 
   // reset create wizard values when overviewPage is rendered; the user ends up here after create, cancel or back navigation
   useFirstRenderEffect(() => {
+    console.log('effect');
     dispatch(setCreateValues({ integrationTitle: '', selectedSystemType: '' }));
   });
 
@@ -59,7 +60,7 @@ export const OverviewPageContent = () => {
                 Systembrukeren har disse rettighetene:
               </Heading>
               <Link asChild>
-                <RouterLink to={`${AuthenticationRoute.Details}/${normalizeUrl`${systemUser.id}`}`}>
+                <RouterLink to={`${AuthenticationRoute.Details}/${url`${systemUser.id}`}`}>
                   <PencilWritingIcon height={'1.25rem'} width={'1.25rem'} />
                   Rediger systembruker
                 </RouterLink>

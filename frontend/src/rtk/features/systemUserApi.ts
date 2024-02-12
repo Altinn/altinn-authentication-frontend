@@ -1,4 +1,4 @@
-import { normalizeUrl } from '@/utils/urlUtils';
+import { url } from '@/utils/urlUtils';
 import { api } from './api';
 import { SystemRight, SystemUser, VendorSystem } from '@/types';
 
@@ -25,7 +25,7 @@ export const systemUserApi = apiWithTag.injectEndpoints({
         result ? result.map(({ id }) => ({ type: 'SystemUsers', id })) : ['SystemUsers'],
     }),
     getSystemUser: builder.query<SystemUser, string>({
-      query: (id) => `systemuser/${normalizeUrl`${id}`}`,
+      query: (id) => url`systemuser/${id}`,
       providesTags: (result) => (result ? [{ type: 'SystemUsers', id: result.id }] : []),
     }),
     getRights: builder.query<SystemRight[], void>({
@@ -52,7 +52,7 @@ export const systemUserApi = apiWithTag.injectEndpoints({
     }),
     updateSystemuser: builder.mutation<SystemUser, SystemUser>({
       query: (systemUser) => ({
-        url: `systemuser/${normalizeUrl`${systemUser.id}`}`,
+        url: url`systemuser/${systemUser.id}`,
         method: 'PUT',
         body: systemUser,
       }),
@@ -60,7 +60,7 @@ export const systemUserApi = apiWithTag.injectEndpoints({
     }),
     deleteSystemuser: builder.mutation<void, string>({
       query: (id) => ({
-        url: `systemuser/${normalizeUrl`${id}`}`,
+        url: url`systemuser/${id}`,
         method: 'DELETE',
       }),
       invalidatesTags: ['SystemUsers'],

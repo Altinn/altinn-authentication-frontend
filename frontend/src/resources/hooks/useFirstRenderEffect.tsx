@@ -1,11 +1,5 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 export const useFirstRenderEffect = (effectFn: () => void) => {
-  const isFirstRender = useRef<boolean>(true);
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      effectFn();
-    }
-  }, [effectFn]);
+  useEffect(effectFn, []); // eslint-disable-line react-hooks/exhaustive-deps
 };
