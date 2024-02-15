@@ -32,7 +32,7 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
     public async Task GetSystemUserDTO_ReturnedOK()
     {
         int partyId = 7007;
-        HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/systemuser/{partyId}");
+        HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/systemuser");
         string token = PrincipalUtil.GetToken(7007, partyId, 2);
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

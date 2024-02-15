@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, Link } from 'react-router-dom';
-import { AuthenticationPath } from '@/routes/paths';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import {
-  postNewSystemUser,
-  CreationRequest,
-  resetPostConfirmation,
-} from '@/rtk/features/creationPage/creationPageSlice';
-import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
-import { Button, Heading } from '@digdir/design-system-react';
+import { Alert, Button, Heading } from '@digdir/design-system-react';
+import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
-import { useMediaQuery } from '@/resources/hooks';
-import { RightsCollectionBar } from '@/components';
+import { ActionBar } from '@/components';
+import { useCreateSystemUserMutation, useGetRightsQuery } from '@/rtk/features/systemUserApi';
+import { useAppSelector } from '@/rtk/app/hooks';
+import { useFirstRenderEffect } from '@/resources/hooks';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -20,101 +15,65 @@ export const RightsIncludedPageContent = () => {
   // Merk! Det er nå denne RightsIncludedPageContent som skal kjøre POST til backend
   // og ikke CreationPageContent som tidligere (men den kjører foreløpig fortsatt POST)
 
-  // denne skal hente array av RightsDTO fra Redux
-  // (henter nå bare systemUserArray a la OverviewPage)
-  // men vi har ennå ikke en redux slice for RightsIncludedPage
-  // eller et GET kall til backend for å hente RightsDTO
-  // men Simen har laget dette endepunktet: se Swagger per 10.01.24
-  const reduxObjektArray = useAppSelector(
-    (state) => state.rightsIncludedPage.systemRegisterProductsArray,
-  );
+  const { t } = useTranslation();
+  const [postNewSystemUser, { isError: isCreateSystemUserError }] = useCreateSystemUserMutation();
+  const { data: rights, isError: isLoadRightsError } = useGetRightsQuery();
 
-  // FIX-ME: Local State variables for input-boxes and Nedtrekksmeny:
-  const [integrationName, setIntegrationName] = useState('');
-
-  // mulig denne skal populeres fra nedtrekksmeny?? Design mangler
-  const [descriptionEntered, setDescriptionEntered] = useState('');
-
-  const [selectedSystemType, setSelectedSystemType] = useState('');
-
-  // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
-
-  const { t } = useTranslation('common');
+  const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
+  const selectedSystemType = useAppSelector((state) => state.createSystemUser.selectedSystemType);
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
-  // brukes i h2, ikke vist i Small/mobile view
-  const isSm = useMediaQuery('(max-width: 768px)'); // fix-me: trengs denne?
-  const overviewText = 'Knytt systembruker til systemleverandør';
+  useFirstRenderEffect(() => {
+    // if integrationTitle or selectedSystemType is not set (if user goes directly to /rightsincluded url), navigate back to creation
+    if (!integrationTitle || !selectedSystemType) {
+      navigate(AuthenticationRoute.Creation);
+    }
+  });
 
-  const handleReject = () => {
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
+  const navigateToOverview = (): void => {
+    navigate(AuthenticationRoute.Overview);
   };
 
   const handleConfirm = () => {
     // POST 3 useState variables, while the last two not yet implemented
-    const PostObjekt: CreationRequest = {
-      integrationTitle: integrationName,
+    // Update 08.01.24: agreement with Simen-backend that only two
+    // key:value pairs are needed
+    const postObjekt = {
+      integrationTitle: integrationTitle,
       selectedSystemType: selectedSystemType,
     };
 
-    void dispatch(postNewSystemUser(PostObjekt));
-
-    // Clean up local State variables before returning to main page
-    setIntegrationName('');
-    setDescriptionEntered('');
-    setSelectedSystemType('');
+    postNewSystemUser(postObjekt).unwrap().then(navigateToOverview);
   };
 
-  const handlePostConfirmation = () => {
-    // skrevet av Github Copilot
-    void dispatch(resetPostConfirmation());
-    void dispatch(fetchOverviewPage());
-    navigate('/' + AuthenticationPath.Auth + '/' + AuthenticationPath.Overview);
-  };
-
-  // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
-  // Fix-me: Bør sjekke om DesignSystem dokumentasjon er oppdatert
-  const handleChangeInput = (val: string) => {
-    setSelectedSystemType(val);
-  };
-
-  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
-  const postConfirmationId = useAppSelector((state) => state.creationPage.postConfirmationId);
-
-  // Note: array key set to ProductRight.right, which should be unique
-  // additionalText is not used yet
-  // and we probably need a CollectionBar without button at right side
-  const reduxRightsCollectionBarArray = () => {
-    return reduxObjektArray.map((ProductRight) => (
-      <div key={ProductRight.right}>
-        <RightsCollectionBar
-          title={ProductRight.right}
-          subtitle={`${ProductRight.serviceProvider}`}
-          additionalText={''}
-          color={'neutral'}
-          compact={isSm}
-          proceedToPath={'/fixpath/'}
-        />
-        <div className={classes.rightsSeparator}> </div>
-      </div>
-    ));
+  const handleReject = () => {
+    navigateToOverview();
   };
 
   return (
     <div>
       <Heading level={2} size='small'>
-        {t('authent_includedrightspage.sub_title')}
+        {t('authent_includedrightspage.sub_title', {
+          name: integrationTitle,
+        })}
       </Heading>
-
       <p className={classes.contentText}>{t('authent_includedrightspage.content_text')}</p>
-
       <div>
-        <div>{reduxRightsCollectionBarArray()}</div>
-
+        {isLoadRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
+        {rights?.map((productRight) => (
+          <ActionBar
+            key={productRight.right}
+            title={productRight.right}
+            subtitle={`${productRight.serviceProvider}`}
+            color={'neutral'}
+          />
+        ))}
+        {isCreateSystemUserError && (
+          <Alert severity='danger'>Kunne ikke opprette systembruker</Alert>
+        )}
         <div className={classes.buttonContainer}>
-          <Button size='small' onClick={handleReject}>
+          <Button size='small' onClick={handleConfirm}>
             {t('authent_includedrightspage.confirm_button')}
           </Button>
           <Button variant='tertiary' size='small' onClick={handleReject}>

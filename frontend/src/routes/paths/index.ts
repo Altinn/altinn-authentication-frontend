@@ -1,2 +1,1 @@
-export { GeneralPath } from './GeneralPath';
-export { AuthenticationPath } from './AuthenticationPath';
+export { AuthenticationRoute } from './AuthenticationPath';

@@ -8,39 +8,32 @@ import { ActionBarIcon } from './ActionBarIcon';
 import { type ActionBarProps } from './ActionBar';
 
 export interface ActionBarHeaderProps
-  extends Pick<
-    ActionBarProps,
-    'headingLevel' | 'title' | 'subtitle' | 'additionalText' | 'actions'
-  > {}
+  extends Pick<ActionBarProps, 'title' | 'subtitle' | 'additionalText' | 'actions'> {}
 
 export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderProps>(
-  ({ additionalText, headingLevel, subtitle, title, actions }, ref) => {
+  ({ additionalText, subtitle, title, actions }, ref) => {
     const { open, toggleOpen, contentId, headerId, color, size } = useActionBarContext();
 
-    let renderAsElem: React.ElementType;
     let headingSize: 'small' | 'medium' | 'large' | 'xsmall';
     switch (size) {
       case 'large':
-        renderAsElem = headingLevel ? `h${headingLevel}` : 'h3';
         headingSize = 'large';
         break;
       case 'medium':
-        renderAsElem = headingLevel ? `h${headingLevel}` : 'h4';
         headingSize = 'small';
         break;
       case 'small':
-        renderAsElem = headingLevel ? `h${headingLevel}` : 'h5';
         headingSize = 'xsmall';
         break;
     }
 
     const actionBarContent: React.ReactNode = (
       <div className={classes.actionBarTexts}>
-        <Paragraph as={renderAsElem} size={headingSize} className={classes.title}>
+        <Paragraph size={headingSize} className={classes.title}>
           {title}
         </Paragraph>
         {subtitle && (
-          <Paragraph as='div' size='xsmall' className={classes.subtitle}>
+          <Paragraph size='xsmall' className={classes.subtitle}>
             {subtitle}
           </Paragraph>
         )}
