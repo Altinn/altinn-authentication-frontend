@@ -11,7 +11,7 @@
     "error_status_code": "Feilmeldingens statuskode",
     "error_time_stamp": "Tidsstempel",
     "date": "Dato",
-    "time":"Tidspunkt",
+    "time": "Tidspunkt",
     "reset_choices": "Nullstill valg",
     "apply": "Bruk",
     "search": "Søk",
@@ -21,7 +21,7 @@
     "to": "Til",
     "proceed": "Gå vidare",
     "added": "lagt til",
-    "previous":"Forrige",
+    "previous": "Forrige",
     "next": "Neste",
     "general_error_title": "Beklager, men det har skjedd ein feil",
     "general_error_paragraph": "Vi klarer ikkje å hente informasjonen du ser etter akkurat nå. Vennligst prøv igjen seinare. Om problemet hald fram, ta kontakt med Altinn Servicedesk.",
@@ -64,15 +64,15 @@
   },
   "authent_includedrightspage": {
     "banner_title": "Inkluderte rettar",
-    "sub_title": "Systembrukaren vil få desse rettane",
-    "content_text": "Disse rettane er inkludert. Treng du andre rettar, kan du legge til fleire seinere. Du kan og enkelt administrera systembrukarar på Altinn seinere.",  
+    "sub_title": "Systembrukaren \"{{name}}\" vil få desse rettane",
+    "content_text": "Disse rettane er inkludert. Treng du andre rettar, kan du legge til fleire seinere. Du kan og enkelt administrera systembrukarar på Altinn seinere.",
     "confirm_button": "Opprett systembrukar",
     "cancel_button": "Avbryt"
   },
   "authent_confirmationpage": {
     "banner_title": "Ny systembrukar er oppretta",
     "sub_title": "Du har no oppretta systembrukaren Turboskatt, som er knytta til Visma Accounting",
-    "content_text": "Du kan velga å gå vidare og gje systembrukaren rettar, eller avslutte og komme attende seinare.",  
+    "content_text": "Du kan velga å gå vidare og gje systembrukaren rettar, eller avslutte og komme attende seinare.",
     "add_rights_button": "Legg til rettar",
     "add_no_rights_button": "Legg til rettar seinare"
   },
@@ -82,11 +82,14 @@
     "consent_text": "Systembrukaren vil nyttast for handsaming av data for Olsen Regnskap AS, eller kunder av Olsen Regnskap AS.",
     "consent_buttons_top_text": "Eg gjev samtykke til at:",
     "add_consent_checkbox1": "Visma AS kan handsama data for Olsen Regnskap AS",
-    "add_consent_checkbox2": "Visma AS kan handsama data for kundar av Olsen Regnskap AS", 
+    "add_consent_checkbox2": "Visma AS kan handsama data for kundar av Olsen Regnskap AS",
     "add_consent_button1": "Ja, eg gjev samtykke",
-    "add_consent_button2": "Avbryt" 
+    "add_consent_button2": "Avbryt"
   },
-
+  "authent_maskinporten": {
+    "banner_title": "Administrere maskinporten integrasjoner",
+    "sub_title": "Opprett og administrer maskinporten integrasjon"
+  },
   "authentication_dummy": {
     "auth_title_systembrukere": "Systembrukere",
     "auth_overview_text_administrere": "Her kan du administrere dine systembrukere",
@@ -96,7 +99,7 @@
     "auth_edit_button_systembruker": "Rediger systembruker",
 
     "auth_overview_text_creation": "Opprett ny systembruker for systemintegrasjon ved bruk av Maskinporten",
-    
+
     "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
   },
 
@@ -126,8 +129,8 @@
     "buisness_search_notfound_content": "Dersom du er usekker, kan du gjere eit søk på navn på sidane til",
     "buisness_search_info_title": "Ny verksemd?",
     "buisness_search_info_content": "Søk etter verksemda du ønsker å delegere til ved å fylle inn verksemdas komplette 9-sifrede organisasjonsnummer",
-    "businesses_going_to_get_access":"Verksemder som skal få rett:",
-    "previous":"Forrige",
+    "businesses_going_to_get_access": "Verksemder som skal få rett:",
+    "previous": "Forrige",
     "next": "Neste",
     "add_new_business": "Legg til ny verksemd",
     "card_title": "Programmerings\u00adgrensesnitt - API",

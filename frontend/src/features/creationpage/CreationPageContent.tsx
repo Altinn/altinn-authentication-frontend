@@ -1,68 +1,43 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Textfield, Button, HelpText, Heading, Combobox, Alert } from '@digdir/design-system-react';
 import { AuthenticationRoute } from '@/routes/paths';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import {
-  postNewSystemUser,
-  CreationRequest,
-  resetPostConfirmation,
-} from '@/rtk/features/creationPage/creationPageSlice';
-import { fetchOverviewPage } from '@/rtk/features/overviewPage/overviewPageSlice';
-import { Textfield, Button, HelpText, Heading, Combobox } from '@digdir/design-system-react';
 import classes from './CreationPageContent.module.css';
+import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
+import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
+import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
 
 export const CreationPageContent = () => {
-  // NB! This page now (10.01.24) should go to RightsIncludedPageContent before
-  // actually creating a new systemUser, but since the button there returns
-  // to OverviewPageContent, in effect the user sees no difference.
+  const { t } = useTranslation();
 
-  // Local State variables for input-boxes and Nedtrekksmeny:
-  const [integrationName, setIntegrationName] = useState('');
-  const [selectedSystemType, setSelectedSystemType] = useState('');
-
-  // const [vendorsArrayPopulated, setVendorsArrayPopulated] = useState(false); // not used yet
-
-  const { t } = useTranslation('common');
-
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  // brukes i h2, ikke vist i Small/mobile view
-  const overviewText = 'Knytt systembruker til systemleverandør';
+  const createValues = useAppSelector((state) => state.createSystemUser);
+  const [integrationTitle, setIntegrationTitle] = useState<string>(
+    createValues.integrationTitle ?? '',
+  );
+  const [selectedSystemType, setSelectedSystemType] = useState<string>(
+    createValues.selectedSystemType ?? '',
+  );
 
-  const handleReject = () => {
+  const { data: vendors, isError: isLoadVendorError } = useGetVendorsQuery();
+
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
     navigate(AuthenticationRoute.Overview);
   };
 
   const handleConfirm = () => {
-    // Clean up local State variables before returning to main page, was old solution
-    // update 07.12.23: New Design of 24.11.23 specifies navigation
-    // to ConfirmationPage: OK, but if CreationRequest fails we need to
-    // notify the user, but perhaps we could do it on the ConfirmationPage?
-    setIntegrationName('');
-    setSelectedSystemType('');
-
-    // new per 10.01.24: we navigate to RightsIncludedPage
-    navigate(AuthenticationRoute.RightsIncluded, {
-      state: {
-        integrationName: integrationName,
+    dispatch(
+      setCreateValues({
+        integrationTitle: integrationTitle,
         selectedSystemType: selectedSystemType,
-      },
-    });
+      }),
+    );
+    navigate(AuthenticationRoute.RightsIncluded);
   };
-
-  // Per 15.11.23: we use a list of vendors for PullDownMenu directly from Redux
-  const vendorsList = useAppSelector((state) => state.creationPage.systemRegisterVendorsArray);
-
-  // Håndterer skifte av valgmuligheter (options) i Nedtrekksmeny
-  // Fix-me: Bør sjekke om DesignSystem dokumentasjon er oppdatert
-  const handleChangeInput = (val: string) => {
-    setSelectedSystemType(val);
-  };
-
-  const postConfirmed = useAppSelector((state) => state.creationPage.postConfirmed);
-  const postConfirmationId = useAppSelector((state) => state.creationPage.postConfirmationId);
 
   return (
     <div className={classes.creationPageContainer}>
@@ -76,8 +51,8 @@ export const CreationPageContent = () => {
               </HelpText>
             </div>
           }
-          value={integrationName}
-          onChange={(e) => setIntegrationName(e.target.value)}
+          value={integrationTitle}
+          onChange={(e) => setIntegrationTitle(e.target.value)}
         />
       </div>
       <div>
@@ -92,12 +67,12 @@ export const CreationPageContent = () => {
           label={t('authent_creationpage.pull_down_menu_label')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
-              handleChangeInput(newValue[0]);
+              setSelectedSystemType(newValue[0]);
             }
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
         >
-          {vendorsList.map((vendor) => {
+          {vendors?.map((vendor) => {
             return (
               <Combobox.Option
                 key={vendor.systemTypeId}
@@ -109,18 +84,21 @@ export const CreationPageContent = () => {
             );
           })}
         </Combobox>
+        {isLoadVendorError && <Alert severity='danger'>Kunne ikke laste systemleverandører</Alert>}
       </div>
-
-      {!postConfirmed && (
-        <div className={classes.buttonContainer}>
-          <Button variant='primary' size='small' onClick={handleConfirm}>
-            {t('authent_creationpage.confirm_button')}
-          </Button>
-          <Button variant='tertiary' size='small' onClick={handleReject}>
-            {t('authent_creationpage.cancel_button')}
-          </Button>
-        </div>
-      )}
+      <div className={classes.buttonContainer}>
+        <Button
+          variant='primary'
+          size='small'
+          onClick={handleConfirm}
+          disabled={!integrationTitle.trim() || !selectedSystemType}
+        >
+          {t('authent_creationpage.confirm_button')}
+        </Button>
+        <Button variant='tertiary' size='small' onClick={handleCancel}>
+          {t('authent_creationpage.cancel_button')}
+        </Button>
+      </div>
     </div>
   );
 };

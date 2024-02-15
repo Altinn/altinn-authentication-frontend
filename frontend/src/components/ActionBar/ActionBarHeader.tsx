@@ -8,13 +8,10 @@ import { ActionBarIcon } from './ActionBarIcon';
 import { type ActionBarProps } from './ActionBar';
 
 export interface ActionBarHeaderProps
-  extends Pick<
-    ActionBarProps,
-    'headingLevel' | 'title' | 'subtitle' | 'additionalText' | 'actions'
-  > {}
+  extends Pick<ActionBarProps, 'title' | 'subtitle' | 'additionalText' | 'actions'> {}
 
 export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderProps>(
-  ({ additionalText, headingLevel, subtitle, title, actions }, ref) => {
+  ({ additionalText, subtitle, title, actions }, ref) => {
     const { open, toggleOpen, contentId, headerId, color, size } = useActionBarContext();
 
     let headingSize: 'small' | 'medium' | 'large' | 'xsmall';
@@ -36,7 +33,7 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
           {title}
         </Paragraph>
         {subtitle && (
-          <Paragraph as='div' size='xsmall' className={classes.subtitle}>
+          <Paragraph size='xsmall' className={classes.subtitle}>
             {subtitle}
           </Paragraph>
         )}
