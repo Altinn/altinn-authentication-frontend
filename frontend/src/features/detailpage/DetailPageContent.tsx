@@ -8,6 +8,7 @@ import {
   Paragraph,
   Link,
   Textfield,
+  Alert,
 } from '@digdir/design-system-react';
 import {
   MinusCircleIcon,
@@ -18,27 +19,31 @@ import {
 } from '@navikt/aksel-icons';
 import classes from './DetailPage.module.css';
 import { ActionBar } from '@/components';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { SystemUserObjectDTO } from '@/rtk/features/overviewPage/overviewPageSlice';
 import { AuthenticationRoute } from '@/routes/paths';
-import { SystemRegisterProductObjectDTO } from '@/rtk/features/rightsIncludedPage/rightsIncludedPageSlice';
+import {
+  useDeleteSystemuserMutation,
+  useUpdateSystemuserMutation,
+} from '@/rtk/features/systemUserApi';
+import { SystemRight, SystemUser } from '@/types';
 
 interface DetailPageContentProps {
-  systemUser: SystemUserObjectDTO;
+  systemUser: SystemUser;
+  rights: SystemRight[];
 }
 
-export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
+export const DetailPageContent = ({ systemUser, rights }: DetailPageContentProps) => {
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
+  const navigate = useNavigate();
 
-  const rightsObjektArray = useAppSelector(
-    (state) => state.rightsIncludedPage.systemRegisterProductsArray,
-  );
+  const [deleteSystemUser, { isError: isDeleteError }] = useDeleteSystemuserMutation();
+  const [updateSystemUser, { isError: isUpdateError }] = useUpdateSystemuserMutation();
+
   const [selectedRights, setSelectedRights] =
-    useState<(SystemRegisterProductObjectDTO & { deleted?: boolean })[]>(rightsObjektArray);
+    useState<(SystemRight & { deleted?: boolean })[]>(rights);
   const [name, setName] = useState<string>(systemUser.integrationTitle);
 
   const toggleAction = (
-    right: SystemRegisterProductObjectDTO & { deleted?: boolean },
+    right: SystemRight & { deleted?: boolean },
     action: { name: string; on: boolean },
   ): void => {
     setSelectedRights((oldRights) => {
@@ -63,12 +68,15 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         <Modal.Content>
           {`Er du sikker på at du vil slette systembrukeren "${systemUser.integrationTitle}"?`}
         </Modal.Content>
+        {isDeleteError && <Alert severity='danger'>Kunne ikke slette systembruker</Alert>}
         <Modal.Footer>
           <Button
             color='danger'
-            onClick={() => {
-              /** */
-            }}
+            onClick={() =>
+              deleteSystemUser(systemUser.id)
+                .unwrap()
+                .then(() => navigate(AuthenticationRoute.Overview))
+            }
           >
             Slett systembruker
           </Button>
@@ -77,9 +85,11 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <Link as={RouterLink} to={AuthenticationRoute.Overview} className={classes.backLink}>
-        <ArrowLeftIcon />
-        Tilbake til oversikt
+      <Link asChild>
+        <RouterLink to={AuthenticationRoute.Overview} className={classes.backLink}>
+          <ArrowLeftIcon />
+          Tilbake til oversikt
+        </RouterLink>
       </Link>
       <Heading level={2} size='medium'>
         {systemUser.integrationTitle}
@@ -146,7 +156,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
                   Dersom du ønsker å begrense tilgangen som blir gitt, kan du klikke på knappene
                   nedenfor for å fjerne de.
                 </Paragraph>
-                <Chip.Group size='small'>
+                <Chip.Group className={classes.rightsList} size='small'>
                   {right.actions.map((action) => {
                     return (
                       <Chip.Toggle
@@ -164,17 +174,21 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           </ActionBar>
         );
       })}
-
+      {isUpdateError && <Alert severity='danger'>Kunne ikke oppdatere systembruker</Alert>}
       <div className={classes.buttonContainer}>
         <Button
           onClick={() => {
-            /** */
+            updateSystemUser({
+              ...systemUser,
+              integrationTitle: name,
+            });
           }}
+          disabled={!name.trim()}
         >
           Lagre endringer
         </Button>
-        <Button variant='tertiary' as={RouterLink} to={AuthenticationRoute.Overview}>
-          Avbryt
+        <Button variant='tertiary' asChild>
+          <RouterLink to={AuthenticationRoute.Overview}>Avbryt</RouterLink>
         </Button>
       </div>
       <Button variant='tertiary' color='danger' onClick={() => deleteModalRef.current?.showModal()}>

@@ -1,46 +1,27 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
-import userInfoReducer, { UserInfoSliceState } from '../features/userInfo/userInfoSlice';
-import overviewPageReducer, {
-  OverviewPageSliceState,
-} from '../features/overviewPage/overviewPageSlice';
-import creationPageReducer, {
-  CreationPageSliceState,
-} from '../features/creationPage/creationPageSlice';
-import maskinportenPageReducer, {
-  MaskinportenPageSliceState,
-} from '../features/maskinportenPage/maskinportenPageSlice';
-import directConsentPageReducer, {
-  DirectConsentPageSliceState,
-} from '../features/directConsentPage/directConsentPageSlice';
-import rightsIncludedPageSlice, {
-  RightsIncludedPageSliceState,
-} from '../features/rightsIncludedPage/rightsIncludedPageSlice';
+import createSystemUserReducer, { CreateSystemUserState } from '../features/createSystemUserSlice';
+import { api } from '../features/api';
 
 const logger = createLogger();
 
-// turn off redux-logger in production
 const store = configureStore({
   reducer: {
-    userInfo: userInfoReducer,
-    overviewPage: overviewPageReducer,
-    creationPage: creationPageReducer,
-    maskinportenPage: maskinportenPageReducer,
-    directConsentPage: directConsentPageReducer,
-    rightsIncludedPage: rightsIncludedPageSlice,
+    [api.reducerPath]: api.reducer,
+    createSystemUser: createSystemUserReducer,
   },
-  ...(!import.meta.env.PROD && {
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-  }),
+  middleware: (getDefaultMiddleware) => {
+    const middleWares = getDefaultMiddleware().concat(api.middleware);
+    // turn off redux-logger in production
+    if (!import.meta.env.PROD) {
+      return middleWares.concat(logger);
+    }
+    return middleWares;
+  },
 });
 
 export default store;
 export type RootState = {
-  userInfo: UserInfoSliceState;
-  overviewPage: OverviewPageSliceState;
-  creationPage: CreationPageSliceState;
-  maskinportenPage: MaskinportenPageSliceState;
-  directConsentPage: DirectConsentPageSliceState;
-  rightsIncludedPage: RightsIncludedPageSliceState;
+  createSystemUser: CreateSystemUserState;
 };
 export type AppDispatch = typeof store.dispatch;
