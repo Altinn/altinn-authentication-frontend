@@ -1,7 +1,7 @@
 import React from 'react';
 import { Page, PageContainer } from '@/components';
 import { OverviewPageContent } from './OverviewPageContent';
-import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
+import ApiIcon from '@/assets/Api.svg?react';
 import { useTranslation } from 'react-i18next';
 
 export const OverviewPage = () => {

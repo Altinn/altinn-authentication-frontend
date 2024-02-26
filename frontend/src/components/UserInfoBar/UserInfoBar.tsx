@@ -1,6 +1,6 @@
 import React from 'react';
 import { Buildings3FillIcon } from '@navikt/aksel-icons';
-import { ReactComponent as AltinnLogo } from '@/assets/AltinnTextLogo.svg';
+import AltinnLogo from '@/assets/AltinnTextLogo.svg?react';
 import classes from './UserInfoBar.module.css';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 

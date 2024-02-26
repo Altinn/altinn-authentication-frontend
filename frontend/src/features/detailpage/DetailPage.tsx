@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Alert } from '@digdir/design-system-react';
 import { Page, PageContainer } from '@/components';
 import { DetailPageContent } from './DetailPageContent';
-import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
+import ApiIcon from '@/assets/Api.svg?react';
 import { useGetRightsQuery, useGetSystemUserQuery } from '@/rtk/features/systemUserApi';
 
 export const DetailPage = (): React.ReactNode => {

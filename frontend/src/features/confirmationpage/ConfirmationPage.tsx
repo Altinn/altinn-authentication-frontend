@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import { Page, PageContainer } from '@/components';
-import { ReactComponent as ApiIcon } from '@/assets/Api.svg';
+import ApiIcon from '@/assets/Api.svg?react';
 import { ConfirmationPageContent } from './ConfirmationPageContent';
 
 export const ConfirmationPage = () => {
