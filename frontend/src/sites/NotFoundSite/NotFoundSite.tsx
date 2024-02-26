@@ -3,7 +3,7 @@ import { useRouteError } from 'react-router-dom';
 import React from 'react';
 
 import { Page, PageContainer } from '@/components';
-import { ReactComponent as SeagullIcon } from '@/assets/Seagull.svg';
+import SeagullIcon from '@/assets/Seagull.svg?react';
 
 import classes from './NotFoundSite.module.css';
 import { Link } from '@digdir/design-system-react';
