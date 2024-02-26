@@ -370,14 +370,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/design-system-tokens@npm:0.12.0":
-  version: 0.12.0
-  resolution: "@digdir/design-system-tokens@npm:0.12.0"
-  checksum: 7089ba919876fc73e5f13c696426f3c3553b7f0ebb5e8785411fc0bbc6fd86385ddd46a65073232a115f4c479b1eb40f2c20c5d31546e301fdf0cdf7edc715f9
-  languageName: node
-  linkType: hard
-
-"@digdir/design-system-tokens@npm:^0.13.0":
+"@digdir/design-system-tokens@npm:0.13.0, @digdir/design-system-tokens@npm:^0.13.0":
   version: 0.13.0
   resolution: "@digdir/design-system-tokens@npm:0.13.0"
   checksum: 9eef237f72b176224c19e0e61bec06f1fe0bbb9d678ec609a73db303b2ea8c5009c494b68f5e8c0949ced6374093d9bf9f170a017b103e8c3fdd272af04e248c
@@ -1914,7 +1907,7 @@ __metadata:
   dependencies:
     "@altinn/figma-design-tokens": 6.0.1
     "@digdir/design-system-react": 0.50.0
-    "@digdir/design-system-tokens": 0.12.0
+    "@digdir/design-system-tokens": 0.13.0
     "@navikt/aksel-icons": ^6.0.0
     "@reduxjs/toolkit": ^2.1.0
     "@testing-library/cypress": ^10.0.0
