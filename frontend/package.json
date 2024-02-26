@@ -34,7 +34,7 @@
     "@typescript-eslint/eslint-plugin": "latest",
     "@typescript-eslint/parser": "latest",
     "@vitejs/plugin-react": "^4.0.0",
-    "cypress": "12.17.4",
+    "cypress": "13.6.6",
     "cypress-real-events": "^1.10.0",
     "eslint": "^8.0.1",
     "eslint-config-prettier": "^9.0.0",
