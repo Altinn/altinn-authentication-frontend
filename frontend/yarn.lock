@@ -720,10 +720,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:^5.12.2, @navikt/aksel-icons@npm:^5.18.1":
+"@navikt/aksel-icons@npm:^5.12.2":
   version: 5.18.3
   resolution: "@navikt/aksel-icons@npm:5.18.3"
   checksum: 992f8822d7c8453baa21a4add4ac9f0f3574ef216c655da618007d7ee47e6fcbe57c2d299d00fa2c412d6ca55be420af771727956160c42b1c1d20351dc13744
+  languageName: node
+  linkType: hard
+
+"@navikt/aksel-icons@npm:^6.0.0":
+  version: 6.1.0
+  resolution: "@navikt/aksel-icons@npm:6.1.0"
+  checksum: 747c84c0b62dc7865fa3e2e290336f53b49cc9a4c123f63aa2dc2cb959f396c2e1fc74cc97343813280bb0bc2879f7536a6555156cd823021676b2e1346fb8d1
   languageName: node
   linkType: hard
 
@@ -1908,7 +1915,7 @@ __metadata:
     "@altinn/figma-design-tokens": 6.0.1
     "@digdir/design-system-react": 0.50.0
     "@digdir/design-system-tokens": 0.12.0
-    "@navikt/aksel-icons": ^5.18.1
+    "@navikt/aksel-icons": ^6.0.0
     "@reduxjs/toolkit": ^2.1.0
     "@testing-library/cypress": ^9.0.0
     "@types/react": ^18.0.28
