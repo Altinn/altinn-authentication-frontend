@@ -57,5 +57,5 @@
     "vite": "^4.5.2",
     "vite-plugin-svgr": "^3.0.0"
   },
-  "packageManager": "yarn@3.6.3"
+  "packageManager": "yarn@3.8.0"
 }
