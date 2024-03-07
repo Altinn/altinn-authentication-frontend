@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Altinn.Platform.Models" Version="1.2.0" />
+    <PackageReference Include="Altinn.Platform.Models" Version="1.5.0" />
   </ItemGroup>
 
 </Project>
