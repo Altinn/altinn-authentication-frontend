@@ -21,3 +21,7 @@
 .backLink {
   margin-bottom: 2rem;
 }
+
+.rightsList {
+  flex-wrap: wrap;
+}

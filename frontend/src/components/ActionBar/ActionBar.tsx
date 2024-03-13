@@ -20,9 +20,6 @@ export interface ActionBarProps {
   /** The size variant of the ActionBar. */
   size?: 'small' | 'medium' | 'large';
 
-  /** Heading level. Use this to make sure the heading is correct according to you page heading levels */
-  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
-
   /** The click event handler for the ActionBar header. */
   onClick?: ClickHandler;
 
@@ -50,7 +47,6 @@ export interface ActionBarProps {
  *    additionalText=<div>"Additional Text"</div>
  *    color="neutral"
  *    size="medium"
- *    headingLevel={1}
  *    open={openState}
  *    onClick={handleActionBarClick}
  *    subtitle={<div>"Subtitle"</div>}
@@ -64,7 +60,6 @@ export interface ActionBarProps {
  * @property {React.ReactNode} [children] - The content to be displayed as expandable content inside the ActionBar.
  * @property {'light' | 'neutral' | 'warning' | 'success' | 'danger'} [color='neutral'] - The color variant of the ActionBar.
  * @property {'small' | 'medium' | 'large'} [size='medium'] - The size variant of the ActionBar.
- * @property {1 | 2 | 3 | 4 | 5 | 6} [headingLevel] - The headingLevel ActionBar title.
  * @property {boolean} [open] - Specifies whether the ActionBar is open or closed.
  * @property {ClickHandler} [onClick] - The click event handler for the ActionBar header.
  * @property {boolean} [defaultOpen=false] - Defaults the ActionBar to open if not controlled.
@@ -86,7 +81,6 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
       defaultOpen = false,
       subtitle,
       title,
-      headingLevel,
     },
     ref,
   ) => {
@@ -121,7 +115,6 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
             title={title}
             subtitle={subtitle}
             additionalText={additionalText}
-            headingLevel={headingLevel}
             actions={actions}
           ></ActionBarHeader>
           <ActionBarContent>{children}</ActionBarContent>

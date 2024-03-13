@@ -1,4 +1,5 @@
 .pageHeader {
+  --page-header-height: 72px;
   height: var(--page-header-height);
   background-color: var(--component-page_header-background-color);
   display: flex;
@@ -7,8 +8,14 @@
   padding-right: 2rem;
   box-sizing: inherit;
   align-items: center;
+  --page_header-title-font-size: 1rem;
   font-size: var(--page_header-title-font-size);
   fill: var(--component-page_header-color);
+  --page-header-child-gap: 1.5rem;
+  gap: var(--page-header-child-gap);
+  --page-header-padding-left: 2rem;
+  padding-left: var(--page-header-padding-left);
+  --page-header-icon-dimension: 40px;
 }
 
 .pageHeader.dark {
@@ -32,30 +39,21 @@
   --component-page_header-color: var(--fds-semantic-text-neutral-on_inverted);
 }
 
-.pageHeader.small {
-  --page_header-title-font-size: 9px;
-  --page-header-height: 72px;
-  gap: 1rem;
-  padding-left: 1.2rem;
-}
-
-.pageHeader.medium {
-  --page_header-title-font-size: 13px;
-  --page-header-height: 96px;
-  gap: 1.5rem;
-  padding-left: 2rem;
-}
-
-.icon.small {
-  min-width: 28px;
-  min-height: 28px;
-}
-
-.icon.medium {
-  min-width: 40px;
-  min-height: 40px;
+.pageHeader .icon > * {
+  min-width: var(--page-header-icon-dimension);
+  min-height: var(--page-header-icon-dimension);
 }
 
 .headerText {
   font-weight: 400;
+}
+
+@media only screen and (max-width: 769px) {
+  .pageHeader {
+    --page-header-height: 56px;
+    --page-header-child-gap: 1rem;
+    --page-header-padding-left: 1.25rem;
+    --page_header-title-font-size: 0.5rem;
+    --page-header-icon-dimension: 28px;
+  }
 }
