@@ -1,20 +1,17 @@
-import * as React from 'react';
+import React from 'react';
 import cn from 'classnames';
-import { SvgIcon } from '@altinn/altinn-design-system';
-
 import classes from './PageHeader.module.css';
 
 export interface PageHeaderProps {
   children?: React.ReactNode;
-  icon?: React.ReactNode;
+  icon?: React.JSX.Element;
   color: 'dark' | 'light' | 'success' | 'danger';
-  size: 'small' | 'medium';
 }
 
-export const PageHeader = ({ children, icon, color, size }: PageHeaderProps) => {
+export const PageHeader = ({ children, icon, color }: PageHeaderProps) => {
   return (
-    <header className={cn(classes.pageHeader, classes[color], classes[size])}>
-      <SvgIcon className={cn(classes.icon, classes[size])} svgIconComponent={icon} />
+    <header className={cn(classes.pageHeader, classes[color])}>
+      <span className={classes.icon}>{icon}</span>
       <h1 className={classes.headerText}>{children}</h1>
     </header>
   );

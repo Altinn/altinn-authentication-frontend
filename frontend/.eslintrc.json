@@ -16,8 +16,10 @@
     "react/jsx-filename-extension": ["warn", { "extensions": [".tsx", ".jsx"] }],
     "prefer-const": "error",
     "object-curly-spacing": ["error", "always"],
+    "no-duplicate-imports": "error",
     "@typescript-eslint/no-use-before-define": "off",
-    "@typescript-eslint/no-explicit-any": "error"
+    "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-unused-vars": "warn"
   },
 
   "overrides": [

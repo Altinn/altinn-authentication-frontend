@@ -4,3 +4,21 @@
   gap: 2rem;
   align-items: flex-start;
 }
+
+.gjemInputButton {
+  display: none;
+}
+
+.uploadButtonContainer {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  align-items: center;
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}

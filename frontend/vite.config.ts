@@ -15,7 +15,7 @@ export default defineConfig({
   plugins: [svgr(), react()],
   build: {
     target: 'es2020',
-    manifest: true,
+    manifest: 'manifest.json',
     rollupOptions: {
       // overwrite default .html entry
       input: './entrypoint.js',

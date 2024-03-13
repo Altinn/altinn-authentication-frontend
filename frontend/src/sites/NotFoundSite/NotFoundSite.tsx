@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useRouteError } from 'react-router-dom';
-import * as React from 'react';
+import React from 'react';
 
 import { Page, PageContainer } from '@/components';
-import { ReactComponent as SeagullIcon } from '@/assets/Seagull.svg';
+import SeagullIcon from '@/assets/Seagull.svg?react';
 
 import classes from './NotFoundSite.module.css';
 import { Link } from '@digdir/design-system-react';
@@ -12,7 +12,7 @@ export const NotFoundSite = () => {
   /* eslint-disable @typescript-eslint/no-explicit-any */
   const error: any = useRouteError();
 
-  const { t } = useTranslation('common');
+  const { t } = useTranslation();
 
   return (
     <div>
