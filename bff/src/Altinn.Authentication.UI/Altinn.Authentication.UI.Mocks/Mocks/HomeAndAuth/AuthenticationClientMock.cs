@@ -2,7 +2,6 @@
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;

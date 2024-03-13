@@ -9,18 +9,18 @@ namespace Altinn.Authentication.UI.Integration.Authentication;
 
 public class AuthenticationClient : IAuthenticationClient
 {
-    //private readonly ILogger _logger;    
+    private readonly ILogger _logger;    
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly HttpClient _client;
     private readonly PlatformSettings _platformSettings;
 
     public AuthenticationClient(
-        //ILogger logger, 
+        ILogger<AuthenticationClient> logger, 
         IHttpContextAccessor httpContextAccessor, 
         HttpClient client, 
         IOptions<PlatformSettings> platformSettings)
     {
-        //_logger = logger;
+        _logger = logger;
         _platformSettings = platformSettings.Value;
         _httpContextAccessor = httpContextAccessor;        
         client.BaseAddress = new Uri(platformSettings.Value.ApiAuthenticationEndpoint!);
@@ -48,14 +48,14 @@ public class AuthenticationClient : IAuthenticationClient
             }
             else
             {
-                //_logger.LogError("Refreshing JwtToken failed with status code", response.StatusCode);
+                _logger.LogError("Refreshing JwtToken failed with status code {statuscode}", response.StatusCode);
             }
 
         }       
 
         catch (Exception e)
         {
-            //_logger.LogError(e, prefix);
+            _logger.LogError(e, prefix);
         }
 
         return string.Empty;

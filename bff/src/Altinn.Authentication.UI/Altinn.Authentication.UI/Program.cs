@@ -147,7 +147,7 @@ void ConfigureFeatureClients(IServiceCollection services, IConfiguration configu
 {
     //Clients in the Integration layer for the login user and auth logic
     //services.AddHttpClient<IAuthenticationClient, AuthenticationClientMock>();
-    services.AddSingleton<IAuthenticationClient, AuthenticationClientMock>();
+    services.AddHttpClient<IAuthenticationClient, AuthenticationClient>();
     services.AddSingleton<IUserProfileClient, UserProfileClientMock>();
     services.AddSingleton<IPartyClient, PartyClientMock>();
 
