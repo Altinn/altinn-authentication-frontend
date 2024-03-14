@@ -88,7 +88,7 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
-        List<SystemUserReal> list = new();
+        List<SystemUserReal> list = [];
 
         HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{id}");
         HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
@@ -100,6 +100,8 @@ public class SystemUserClient : ISystemUserClient
 
         return list;
     }
+
+
 
     public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
     {
