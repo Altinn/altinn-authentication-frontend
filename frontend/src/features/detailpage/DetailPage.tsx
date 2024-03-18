@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert } from '@digdir/design-system-react';
+import { Alert } from '@digdir/designsystemet-react';
 import { Page, PageContainer } from '@/components';
 import { DetailPageContent } from './DetailPageContent';
 import ApiIcon from '@/assets/Api.svg?react';

@@ -9,7 +9,7 @@ import {
   Link,
   Textfield,
   Alert,
-} from '@digdir/design-system-react';
+} from '@digdir/designsystemet-react';
 import {
   MinusCircleIcon,
   PlusCircleIcon,

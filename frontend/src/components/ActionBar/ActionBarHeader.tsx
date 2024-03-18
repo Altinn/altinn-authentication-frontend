@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import cn from 'classnames';
-import { Paragraph } from '@digdir/design-system-react';
+import { Paragraph } from '@digdir/designsystemet-react';
 
 import { useActionBarContext } from './Context';
 import classes from './ActionBarHeader.module.css';

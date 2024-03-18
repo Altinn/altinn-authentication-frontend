@@ -4,7 +4,7 @@ import { AuthenticationRoute } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
 import { ActionBar } from '@/components';
 import { PlusIcon, PencilWritingIcon } from '@navikt/aksel-icons';
-import { Alert, Button, Heading, Link } from '@digdir/design-system-react';
+import { Alert, Button, Heading, Link } from '@digdir/designsystemet-react';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';

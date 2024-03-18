@@ -6,7 +6,7 @@ import { Page, PageContainer } from '@/components';
 import SeagullIcon from '@/assets/Seagull.svg?react';
 
 import classes from './NotFoundSite.module.css';
-import { Link } from '@digdir/design-system-react';
+import { Link } from '@digdir/designsystemet-react';
 
 export const NotFoundSite = () => {
   /* eslint-disable @typescript-eslint/no-explicit-any */
