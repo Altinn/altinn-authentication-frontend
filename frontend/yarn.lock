@@ -352,28 +352,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/design-system-react@npm:0.51.1":
-  version: 0.51.1
-  resolution: "@digdir/design-system-react@npm:0.51.1"
+"@digdir/design-system-react@npm:0.53.1":
+  version: 0.53.1
+  resolution: "@digdir/design-system-react@npm:0.53.1"
   dependencies:
     "@altinn/figma-design-tokens": "npm:^6.0.1"
-    "@digdir/design-system-tokens": "npm:^0.13.0"
+    "@digdir/designsystemet-react": "npm:^0.53.1"
     "@floating-ui/react": "npm:0.26.4"
     "@navikt/aksel-icons": "npm:^5.12.2"
-    "@radix-ui/react-slot": "npm:^1.0.2"
-    "@tanstack/react-virtual": "npm:^3.0.1"
     react-number-format: "npm:5.3.1"
   peerDependencies:
     react: ">=18.2.0"
     react-dom: ">=18.2.0"
-  checksum: 10c0/d309e4babb4aa06d85299a21d7448cc02cbbe8b7d4a2a4cedd7cf2317f1c8d5b9666e906fb859ed1fd80b9b2af70e4f207a86c9af22576f46fdd16ccec15edfc
+  checksum: 10c0/fdf5810582cc1f0fdee3e26c80d6e3def1e2991a5105621df91af08bb8a07016355df8ad832d5980965ba047f9f1e839ac916ba8034fc79b60b49b875859c625
   languageName: node
   linkType: hard
 
-"@digdir/design-system-tokens@npm:0.13.0, @digdir/design-system-tokens@npm:^0.13.0":
+"@digdir/design-system-tokens@npm:0.13.0":
   version: 0.13.0
   resolution: "@digdir/design-system-tokens@npm:0.13.0"
   checksum: 10c0/c5cd258836d532df68e102a5aef6aeb810b88ae8e1d898742ba80db416bd68dd4826a44a2d5b841241e89591e08fafea1ae526825afd7753b2541faa151ae82f
+  languageName: node
+  linkType: hard
+
+"@digdir/designsystemet-react@npm:^0.53.1":
+  version: 0.53.1
+  resolution: "@digdir/designsystemet-react@npm:0.53.1"
+  dependencies:
+    "@floating-ui/react": "npm:0.26.4"
+    "@navikt/aksel-icons": "npm:^5.12.2"
+    "@radix-ui/react-slot": "npm:^1.0.2"
+    "@tanstack/react-virtual": "npm:^3.0.1"
+  peerDependencies:
+    react: ">=18.2.0"
+    react-dom: ">=18.2.0"
+  checksum: 10c0/bb8f35ed2603471cb7fba5a57bc32036fa8da2e248914a5bf0ad9da3baab6c67bd08fd3f5936c018232c440b4e79fde96dbe3bca9ea8aa3052287b747d6b08ec
   languageName: node
   linkType: hard
 
@@ -2022,7 +2035,7 @@ __metadata:
   resolution: "authentication-frontend@workspace:."
   dependencies:
     "@altinn/figma-design-tokens": "npm:6.0.1"
-    "@digdir/design-system-react": "npm:0.51.1"
+    "@digdir/design-system-react": "npm:0.53.1"
     "@digdir/design-system-tokens": "npm:0.13.0"
     "@navikt/aksel-icons": "npm:^6.0.0"
     "@reduxjs/toolkit": "npm:^2.1.0"
@@ -7997,11 +8010,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A*#optional!builtin<compat/typescript>":
   version: 5.4.2
-  resolution: "typescript@patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c"
+  resolution: "typescript@patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=d69c25"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/fcf6658073d07283910d9a0e04b1d5d0ebc822c04dbb7abdd74c3151c7aa92fcddbac7d799404e358197222006ccdc4c0db219d223d2ee4ccd9e2b01333b49be
+  checksum: 10c0/22e2f213c3ffe5960c5eaec6c95c04e01858fed57a94be250746f540b935b2c18c3c3fc80d3ab65d28c0aba1eb76284557ba3bf521d28caee811c44ba2b648f9
   languageName: node
   linkType: hard
 
