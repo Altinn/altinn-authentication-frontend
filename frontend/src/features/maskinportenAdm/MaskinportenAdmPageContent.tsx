@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Heading, Paragraph, Textfield } from '@digdir/design-system-react';
+import { Alert, Button, Heading, Paragraph, Textfield } from '@digdir/designsystemet-react';
 import classes from './MaskinportenAdmPageContent.module.css';
 import { useUploadJwkMutation } from '@/rtk/features/maskinportenApi';
 import { useNavigate } from 'react-router-dom';

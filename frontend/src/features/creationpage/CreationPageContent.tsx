@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Textfield, Button, HelpText, Heading, Combobox, Alert } from '@digdir/design-system-react';
+import {
+  Textfield,
+  Button,
+  HelpText,
+  Heading,
+  Combobox,
+  Alert,
+} from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
