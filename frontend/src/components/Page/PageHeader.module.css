@@ -1,5 +1,5 @@
 .pageHeader {
-  --page-header-height: 72px;
+  --page-header-height: 94px;
   height: var(--page-header-height);
   background-color: var(--component-page_header-background-color);
   display: flex;
@@ -19,7 +19,7 @@
 }
 
 .pageHeader.dark {
-  --component-page_header-background-color: var(--semantic-surface-action-active);
+  --component-page_header-background-color: var(--fds-semantic-surface-action-first-active);
   --component-page_header-color: var(--fds-semantic-text-neutral-on_inverted);
 }
 

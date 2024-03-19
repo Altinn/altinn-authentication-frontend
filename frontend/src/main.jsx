@@ -1,5 +1,5 @@
-import '@altinn/figma-design-tokens/dist/tokens.css';
-import '@digdir/design-system-tokens/brand/altinn/tokens.css';
+import '@digdir/designsystemet-theme';
+import '@digdir/designsystemet-css';
 import '@/resources/css/Common.module.css';
 import React, { StrictMode } from 'react';
 import { Provider } from 'react-redux';

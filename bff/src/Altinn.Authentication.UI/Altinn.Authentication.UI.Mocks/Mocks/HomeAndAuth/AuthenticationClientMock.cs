@@ -1,10 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.Authentication;
-using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Mocks.Utils;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System.Net.Http.Headers;
 
 namespace Altinn.Authentication.UI.Mocks.Authentication;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Heading } from '@digdir/design-system-react';
+import { Alert, Button, Heading } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './DirectConsentPageContent.module.css';
 import { ActionBar } from '@/components';
