@@ -80,7 +80,7 @@ public class SystemUserController : ControllerBase
     /// <returns>The SystemUserIntegration model API DTO</returns>
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpGet("get-partys-integration-by-clientId/{consumerId}/{clientId}")]
+    [HttpGet("get-consumers-integration-by-clientId/{consumerId}/{clientId}")]
     public async Task<ActionResult> CheckIfPartyHasIntegration(string clientId, string consumerId, CancellationToken cancellationToken)
     {
         SystemUserDTO? res = await _systemUserService.CheckIfPartyHasIntegration(clientId, consumerId, cancellationToken);

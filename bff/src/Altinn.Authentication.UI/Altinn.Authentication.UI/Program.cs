@@ -28,6 +28,7 @@ using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Core.AppConfiguration;
 using Altinn.App.Core.Health;
+using System.Reflection;
 
 ILogger logger;
 
@@ -170,7 +171,12 @@ void ConfigureFeatureServices(IServiceCollection services, IConfiguration config
 void ConfigureDevelopmentAndTestingServices(IServiceCollection services, IConfiguration configuration)
 {
     //Debug and Development
-    services.AddSwaggerGen();
+    services.AddSwaggerGen( c=>
+    {
+        var xmlDocumentationFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlDocumentationFile);
+        c.IncludeXmlComments(xmlPath);
+    });
 }
 
 async Task SetConfigurationProviders(ConfigurationManager config)
