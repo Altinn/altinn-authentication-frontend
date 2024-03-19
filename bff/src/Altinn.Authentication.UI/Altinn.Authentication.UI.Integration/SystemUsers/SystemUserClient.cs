@@ -1,7 +1,4 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Platform.Register.Models;
-using Microsoft.AspNetCore.Components.RenderTree;
-using Microsoft.AspNetCore.Http.HttpResults;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;

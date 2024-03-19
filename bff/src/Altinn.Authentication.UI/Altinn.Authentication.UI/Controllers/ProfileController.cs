@@ -37,8 +37,8 @@ public class ProfileController : ControllerBase
     /// <summary>
     /// Method that returns the user information about the user that is logged in.
     /// The method consumes the UserProfile and Party services
-    /// <param name = "UserDTO">The UserProfile as a DTO for the Frontend</param>
     /// </summary>
+    /// <returns>The UserProfile as a DTO for the Frontend</returns>    
     //[Authorize] 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("user")]
