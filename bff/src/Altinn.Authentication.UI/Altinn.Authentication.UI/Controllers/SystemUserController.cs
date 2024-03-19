@@ -74,16 +74,16 @@ public class SystemUserController : ControllerBase
     /// PartyId is the firste entry in the path.
     /// ClientId is the second entry in the path.
     /// </summary>
-    /// <param name="clientId">The unique id maintained by IdPorten tying their clients to our Registered-Systems (Vendor's Products)</param>
+    /// <param name="clientId">The unique id maintained by IdPorten uniquely tying their clients to the Integration Ids we maintain, 1 to 1</param>
     /// <param name="cancellationToken">Cancellationtoken</param>
-    /// <param name="partyId">The identifier of the enduser owning the System User Integration</param>
-    /// <returns>The id of the SystemUser Integration</returns>
+    /// <param name="consumerId">The legal number (Orgno) of the enduser owning the System User Integration</param>
+    /// <returns>The SystemUserIntegration model API DTO</returns>
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpGet("get-partys-integration-by-clientId/{partyId}/{clientId}")]
-    public async Task<ActionResult> CheckIfPartyHasIntegration(string clientId, string partyId, CancellationToken cancellationToken)
+    [HttpGet("get-partys-integration-by-clientId/{consumerId}/{clientId}")]
+    public async Task<ActionResult> CheckIfPartyHasIntegration(string clientId, string consumerId, CancellationToken cancellationToken)
     {
-        SystemUserDTO? res = await _systemUserService.CheckIfPartyHasIntegration(clientId,partyId,cancellationToken);
+        SystemUserDTO? res = await _systemUserService.CheckIfPartyHasIntegration(clientId, consumerId, cancellationToken);
         if (res is null) return NoContent();
         return Ok(res);
     }
