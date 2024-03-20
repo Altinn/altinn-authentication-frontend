@@ -3,10 +3,12 @@
 public class SystemUserService : ISystemUserService
 {
     private readonly ISystemUserClient _systemUserClient;
+
     public SystemUserService(ISystemUserClient systemUserClient)
     {
         _systemUserClient = systemUserClient;
     }
+
     public async Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
     {
         return await _systemUserClient.ChangeSystemUserRealDescription(newDescr, id, cancellationToken);
@@ -65,5 +67,10 @@ public class SystemUserService : ISystemUserService
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
     {
         return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
+    }
+
+    public Task<SystemUserDTO?> CheckIfPartyHasIntegration(string clientId, string partyId, string systemOrg, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 }

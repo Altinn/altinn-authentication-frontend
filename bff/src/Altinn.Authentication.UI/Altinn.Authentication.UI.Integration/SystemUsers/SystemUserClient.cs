@@ -1,7 +1,4 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Platform.Register.Models;
-using Microsoft.AspNetCore.Components.RenderTree;
-using Microsoft.AspNetCore.Http.HttpResults;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -88,7 +85,7 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
-        List<SystemUserReal> list = new();
+        List<SystemUserReal> list = [];
 
         HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{id}");
         HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
@@ -100,6 +97,8 @@ public class SystemUserClient : ISystemUserClient
 
         return list;
     }
+
+
 
     public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
     {

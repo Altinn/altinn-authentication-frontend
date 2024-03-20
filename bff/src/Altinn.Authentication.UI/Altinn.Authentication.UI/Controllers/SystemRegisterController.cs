@@ -10,7 +10,7 @@ namespace Altinn.Authentication.UI.Controllers;
 [AutoValidateAntiforgeryTokenIfAuthCookie]
 public class SystemRegisterController : ControllerBase
 {
-    ISystemRegisterService _systemRegisterService;
+    private readonly ISystemRegisterService _systemRegisterService;
 
     public SystemRegisterController(ISystemRegisterService systemRegisterService)
     {

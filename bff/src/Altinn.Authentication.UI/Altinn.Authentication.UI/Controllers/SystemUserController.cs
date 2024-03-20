@@ -10,7 +10,16 @@ using System.Net.Http.Headers;
 namespace Altinn.Authentication.UI.Controllers;
 
 /// <summary>
-/// This API performs basic CRUD operations for the System Users
+/// API for System User Integrations.
+/// Each System User integrates a Registered System with a Service for a given Party.
+/// Registered System could be Vendor's Products, such as Accounting systems etc,
+/// the Services could be Skatteetaten, NAV etc ...
+/// 
+/// The Party could be businesses using accounting software, with delegated authority
+/// to integrate with the Service.
+/// 
+/// The System User could also denote Single Rights or Rights Packages delegated to it
+/// from the Party; for the purpose of integrating the Product with the Service.
 /// </summary>
 [Route("authfront/api/v1/systemuser")]
 [ApiController]
@@ -29,7 +38,11 @@ public class SystemUserController : ControllerBase
         _httpContextAccessor = httpContextAccessor;
     }
     
-
+    /// <summary>
+    /// Used by the party
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet]
@@ -54,6 +67,27 @@ public class SystemUserController : ControllerBase
         SystemUserDTO? details = await _systemUserService.GetSpecificSystemUserDTO(partyId, guid, cancellationToken);
 
         return Ok(details);
+    }
+
+    /// <summary>
+    /// Used by IdPorten, to find if a given systemOrg owns a SystemUser Integration for a Vendor's Product, by ClientId.
+    /// ConsumerId is the first entry in the path.
+    /// SystemOrg is the second entry in the path.
+    /// ClientId is the third entry in the path.
+    /// </summary>
+    /// <param name="clientId">The unique id maintained by IdPorten tying their clients to the Registered Systems we maintain</param>
+    /// <param name="cancellationToken">Cancellationtoken</param>
+    /// <param name="consumerId">The legal number (Orgno) of the Vendor creating the Registered System (Accounting system)</param>
+    /// <param name="systemOrg">The legal number (Orgno) of the party owning the System User Integration</param>
+    /// <returns>The SystemUserIntegration model API DTO</returns>
+    //[Authorize]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    [HttpGet("get-consumers-integration-by-clientId/{consumerId}/{systemOrg}/{clientId}")]
+    public async Task<ActionResult> CheckIfPartyHasIntegration(string clientId, string consumerId, string systemOrg,CancellationToken cancellationToken = default)
+    {
+        SystemUserDTO? res = await _systemUserService.CheckIfPartyHasIntegration(clientId, consumerId, systemOrg, cancellationToken);
+        if (res is null) return NoContent();
+        return Ok(res);
     }
 
     //https://brokul.dev/sending-files-and-additional-data-using-httpclient-in-net-core
