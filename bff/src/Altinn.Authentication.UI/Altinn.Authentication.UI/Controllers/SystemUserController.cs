@@ -70,20 +70,22 @@ public class SystemUserController : ControllerBase
     }
 
     /// <summary>
-    /// Used by IdPorten, to find if a given partyId owns a SystemUser Integration for a Vendor's Product, by ClientId.
-    /// PartyId is the firste entry in the path.
-    /// ClientId is the second entry in the path.
+    /// Used by IdPorten, to find if a given systemOrg owns a SystemUser Integration for a Vendor's Product, by ClientId.
+    /// ConsumerId is the first entry in the path.
+    /// SystemOrg is the second entry in the path.
+    /// ClientId is the third entry in the path.
     /// </summary>
-    /// <param name="clientId">The unique id maintained by IdPorten uniquely tying their clients to the Integration Ids we maintain, 1 to 1</param>
+    /// <param name="clientId">The unique id maintained by IdPorten tying their clients to the Registered Systems we maintain</param>
     /// <param name="cancellationToken">Cancellationtoken</param>
-    /// <param name="consumerId">The legal number (Orgno) of the enduser owning the System User Integration</param>
+    /// <param name="consumerId">The legal number (Orgno) of the Vendor creating the Registered System (Accounting system)</param>
+    /// <param name="systemOrg">The legal number (Orgno) of the party owning the System User Integration</param>
     /// <returns>The SystemUserIntegration model API DTO</returns>
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpGet("get-consumers-integration-by-clientId/{consumerId}/{clientId}")]
-    public async Task<ActionResult> CheckIfPartyHasIntegration(string clientId, string consumerId, CancellationToken cancellationToken)
+    [HttpGet("get-consumers-integration-by-clientId/{consumerId}/{systemOrg}/{clientId}")]
+    public async Task<ActionResult> CheckIfPartyHasIntegration(string clientId, string consumerId, string systemOrg,CancellationToken cancellationToken = default)
     {
-        SystemUserDTO? res = await _systemUserService.CheckIfPartyHasIntegration(clientId, consumerId, cancellationToken);
+        SystemUserDTO? res = await _systemUserService.CheckIfPartyHasIntegration(clientId, consumerId, systemOrg, cancellationToken);
         if (res is null) return NoContent();
         return Ok(res);
     }

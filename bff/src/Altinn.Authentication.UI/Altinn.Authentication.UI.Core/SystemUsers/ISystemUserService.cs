@@ -13,5 +13,5 @@ public interface ISystemUserService
     Task<bool> ChangeSystemUserTitle(string newTitle, Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default);
-    Task<SystemUserDTO?> CheckIfPartyHasIntegration(string clientId, string partyId, CancellationToken cancellationToken);
+    Task<SystemUserDTO?> CheckIfPartyHasIntegration(string clientId, string partyId, string systemOrg, CancellationToken cancellationToken = default);
 }
