@@ -346,11 +346,11 @@ __metadata:
   linkType: hard
 
 "@digdir/designsystemet-css@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@digdir/designsystemet-css@npm:0.2.1"
+  version: 0.2.3
+  resolution: "@digdir/designsystemet-css@npm:0.2.3"
   dependencies:
-    "@digdir/designsystemet-react": "npm:^0.53.1"
-  checksum: 10c0/22edbb4dda1fb5e19728d75d7ebb1c6d3c0735f830775dcc7d79fe692fa069f55db0dbfbe957e6f533ede7876147a29af6938376f3df4127dd9344bad98bc6c5
+    "@digdir/designsystemet-react": "npm:^0.55.0"
+  checksum: 10c0/1a22c16ea424d7934930cb6b66f7af00abd91705f3b053838afd1b5eb1382411b765fcd709f06446e0b0c806864cedd7fa951b82190d08ac2eeff172573acce8
   languageName: node
   linkType: hard
 
@@ -366,6 +366,21 @@ __metadata:
     react: ">=18.2.0"
     react-dom: ">=18.2.0"
   checksum: 10c0/bb8f35ed2603471cb7fba5a57bc32036fa8da2e248914a5bf0ad9da3baab6c67bd08fd3f5936c018232c440b4e79fde96dbe3bca9ea8aa3052287b747d6b08ec
+  languageName: node
+  linkType: hard
+
+"@digdir/designsystemet-react@npm:^0.55.0":
+  version: 0.55.0
+  resolution: "@digdir/designsystemet-react@npm:0.55.0"
+  dependencies:
+    "@floating-ui/react": "npm:0.26.4"
+    "@navikt/aksel-icons": "npm:^5.12.2"
+    "@radix-ui/react-slot": "npm:^1.0.2"
+    "@tanstack/react-virtual": "npm:^3.0.1"
+  peerDependencies:
+    react: ">=18.2.0"
+    react-dom: ">=18.2.0"
+  checksum: 10c0/54822fb7b8137f4fe450022316140ec527c42e774b4b025535a45c2c84dbb6246a9c07a646c5fa9ac7fe467fd85f9b63f4d7fc6ef3ffa9af46dfabb60aa52431
   languageName: node
   linkType: hard
 
