@@ -36,7 +36,7 @@ jobs:
        uses: docker/build-push-action@v5
        with:
          push: true
-         tags: ghcr.io/altinn/altinn-authn-ui:${{ github.sha }}
+         tags: ghcr.io/altinn/altinn-authentication-frontend:${{ github.sha }}
          build-args: | 
            SOURCE-REVISION_ID=${{ github.sha }}
 
