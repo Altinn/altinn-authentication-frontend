@@ -1,0 +1,46 @@
+name: "Deploy authentication-ui to environment"
+description: "Deploy authentication-ui to a given environment"
+inputs:
+  image-name:
+    description: "The name of the image to deploy"
+    required: false
+    type: string
+    default: ghcr.io/altinn/altinn-authentication-frontend
+  image-tag:
+    description: "The tag of the image to deploy"
+    required: true
+    type: string
+  container-name:
+    description: "The name of the container in the containerapp"
+    required: false
+    type: string
+    default: auditlog
+  resource-group:
+    description: "The name of the resource group in Azure"
+    required: true
+    type: string
+  container-app:
+    description: "The name of the containerapp in Azure"
+    required: true
+    type: string
+
+runs:
+  using: "composite"
+  steps:
+    - uses: denoland/setup-deno@v1
+      with:
+        deno-version: v1.x
+
+    - name: Test
+      run: az account show
+      shell: bash
+
+    - name: Deploy Image to ContainerApp
+      shell: bash
+      env:
+        NAME: ${{ inputs.container-app }}
+        CONTAINER_NAME: ${{ inputs.container-name }}
+        RESOURCE_GROUP: ${{ inputs.resource-group }}
+        IMAGE: ${{ inputs.image-name }}:${{ inputs.image-tag }}
+        FORCE_COLOR: '2'
+      run: deno run -A ./.github/actions/deploy/deploy.mts
