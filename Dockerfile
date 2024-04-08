@@ -21,6 +21,7 @@ EXPOSE 80
 #EXPOSE 443
 WORKDIR /app
 #ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_HTTP_PORTS = 80
 RUN apk add --no-cache icu-libs krb5-libs libgcc libintl libssl3 libstdc++ zlib
 
 COPY --from=generate-authentication-backend /app_output .
