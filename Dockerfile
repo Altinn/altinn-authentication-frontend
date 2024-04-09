@@ -17,7 +17,7 @@ RUN dotnet publish Altinn.Authentication.UI/Altinn.Authentication.UI/Altinn.Auth
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
 
-EXPOSE 8080
+EXPOSE 8080/tcp
 #EXPOSE 443
 WORKDIR /app
 #ENV ASPNETCORE_ENVIRONMENT=Development
