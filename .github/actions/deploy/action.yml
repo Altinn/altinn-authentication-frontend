@@ -14,7 +14,7 @@ inputs:
     description: "The name of the container in the containerapp"
     required: false
     type: string
-    default: auditlog
+    default: authentication-frontend
   resource-group:
     description: "The name of the resource group in Azure"
     required: true
