@@ -727,9 +727,9 @@ __metadata:
   linkType: hard
 
 "@navikt/aksel-icons@npm:^6.0.0":
-  version: 6.2.0
-  resolution: "@navikt/aksel-icons@npm:6.2.0"
-  checksum: 10c0/6fabcab98af8ca4d23d04b222eaea1e1a192c5cdb9c57d720a6b1377abfe53a9332269903538e15d1588cfb2ee56b7b9ede9ef70cde29de1d8d00b7afad5e31d
+  version: 6.5.0
+  resolution: "@navikt/aksel-icons@npm:6.5.0"
+  checksum: 10c0/3a446d639f941011a31a86b2c8dc1c28fadae4e11c22a82a1eb2153dd7fcb2e5b78b8afe25f9292a2dc721571d3edf0167b85f680771f43ef8b3f3b8f7a1c2a9
   languageName: node
   linkType: hard
 
@@ -828,8 +828,8 @@ __metadata:
   linkType: hard
 
 "@reduxjs/toolkit@npm:^2.1.0":
-  version: 2.2.1
-  resolution: "@reduxjs/toolkit@npm:2.2.1"
+  version: 2.2.3
+  resolution: "@reduxjs/toolkit@npm:2.2.3"
   dependencies:
     immer: "npm:^10.0.3"
     redux: "npm:^5.0.1"
@@ -843,7 +843,7 @@ __metadata:
       optional: true
     react-redux:
       optional: true
-  checksum: 10c0/675f816b311d6d703259e00c73977c9c5968e41b039d6d149e34e9084d5e6718aff3b692d2b7697974fb57a056687932117da1dd5202d392811d8d4e91d09322
+  checksum: 10c0/f10f2c8f4b6c5c7a65d8d60246bdfde86b6cd2f542210ebdda8002223c7f4e99ed32964825e63f37345d9d12532671150fcec2809a40690931ae44afe8aba7f8
   languageName: node
   linkType: hard
 
@@ -1253,22 +1253,21 @@ __metadata:
   linkType: hard
 
 "@types/react-dom@npm:^18.2.19":
-  version: 18.2.22
-  resolution: "@types/react-dom@npm:18.2.22"
+  version: 18.2.24
+  resolution: "@types/react-dom@npm:18.2.24"
   dependencies:
     "@types/react": "npm:*"
-  checksum: 10c0/cd85b5f402126e44b8c7b573e74737389816abcc931b2b14d8f946ba81cce8637ea490419488fcae842efb1e2f69853bc30522e43fd8359e1007d4d14b8d8146
+  checksum: 10c0/9ec38e5ab4727c56ef17bd8e938ead88748ba19db314b8d9807714a5cae430f5b799514667b221b4f2dc8d9b4ca17dd1c3da8c41c083c2de9eddcc31bec6b8ff
   languageName: node
   linkType: hard
 
 "@types/react@npm:*, @types/react@npm:^18.2.58":
-  version: 18.2.66
-  resolution: "@types/react@npm:18.2.66"
+  version: 18.2.75
+  resolution: "@types/react@npm:18.2.75"
   dependencies:
     "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
-  checksum: 10c0/56e4b841f2daf03a0b3268d4f2bcf5841167fe56742b9f1c076fad66587fb59191bdaba4d5727dbfbcff750d5e8797fdd4e57d8d9704b0bfc6ad31ee1e268a70
+  checksum: 10c0/3c0d035d64007d38cf1b682108de8c5f042452025899280c5d2c040b9f53b1f81482d0d57fd93e6687c2c619f3b605d33a01569b1fbbbdeec7fb3a56c7a72af8
   languageName: node
   linkType: hard
 
@@ -1278,13 +1277,6 @@ __metadata:
   dependencies:
     redux: "npm:^5.0.0"
   checksum: 10c0/dcbddf89dbdf9ab3be1d49e987beb912f500a19f842b29b868a622a9fafbab7aa65ba75f5a8a3cecab1d9809fea8d761d0d81f9ee30b5ef8dac8d64ccf82efb4
-  languageName: node
-  linkType: hard
-
-"@types/scheduler@npm:*":
-  version: 0.16.8
-  resolution: "@types/scheduler@npm:0.16.8"
-  checksum: 10c0/f86de504945b8fc41b1f391f847444d542e2e4067cf7e5d9bfeb5d2d2393d3203b1161bc0ef3b1e104d828dabfb60baf06e8d2c27e27ff7e8258e6e618d8c4ec
   languageName: node
   linkType: hard
 
@@ -2040,7 +2032,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:latest"
     "@vitejs/plugin-react": "npm:^4.2.1"
     classnames: "npm:^2.5.1"
-    cypress: "npm:13.7.0"
+    cypress: "npm:13.7.2"
     cypress-real-events: "npm:^1.12.0"
     eslint: "npm:^9.0.0"
     eslint-config-prettier: "npm:^9.1.0"
@@ -2635,9 +2627,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:13.7.0":
-  version: 13.7.0
-  resolution: "cypress@npm:13.7.0"
+"cypress@npm:13.7.2":
+  version: 13.7.2
+  resolution: "cypress@npm:13.7.2"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -2683,7 +2675,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10c0/de0921b5da521fb5be96ddfd2fe693ecdfe17c00fc764ebb92a9d1b35b9476e9a3f8a648533736421b5cc640ccf9b42b9e7d0fc4554ab9c8a29ea0837d544f08
+  checksum: 10c0/8003d13fe0a551c119e6760d5895d457f6306cb36f0f2db55794bbc83ca19fb19d1e90b392babde71a305cbaa7ce440c5bd4c6c742ac148f72381d71e6093397
   languageName: node
   linkType: hard
 
@@ -4598,11 +4590,11 @@ __metadata:
   linkType: hard
 
 "i18next-browser-languagedetector@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "i18next-browser-languagedetector@npm:7.2.0"
+  version: 7.2.1
+  resolution: "i18next-browser-languagedetector@npm:7.2.1"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10c0/d7676e6c9895d46e659effaeba11f10c39cbe99429560667de7689cb56db6977239d350be850c4caf4279781c19c50a7193cb9cc38bb485f391b8e1893e407ae
+  checksum: 10c0/44fa71af4efb4cd6cc8bfbbd3f3b2735159e17d8f4396346e4016c6dd0ecbcdd68f1ec17609fd0de8dd6754c3d847d6e7e03227c19c1879d4c265cb1918948bb
   languageName: node
   linkType: hard
 
@@ -7984,12 +7976,12 @@ __metadata:
   linkType: hard
 
 "typescript@npm:*":
-  version: 5.4.2
-  resolution: "typescript@npm:5.4.2"
+  version: 5.4.5
+  resolution: "typescript@npm:5.4.5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/583ff68cafb0c076695f72d61df6feee71689568179fb0d3a4834dac343df6b6ed7cf7b6f6c801fa52d43cd1d324e2f2d8ae4497b09f9e6cfe3d80a6d6c9ca52
+  checksum: 10c0/2954022ada340fd3d6a9e2b8e534f65d57c92d5f3989a263754a78aba549f7e6529acc1921913560a4b816c46dce7df4a4d29f9f11a3dc0d4213bb76d043251e
   languageName: node
   linkType: hard
 
@@ -8014,12 +8006,12 @@ __metadata:
   linkType: hard
 
 "typescript@patch:typescript@npm%3A*#optional!builtin<compat/typescript>":
-  version: 5.4.2
-  resolution: "typescript@patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c"
+  version: 5.4.5
+  resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/fcf6658073d07283910d9a0e04b1d5d0ebc822c04dbb7abdd74c3151c7aa92fcddbac7d799404e358197222006ccdc4c0db219d223d2ee4ccd9e2b01333b49be
+  checksum: 10c0/db2ad2a16ca829f50427eeb1da155e7a45e598eec7b086d8b4e8ba44e5a235f758e606d681c66992230d3fc3b8995865e5fd0b22a2c95486d0b3200f83072ec9
   languageName: node
   linkType: hard
 
