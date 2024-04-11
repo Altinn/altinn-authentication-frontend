@@ -345,31 +345,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:^0.2.1":
-  version: 0.2.3
-  resolution: "@digdir/designsystemet-css@npm:0.2.3"
+"@digdir/designsystemet-css@npm:^0.3.0":
+  version: 0.3.2
+  resolution: "@digdir/designsystemet-css@npm:0.3.2"
   dependencies:
-    "@digdir/designsystemet-react": "npm:^0.55.0"
-  checksum: 10c0/1a22c16ea424d7934930cb6b66f7af00abd91705f3b053838afd1b5eb1382411b765fcd709f06446e0b0c806864cedd7fa951b82190d08ac2eeff172573acce8
+    "@digdir/designsystemet-react": "npm:^0.56.2"
+  checksum: 10c0/8076224d3cd12d16095a35269dc3a2e9cd9debc2a0a0fc1be0b74e9ea8d69122900a663b032bf9c7d8fb67be491c4878d140713e7b8c0cb37181e22dd0afb13c
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-react@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@digdir/designsystemet-react@npm:0.55.0"
-  dependencies:
-    "@floating-ui/react": "npm:0.26.4"
-    "@navikt/aksel-icons": "npm:^5.12.2"
-    "@radix-ui/react-slot": "npm:^1.0.2"
-    "@tanstack/react-virtual": "npm:^3.0.1"
-  peerDependencies:
-    react: ">=18.2.0"
-    react-dom: ">=18.2.0"
-  checksum: 10c0/54822fb7b8137f4fe450022316140ec527c42e774b4b025535a45c2c84dbb6246a9c07a646c5fa9ac7fe467fd85f9b63f4d7fc6ef3ffa9af46dfabb60aa52431
-  languageName: node
-  linkType: hard
-
-"@digdir/designsystemet-react@npm:^0.56.0":
+"@digdir/designsystemet-react@npm:^0.56.0, @digdir/designsystemet-react@npm:^0.56.2":
   version: 0.56.2
   resolution: "@digdir/designsystemet-react@npm:0.56.2"
   dependencies:
@@ -1117,18 +1102,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-virtual@npm:^3.0.1":
-  version: 3.0.4
-  resolution: "@tanstack/react-virtual@npm:3.0.4"
-  dependencies:
-    "@tanstack/virtual-core": "npm:3.0.0"
-  peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/6222dc1254843fa52bdb93deca74282e2b8aabd17337d7b35596441bb70d1d7e333b1679acfb50240847799d63ee24eb184958ad8c7f1ca84c4ff0c13aefa7ec
-  languageName: node
-  linkType: hard
-
 "@tanstack/react-virtual@npm:^3.2.0":
   version: 3.2.0
   resolution: "@tanstack/react-virtual@npm:3.2.0"
@@ -1138,13 +1111,6 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
   checksum: 10c0/e736cfa35a6381a2dfcf3f2aa29e07cd842a1ee586aa88c4851dea1c5887a6d4c262f6cbf87d8aad668e137a14612a5f1197793d222d1233d70764f2614ef164
-  languageName: node
-  linkType: hard
-
-"@tanstack/virtual-core@npm:3.0.0":
-  version: 3.0.0
-  resolution: "@tanstack/virtual-core@npm:3.0.0"
-  checksum: 10c0/d0899fe470b43f80a2ccc567a01138cc015900f13d91b82abc784fc7bc46419e9c8b99c102a5c6ee76d15933db61aecc68c0ae8e92e9cb9ded9ae2f51a01cf4c
   languageName: node
   linkType: hard
 
@@ -2053,7 +2019,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:^0.2.1"
+    "@digdir/designsystemet-css": "npm:^0.3.0"
     "@digdir/designsystemet-react": "npm:^0.56.0"
     "@digdir/designsystemet-theme": "npm:^0.15.0"
     "@navikt/aksel-icons": "npm:^6.0.0"
