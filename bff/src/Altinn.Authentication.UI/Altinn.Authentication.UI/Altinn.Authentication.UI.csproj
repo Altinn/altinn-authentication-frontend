@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\authentication\" />
-    <Folder Include="wwwroot\authentication\" />
   </ItemGroup>
 
 </Project>

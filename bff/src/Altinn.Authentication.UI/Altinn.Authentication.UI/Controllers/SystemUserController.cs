@@ -56,7 +56,6 @@ public class SystemUserController : ControllerBase
 
     [Authorize]
     [HttpGet("{guid}")]
-
     public async Task<ActionResult> GetSystemUserDetailsById(Guid guid, CancellationToken cancellationToken)
     {
         var (partyId, actionResult) = ResolvePartyId();
