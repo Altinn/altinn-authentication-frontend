@@ -1,6 +1,6 @@
 import '@digdir/designsystemet-theme';
 import '@digdir/designsystemet-css';
-import '@/resources/css/Common.module.css';
+import '@/resources/css/Common.css';
 import React, { StrictMode } from 'react';
 import { Provider } from 'react-redux';
 import { createRoot } from 'react-dom/client';
