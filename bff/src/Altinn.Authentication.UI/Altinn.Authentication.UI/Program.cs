@@ -1,9 +1,9 @@
-//using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-//using Microsoft.ApplicationInsights.Channel;
-//using Microsoft.ApplicationInsights.Extensibility;
-//using Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel;
-//using Microsoft.Extensions.Logging.ApplicationInsights;
-//using Microsoft.IdentityModel.Logging;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.ApplicationInsights.Channel;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel;
+using Microsoft.Extensions.Logging.ApplicationInsights;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -34,14 +34,14 @@ ILogger logger;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-//string applicationInsightsKeySecretName = "ApplicationInsights--InstrumentationKey";
-//string applicationInsightsConnectionString = string.Empty;
+string applicationInsightsKeySecretName = "ApplicationInsights--InstrumentationKey";
+string applicationInsightsConnectionString = string.Empty;
 
 //ConfigureSetupLogging();
 
 await SetConfigurationProviders(builder.Configuration);
 
-//ConfigureLogging(builder.Logging);
+ConfigureLogging(builder.Logging);
 
 //string frontendProdFolder = AppEnvironment.GetVariable("FRONTEND_PROD_FOLDER", "wwwroot/Authentication/");
 string frontendProdFolder = "wwwroot/Authentication/";
