@@ -80,7 +80,7 @@ public class HomeController : Controller
             });
         }
 
-        return View();
+        //return View();
 
         if (await ShouldShowAppView())
         {

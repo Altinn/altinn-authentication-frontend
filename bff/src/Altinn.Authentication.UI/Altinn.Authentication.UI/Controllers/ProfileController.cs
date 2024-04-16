@@ -39,7 +39,7 @@ public class ProfileController : ControllerBase
     /// The method consumes the UserProfile and Party services
     /// </summary>
     /// <returns>The UserProfile as a DTO for the Frontend</returns>    
-    //[Authorize] 
+    [Authorize] 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("user")]
     public async Task<ActionResult> GetUser()
