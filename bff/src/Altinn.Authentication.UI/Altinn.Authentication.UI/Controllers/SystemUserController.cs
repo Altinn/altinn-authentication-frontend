@@ -3,9 +3,7 @@ using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using System.Net.Http.Headers;
-//https://github.com/Altinn/altinn-authentication-frontend/issues/22 and 23
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -89,9 +87,7 @@ public class SystemUserController : ControllerBase
         if (res is null) return NoContent();
         return Ok(res);
     }
-
-    //https://brokul.dev/sending-files-and-additional-data-using-httpclient-in-net-core
-    //POST api/<SystemUserController>/upload
+    
     /// <summary>
     /// Used to upload a certificate for the System User
     /// </summary>
@@ -112,7 +108,6 @@ public class SystemUserController : ControllerBase
         
         return Ok();
     }
-
 
     /// <summary>
     /// Endpoint for uploading a certificate for the System User
@@ -137,7 +132,6 @@ public class SystemUserController : ControllerBase
 
         return Ok();
     }
-
     
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
