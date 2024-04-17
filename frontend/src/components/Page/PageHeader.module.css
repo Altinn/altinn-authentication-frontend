@@ -1,21 +1,21 @@
 .pageHeader {
-  --page-header-height: 94px;
+  --page-header-height: var(--fds-sizing-22);
   height: var(--page-header-height);
   background-color: var(--component-page_header-background-color);
   display: flex;
   width: 100%;
   color: var(--component-page_header-color);
-  padding-right: 2rem;
+  padding-right: var(--fds-spacing-8);
   box-sizing: inherit;
   align-items: center;
   --page_header-title-font-size: 1rem;
   font-size: var(--page_header-title-font-size);
   fill: var(--component-page_header-color);
-  --page-header-child-gap: 1.5rem;
+  --page-header-child-gap: var(--fds-spacing-6);
   gap: var(--page-header-child-gap);
-  --page-header-padding-left: 2rem;
+  --page-header-padding-left: var(--fds-spacing-8);
   padding-left: var(--page-header-padding-left);
-  --page-header-icon-dimension: 40px;
+  --page-header-icon-dimension: var(--fds-sizing-10);
 }
 
 .pageHeader.dark {
@@ -50,10 +50,10 @@
 
 @media only screen and (max-width: 769px) {
   .pageHeader {
-    --page-header-height: 56px;
-    --page-header-child-gap: 1rem;
-    --page-header-padding-left: 1.25rem;
+    --page-header-height: var(--fds-sizing-14);
+    --page-header-child-gap: var(--fds-spacing-4);
+    --page-header-padding-left: var(--fds-spacing-5);
     --page_header-title-font-size: 0.5rem;
-    --page-header-icon-dimension: 28px;
+    --page-header-icon-dimension: var(--fds-sizing-7);
   }
 }
