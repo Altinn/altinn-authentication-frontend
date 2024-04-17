@@ -1,27 +1,22 @@
 .userInfoBar {
-  margin-left: auto;
-  margin-right: auto;
   display: flex;
+  justify-content: space-between;
 }
 
 .userInfoContent {
-  flex: 1;
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  gap: var(--fds-spacing-1);
   margin-right: var(--fds-spacing-1);
 }
 
 .userInfoText {
   font-weight: 500;
-  margin: 0;
-  margin-right: var(--fds-spacing-1);
-  margin-left: var(--fds-spacing-1);
+  font-size: 0.875rem;
   text-align: right;
-  word-break: break-word;
 }
 
 .companyIcon {
-  align-self: center;
   width: var(--fds-sizing-7);
   height: var(--fds-sizing-7);
 }

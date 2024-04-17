@@ -15,9 +15,3 @@ body {
 .backgroundColor {
   background-color: #1eadf7; /* not defined in designsystemet */
 }
-
-.spinnerContainer {
-  margin-top: var(--fds-spacing-4);
-  display: flex;
-  justify-content: center;
-}

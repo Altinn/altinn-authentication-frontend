@@ -15,9 +15,9 @@ export const UserInfoBar = () => {
         </div>
         <div className={classes.userInfoContent}>
           <div>
-            {userInfo?.userName && <h5 className={classes.userInfoText}>{userInfo.userName}</h5>}
+            {userInfo?.userName && <div className={classes.userInfoText}>{userInfo.userName}</div>}
             {userInfo?.organizationName && (
-              <h5 className={classes.userInfoText}>for {userInfo.organizationName}</h5>
+              <div className={classes.userInfoText}>for {userInfo.organizationName}</div>
             )}
           </div>
           <Buildings3FillIcon className={classes.companyIcon} />
