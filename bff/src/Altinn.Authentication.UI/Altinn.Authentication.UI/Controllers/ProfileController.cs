@@ -5,7 +5,6 @@ using Altinn.Authentication.UI.Models;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Platform.Register.Models;
-using System.Net.Http.Headers;
 
 namespace Altinn.Authentication.UI.Controllers;
 
