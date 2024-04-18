@@ -10,11 +10,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Altinn.Common.AccessTokenClient" Version="3.0.1" />
+    <PackageReference Include="Altinn.Common.AccessTokenClient" Version="3.0.2" />
     <PackageReference Include="Altinn.Common.PEP" Version="4.0.0" />
     <PackageReference Include="Altinn.Platform.Models" Version="1.5.0" />
     <PackageReference Include="JWTCookieAuthentication" Version="4.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="8.0.1" />
   </ItemGroup>
