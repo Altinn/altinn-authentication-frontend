@@ -8,6 +8,7 @@ import {
   Heading,
   Combobox,
   Alert,
+  Paragraph,
 } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
@@ -63,11 +64,15 @@ export const CreationPageContent = () => {
         />
       </div>
       <div>
-        <Heading level={2} size='small'>
+        <Heading level={2} size='small' spacing>
           {t('authent_creationpage.sub_title')}
         </Heading>
-        <p className={classes.contentText}>{t('authent_creationpage.content_text1')}</p>
-        <p className={classes.contentText}>{t('authent_creationpage.content_text2')}</p>
+        <Paragraph size='small' spacing>
+          {t('authent_creationpage.content_text1')}
+        </Paragraph>
+        <Paragraph size='small' spacing>
+          {t('authent_creationpage.content_text2')}
+        </Paragraph>
       </div>
       <div className={classes.inputContainer}>
         <Combobox

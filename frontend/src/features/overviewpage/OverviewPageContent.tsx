@@ -4,7 +4,7 @@ import { AuthenticationRoute } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
 import { ActionBar } from '@/components';
 import { PlusIcon, PencilWritingIcon } from '@navikt/aksel-icons';
-import { Alert, Button, Heading, Link } from '@digdir/designsystemet-react';
+import { Alert, Button, Heading, Link, Spinner } from '@digdir/designsystemet-react';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetRightsQuery, useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
@@ -13,7 +13,11 @@ import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
 import { url } from '@/utils/urlUtils';
 
 export const OverviewPageContent = () => {
-  const { data: systemUsers, isError: isLoadSystemUsersError } = useGetSystemUsersQuery();
+  const {
+    data: systemUsers,
+    isLoading: isLoadingSystemUsers,
+    isError: isLoadSystemUsersError,
+  } = useGetSystemUsersQuery();
   const { data: rights, isError: isLoadRightsError } = useGetRightsQuery();
 
   const dispatch = useAppDispatch();
@@ -44,6 +48,7 @@ export const OverviewPageContent = () => {
       <Heading level={2} size='small' spacing>
         {t('authent_overviewpage.existing_system_users_title')}
       </Heading>
+      {isLoadingSystemUsers && <Spinner title='Laster systembrukere' />}
       {isLoadSystemUsersError && <Alert severity='danger'>Kunne ikke laste systembrukere</Alert>}
       {isLoadRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
       {systemUsers?.map((systemUser) => (

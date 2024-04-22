@@ -3,15 +3,15 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
-  margin-top: 2rem;
+  margin-bottom: var(--fds-spacing-4);
+  margin-top: var(--fds-spacing-8);
 }
 
 .buttonContainer {
   display: flex;
-  margin-top: 3rem;
-  margin-bottom: 1rem;
-  gap: 1rem;
+  margin-top: var(--fds-spacing-12);
+  margin-bottom: var(--fds-spacing-4);
+  gap: var(--fds-spacing-4);
 }
 
 .nameField {
@@ -19,7 +19,7 @@
 }
 
 .backLink {
-  margin-bottom: 2rem;
+  margin-bottom: var(--fds-spacing-8);
 }
 
 .rightsList {
