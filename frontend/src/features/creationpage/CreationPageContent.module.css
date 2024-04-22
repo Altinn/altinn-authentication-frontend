@@ -1,23 +1,23 @@
 .creationPageContainer {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: var(--fds-spacing-4);
 }
 
 .inputContainer {
-  margin-bottom: 2rem;
+  margin-bottom: var(--fds-spacing-8);
   max-width: 30rem;
 }
 
 .nameLabel {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: var(--fds-spacing-4);
   align-items: center;
 }
 
 .buttonContainer {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: var(--fds-spacing-4);
 }

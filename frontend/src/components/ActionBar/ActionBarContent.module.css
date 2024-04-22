@@ -6,14 +6,14 @@
   border-bottom-right-radius: 6px;
   border-width: 1px;
   border-color: var(--border-color);
-  padding: 1.5rem;
+  padding: var(--fds-spacing-6);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--fds-spacing-1);
 }
 
 .actionBarContent.light {
-  --border-color: #80B1DD;
+  --border-color: #80b1dd; /* not defined in designsystemet */
 }
 
 .actionBarContent.neutral {
