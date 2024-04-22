@@ -17,14 +17,12 @@ public class SystemRegisterController : ControllerBase
         _systemRegisterService = systemRegisterService;
     }
 
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet]
     public async Task<ActionResult> GetListOfRegisteredSystems(CancellationToken cancellationToken = default)
     {
-        List<RegisteredSystemDTO> lista = new();
-
-        lista.AddRange(await _systemRegisterService.GetListRegSys(cancellationToken));
+        List<RegisteredSystemDTO> lista = [.. await _systemRegisterService.GetListRegSys(cancellationToken)];
 
         return Ok(lista);
     }
