@@ -25,7 +25,6 @@ public sealed record SystemUserDTO
     public string? Description { get; set; }
 
     /// <summary>
-    /// 
     /// The name chosen by the Supplier of the Product.
     /// Is important and should be unique, should be an
     /// URL safe string, with only lowercase letters - and dash.
