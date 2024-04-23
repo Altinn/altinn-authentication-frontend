@@ -1,4 +1,4 @@
-﻿namespace Altinn.Authentication.UI.Core.Common;
+﻿namespace Altinn.Authentication.UI.Core.Extensions;
 
 public static class HttpClientExtensions
 {
