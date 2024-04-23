@@ -27,16 +27,4 @@ public class SystemRegisterController : ControllerBase
         return Ok(lista);
     }
 
-    [HttpGet("product/{productId}")]
-    public async Task<ActionResult> GetDefaultRightsForProductName(string productId, CancellationToken cancellationToken = default)    
-    {
-        List<DefaultRightsDTO> lista = new();
-        DefaultRightsDTO l1 = new() { Right = "Mva Registrering", ServiceProvider = "Skatteetaten" };
-        DefaultRightsDTO l2 = new() { Right = "Lønns Rapportering", ServiceProvider = "Skatteetaten" };
-        DefaultRightsDTO l3 = new() { Right = "Lakselus Rapportering", ServiceProvider = "Mattilsynet" };
-        lista.Add(l1);
-        lista.Add(l2);
-        lista.Add(l3);
-        return Ok(lista);
-    }
 }
