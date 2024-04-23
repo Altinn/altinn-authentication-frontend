@@ -11,9 +11,11 @@ using Altinn.Authentication.UI.Mocks.SystemRegister;
 using Altinn.Authentication.UI.Mocks.SystemUsers;
 using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Common.AccessTokenClient.Services;
+using Altinn.Common.PEP.Configuration;
 using AltinnCore.Authentication.JwtCookie;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
+using System.Configuration;
 using System.Reflection;
 
 namespace Altinn.Authentication.UI.Extensions
@@ -47,8 +49,8 @@ namespace Altinn.Authentication.UI.Extensions
         public static IServiceCollection ConfigureAppSettings(this IServiceCollection services, IConfiguration configuration)
         {
             //App Configuration
-            services.Configure<PlatformSettings>(configuration.GetSection("PlatformSettings"));
-            PlatformSettings? platformSettings = configuration.GetSection("PlatformSettings").Get<PlatformSettings>();
+            services.Configure<Integration.Configuration.PlatformSettings>(configuration.GetSection("PlatformSettings"));
+            Integration.Configuration.PlatformSettings? platformSettings = configuration.GetSection("PlatformSettings").Get<Integration.Configuration.PlatformSettings>();
 
             services.Configure<GeneralSettings>(configuration.GetSection("GeneralSettings"));
 
@@ -61,7 +63,6 @@ namespace Altinn.Authentication.UI.Extensions
         /// Extension method for Program
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="configuration"></param>
         /// <param name="builder"></param>
         /// <returns></returns>
         public static IServiceCollection ConfigureAuthenticationAndSecurity(this IServiceCollection services, WebApplicationBuilder builder)
@@ -71,11 +72,16 @@ namespace Altinn.Authentication.UI.Extensions
             services.AddTransient<ISigningCredentialsResolver, SigningCredentialsResolver>();
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.TryAddSingleton<ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter>();
+
+            //App Configuration
+            services.Configure<Integration.Configuration.PlatformSettings>(builder.Configuration.GetSection("PlatformSettings"));
+            Integration.Configuration.PlatformSettings? platformSettings = builder.Configuration.GetSection("PlatformSettings").Get<Integration.Configuration.PlatformSettings>();
+
             services.AddAuthentication(JwtCookieDefaults.AuthenticationScheme)
                 .AddJwtCookie(JwtCookieDefaults.AuthenticationScheme, configureOptions: options =>
                 {
                     options.JwtCookieName = "AltinnStudioRuntime";
-                    options.MetadataAddress = "http://localhost:5101/authentication/api/v1/openid/";
+                    options.MetadataAddress = platformSettings?.OpenIdWellKnownEndpoint;
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
