@@ -10,38 +10,38 @@ public class SystemRegisterClient : ISystemRegisterClient
 
         RegisteredSystemDTO regsys1 = new()
         {
-            SystemTypeId = "fancy_system_name",
-            SystemVendor = "Fancy System Name",
-            Description = "Vårt nye system som kan brukes til Alt."
+            SystemTypeId = "4human_hr_system_2024_2",
+            SystemVendor = "4Human",
+            Description = "4Humans HR system 2024 versjon."
         };
 
         RegisteredSystemDTO regsys2 = new()
         {
-            SystemTypeId = "bra_system_navn",
-            SystemVendor = "Bra System Navn",
-            Description  =  "Rapporter naboens feilparkering i gata"
+            SystemTypeId = "din_lokale_regnskapspartner",
+            SystemVendor = "Din Lokale Regnskapspartner AS",
+            Description  = "Regnskap og Revisor tjenester"
         };
 
         RegisteredSystemDTO regsys3 = new()
         {
-            SystemTypeId = "decent_system_name",
-            SystemVendor = "Decent System Name",
-            Description =  "Rapporter helgeovertid"
+            SystemTypeId = "fiken_smabedrift",
+            SystemVendor = "Fiken",
+            Description =  "Fiken Småbedrift pakken"
         };
 
         RegisteredSystemDTO regsys4 = new()
         {
-            SystemTypeId = "awesome_system_name",
-            SystemVendor ="Awesome System Name",
-            Description = "Tja, det virker ihvertfall"
+            SystemTypeId = "visma_mva_pakke",
+            SystemVendor ="Visma",
+            Description = "Visma MVA rapportering"
 
         };
 
         RegisteredSystemDTO regsys5 = new()
         {
-            SystemTypeId = "cool_system_name",
-            SystemVendor ="Cool System Name",
-            Description = "Enda bedre enn konkurrentene"
+            SystemTypeId = "visma_skatt_totalpakke",
+            SystemVendor ="Visma",
+            Description = "Visma Totalpakke for alle skatterapporterings behov"
         };
 
         List<RegisteredSystemDTO> theList = new()
