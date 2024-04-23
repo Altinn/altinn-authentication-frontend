@@ -7,12 +7,12 @@
 .pageContent {
   background-color: var(--fds-semantic-background-default);
   box-sizing: inherit;
-  --component-page-content-padding: 3rem;
+  --component-page-content-padding: var(--fds-spacing-12);
   padding: var(--component-page-content-padding);
 }
 
 @media only screen and (max-width: 769px) {
   .pageContent {
-    --component-page-content-padding: 0.5rem;
+    --component-page-content-padding: var(--fds-spacing-2);
   }
 }

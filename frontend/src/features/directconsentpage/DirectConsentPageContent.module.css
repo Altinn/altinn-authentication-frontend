@@ -1,12 +1,12 @@
 .flexContainer {
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: var(--fds-spacing-12);
 }
 
 .buttonContainer {
   display: flex;
   flex-direction: row;
-  gap: 1rem;
-  margin-top: 2rem;
+  gap: var(--fds-spacing-4);
+  margin-top: var(--fds-spacing-8);
 }

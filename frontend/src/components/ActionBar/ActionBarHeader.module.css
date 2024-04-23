@@ -7,7 +7,7 @@
   color: var(--fds-semantic-text-neutral-default);
   border-color: var(--border-color);
   background-color: var(--background-color);
-  margin-top: 0.5rem;
+  margin-top: var(--fds-spacing-2);
 }
 
 .actionBar.clickable {
@@ -15,15 +15,15 @@
 }
 
 .actionBar.small {
-  min-height: 30px;
+  min-height: var(--fds-sizing-8);
 }
 
 .actionBar.medium {
-  min-height: 56px;
+  min-height: var(--fds-sizing-14);
 }
 
 .actionBar.large {
-  min-height: 100px;
+  min-height: var(--fds-sizing-22);
 }
 
 .actionBar.open {
@@ -33,8 +33,8 @@
 }
 
 .actionBar.light {
-  --border-color: #80b1dd;
-  --background-color: #e6eff8;
+  --border-color: #80b1dd; /* not defined in designsystemet */
+  --background-color: var(--fds-semantic-surface-action-subtle);
 }
 .actionBar.light.clickable:hover {
   --background-color: var(--fds-semantic-surface-action-subtle-hover);
@@ -51,21 +51,20 @@
 .actionBarHeader {
   display: flex;
   align-items: center;
-  padding: 0px 4px 0px 8px;
-  flex: 1 1 auto;
+  padding: 0 var(--fds-spacing-2);
+  flex: 1;
   border-style: none;
   text-align: var(--component-actionbar_header_title-text-align);
   background-color: var(--background-color);
   font-family: inherit;
   font-size: var(--font_size-300);
   color: inherit;
-  line-height: 16px;
   word-break: break-word;
 }
 
 .actionBarHeader:focus-visible {
-  --fds-inner-focus-border-color: #1e2b3c;
-  --fds-outer-focus-border-color: #fadf4b;
+  --fds-inner-focus-border-color: var(--fds-semantic-border-focus-boxshadow);
+  --fds-outer-focus-border-color: var(--fds-semantic-border-focus-outline);
   --fds-focus-border-width: 3px;
 
   outline: var(--fds-focus-border-width) solid var(--fds-outer-focus-border-color);
@@ -82,33 +81,33 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  column-gap: 0.3rem;
+  column-gap: var(--fds-spacing-1);
   padding: 0;
   height: auto;
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: var(--fds-spacing-2);
 }
 
 .actionBarSubtitle {
   font-weight: 400;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: var(--fds-spacing-1);
+  margin-bottom: var(--fds-spacing-1);
 }
 
 .actionBar.subtitle {
-  padding-top: 4px;
-  padding-bottom: 4px;
+  padding-top: var(--fds-spacing-1);
+  padding-bottom: var(--fds-spacing-1);
 }
 
 .actionBarIcon {
-  margin-right: 8px;
+  margin-right: var(--fds-spacing-2);
   display: flex;
   align-items: center;
 }
 
 .actionBarIcon.large {
-  margin-right: 16px;
-  margin-left: 8px;
+  margin-right: var(--fds-spacing-4);
+  margin-left: var(--fds-spacing-2);
 }
 
 .actionBarTexts {
