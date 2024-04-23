@@ -54,8 +54,8 @@ export const CreationPageContent = () => {
           label={
             <div className={classes.nameLabel}>
               <div>{t('authent_creationpage.input_field_label')}</div>
-              <HelpText size='small' title='Hjelpetekst for systembrukar'>
-                Hjelpetekst for systembrukar
+              <HelpText size='small' title='Hjelpetekst for systemtilgang'>
+                Hjelpetekst for systemtilgang
               </HelpText>
             </div>
           }
@@ -70,13 +70,11 @@ export const CreationPageContent = () => {
         <Paragraph size='small' spacing>
           {t('authent_creationpage.content_text1')}
         </Paragraph>
-        <Paragraph size='small' spacing>
-          {t('authent_creationpage.content_text2')}
-        </Paragraph>
       </div>
       <div className={classes.inputContainer}>
         <Combobox
           label={t('authent_creationpage.pull_down_menu_label')}
+          placeholder='Velg ...'
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
               setSelectedSystemType(newValue[0]);

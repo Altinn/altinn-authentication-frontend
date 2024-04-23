@@ -5,14 +5,14 @@ import { Alert, Button, Heading } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './DirectConsentPageContent.module.css';
 import { ActionBar } from '@/components';
-import { useCreateSystemUserMutation, useGetRightsQuery } from '@/rtk/features/systemUserApi';
+import { useCreateSystemUserMutation } from '@/rtk/features/systemUserApi';
+import { SystemRight } from '@/types';
 
 export const DirectConsentPageContent = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [postNewSystemUser, { isError: isCreateSystemUserError }] = useCreateSystemUserMutation();
-  const { data: rights, isError: isGetRightsError } = useGetRightsQuery();
 
   // for now, return to OverviewPage: design not ready
   const handleReject = () => {
@@ -43,9 +43,8 @@ export const DirectConsentPageContent = () => {
             {t('authent_includedrightspage.sub_title')}
           </Heading>
           <p>{t('authent_includedrightspage.content_text')}</p>
-          {isGetRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
           <div>
-            {rights?.map((productRight) => (
+            {[].map((productRight: SystemRight) => (
               <ActionBar
                 key={productRight.right}
                 title={productRight.right}
@@ -56,7 +55,9 @@ export const DirectConsentPageContent = () => {
             ))}
           </div>
           {isCreateSystemUserError && (
-            <Alert severity='danger'>Kunne ikke opprette systembruker</Alert>
+            <Alert severity='danger'>
+              {t('authent_includedrightspage.create_systemuser_error')}
+            </Alert>
           )}
           <div className={classes.buttonContainer}>
             <Button size='small' onClick={handleConfirm}>

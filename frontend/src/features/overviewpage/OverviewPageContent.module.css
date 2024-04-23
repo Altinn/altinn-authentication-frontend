@@ -1,18 +1,3 @@
-.rightActionTagsWrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-}
-
-.systemUserNewButton {
-  margin-bottom: 3rem;
-}
-
-.rightsHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+.systemUserHeader {
+  margin-top: 3rem;
 }
