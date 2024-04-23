@@ -5,7 +5,6 @@ using Altinn.Authentication.UI.Models;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Platform.Register.Models;
-using System.Net.Http.Headers;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -39,7 +38,7 @@ public class ProfileController : ControllerBase
     /// The method consumes the UserProfile and Party services
     /// </summary>
     /// <returns>The UserProfile as a DTO for the Frontend</returns>    
-    //[Authorize] 
+    [Authorize] 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("user")]
     public async Task<ActionResult> GetUser()

@@ -46,34 +46,41 @@
     "change_rights": "Endre rettigheter"
   },
   "authent_overviewpage": {
-    "banner_title": "Administrere systembrukere",
-    "sub_title": "Her kan du administrere dine systembrukere",
-    "new_system_user_button": "Opprett ny systembruker",
-    "existing_system_users_title": "Dine systembrukere",
+    "banner_title": "Administrere systemtilgang",
+    "sub_title": "Lag en systemtilgang",
+    "sub_title_text": "Ved å opprette en systemtilgang gir du et fagsystem tilgang til å løse oppgaver i Altinn på vegne av bedriften din.",
+    "systemusers_load_error": "Kunne ikke laste systemtilgang",
+    "new_system_user_button": "Lag ny systemtilgang",
+    "new_first_system_user_button": "Lag systemtilgang",
+    "existing_earlier_system_users_title": "Tidligere opprettede systemtilganger:",
+    "existing_system_users_title": "Dine systemtilganger:",
+    "created_system_user_title": "Du har nå laget denne systemtilgangen:",
     "rights_added": "Rettigheter lagt til",
-    "rights_not_added": "Rettigheter ikke lagt til"
+    "rights_not_added": "Rettigheter ikke lagt til",
+    "system_user_no_rights": "Systemtilgangen har ingen rettigheter",
+    "system_rights_header": "Systemtilgangen har rettigheter til disse tjenestene:",
+    "edit_system_user": "Rediger systemtilgang"
   },
-
   "authent_creationpage": {
-    "banner_title": "Opprett ny systembruker",
-    "input_field_label": "Navn på systembruker",
-    "sub_title": "Knytt systembruker til systemleverandør",
-    "content_text1": "I de fleste tilfeller vil systembrukeren benyttes i sammenheng med  sluttbrukersystemer levert av forskjellige leverandører. Det er en rekke leverandører og systemer i markedet som tilbyr systemer for forskjellig bruk. Du må selv gjøre en selvstendig vurdering på valg av leverandør og system.",
-    "content_text2": "Nedenfor listes alle leverandører og systemer som har meldt at de leverer slike tjenester. Altinn har ikke gjort noen vurdering av disse.",
-    "pull_down_menu_label": "Velg systemleverandør og system",
+    "banner_title": "Lag ny systemtilgang",
+    "input_field_label": "Gi systemtilgangen et navn",
+    "sub_title": "Velg fagsystem",
+    "content_text1": "Er du usikker på hvilket fagsystem du skal velge, anbefaler vi at du kontakter leverandøren av fagsystemet. Altinn har ikke gjort noen vurdering av kvalitet og sikkerhet på fagsystemene i listen.",
+    "pull_down_menu_label": "Velg fagsystem",
     "confirm_button": "Gå videre",
     "cancel_button": "Avbryt"
   },
   "authent_includedrightspage": {
-    "banner_title": "Inkluderte rettigheter",
-    "sub_title": "Systembrukeren \"{{name}}\" vil få disse rettighetene",
-    "content_text": "Disse rettighetene er inkludert. Har du behov for andre rettigheter, kan du legge til flere senere. Du kan også enkelt administrere systembrukere på Altinn senere.",
-    "confirm_button": "Opprett systembruker",
-    "cancel_button": "Avbryt"
+    "banner_title": "Lag ny systemtilgang",
+    "sub_title": "Systemtilgangen vil få rettigheter til disse tjenestene",
+    "content_text": "Disse rettighetene er forhåndsvalgt av fagsystemet. Har du behov for andre rettigheter, kan du legge det til senere.",
+    "confirm_button": "Opprett systemtilgang",
+    "cancel_button": "Avbryt",
+    "create_systemuser_error": "Kunne ikke opprette systemtilgang"
   },
 
   "authent_confirmationpage": {
-    "banner_title": "Ny systembruker er opprettet",
+    "banner_title": "Ny systemtilgang er opprettet",
     "sub_title": "Du har nå opprettet systembrukeren Turboskatt, som er knyttet til Visma Accounting",
     "content_text": "Du kan velge å gå videre og gi systembrukeren rettigheter, eller avslutte og komme tilbake senere.",
     "add_rights_button": "Legg til rettigheter",
@@ -99,7 +106,7 @@
     "auth_new_system_user_opprett": "Opprett ny systembruker",
     "auth_card_title_tidligere_opprettet": "Du har tidligere opprettet disse systembrukerne",
     "auth_api_panel_content": "Her skulle vært en liste over systembrukere",
-    "auth_edit_button_systembruker": "Rediger systembruker",
+    "auth_edit_button_systembruker": "Rediger systemtilgang",
     "auth_overview_text_creation": "Opprett ny systembruker for systemintegrasjon ved bruk av Maskinporten",
     "auth_overview_text_directconsent": "Fiken AS ønsker å opprette en systemintegrasjon for systemet Fiken Økonomi for selskapet Pølsebu AS"
   },

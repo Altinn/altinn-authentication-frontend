@@ -10,65 +10,49 @@ import {
   Textfield,
   Alert,
 } from '@digdir/designsystemet-react';
-import {
-  MinusCircleIcon,
-  PlusCircleIcon,
-  TrashIcon,
-  ArrowLeftIcon,
-  ArrowUndoIcon,
-} from '@navikt/aksel-icons';
+import { TrashIcon, ArrowLeftIcon } from '@navikt/aksel-icons';
 import classes from './DetailPage.module.css';
 import { ActionBar } from '@/components';
 import { AuthenticationRoute } from '@/routes/paths';
 import {
   useDeleteSystemuserMutation,
+  useGetVendorsQuery,
   useUpdateSystemuserMutation,
 } from '@/rtk/features/systemUserApi';
-import { SystemRight, SystemUser } from '@/types';
+import { SystemUser } from '@/types';
+
+const mockRightsActionsArray = [
+  { name: 'Lese', on: true },
+  { name: 'Skrive', on: true },
+  { name: 'Signere', on: true },
+  { name: 'Les arkiv', on: true },
+  { name: 'Slett arkiv', on: true },
+];
 
 interface DetailPageContentProps {
   systemUser: SystemUser;
-  rights: SystemRight[];
 }
 
-export const DetailPageContent = ({ systemUser, rights }: DetailPageContentProps) => {
+export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
   const navigate = useNavigate();
 
   const [deleteSystemUser, { isError: isDeleteError }] = useDeleteSystemuserMutation();
   const [updateSystemUser, { isError: isUpdateError }] = useUpdateSystemuserMutation();
+  const { data: vendors } = useGetVendorsQuery();
 
-  const [selectedRights, setSelectedRights] =
-    useState<(SystemRight & { deleted?: boolean })[]>(rights);
+  const vendor = vendors?.find((x) => systemUser.productName === x.systemTypeId);
+
   const [name, setName] = useState<string>(systemUser.integrationTitle);
 
-  const toggleAction = (
-    right: SystemRight & { deleted?: boolean },
-    action: { name: string; on: boolean },
-  ): void => {
-    setSelectedRights((oldRights) => {
-      return oldRights.map((oldRight) => {
-        if (oldRight.right === right.right) {
-          return {
-            ...oldRight,
-            actions: oldRight.actions?.map((y) =>
-              y.name === action.name ? { ...y, on: !y.on } : y,
-            ),
-          };
-        }
-        return oldRight;
-      });
-    });
-  };
-
   return (
-    <div>
+    <div className={classes.detailPageContent}>
       <Modal ref={deleteModalRef}>
-        <Modal.Header>Sletting av systembruker</Modal.Header>
+        <Modal.Header>Sletting av systemtilgang</Modal.Header>
         <Modal.Content>
-          {`Er du sikker på at du vil slette systembrukeren "${systemUser.integrationTitle}"?`}
+          {`Er du sikker på at du vil slette systemtilgang "${systemUser.integrationTitle}"?`}
         </Modal.Content>
-        {isDeleteError && <Alert severity='danger'>Kunne ikke slette systembruker</Alert>}
+        {isDeleteError && <Alert severity='danger'>Kunne ikke slette systemtilgang</Alert>}
         <Modal.Footer>
           <Button
             color='danger'
@@ -78,7 +62,7 @@ export const DetailPageContent = ({ systemUser, rights }: DetailPageContentProps
                 .then(() => navigate(AuthenticationRoute.Overview))
             }
           >
-            Slett systembruker
+            Slett systemtilgang
           </Button>
           <Button variant='tertiary' onClick={() => deleteModalRef.current?.close()}>
             Avbryt
@@ -87,114 +71,83 @@ export const DetailPageContent = ({ systemUser, rights }: DetailPageContentProps
       </Modal>
       <Link asChild>
         <RouterLink to={AuthenticationRoute.Overview} className={classes.backLink}>
-          <ArrowLeftIcon />
+          <ArrowLeftIcon fontSize={28} />
           Tilbake til oversikt
         </RouterLink>
       </Link>
-      <Heading level={2} size='medium'>
-        {systemUser.integrationTitle}
-      </Heading>
-      <Paragraph spacing>{systemUser.productName.toUpperCase()}</Paragraph>
+      <div>
+        <Heading level={2} size='medium'>
+          {systemUser.integrationTitle}
+        </Heading>
+        <Paragraph size='small' spacing>
+          {vendor?.systemVendor?.toUpperCase()}
+        </Paragraph>
+      </div>
       <Textfield
-        label='Endre navn på systembruker'
+        label='Endre navn på systemtilgang'
         className={classes.nameField}
         size='small'
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
-      <div className={classes.rightsHeader}>
+      <div>
         <Heading level={3} size='xxsmall' spacing>
-          Redigere rettigheter:
+          Inkluderte rettigheter:
         </Heading>
-        <Button variant='tertiary'>
-          <PlusCircleIcon />
-          Legg til rettighet
-        </Button>
-      </div>
-      {selectedRights.length === 0 && <div>Systembrukeren har ingen rettigheter</div>}
-      {selectedRights.map((right) => {
-        return (
-          <ActionBar
-            key={right.right}
-            title={right.right}
-            subtitle={right.serviceProvider}
-            color='neutral'
-            actions={
-              <Button
-                variant='tertiary'
-                size='small'
-                onClick={() => {
-                  setSelectedRights((old) =>
-                    old.map((selectedRight) =>
-                      selectedRight.right == right.right
-                        ? { ...selectedRight, deleted: !selectedRight.deleted }
-                        : selectedRight,
-                    ),
-                  );
-                }}
-              >
-                {right.deleted ? (
-                  <>
-                    Angre fjerning
-                    <ArrowUndoIcon />
-                  </>
-                ) : (
-                  <>
-                    Fjern rettighet
-                    <MinusCircleIcon />
-                  </>
-                )}
-              </Button>
-            }
-          >
-            {right.actions && (
+        {!vendor?.defaultRights.length && <div>Systemtilgangen har ingen rettigheter</div>}
+        {vendor?.defaultRights.map((right) => {
+          return (
+            <ActionBar
+              key={right.right}
+              title={right.right}
+              subtitle={right.serviceProvider}
+              color='neutral'
+            >
               <div>
                 <Paragraph size='small' spacing>
                   Eventuell tekst om rettighetene kommer her.
                 </Paragraph>
-                <Paragraph size='small' spacing>
-                  Dersom du ønsker å begrense tilgangen som blir gitt, kan du klikke på knappene
-                  nedenfor for å fjerne de.
-                </Paragraph>
                 <Chip.Group className={classes.rightsList} size='small'>
-                  {right.actions.map((action) => {
+                  {mockRightsActionsArray.map((action) => {
                     return (
-                      <Chip.Toggle
-                        key={action.name}
-                        selected={action.on}
-                        onClick={() => toggleAction(right, action)}
-                      >
+                      <Chip.Toggle key={action.name} selected={action.on}>
                         {action.name}
                       </Chip.Toggle>
                     );
                   })}
                 </Chip.Group>
               </div>
-            )}
-          </ActionBar>
-        );
-      })}
-      {isUpdateError && <Alert severity='danger'>Kunne ikke oppdatere systembruker</Alert>}
-      <div className={classes.buttonContainer}>
+            </ActionBar>
+          );
+        })}
+      </div>
+      {isUpdateError && <Alert severity='danger'>Kunne ikke oppdatere systemtilgang</Alert>}
+      <div>
+        <div className={classes.buttonContainer}>
+          <Button
+            onClick={() => {
+              updateSystemUser({
+                ...systemUser,
+                integrationTitle: name,
+              });
+            }}
+            disabled={!name.trim()}
+          >
+            Lagre endringer
+          </Button>
+          <Button variant='tertiary' asChild>
+            <RouterLink to={AuthenticationRoute.Overview}>Avbryt</RouterLink>
+          </Button>
+        </div>
         <Button
-          onClick={() => {
-            updateSystemUser({
-              ...systemUser,
-              integrationTitle: name,
-            });
-          }}
-          disabled={!name.trim()}
+          variant='tertiary'
+          color='danger'
+          onClick={() => deleteModalRef.current?.showModal()}
         >
-          Lagre endringer
-        </Button>
-        <Button variant='tertiary' asChild>
-          <RouterLink to={AuthenticationRoute.Overview}>Avbryt</RouterLink>
+          <TrashIcon />
+          Slett systemtilgang
         </Button>
       </div>
-      <Button variant='tertiary' color='danger' onClick={() => deleteModalRef.current?.showModal()}>
-        <TrashIcon />
-        Slett systembruker
-      </Button>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import {
   Heading,
   Combobox,
   Alert,
+  Paragraph,
 } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
@@ -53,8 +54,8 @@ export const CreationPageContent = () => {
           label={
             <div className={classes.nameLabel}>
               <div>{t('authent_creationpage.input_field_label')}</div>
-              <HelpText size='small' title='Hjelpetekst for systembrukar'>
-                Hjelpetekst for systembrukar
+              <HelpText size='small' title='Hjelpetekst for systemtilgang'>
+                Hjelpetekst for systemtilgang
               </HelpText>
             </div>
           }
@@ -63,15 +64,17 @@ export const CreationPageContent = () => {
         />
       </div>
       <div>
-        <Heading level={2} size='small'>
+        <Heading level={2} size='small' spacing>
           {t('authent_creationpage.sub_title')}
         </Heading>
-        <p className={classes.contentText}>{t('authent_creationpage.content_text1')}</p>
-        <p className={classes.contentText}>{t('authent_creationpage.content_text2')}</p>
+        <Paragraph size='small' spacing>
+          {t('authent_creationpage.content_text1')}
+        </Paragraph>
       </div>
       <div className={classes.inputContainer}>
         <Combobox
           label={t('authent_creationpage.pull_down_menu_label')}
+          placeholder='Velg ...'
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
               setSelectedSystemType(newValue[0]);

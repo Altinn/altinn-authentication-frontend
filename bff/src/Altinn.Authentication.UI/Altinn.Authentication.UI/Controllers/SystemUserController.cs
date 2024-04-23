@@ -3,9 +3,7 @@ using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using System.Net.Http.Headers;
-//https://github.com/Altinn/altinn-authentication-frontend/issues/22 and 23
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -43,7 +41,7 @@ public class SystemUserController : ControllerBase
     /// </summary>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet]
     public async Task<ActionResult> GetSystemUserListForLoggedInUser(CancellationToken cancellationToken = default)
@@ -56,9 +54,8 @@ public class SystemUserController : ControllerBase
         return Ok(list);
     }
 
-    //[Authorize]
+    [Authorize]
     [HttpGet("{guid}")]
-
     public async Task<ActionResult> GetSystemUserDetailsById(Guid guid, CancellationToken cancellationToken)
     {
         var (partyId, actionResult) = ResolvePartyId();
@@ -80,7 +77,7 @@ public class SystemUserController : ControllerBase
     /// <param name="consumerId">The legal number (Orgno) of the Vendor creating the Registered System (Accounting system)</param>
     /// <param name="systemOrg">The legal number (Orgno) of the party owning the System User Integration</param>
     /// <returns>The SystemUserIntegration model API DTO</returns>
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet("get-consumers-integration-by-clientId/{consumerId}/{systemOrg}/{clientId}")]
     public async Task<ActionResult> CheckIfPartyHasIntegration(string clientId, string consumerId, string systemOrg,CancellationToken cancellationToken = default)
@@ -89,14 +86,12 @@ public class SystemUserController : ControllerBase
         if (res is null) return NoContent();
         return Ok(res);
     }
-
-    //https://brokul.dev/sending-files-and-additional-data-using-httpclient-in-net-core
-    //POST api/<SystemUserController>/upload
+    
     /// <summary>
     /// Used to upload a certificate for the System User
     /// </summary>
     /// <returns></returns>
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploaddisk")]
     public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
@@ -113,12 +108,11 @@ public class SystemUserController : ControllerBase
         return Ok();
     }
 
-
     /// <summary>
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
     /// <param name = "cancellationToken" ></ param >
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploadjwk")]
     public async Task<ActionResult> UploadCertificate([FromForm] IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
@@ -137,9 +131,8 @@ public class SystemUserController : ControllerBase
 
         return Ok();
     }
-
     
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
@@ -155,7 +148,7 @@ public class SystemUserController : ControllerBase
         return NotFound();
     }
 
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPut("{id}")]
     public async void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
@@ -164,7 +157,7 @@ public class SystemUserController : ControllerBase
         if (modifiedSystemUser.SelectedSystemType is not null) await _systemUserService.ChangeSystemUserProduct(modifiedSystemUser.SelectedSystemType, id, cancellationToken);
     }
 
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpDelete("{id}")]
     public void Delete(Guid id, CancellationToken cancellationToken = default)

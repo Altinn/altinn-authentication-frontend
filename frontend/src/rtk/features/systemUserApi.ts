@@ -1,43 +1,27 @@
 import { url } from '@/utils/urlUtils';
 import { api } from './api';
-import { SystemRight, SystemUser, VendorSystem } from '@/types';
+import { SystemUser, VendorSystem } from '@/types';
 
-const mockRightsActionsArray = [
-  { name: 'Lese', on: true },
-  { name: 'Skrive', on: false },
-  { name: 'Signere', on: true },
-  { name: 'Les arkiv', on: false },
-  { name: 'Launch-Rune´s-Rocket', on: true },
-];
+enum Tags {
+  SystemUsers = 'Systemusers',
+}
 
 interface CreationRequest {
   integrationTitle: string;
   selectedSystemType: string;
 }
 
-const apiWithTag = api.enhanceEndpoints({ addTagTypes: ['SystemUsers'] });
+const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers] });
 
 export const systemUserApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
     getSystemUsers: builder.query<SystemUser[], void>({
       query: () => `systemuser`,
-      providesTags: (result) =>
-        result ? result.map(({ id }) => ({ type: 'SystemUsers', id })) : ['SystemUsers'],
+      providesTags: [Tags.SystemUsers],
     }),
     getSystemUser: builder.query<SystemUser, string>({
       query: (id) => url`systemuser/${id}`,
-      providesTags: (result) => (result ? [{ type: 'SystemUsers', id: result.id }] : []),
-    }),
-    getRights: builder.query<SystemRight[], void>({
-      query: () => `/systemregister/product/1`,
-      transformResponse: (rights: SystemRight[]) => {
-        return rights.map((x) => {
-          return {
-            ...x,
-            actions: [...mockRightsActionsArray],
-          };
-        });
-      },
+      providesTags: [Tags.SystemUsers],
     }),
     getVendors: builder.query<VendorSystem[], void>({
       query: () => `/systemregister`,
@@ -48,7 +32,7 @@ export const systemUserApi = apiWithTag.injectEndpoints({
         method: 'POST',
         body: systemUser,
       }),
-      invalidatesTags: ['SystemUsers'],
+      invalidatesTags: [Tags.SystemUsers],
     }),
     updateSystemuser: builder.mutation<SystemUser, SystemUser>({
       query: (systemUser) => ({
@@ -56,14 +40,14 @@ export const systemUserApi = apiWithTag.injectEndpoints({
         method: 'PUT',
         body: systemUser,
       }),
-      invalidatesTags: (_result, _error, arg) => [{ type: 'SystemUsers', id: arg.id }],
+      invalidatesTags: [Tags.SystemUsers],
     }),
     deleteSystemuser: builder.mutation<void, string>({
       query: (id) => ({
         url: url`systemuser/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: ['SystemUsers'],
+      invalidatesTags: [Tags.SystemUsers],
     }),
   }),
 });
@@ -74,6 +58,5 @@ export const {
   useGetSystemUserQuery,
   useGetSystemUsersQuery,
   useUpdateSystemuserMutation,
-  useGetRightsQuery,
   useGetVendorsQuery,
 } = systemUserApi;
