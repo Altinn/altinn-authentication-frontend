@@ -1,4 +1,4 @@
-﻿namespace Altinn.Authentication.UI.Core.UserProfiles;
+﻿namespace Altinn.Authentication.UI.Integration.AccessToken;
 
 public interface IAccessTokenProvider
 {

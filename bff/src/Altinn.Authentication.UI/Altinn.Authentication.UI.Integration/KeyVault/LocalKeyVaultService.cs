@@ -1,12 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
-using Altinn.AccessManagement.UI.Core.Services.Interfaces;
 using Azure;
 using Azure.Identity;
 using Azure.Security.KeyVault.Certificates;
 using Azure.Security.KeyVault.Secrets;
 
-namespace Altinn.AccessManagement.UI.Core.Services
+namespace Altinn.Authentication.UI.Integration.KeyVault
 {
     /// <summary>
     /// Wrapper implementation for a KeyVaultClient. The wrapped client is created with a principal obtained through configuration.

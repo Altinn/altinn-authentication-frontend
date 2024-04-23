@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Extensions;
+using Altinn.Authentication.UI.Integration.AccessToken;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 

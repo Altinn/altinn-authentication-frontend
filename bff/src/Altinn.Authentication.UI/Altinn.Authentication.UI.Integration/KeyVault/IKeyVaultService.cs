@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Altinn.AccessManagement.UI.Core.Services.Interfaces
+namespace Altinn.Authentication.UI.Integration.KeyVault
 {
     /// <summary>
     /// Interface for interacting with key vault
