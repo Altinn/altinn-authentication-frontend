@@ -75,7 +75,7 @@ namespace Altinn.Authentication.UI.Extensions
                 .AddJwtCookie(JwtCookieDefaults.AuthenticationScheme, configureOptions: options =>
                 {
                     options.JwtCookieName = "AltinnStudioRuntime";
-                    options.MetadataAddress = "http://localhost:5101/authentication/api/v1/openid/";
+                    options.MetadataAddress = platformSettings.OpenIdWellKnownEndpoint;
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
