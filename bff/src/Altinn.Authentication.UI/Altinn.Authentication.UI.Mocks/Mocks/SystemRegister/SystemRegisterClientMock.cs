@@ -18,7 +18,6 @@ public class SystemRegisterClientMock : ISystemRegisterClient
                 new DefaultRightsDTO { Right = "Sykemelding - Oppgi leder", ServiceProvider = "Arbeids- og velferdsetaten (NAV)" },
                 new DefaultRightsDTO { Right = "Søknad om sykepenger", ServiceProvider = "Arbeids- og velferdsetaten (NAV)" }
             ]
-
         };
 
         RegisteredSystemDTO regsys2 = new()
