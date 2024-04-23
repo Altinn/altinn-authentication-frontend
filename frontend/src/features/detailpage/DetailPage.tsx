@@ -4,20 +4,18 @@ import { Alert } from '@digdir/designsystemet-react';
 import { Page, PageContainer } from '@/components';
 import { DetailPageContent } from './DetailPageContent';
 import ApiIcon from '@/assets/Api.svg?react';
-import { useGetRightsQuery, useGetSystemUserQuery } from '@/rtk/features/systemUserApi';
+import { useGetSystemUserQuery } from '@/rtk/features/systemUserApi';
 
 export const DetailPage = (): React.ReactNode => {
   const { id } = useParams();
 
   const { data: systemUser, isError: isLoadSystemUserError } = useGetSystemUserQuery(id || '');
-  const { data: rights, isError: isLoadRightsError } = useGetRightsQuery();
 
   return (
     <PageContainer>
-      <Page color='dark' icon={<ApiIcon />} title={'Rediger systembruker'}>
-        {isLoadSystemUserError && <Alert severity='danger'>Kunne ikke laste systembruker</Alert>}
-        {isLoadRightsError && <Alert severity='danger'>Kunne ikke laste rettigheter</Alert>}
-        {systemUser && rights && <DetailPageContent systemUser={systemUser} rights={rights} />}
+      <Page color='dark' icon={<ApiIcon />} title={'Rediger systemtilgang'}>
+        {isLoadSystemUserError && <Alert severity='danger'>Kunne ikke laste systemtilgang</Alert>}
+        {systemUser && <DetailPageContent systemUser={systemUser} />}
       </Page>
     </PageContainer>
   );
