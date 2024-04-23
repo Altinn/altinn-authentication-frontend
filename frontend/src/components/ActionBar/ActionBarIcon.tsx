@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import { ChevronDownIcon as Chevron, ChevronDownCircleFillIcon } from '@navikt/aksel-icons';
+import { ChevronDownIcon as Chevron } from '@navikt/aksel-icons';
 
 import classes from './ActionBarIcon.module.css';
 import { useActionBarContext } from './Context';
@@ -18,15 +18,5 @@ export const ActionBarIcon = () => {
     'data-testid': 'action-bar-icon',
   };
 
-  const isLarge = size === 'large';
-
-  return (
-    <>
-      {isLarge ? (
-        <ChevronDownCircleFillIcon {...props} aria-hidden />
-      ) : (
-        <Chevron {...props} aria-hidden />
-      )}
-    </>
-  );
+  return <Chevron {...props} aria-hidden />;
 };

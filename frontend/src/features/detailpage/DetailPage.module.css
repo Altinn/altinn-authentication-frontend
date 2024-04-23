@@ -1,14 +1,12 @@
-.rightsHeader {
+.detailPageContent {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--fds-spacing-4);
-  margin-top: var(--fds-spacing-8);
+  flex-direction: column;
+  gap: var(--fds-spacing-8);
 }
 
 .buttonContainer {
   display: flex;
+  align-items: flex-start;
   margin-top: var(--fds-spacing-12);
   margin-bottom: var(--fds-spacing-4);
   gap: var(--fds-spacing-4);
@@ -16,10 +14,6 @@
 
 .nameField {
   max-width: 30rem;
-}
-
-.backLink {
-  margin-bottom: var(--fds-spacing-8);
 }
 
 .rightsList {
