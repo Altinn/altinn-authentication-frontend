@@ -39,6 +39,8 @@ public class UserProfileClient : IUserProfileClient
         IAccessTokenProvider accessTokenProvider)
     {
         _logger = logger;
+        httpClient.BaseAddress = new Uri(_platformSettings!.ApiProfileEndpoint!);
+        _httpClient = httpClient;
         _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
         _platformSettings = platformSettings.Value;
