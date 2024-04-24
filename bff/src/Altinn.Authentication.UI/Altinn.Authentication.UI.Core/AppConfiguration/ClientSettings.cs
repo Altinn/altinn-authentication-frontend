@@ -2,6 +2,8 @@
 
 public class ClientSettings
 {
+    public ClientSettings() { }
+
     public ClientSettings(string issuer, string app, string certificateName)
     {
         Issuer = issuer;

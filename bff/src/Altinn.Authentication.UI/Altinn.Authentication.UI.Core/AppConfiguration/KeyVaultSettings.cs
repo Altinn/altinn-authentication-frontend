@@ -2,6 +2,8 @@
 
 public class KeyVaultSettings
 {
+    public KeyVaultSettings() { }
+
     public KeyVaultSettings(string secretUri)
     {
         SecretUri = secretUri;

@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Extensions;
 using Altinn.Authentication.UI.Integration.AccessToken;
+using Microsoft.Extensions.Options;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 
@@ -34,13 +35,13 @@ public class UserProfileClient : IUserProfileClient
         ILogger<UserProfileClient> logger, 
         HttpClient httpClient, 
         IHttpContextAccessor httpContextAccessor, 
-        PlatformSettings platformSettings, 
+        IOptions<PlatformSettings> platformSettings, 
         IAccessTokenProvider accessTokenProvider)
     {
         _logger = logger;
         _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
-        _platformSettings = platformSettings;
+        _platformSettings = platformSettings.Value;
         _accessTokenProvider = accessTokenProvider;
     }
 
