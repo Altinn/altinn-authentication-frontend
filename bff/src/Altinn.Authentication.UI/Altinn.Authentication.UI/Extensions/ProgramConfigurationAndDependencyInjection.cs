@@ -7,6 +7,9 @@ using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Filters;
 using Altinn.Authentication.UI.Integration.Authentication;
 using Altinn.Authentication.UI.Integration.Configuration;
+using Altinn.Authentication.UI.Integration.SystemRegister;
+using Altinn.Authentication.UI.Integration.SystemUsers;
+using Altinn.Authentication.UI.Integration.UserProfiles;
 using Altinn.Authentication.UI.Mocks.SystemRegister;
 using Altinn.Authentication.UI.Mocks.SystemUsers;
 using Altinn.Authentication.UI.Mocks.UserProfiles;
@@ -126,12 +129,12 @@ namespace Altinn.Authentication.UI.Extensions
             //Clients in the Integration layer for the login user and auth logic
             //services.AddHttpClient<IAuthenticationClient, AuthenticationClientMock>();
             services.AddHttpClient<IAuthenticationClient, AuthenticationClient>();
-            services.AddSingleton<IUserProfileClient, UserProfileClientMock>();
-            services.AddSingleton<IPartyClient, PartyClientMock>();
+            services.AddHttpClient<IUserProfileClient, UserProfileClient>();            
 
             //Clients for the actual Features' Services
-            services.AddSingleton<ISystemUserClient, SystemUserClientMock>();
-            services.AddSingleton<ISystemRegisterClient, SystemRegisterClientMock>();
+            services.AddHttpClient<ISystemUserClient, SystemUserClient>();
+            services.AddHttpClient<ISystemRegisterClient, SystemRegisterClient>();
+            services.AddHttpClient<IPartyClient, PartyClient>();
 
             return services;
         }

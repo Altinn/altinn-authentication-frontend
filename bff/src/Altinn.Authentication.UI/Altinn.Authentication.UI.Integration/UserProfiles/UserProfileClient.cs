@@ -31,7 +31,7 @@ public class UserProfileClient : IUserProfileClient
     /// <param name="platformSettings"></param>
     /// <param name="accessTokenProvider"></param>
     public UserProfileClient(
-        ILogger logger, 
+        ILogger<UserProfileClient> logger, 
         HttpClient httpClient, 
         IHttpContextAccessor httpContextAccessor, 
         PlatformSettings platformSettings, 
