@@ -16,6 +16,7 @@ public class UserProfileService : IUserProfileService
         _profileClient = profileClient;
     }
 
+    /// <inheritdoc/>
     public async Task<UserProfile> GetUserProfile(int userid)
     {
         UserProfile userProfile = await _profileClient.GetUserProfile(userid);
