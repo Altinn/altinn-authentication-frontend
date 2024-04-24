@@ -5,8 +5,13 @@ using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Filters;
+using Altinn.Authentication.UI.Integration.AccessToken;
 using Altinn.Authentication.UI.Integration.Authentication;
 using Altinn.Authentication.UI.Integration.Configuration;
+using Altinn.Authentication.UI.Integration.KeyVault;
+using Altinn.Authentication.UI.Integration.SystemRegister;
+using Altinn.Authentication.UI.Integration.SystemUsers;
+using Altinn.Authentication.UI.Integration.UserProfiles;
 using Altinn.Authentication.UI.Mocks.SystemRegister;
 using Altinn.Authentication.UI.Mocks.SystemUsers;
 using Altinn.Authentication.UI.Mocks.UserProfiles;
@@ -119,19 +124,33 @@ namespace Altinn.Authentication.UI.Extensions
         /// Adds Clients for Integration to the Authentication Component for AuthenticationClient, UserProfileClient, PartyClient, SystemUserClient and SystemRegisterClient
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="configuration"></param>
+        /// <param name="isDevelopment"></param>
         /// <returns></returns>
-        public static IServiceCollection AddIntegrationLayer(this IServiceCollection services)
+        public static IServiceCollection AddIntegrationLayer(this IServiceCollection services, bool isDevelopment)
         {
             //Clients in the Integration layer for the login user and auth logic
             //services.AddHttpClient<IAuthenticationClient, AuthenticationClientMock>();
             services.AddHttpClient<IAuthenticationClient, AuthenticationClient>();
-            services.AddSingleton<IUserProfileClient, UserProfileClientMock>();
-            services.AddSingleton<IPartyClient, PartyClientMock>();
+            services.AddHttpClient<IUserProfileClient, UserProfileClient>();
+
+            //Providers and supporting services
+            if (isDevelopment)
+            {
+                services.AddSingleton<IKeyVaultService, LocalKeyVaultService>();
+            }
+            else
+            {
+                services.AddSingleton<IKeyVaultService, KeyVaultService>();
+            }
+
+            services.AddSingleton<IAccessTokenGenerator, AccessTokenGenerator>();
+            services.AddSingleton<IAccessTokenProvider,  AccessTokenProvider>();
+
 
             //Clients for the actual Features' Services
-            services.AddSingleton<ISystemUserClient, SystemUserClientMock>();
-            services.AddSingleton<ISystemRegisterClient, SystemRegisterClientMock>();
+            services.AddHttpClient<ISystemUserClient, SystemUserClient>();
+            services.AddHttpClient<ISystemRegisterClient, SystemRegisterClient>();
+            services.AddHttpClient<IPartyClient, PartyClient>();
 
             return services;
         }

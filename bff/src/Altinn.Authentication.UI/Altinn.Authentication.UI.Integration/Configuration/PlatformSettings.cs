@@ -6,6 +6,11 @@
 public class PlatformSettings
 {
     /// <summary>
+    /// Gets or sets the access management api endpoint
+    /// </summary>
+    public string ApiAccessManagementEndpoint { get; set; }
+
+    /// <summary>
     /// Gets or sets the authentication api endpoint
     /// </summary>
     public string? ApiAuthenticationEndpoint { get; set; }

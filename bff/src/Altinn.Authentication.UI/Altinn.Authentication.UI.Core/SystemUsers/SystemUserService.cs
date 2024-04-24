@@ -68,9 +68,4 @@ public class SystemUserService : ISystemUserService
     {
         return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
     }
-
-    public Task<SystemUserDTO?> CheckIfPartyHasIntegration(string clientId, string partyId, string systemOrg, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
 }
