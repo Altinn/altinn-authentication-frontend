@@ -20,6 +20,6 @@ public class UserProfileService : IUserProfileService
     public async Task<UserProfile> GetUserProfile(int userid)
     {
         UserProfile userProfile = await _profileClient.GetUserProfile(userid);
-        return userProfile;
+        return userProfile; 
     }
 }
