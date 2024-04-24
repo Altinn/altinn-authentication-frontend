@@ -146,6 +146,7 @@ namespace Altinn.Authentication.UI.Extensions
             services.AddSingleton<IAccessTokenGenerator, AccessTokenGenerator>();
             services.AddSingleton<IAccessTokenProvider,  AccessTokenProvider>();
 
+
             //Clients for the actual Features' Services
             services.AddHttpClient<ISystemUserClient, SystemUserClient>();
             services.AddHttpClient<ISystemRegisterClient, SystemRegisterClient>();
