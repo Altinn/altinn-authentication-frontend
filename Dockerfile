@@ -28,5 +28,6 @@ COPY --from=generate-authentication-frontend /build/dist/assets ./wwwroot/authen
 COPY --from=generate-authentication-frontend /build/src/localizations ./wwwroot/authentication/localizations
 COPY --from=generate-authentication-frontend /build/dist/manifest.json ./wwwroot/authentication
 
+RUN mkdir /tmp/logtelemetry
 ENTRYPOINT ["dotnet", "Altinn.Authentication.UI.dll"]
 
