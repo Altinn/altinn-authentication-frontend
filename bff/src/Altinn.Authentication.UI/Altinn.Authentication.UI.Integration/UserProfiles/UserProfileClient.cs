@@ -38,13 +38,12 @@ public class UserProfileClient : IUserProfileClient
         IOptions<PlatformSettings> platformSettings, 
         IAccessTokenProvider accessTokenProvider)
     {
+        _platformSettings = platformSettings.Value;
         _logger = logger;
+        _httpContextAccessor = httpContextAccessor;        
+        _accessTokenProvider = accessTokenProvider;
         httpClient.BaseAddress = new Uri(_platformSettings!.ApiProfileEndpoint!);
         _httpClient = httpClient;
-        _httpClient = httpClient;
-        _httpContextAccessor = httpContextAccessor;
-        _platformSettings = platformSettings.Value;
-        _accessTokenProvider = accessTokenProvider;
     }
 
     /// <inheritdoc/>
