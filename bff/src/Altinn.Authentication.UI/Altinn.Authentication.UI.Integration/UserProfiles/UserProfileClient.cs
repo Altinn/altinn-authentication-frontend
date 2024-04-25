@@ -43,6 +43,7 @@ public class UserProfileClient : IUserProfileClient
         _httpContextAccessor = httpContextAccessor;        
         _accessTokenProvider = accessTokenProvider;
         httpClient.BaseAddress = new Uri(_platformSettings!.ApiProfileEndpoint!);
+        httpClient.DefaultRequestHeaders.Add(_platformSettings.SubscriptionKeyHeaderName, _platformSettings.SubscriptionKey);
         _httpClient = httpClient;
     }
 
