@@ -31,8 +31,4 @@
     <ProjectReference Include="..\Altinn.Authentication.UI.Mocks\Altinn.Authentication.UI.Mocks.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\authentication\" />
-  </ItemGroup>
-
 </Project>

@@ -58,6 +58,8 @@ namespace Altinn.Authentication.UI.Extensions
             Integration.Configuration.PlatformSettings? platformSettings = configuration.GetSection("PlatformSettings").Get<Integration.Configuration.PlatformSettings>();
 
             services.Configure<GeneralSettings>(configuration.GetSection("GeneralSettings"));
+            services.Configure<KeyVaultSettings>(configuration.GetSection("KeyVaultSettings"));
+            services.Configure<ClientSettings>(configuration.GetSection("ClientSettings"));
 
             services.AddSingleton(configuration);
 
