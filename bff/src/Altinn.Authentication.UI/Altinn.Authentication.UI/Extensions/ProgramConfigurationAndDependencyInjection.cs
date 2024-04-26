@@ -156,7 +156,7 @@ namespace Altinn.Authentication.UI.Extensions
 
             //Clients for the actual Features' Services
             services.AddHttpClient<ISystemUserClient, SystemUserClient>();
-            services.AddHttpClient<ISystemRegisterClient, SystemRegisterClient>();
+            services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
             services.AddHttpClient<IPartyClient, PartyClient>();
 
             return services;
