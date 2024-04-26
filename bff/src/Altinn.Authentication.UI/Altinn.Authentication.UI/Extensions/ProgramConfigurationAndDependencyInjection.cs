@@ -1,4 +1,5 @@
 ﻿using Altinn.App.Core.Health;
+using Altinn.Authentiation.UI.Configuration;
 using Altinn.Authentication.UI.Core.AppConfiguration;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemRegister;
@@ -18,6 +19,10 @@ using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Common.AccessTokenClient.Services;
 using Altinn.Common.PEP.Configuration;
 using AltinnCore.Authentication.JwtCookie;
+using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.ApplicationInsights.Channel;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
 using System.Configuration;
