@@ -85,6 +85,7 @@ async Task SetConfigurationProviders(ConfigurationManager config)
     if (!builder.Environment.IsDevelopment())
     {
         await ConfigureApplicationInsights(config);
+        await ConfigureKeyVaultSettings(config);
     }
 }
 
@@ -151,5 +152,21 @@ void ConfigureAppliationInsightsServices()
         builder.Services.AddSingleton<ITelemetryInitializer, CustomTelemetryInitializer>();
 
         logger.LogInformation("Startup // ApplicationInsightsConnectionString = {applicationInsightsConnectionString}", applicationInsightsConnectionString);
+    }
+}
+
+async Task ConfigureKeyVaultSettings(ConfigurationManager config)
+{
+    KeyVaultSettings keyVaultSettings = new KeyVaultSettings();
+
+    config.GetSection("KeyVaultSettings").Bind(keyVaultSettings);
+
+    try
+    {
+        config.AddAzureKeyVault(new Uri(keyVaultSettings.SecretUri), new DefaultAzureCredential());
+    }
+    catch (Exception vaultException)
+    {
+        logger.LogError(vaultException, "Unable to add key vault secrets to config.");
     }
 }
