@@ -49,8 +49,10 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{partyId}/{id}");
-        HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        string endpointUrl = $"authentication/api/v1/systemuser/{partyId}/{id}";
+
+        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
 
         if (response.IsSuccessStatusCode)
         {
