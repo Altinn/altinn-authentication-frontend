@@ -60,12 +60,12 @@ public class ProfileController : ControllerBase
             user = await _userProfileService.GetUserProfile(userid);
             if (user is null) return NotFound();
 
-            Party party = await _partyService.GetPartyFromReporteeListIfExists(partyId);
+            //Party party = await _partyService.GetPartyFromReporteeListIfExists(partyId);
 
             userDTO = new()
             {
                 UserName = user.UserName,
-                OrganizationName = party.Name
+                OrganizationName = user.Party?.Name
             };
 
         }
