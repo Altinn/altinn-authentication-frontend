@@ -65,7 +65,7 @@ public class SystemUserClient : ISystemUserClient
     public async Task<SystemUserReal?> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"authentication/api/v1/suystemuser";
+        string endpointUrl = $"authentication/api/v1/systemuser";
         //var accessToken = await _accessTokenProvider.GetAccessToken();
 
         var requestObject = new
@@ -107,10 +107,12 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        string endpointUrl = $"authentication/api/v1/systemuser/{id}";
+
         List<SystemUserReal> list = [];
 
-        HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{id}");
-        HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
 
         if (response.IsSuccessStatusCode)
         {
