@@ -25,7 +25,7 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
     {
         _factory = factory;
         _client = SetupUtils.GetTestClient(factory);
-        _systemUserService = new SystemUserService(new SystemUserClientMock());
+        _systemUserService = new SystemUserService(new SystemUserClientMock(_client));
     }
 
     [Fact]
