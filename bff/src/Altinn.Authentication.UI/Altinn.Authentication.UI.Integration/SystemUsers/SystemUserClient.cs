@@ -1,4 +1,10 @@
-﻿using Altinn.Authentication.UI.Core.SystemUsers;
+﻿using Altinn.Authentication.UI.Core.Authentication;
+using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Authentication.UI.Integration.AccessToken;
+using Altinn.Authentication.UI.Integration.Configuration;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -7,7 +13,11 @@ namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
 public class SystemUserClient : ISystemUserClient
 {
+    private readonly ILogger _logger;
     private readonly HttpClient _httpClient;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly PlatformSettings _platformSettings;
+    private readonly IAccessTokenProvider _accessTokenProvider;
 
     private static SystemUserReal MapDescriptorToSystemUserReal(SystemUserDescriptor sysdescr)
     {
@@ -22,11 +32,22 @@ public class SystemUserClient : ISystemUserClient
         };       
     }
 
-    public SystemUserClient(HttpClient httpClient)
+    public SystemUserClient(
+        ILogger<SystemUserClient> logger, 
+        HttpClient httpClient, 
+        IHttpContextAccessor httpContextAccessor, 
+        IOptions<PlatformSettings> platformSettings,
+        IAccessTokenProvider accessTokenProvider)
     {
+        _logger = logger;        
+        _httpContextAccessor = httpContextAccessor;
+        _platformSettings = platformSettings.Value;
+        _accessTokenProvider = accessTokenProvider;
+        httpClient.BaseAddress = new Uri(_platformSettings!.ApiAuthenticationEndpoint!);
+        httpClient.DefaultRequestHeaders.Add(_platformSettings.SubscriptionKeyHeaderName, _platformSettings.SubscriptionKey);
         _httpClient = httpClient;
     }
-   
+
     public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{partyId}/{id}");
@@ -40,8 +61,13 @@ public class SystemUserClient : ISystemUserClient
         return null;
     }
 
-    public async Task<SystemUserReal?> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUserReal?> PostNewSystemUserReal(
+        SystemUserDescriptor newSystemUserDescriptor, 
+        CancellationToken cancellation = default)
     {
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        var accessToken = await _accessTokenProvider.GetAccessToken();                    
+        
         var requestObject = new
         { 
             PartyId = newSystemUserDescriptor.OwnedByPartyId!,
@@ -51,7 +77,8 @@ public class SystemUserClient : ISystemUserClient
 
         HttpRequestMessage request = new(HttpMethod.Post, $"authentication/api/v1/systemuser")
         {
-            Content = JsonContent.Create(requestObject, new MediaTypeHeaderValue("application/json"))
+            Content = JsonContent.Create(requestObject, new MediaTypeHeaderValue("application/json")),
+            
         };
 
         HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellation);
