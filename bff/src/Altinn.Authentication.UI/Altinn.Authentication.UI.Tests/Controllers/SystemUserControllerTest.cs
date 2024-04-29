@@ -18,7 +18,7 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
     private readonly SystemUserService _systemUserService;
     private readonly JsonSerializerOptions jsonOptions = new()
     {
-        PropertyNameCaseInsensitive = true
+        PropertyNameCaseInsensitive = true 
     };
 
     public SystemUserControllerTest(CustomWebApplicationFactory<SystemUserController> factory)
