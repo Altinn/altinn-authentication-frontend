@@ -379,9 +379,9 @@ __metadata:
   linkType: hard
 
 "@digdir/designsystemet-theme@npm:^0.15.0":
-  version: 0.15.0
-  resolution: "@digdir/designsystemet-theme@npm:0.15.0"
-  checksum: 10c0/bd194fdde82d7e492e15efa3bd09ac80bb3ed10fdae48d058d1e83793d3fc2e47d5685da9deaf38255f3e061c0b26dcf4588235efdaec4dc4fe27ccfb1d377c9
+  version: 0.15.3
+  resolution: "@digdir/designsystemet-theme@npm:0.15.3"
+  checksum: 10c0/1aab6ad54c3442aaf0fab9b5585e640c596a6d3a45cb8bbb3ca959f15d592321e7c9db01bca0bb778aaeb04fb04901e56b2b01bbd6aa0b8a9b2b6ad54d8a6e72
   languageName: node
   linkType: hard
 
