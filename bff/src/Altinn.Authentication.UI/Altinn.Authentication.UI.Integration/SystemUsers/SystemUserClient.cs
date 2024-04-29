@@ -5,8 +5,7 @@ using Altinn.Authentication.UI.Integration.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
+using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
@@ -50,8 +49,10 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{partyId}/{id}");
-        HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        string endpointUrl = $"authentication/api/v1/systemuser/{partyId}/{id}";
+
+        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
 
         if (response.IsSuccessStatusCode)
         {
@@ -66,22 +67,16 @@ public class SystemUserClient : ISystemUserClient
         CancellationToken cancellation = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        var accessToken = await _accessTokenProvider.GetAccessToken();                    
-        
+        string endpointUrl = $"authentication/api/v1/systemuser";
+        //var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
             PartyId = newSystemUserDescriptor.OwnedByPartyId!,
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
-            ProductName = newSystemUserDescriptor.SelectedSystemType!
+            ProductName = newSystemUserDescriptor.SelectedSystemType!            
         };
-
-        HttpRequestMessage request = new(HttpMethod.Post, $"authentication/api/v1/systemuser")
-        {
-            Content = JsonContent.Create(requestObject, new MediaTypeHeaderValue("application/json")),
-            
-        };
-
-        HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellation);
+        StringContent content = new(JsonSerializer.Serialize(requestObject));
+        HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
 
         if (response.IsSuccessStatusCode)
         {
@@ -112,10 +107,12 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        string endpointUrl = $"authentication/api/v1/systemuser/{id}";
+
         List<SystemUserReal> list = [];
 
-        HttpRequestMessage request = new(HttpMethod.Get, $"authentication/api/v1/systemuser/{id}");
-        HttpResponseMessage response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken);
+        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
 
         if (response.IsSuccessStatusCode)
         {
