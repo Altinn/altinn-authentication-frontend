@@ -68,7 +68,7 @@ public class SystemUserClient : ISystemUserClient
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"authentication/api/v1/systemuser";
-        //var accessToken = await _accessTokenProvider.GetAccessToken();
+        var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
             PartyId = newSystemUserDescriptor.OwnedByPartyId!,
@@ -76,7 +76,7 @@ public class SystemUserClient : ISystemUserClient
             ProductName = newSystemUserDescriptor.SelectedSystemType!            
         };
         StringContent content = new(JsonSerializer.Serialize(requestObject));
-        HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
+        HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
         if (response.IsSuccessStatusCode)
         {
