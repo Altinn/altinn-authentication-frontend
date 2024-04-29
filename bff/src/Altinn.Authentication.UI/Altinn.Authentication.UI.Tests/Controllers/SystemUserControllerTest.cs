@@ -18,14 +18,14 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
     private readonly SystemUserService _systemUserService;
     private readonly JsonSerializerOptions jsonOptions = new()
     {
-        PropertyNameCaseInsensitive = true
+        PropertyNameCaseInsensitive = true 
     };
 
     public SystemUserControllerTest(CustomWebApplicationFactory<SystemUserController> factory)
     {
         _factory = factory;
         _client = SetupUtils.GetTestClient(factory);
-        _systemUserService = new SystemUserService(new SystemUserClientMock());
+        _systemUserService = new SystemUserService(new SystemUserClientMock(_client));
     }
 
     [Fact]
