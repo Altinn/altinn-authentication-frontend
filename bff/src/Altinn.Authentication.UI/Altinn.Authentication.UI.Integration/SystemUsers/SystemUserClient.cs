@@ -32,10 +32,10 @@ public class SystemUserClient : ISystemUserClient
     }
 
     public SystemUserClient(
-        ILogger logger, 
+        ILogger<SystemUserClient> logger, 
         HttpClient httpClient, 
         IHttpContextAccessor httpContextAccessor, 
-        IOptions<PlatformSettings> platformSettings, 
+        IOptions<PlatformSettings> platformSettings,
         IAccessTokenProvider accessTokenProvider)
     {
         _logger = logger;        
@@ -62,19 +62,19 @@ public class SystemUserClient : ISystemUserClient
         return null;
     }
 
-    public async Task<SystemUserReal?> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUserReal?> PostNewSystemUserReal(
+        SystemUserDescriptor newSystemUserDescriptor, 
+        CancellationToken cancellation = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"authentication/api/v1/systemuser";
         //var accessToken = await _accessTokenProvider.GetAccessToken();
-
         var requestObject = new
         { 
             PartyId = newSystemUserDescriptor.OwnedByPartyId!,
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
             ProductName = newSystemUserDescriptor.SelectedSystemType!            
         };
-
         StringContent content = new(JsonSerializer.Serialize(requestObject));
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
 
