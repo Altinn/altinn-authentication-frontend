@@ -52,7 +52,8 @@ public class SystemUserClientMock : ISystemUserClient
         return systemUserList;
     }
 
-    private static List<SystemUserReal> _systemUserList = new();
+    private readonly HttpClient _httpClient;
+    private static List<SystemUserReal> _systemUserList = [];
 
     private static SystemUserReal MapDescriptorToSystemUserReal(SystemUserDescriptor sysdescr)
     {
@@ -67,8 +68,9 @@ public class SystemUserClientMock : ISystemUserClient
         };       
     }
 
-    public SystemUserClientMock()
+    public SystemUserClientMock(HttpClient httpClient)
     {
+        _httpClient = httpClient;
         _systemUserList = MockTestHelper();
     }
    

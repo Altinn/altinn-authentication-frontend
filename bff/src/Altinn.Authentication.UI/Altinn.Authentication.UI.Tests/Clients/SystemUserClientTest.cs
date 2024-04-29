@@ -1,6 +1,7 @@
 ﻿using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Integration.SystemUsers;
+using Altinn.Authentication.UI.Mocks.SystemUsers;
 using Altinn.Authentication.UI.Tests.Utils;
 using Xunit;
 
@@ -16,7 +17,7 @@ public class SystemUserClientIntegrationTest : IClassFixture<CustomWebApplicatio
 
     public SystemUserClientIntegrationTest()
     {
-        _systemUserClient = new SystemUserClient(
+        _systemUserClient = new SystemUserClientMock(
             new HttpClient{BaseAddress = new UriBuilder("https://localhost:44377/").Uri});
     }
 

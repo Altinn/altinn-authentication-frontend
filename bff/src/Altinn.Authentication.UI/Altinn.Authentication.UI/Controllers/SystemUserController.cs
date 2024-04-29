@@ -90,7 +90,7 @@ public class SystemUserController : ControllerBase
     /// <summary>
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
-    /// <param name = "cancellationToken" ></ param >
+    /// <param name = "cancellationToken" ></param >
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploadjwk")]
