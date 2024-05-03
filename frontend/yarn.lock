@@ -363,21 +363,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-react@npm:^0.56.0":
-  version: 0.56.2
-  resolution: "@digdir/designsystemet-react@npm:0.56.2"
-  dependencies:
-    "@floating-ui/react": "npm:0.26.4"
-    "@navikt/aksel-icons": "npm:^5.12.2"
-    "@radix-ui/react-slot": "npm:^1.0.2"
-    "@tanstack/react-virtual": "npm:^3.2.0"
-  peerDependencies:
-    react: ">=18.2.0"
-    react-dom: ">=18.2.0"
-  checksum: 10c0/422ac171458d8db60733eaa2f1c87e0510229e0977a1de98b0124259b7f5cbc09f81240f65f5948098b2c381f5e7f336e96de6e1da471105f83efc6e66080c91
-  languageName: node
-  linkType: hard
-
 "@digdir/designsystemet-react@npm:^0.59.0":
   version: 0.59.0
   resolution: "@digdir/designsystemet-react@npm:0.59.0"
@@ -2002,7 +1987,7 @@ __metadata:
   resolution: "authentication-frontend@workspace:."
   dependencies:
     "@digdir/designsystemet-css": "npm:^0.6.0"
-    "@digdir/designsystemet-react": "npm:^0.56.0"
+    "@digdir/designsystemet-react": "npm:^0.59.0"
     "@digdir/designsystemet-theme": "npm:^0.15.0"
     "@navikt/aksel-icons": "npm:^6.0.0"
     "@reduxjs/toolkit": "npm:^2.1.0"
