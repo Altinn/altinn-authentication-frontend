@@ -354,16 +354,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:^0.3.0":
-  version: 0.3.2
-  resolution: "@digdir/designsystemet-css@npm:0.3.2"
+"@digdir/designsystemet-css@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@digdir/designsystemet-css@npm:0.6.0"
   dependencies:
-    "@digdir/designsystemet-react": "npm:^0.56.2"
-  checksum: 10c0/8076224d3cd12d16095a35269dc3a2e9cd9debc2a0a0fc1be0b74e9ea8d69122900a663b032bf9c7d8fb67be491c4878d140713e7b8c0cb37181e22dd0afb13c
+    "@digdir/designsystemet-react": "npm:^0.59.0"
+  checksum: 10c0/fae7f29d9975d8efbf4135737cde054302c4bb4b24ed51902ba18ea7b9599fa5618d5d8f035a6a1f71244e7b090fdfd90c345d4f26c82ee37953fcb321cea057
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-react@npm:^0.56.0, @digdir/designsystemet-react@npm:^0.56.2":
+"@digdir/designsystemet-react@npm:^0.56.0":
   version: 0.56.2
   resolution: "@digdir/designsystemet-react@npm:0.56.2"
   dependencies:
@@ -375,6 +375,21 @@ __metadata:
     react: ">=18.2.0"
     react-dom: ">=18.2.0"
   checksum: 10c0/422ac171458d8db60733eaa2f1c87e0510229e0977a1de98b0124259b7f5cbc09f81240f65f5948098b2c381f5e7f336e96de6e1da471105f83efc6e66080c91
+  languageName: node
+  linkType: hard
+
+"@digdir/designsystemet-react@npm:^0.59.0":
+  version: 0.59.0
+  resolution: "@digdir/designsystemet-react@npm:0.59.0"
+  dependencies:
+    "@floating-ui/react": "npm:0.26.4"
+    "@navikt/aksel-icons": "npm:^5.12.2"
+    "@radix-ui/react-slot": "npm:^1.0.2"
+    "@tanstack/react-virtual": "npm:^3.2.0"
+  peerDependencies:
+    react: ">=18.2.0"
+    react-dom: ">=18.2.0"
+  checksum: 10c0/ed9c8acbb5a11f37aff4797d44699491103b7e6a5932486241fd4c3a941614e156d489087bbebb0200d8b30073b8c2c7421b7c1938cf9197f7b75cc7dc01ca40
   languageName: node
   linkType: hard
 
@@ -1979,7 +1994,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:^0.3.0"
+    "@digdir/designsystemet-css": "npm:^0.6.0"
     "@digdir/designsystemet-react": "npm:^0.56.0"
     "@digdir/designsystemet-theme": "npm:^0.15.0"
     "@navikt/aksel-icons": "npm:^6.0.0"
