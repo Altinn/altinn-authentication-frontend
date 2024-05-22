@@ -1,1 +1,0 @@
-export { DirectConsentPage } from './DirectConsentPage';

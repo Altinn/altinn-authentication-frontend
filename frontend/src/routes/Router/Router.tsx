@@ -3,7 +3,6 @@ import { createBrowserRouter, createRoutesFromElements, Route } from 'react-rout
 import { OverviewPage } from '@/features/overviewpage/OverviewPage';
 import { CreationPage } from '@/features/creationpage/CreationPage';
 import { ConfirmationPage } from '@/features/confirmationpage/ConfirmationPage';
-import { DirectConsentPage } from '@/features/directconsentpage/DirectConsentPage';
 import { MaskinportenAdmPage } from '@/features/maskinportenAdm/MaskinportenAdmPage';
 import { NotFoundSite } from '@/sites/NotFoundSite';
 import { RightsIncludedPage } from '@/features/rightsincludedpage';
@@ -31,11 +30,6 @@ export const Router = createBrowserRouter(
       <Route
         path={AuthenticationRoute.Confirmation}
         element={<ConfirmationPage />}
-        errorElement={<NotFoundSite />}
-      />
-      <Route
-        path={AuthenticationRoute.DirectConsent}
-        element={<DirectConsentPage />}
         errorElement={<NotFoundSite />}
       />
       <Route
