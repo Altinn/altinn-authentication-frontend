@@ -25,6 +25,7 @@ export const DirectConsentPageContent = () => {
     const postObject = {
       integrationTitle: 'Direkte Tilgangsløsning',
       selectedSystemType: 'direct_consent_system',
+      ownedByPartyId: 'test',
     };
     postNewSystemUser(postObject)
       .unwrap()

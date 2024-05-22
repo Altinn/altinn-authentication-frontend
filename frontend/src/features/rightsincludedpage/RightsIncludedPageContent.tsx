@@ -9,6 +9,7 @@ import { useCreateSystemUserMutation, useGetVendorsQuery } from '@/rtk/features/
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
+import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -23,6 +24,7 @@ export const RightsIncludedPageContent = () => {
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
   const selectedSystemVendor = useAppSelector((state) => state.createSystemUser.selectedSystemType);
   const { data: vendors } = useGetVendorsQuery();
+  const { data: userInfo } = useGetLoggedInUserQuery();
 
   const vendor = vendors?.find((x) => x.systemTypeId === selectedSystemVendor);
 
@@ -47,6 +49,7 @@ export const RightsIncludedPageContent = () => {
     const postObjekt = {
       integrationTitle: integrationTitle,
       selectedSystemType: selectedSystemVendor,
+      ownedByPartyId: userInfo?.partyId ?? '',
     };
 
     postNewSystemUser(postObjekt)

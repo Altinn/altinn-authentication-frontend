@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import {
   Button,
-  Chip,
   Heading,
   Modal,
   Paragraph,
@@ -20,14 +19,6 @@ import {
   useUpdateSystemuserMutation,
 } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
-
-const mockRightsActionsArray = [
-  { name: 'Lese', on: true },
-  { name: 'Skrive', on: true },
-  { name: 'Signere', on: true },
-  { name: 'Les arkiv', on: true },
-  { name: 'Slett arkiv', on: true },
-];
 
 interface DetailPageContentProps {
   systemUser: SystemUser;
@@ -102,22 +93,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
               title={right.right}
               subtitle={right.serviceProvider}
               color='neutral'
-            >
-              <div>
-                <Paragraph size='small' spacing>
-                  Eventuell tekst om rettighetene kommer her.
-                </Paragraph>
-                <Chip.Group className={classes.rightsList} size='small'>
-                  {mockRightsActionsArray.map((action) => {
-                    return (
-                      <Chip.Toggle key={action.name} selected={action.on}>
-                        {action.name}
-                      </Chip.Toggle>
-                    );
-                  })}
-                </Chip.Group>
-              </div>
-            </ActionBar>
+            />
           );
         })}
       </div>
