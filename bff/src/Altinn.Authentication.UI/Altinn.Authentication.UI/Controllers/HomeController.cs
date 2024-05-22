@@ -11,12 +11,15 @@ using Altinn.Authentication.UI.Integration.Configuration;
 
 namespace Altinn.Authentication.UI.Controllers;
 
+/// <summary>
+/// The Home controller
+/// </summary>
 [Route("authfront/")]
 [Route("authfront/ui")]
 [Route("authfront/ui/{*AnyValue}")]
 public class HomeController : Controller
 {
-    //private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<HomeController> _logger;
     private readonly IAntiforgery _antiforgery;
     private readonly IWebHostEnvironment _env;
     private readonly IHttpContextAccessor _httpContextAccessor;
@@ -34,16 +37,17 @@ public class HomeController : Controller
     /// <param name="profileService">service implementation for user profile</param>
     /// <param name="httpContextAccessor">http context</param>
     /// <param name="generalSettings">general settings</param>
+    /// <param name="logger">logger</param>
     public HomeController(
         IUserProfileService profileService,
         IAntiforgery antiforgery,
         IWebHostEnvironment env,
         IHttpContextAccessor httpContextAccessor,
         IOptions<PlatformSettings> platformSettings,
-        IOptions<GeneralSettings> generalSettings)
-        //ILogger<HomeController> logger)
+        IOptions<GeneralSettings> generalSettings,
+        ILogger<HomeController> logger)
     {
-        //_logger = logger;
+        _logger = logger;
         _antiforgery = antiforgery;
         _env = env;
         _httpContextAccessor = httpContextAccessor;

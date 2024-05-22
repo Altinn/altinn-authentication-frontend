@@ -11,9 +11,9 @@ public class SystemRegisterService : ISystemRegisterService
 
     public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
     {
-        List<RegisteredSystemDTO> lista = new();
+        List<RegisteredSystemDTO> lista = [];
 
-        lista = await _systemRegisterClient.GetListRegSys();
+        lista = await _systemRegisterClient.GetListRegSys(cancellationToken );
 
         return lista;
     }
