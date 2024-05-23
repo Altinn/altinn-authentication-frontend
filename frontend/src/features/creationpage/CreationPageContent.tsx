@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   Textfield,
   Button,
-  HelpText,
   Heading,
   Combobox,
   Alert,
@@ -51,14 +50,7 @@ export const CreationPageContent = () => {
     <div className={classes.creationPageContainer}>
       <div className={classes.inputContainer}>
         <Textfield
-          label={
-            <div className={classes.nameLabel}>
-              <div>{t('authent_creationpage.input_field_label')}</div>
-              <HelpText size='small' title='Hjelpetekst for systemtilgang'>
-                Hjelpetekst for systemtilgang
-              </HelpText>
-            </div>
-          }
+          label={t('authent_creationpage.input_field_label')}
           value={integrationTitle}
           onChange={(e) => setIntegrationTitle(e.target.value)}
         />
