@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
-import { Button, Tooltip } from '@digdir/designsystemet-react';
+import { Button, Link, Tooltip } from '@digdir/designsystemet-react';
 import CloseIcon from '@/assets/RedClose.svg?react';
 import { getCookie } from '@/resources/Cookie/CookieMethods';
 import { UserInfoBar } from '../UserInfoBar/UserInfoBar';
@@ -16,10 +16,8 @@ export interface PageContainerProps {
 export const PageContainer = ({ backUrl, children }: PageContainerProps) => {
   const { t } = useTranslation();
 
-  const redirectToProfile = () => {
-    const cleanHostname = window.location.hostname.replace('am.ui.', '');
-    window.location.href = `https://${cleanHostname}/ui/Profile?R=${getCookie('AltinnPartyId')}`;
-  };
+  const cleanHostname = window.location.hostname.replace('authn.ui.', '');
+  const profileUrl = `https://${cleanHostname}/ui/Profile?R=${getCookie('AltinnPartyId')}`;
 
   return (
     <div className={classes.pageMargin}>
@@ -48,9 +46,11 @@ export const PageContainer = ({ backUrl, children }: PageContainerProps) => {
               variant='tertiary'
               className={classes.buttonContainerButton}
               size='small'
-              onClick={redirectToProfile}
+              asChild
             >
-              <CloseIcon className={classes.buttonContainerIcon} />
+              <Link href={profileUrl}>
+                <CloseIcon className={classes.buttonContainerIcon} />
+              </Link>
             </Button>
           </Tooltip>
         </div>
