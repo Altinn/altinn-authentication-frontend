@@ -41,13 +41,7 @@ export const PageContainer = ({ backUrl, children }: PageContainerProps) => {
             </Tooltip>
           )}
           <Tooltip content={t('common.close')}>
-            <Button
-              icon={true}
-              variant='tertiary'
-              className={classes.buttonContainerButton}
-              size='small'
-              asChild
-            >
+            <Button icon={true} className={classes.buttonContainerButton} size='small' asChild>
               <Link href={profileUrl}>
                 <CloseIcon className={classes.buttonContainerIcon} />
               </Link>

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { Button, Heading, Modal, Paragraph, Textfield, Alert } from '@digdir/designsystemet-react';
 import { TrashIcon } from '@navikt/aksel-icons';
 import classes from './DetailPage.module.css';
-import { ActionBar } from '@/components';
 import { AuthenticationRoute } from '@/routes/paths';
 import {
   useDeleteSystemuserMutation,
@@ -73,22 +72,6 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
-      <div>
-        <Heading level={3} size='xxsmall' spacing>
-          {t('authent_detailpage.included_rights')}
-        </Heading>
-        {!vendor?.defaultRights.length && <div>{t('authent_detailpage.no_rights')}</div>}
-        {vendor?.defaultRights.map((right) => {
-          return (
-            <ActionBar
-              key={right.right}
-              title={right.right}
-              subtitle={right.serviceProvider}
-              color='neutral'
-            />
-          );
-        })}
-      </div>
       {isUpdateError && (
         <Alert severity='danger'>{t('authent_detailpage.update_systemuser_error')}</Alert>
       )}
