@@ -1,7 +1,6 @@
 enum AuthenticationPath {
   Auth = 'auth',
   Creation = 'creation',
-  Confirmation = 'confirmation',
   Overview = 'overview',
   MaskinportenAdm = 'maskinportenadm',
   RightsIncluded = 'rightsincluded',
@@ -13,6 +12,5 @@ export enum AuthenticationRoute {
   RightsIncluded = `/${AuthenticationPath.Auth}/${AuthenticationPath.RightsIncluded}`,
   Creation = `/${AuthenticationPath.Auth}/${AuthenticationPath.Creation}`,
   Details = `/${AuthenticationPath.Auth}/${AuthenticationPath.Details}`,
-  Confirmation = `/${AuthenticationPath.Auth}/${AuthenticationPath.Confirmation}`,
   MaskinportenAdm = `/${AuthenticationPath.Auth}/${AuthenticationPath.MaskinportenAdm}`,
 }

@@ -84,7 +84,7 @@ export const RightsIncludedPageContent = () => {
           />
         ))}
         {isCreateSystemUserError && (
-          <Alert severity='danger'>Kunne ikke opprette systemtilgang</Alert>
+          <Alert severity='danger'>{t('authent_includedrightspage.create_systemuser_error')}</Alert>
         )}
         <div className={classes.buttonContainer}>
           <Button
@@ -93,11 +93,13 @@ export const RightsIncludedPageContent = () => {
             onClick={handleConfirm}
             disabled={isCreatingSystemUser}
           >
-            {isCreatingSystemUser && <Spinner size='small' title={'Oppretter systemtilgang...'} />}
+            {isCreatingSystemUser && (
+              <Spinner size='small' title={t('authent_includedrightspage.creating_systemuser')} />
+            )}
             {t('authent_includedrightspage.confirm_button')}
           </Button>
           <Button variant='tertiary' size='small' onClick={handleReject}>
-            {t('authent_includedrightspage.cancel_button')}
+            {t('common.cancel')}
           </Button>
         </div>
       </div>

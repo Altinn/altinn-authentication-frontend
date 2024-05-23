@@ -7,6 +7,7 @@ import CloseIcon from '@/assets/RedClose.svg?react';
 import { getCookie } from '@/resources/Cookie/CookieMethods';
 import { UserInfoBar } from '../UserInfoBar/UserInfoBar';
 import classes from './PageContainer.module.css';
+import { getHostUrl } from '@/utils/urlUtils';
 
 export interface PageContainerProps {
   backUrl?: string;
@@ -16,8 +17,7 @@ export interface PageContainerProps {
 export const PageContainer = ({ backUrl, children }: PageContainerProps) => {
   const { t } = useTranslation();
 
-  const cleanHostname = window.location.hostname.replace('authn.ui.', '');
-  const profileUrl = `https://${cleanHostname}/ui/Profile?R=${getCookie('AltinnPartyId')}`;
+  const profileUrl = `https://${getHostUrl()}/ui/Profile?R=${getCookie('AltinnPartyId')}`;
 
   return (
     <div className={classes.pageMargin}>
@@ -25,7 +25,7 @@ export const PageContainer = ({ backUrl, children }: PageContainerProps) => {
         <UserInfoBar />
         <div className={classes.buttonContainer}>
           {backUrl && (
-            <Tooltip content='Tilbake'>
+            <Tooltip content={t('common.back')}>
               <Button
                 icon={true}
                 color='second'
