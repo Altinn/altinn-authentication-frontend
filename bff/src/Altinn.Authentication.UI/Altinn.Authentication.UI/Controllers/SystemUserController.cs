@@ -117,11 +117,12 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
         int partyId = AuthenticationHelper.GetUsersPartyId( _httpContextAccessor.HttpContext!);
+        if (partyId.ToString() != newSystemUserDescriptor.OwnedByPartyId) return BadRequest();
 
         var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
         if (usr is not null)
         {
-            return Ok(new { Id = usr?.Id?.ToString() });
+            return Ok(usr);
         }
 
         return NotFound();
@@ -139,9 +140,14 @@ public class SystemUserController : ControllerBase
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpDelete("{id}")]
-    public void Delete(Guid id, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> Delete(Guid id, CancellationToken cancellationToken = default)
     {
-        _systemUserService.DeleteSystemUser(id, cancellationToken);
+        int partyId = AuthenticationHelper.GetUsersPartyId(_httpContextAccessor.HttpContext!);
+        var toBeDeleted = await _systemUserService.GetSpecificSystemUserDTO(partyId, id, cancellationToken);
+        if (toBeDeleted == null) return NotFound();
+        if (partyId.ToString() != toBeDeleted.OwnedByPartyId) return BadRequest();
+        await _systemUserService.DeleteSystemUser(id, cancellationToken);
+        return Ok(toBeDeleted.Id);
     }
 
     private (int partyId, ActionResult actionResult) ResolvePartyId()

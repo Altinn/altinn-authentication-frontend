@@ -65,7 +65,9 @@ public class ProfileController : ControllerBase
             userDTO = new()
             {
                 UserName = user.UserName,
-                OrganizationName = user.Party?.Name
+                OrganizationName = user.Party?.Name,
+                PartyId = partyId.ToString(),
+                UserId =userid.ToString(),
             };
 
         }
