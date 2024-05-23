@@ -3,7 +3,7 @@
 public interface ISystemUserClient
 {
     Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default);
-    Task<SystemUserReal?> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
+    Task<SystemUserReal?> PostNewSystemUserReal(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
     Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserRealTitle(string newTitle, Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserRealDescription(string newDescr, Guid id, CancellationToken cancellationToken = default);
