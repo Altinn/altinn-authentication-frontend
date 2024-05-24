@@ -13,19 +13,15 @@ import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
+import { setIntegrationTitle, setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
 
 export const CreationPageContent = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
-  const createValues = useAppSelector((state) => state.createSystemUser);
-  const [integrationTitle, setIntegrationTitle] = useState<string>(
-    createValues.integrationTitle ?? '',
-  );
-  const [selectedSystemType, setSelectedSystemType] = useState<string>(
-    createValues.selectedSystemType ?? '',
+  const { integrationTitle, selectedSystemType } = useAppSelector(
+    (state) => state.createSystemUser,
   );
 
   const { data: vendors, isError: isLoadVendorError } = useGetVendorsQuery();
@@ -37,12 +33,6 @@ export const CreationPageContent = () => {
   };
 
   const handleConfirm = () => {
-    dispatch(
-      setCreateValues({
-        integrationTitle: integrationTitle,
-        selectedSystemType: selectedSystemType,
-      }),
-    );
     navigate(AuthenticationRoute.RightsIncluded);
   };
 
@@ -52,7 +42,7 @@ export const CreationPageContent = () => {
         <Textfield
           label={t('authent_creationpage.input_field_label')}
           value={integrationTitle}
-          onChange={(e) => setIntegrationTitle(e.target.value)}
+          onChange={(e) => dispatch(setIntegrationTitle(e.target.value))}
         />
       </div>
       <div>
@@ -69,7 +59,7 @@ export const CreationPageContent = () => {
           placeholder={t('common.choose')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
-              setSelectedSystemType(newValue[0]);
+              dispatch(setSelectedSystemType(newValue[0]));
             }
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
