@@ -46,6 +46,6 @@ public class SystemRegisterClient : ISystemRegisterClient
         {
             return JsonSerializer.Deserialize<List<RegisteredSystemDTO>>(await response.Content.ReadAsStringAsync(cancellationToken), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true})!;
         }
-        return []; 
+        return [];
     }
 }

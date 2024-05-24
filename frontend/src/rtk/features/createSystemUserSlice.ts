@@ -16,12 +16,11 @@ const createSystemUserSlice = createSlice({
   name: 'createSystemUserSlice',
   initialState,
   reducers: {
-    setCreateValues: (
-      state,
-      action: { payload: { integrationTitle: string; selectedSystemType: string } },
-    ) => {
-      state.integrationTitle = action.payload.integrationTitle;
-      state.selectedSystemType = action.payload.selectedSystemType;
+    setIntegrationTitle: (state, action: { payload: string }) => {
+      state.integrationTitle = action.payload;
+    },
+    setSelectedSystemType: (state, action: { payload: string }) => {
+      state.selectedSystemType = action.payload;
     },
     setCreatedId: (state, action: { payload: string }) => {
       state.newlyCreatedId = action.payload;
@@ -30,4 +29,5 @@ const createSystemUserSlice = createSlice({
 });
 
 export default createSystemUserSlice.reducer;
-export const { setCreateValues, setCreatedId } = createSystemUserSlice.actions;
+export const { setIntegrationTitle, setSelectedSystemType, setCreatedId } =
+  createSystemUserSlice.actions;
