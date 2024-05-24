@@ -70,7 +70,7 @@ public class SystemUserClient : ISystemUserClient
         if(partyId.ToString() != newSystemUserDescriptor.OwnedByPartyId) { return null; }
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"systemuser";
+        string endpointUrl = $"systemuser/{partyId}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
