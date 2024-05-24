@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   Textfield,
   Button,
-  HelpText,
   Heading,
   Combobox,
   Alert,
@@ -51,14 +50,7 @@ export const CreationPageContent = () => {
     <div className={classes.creationPageContainer}>
       <div className={classes.inputContainer}>
         <Textfield
-          label={
-            <div className={classes.nameLabel}>
-              <div>{t('authent_creationpage.input_field_label')}</div>
-              <HelpText size='small' title='Hjelpetekst for systemtilgang'>
-                Hjelpetekst for systemtilgang
-              </HelpText>
-            </div>
-          }
+          label={t('authent_creationpage.input_field_label')}
           value={integrationTitle}
           onChange={(e) => setIntegrationTitle(e.target.value)}
         />
@@ -74,7 +66,7 @@ export const CreationPageContent = () => {
       <div className={classes.inputContainer}>
         <Combobox
           label={t('authent_creationpage.pull_down_menu_label')}
-          placeholder='Velg ...'
+          placeholder={t('common.choose')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
               setSelectedSystemType(newValue[0]);
@@ -94,7 +86,9 @@ export const CreationPageContent = () => {
             );
           })}
         </Combobox>
-        {isLoadVendorError && <Alert severity='danger'>Kunne ikke laste systemleverandører</Alert>}
+        {isLoadVendorError && (
+          <Alert severity='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>
+        )}
       </div>
       <div className={classes.buttonContainer}>
         <Button
@@ -106,7 +100,7 @@ export const CreationPageContent = () => {
           {t('authent_creationpage.confirm_button')}
         </Button>
         <Button variant='tertiary' size='small' onClick={handleCancel}>
-          {t('authent_creationpage.cancel_button')}
+          {t('common.cancel')}
         </Button>
       </div>
     </div>

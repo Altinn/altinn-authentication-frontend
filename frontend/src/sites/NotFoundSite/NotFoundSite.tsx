@@ -7,6 +7,7 @@ import SeagullIcon from '@/assets/Seagull.svg?react';
 
 import classes from './NotFoundSite.module.css';
 import { Heading, Link, Paragraph } from '@digdir/designsystemet-react';
+import { getHostUrl } from '@/utils/urlUtils';
 
 export const NotFoundSite = () => {
   /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -26,27 +27,27 @@ export const NotFoundSite = () => {
             {error.message}
           </Paragraph>
           <Heading level={1} size='large' spacing>
-            {t('api_delegation.not_found_site_header')}
+            {t('error_page.not_found_site_header')}
           </Heading>
           <div className={classes.flexContainer}>
             <div>
-              <Paragraph spacing>{t('api_delegation.not_found_site_upper_text')}</Paragraph>
+              <Paragraph spacing>{t('error_page.not_found_site_upper_text')}</Paragraph>
               <Paragraph spacing>
-                <Link href='https://www.altinn.no/ui/MessageBox'>
-                  {t('api_delegation.go_to_inbox')}
+                <Link href={`https://${getHostUrl()}/ui/MessageBox`}>
+                  {t('error_page.go_to_inbox')}
                 </Link>
               </Paragraph>
               <Paragraph spacing>
-                <Link href='https://www.altinn.no/ui/Profile'>
-                  {t('api_delegation.go_to_profile')}
+                <Link href={`https://${getHostUrl()}/ui/Profile`}>
+                  {t('error_page.go_to_profile')}
                 </Link>
               </Paragraph>
               <Paragraph spacing>
-                <Link href='https://www.altinn.no/skjemaoversikt/'>
-                  {t('api_delegation.find_and_submit_scheme')}
+                <Link href={`https://${getHostUrl()}/skjemaoversikt`}>
+                  {t('error_page.find_and_submit_scheme')}
                 </Link>
               </Paragraph>
-              <Paragraph spacing>{t('api_delegation.not_found_site_lower_text')}</Paragraph>
+              <Paragraph spacing>{t('error_page.not_found_site_lower_text')}</Paragraph>
             </div>
             <div className={classes.rightContainer}>
               <SeagullIcon />

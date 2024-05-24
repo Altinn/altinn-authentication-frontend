@@ -7,3 +7,7 @@ export const url = (strings: readonly string[], ...values: readonly string[]): s
 
   return result;
 };
+
+export const getHostUrl = (): string => {
+  return window.location.hostname.replace('authn.ui.', '');
+};

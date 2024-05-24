@@ -56,7 +56,7 @@ export const OverviewPageContent = () => {
             : t('authent_overviewpage.new_system_user_button')}
         </Button>
       </div>
-      {isLoadingSystemUsers && <Spinner title='Laster systemtilganger' />}
+      {isLoadingSystemUsers && <Spinner title={t('authent_overviewpage.loading_systemusers')} />}
       {isLoadSystemUsersError && (
         <Alert severity='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
       )}

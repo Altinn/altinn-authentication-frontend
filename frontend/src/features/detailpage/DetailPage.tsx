@@ -1,20 +1,30 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Alert } from '@digdir/designsystemet-react';
+import { useTranslation } from 'react-i18next';
+import { Alert, Spinner } from '@digdir/designsystemet-react';
 import { Page, PageContainer } from '@/components';
 import { DetailPageContent } from './DetailPageContent';
 import ApiIcon from '@/assets/Api.svg?react';
 import { useGetSystemUserQuery } from '@/rtk/features/systemUserApi';
+import { AuthenticationRoute } from '@/routes/paths';
 
 export const DetailPage = (): React.ReactNode => {
+  const { t } = useTranslation();
   const { id } = useParams();
 
-  const { data: systemUser, isError: isLoadSystemUserError } = useGetSystemUserQuery(id || '');
+  const {
+    data: systemUser,
+    isError: isLoadSystemUserError,
+    isLoading: isLoadingSystemUser,
+  } = useGetSystemUserQuery(id || '');
 
   return (
-    <PageContainer>
-      <Page color='dark' icon={<ApiIcon />} title={'Rediger systemtilgang'}>
-        {isLoadSystemUserError && <Alert severity='danger'>Kunne ikke laste systemtilgang</Alert>}
+    <PageContainer backUrl={AuthenticationRoute.Overview}>
+      <Page color='dark' icon={<ApiIcon />} title={t('authent_detailpage.edit_systemuser')}>
+        {isLoadingSystemUser && <Spinner title='laster systemtilgang' />}
+        {isLoadSystemUserError && (
+          <Alert severity='danger'>{t('authent_detailpage.load_systemuser_error')}</Alert>
+        )}
         {systemUser && <DetailPageContent systemUser={systemUser} />}
       </Page>
     </PageContainer>
