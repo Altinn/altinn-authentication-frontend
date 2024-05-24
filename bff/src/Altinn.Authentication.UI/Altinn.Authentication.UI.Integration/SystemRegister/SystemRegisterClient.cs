@@ -38,9 +38,8 @@ public class SystemRegisterClient : ISystemRegisterClient
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemregister";
-        //string endpointUrl = "https://localhost:44378/authentication/api/v1/systemregister";
         var accessToken = await _accessTokenProvider.GetAccessToken();
-        //HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
+
         HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl, accessToken);
 
         if (response.IsSuccessStatusCode)
