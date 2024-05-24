@@ -50,7 +50,7 @@ public class SystemUserClient : ISystemUserClient
     public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"authentication/api/v1/systemuser/{partyId}/{id}";
+        string endpointUrl = $"systemuser/{partyId}/{id}";
 
         HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
 
@@ -70,7 +70,7 @@ public class SystemUserClient : ISystemUserClient
         if(partyId.ToString() != newSystemUserDescriptor.OwnedByPartyId) { return null; }
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"authentication/api/v1/systemuser";
+        string endpointUrl = $"systemuser";
         var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
@@ -111,7 +111,7 @@ public class SystemUserClient : ISystemUserClient
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"authentication/api/v1/systemuser/{id}";
+        string endpointUrl = $"systemuser/{id}";
 
         List<SystemUserReal> list = [];
 
