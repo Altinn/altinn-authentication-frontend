@@ -42,6 +42,7 @@ public class SystemUserClientIntegrationTest : IClassFixture<CustomWebApplicatio
     public async Task CreateSystemUser_ReturnOk()
     {
         var usr = await _systemUserClient.PostNewSystemUserReal(
+            1,
             new SystemUserDescriptor 
             { 
                 OwnedByPartyId = "1",
