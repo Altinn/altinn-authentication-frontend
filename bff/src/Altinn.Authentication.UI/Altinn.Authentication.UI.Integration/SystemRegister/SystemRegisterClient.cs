@@ -37,13 +37,15 @@ public class SystemRegisterClient : ISystemRegisterClient
     public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"authentication/api/v1/systemregister";
-        
-        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
+        string endpointUrl = $"systemregister";
+        //string endpointUrl = "https://localhost:44378/authentication/api/v1/systemregister";
+        var accessToken = await _accessTokenProvider.GetAccessToken();
+        //HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
+        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl, accessToken);
 
-        if(response.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<List<RegisteredSystemDTO>>(await response.Content.ReadAsStringAsync(cancellationToken))!;
+            return JsonSerializer.Deserialize<List<RegisteredSystemDTO>>(await response.Content.ReadAsStringAsync(cancellationToken), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true})!;
         }
         return [];
     }
