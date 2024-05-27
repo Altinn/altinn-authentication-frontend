@@ -51,7 +51,7 @@ public class ValidateAntiforgeryTokenIfAuthCookieAuthorizationFilter : IAsyncAut
 
         string method = context.HttpContext.Request.Method;
         if (
-            //string.Equals("GET", method, StringComparison.OrdinalIgnoreCase) ||  //Why ?
+            string.Equals("GET", method, StringComparison.OrdinalIgnoreCase) ||  //Why ?
             string.Equals("HEAD", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("TRACE", method, StringComparison.OrdinalIgnoreCase) ||
             string.Equals("OPTIONS", method, StringComparison.OrdinalIgnoreCase)

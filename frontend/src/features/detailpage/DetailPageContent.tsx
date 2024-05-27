@@ -1,18 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
-import {
-  Button,
-  Chip,
-  Heading,
-  Modal,
-  Paragraph,
-  Link,
-  Textfield,
-  Alert,
-} from '@digdir/designsystemet-react';
-import { TrashIcon, ArrowLeftIcon } from '@navikt/aksel-icons';
+import { useTranslation } from 'react-i18next';
+import { Button, Heading, Modal, Paragraph, Textfield, Alert } from '@digdir/designsystemet-react';
+import { TrashIcon } from '@navikt/aksel-icons';
 import classes from './DetailPage.module.css';
-import { ActionBar } from '@/components';
 import { AuthenticationRoute } from '@/routes/paths';
 import {
   useDeleteSystemuserMutation,
@@ -21,19 +12,12 @@ import {
 } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
 
-const mockRightsActionsArray = [
-  { name: 'Lese', on: true },
-  { name: 'Skrive', on: true },
-  { name: 'Signere', on: true },
-  { name: 'Les arkiv', on: true },
-  { name: 'Slett arkiv', on: true },
-];
-
 interface DetailPageContentProps {
   systemUser: SystemUser;
 }
 
 export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
+  const { t } = useTranslation();
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
   const navigate = useNavigate();
 
@@ -48,11 +32,15 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
   return (
     <div className={classes.detailPageContent}>
       <Modal ref={deleteModalRef}>
-        <Modal.Header>Sletting av systemtilgang</Modal.Header>
+        <Modal.Header>{t('authent_detailpage.delete_systemuser_header')}</Modal.Header>
         <Modal.Content>
-          {`Er du sikker på at du vil slette systemtilgang "${systemUser.integrationTitle}"?`}
+          {t('authent_detailpage.delete_systemuser_body', {
+            title: systemUser.integrationTitle,
+          })}
         </Modal.Content>
-        {isDeleteError && <Alert severity='danger'>Kunne ikke slette systemtilgang</Alert>}
+        {isDeleteError && (
+          <Alert severity='danger'>{t('authent_detailpage.delete_systemuser_error')}</Alert>
+        )}
         <Modal.Footer>
           <Button
             color='danger'
@@ -62,19 +50,13 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
                 .then(() => navigate(AuthenticationRoute.Overview))
             }
           >
-            Slett systemtilgang
+            {t('authent_detailpage.delete_systemuser')}
           </Button>
           <Button variant='tertiary' onClick={() => deleteModalRef.current?.close()}>
-            Avbryt
+            {t('common.cancel')}
           </Button>
         </Modal.Footer>
       </Modal>
-      <Link asChild>
-        <RouterLink to={AuthenticationRoute.Overview} className={classes.backLink}>
-          <ArrowLeftIcon fontSize={28} />
-          Tilbake til oversikt
-        </RouterLink>
-      </Link>
       <div>
         <Heading level={2} size='medium'>
           {systemUser.integrationTitle}
@@ -84,44 +66,15 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         </Paragraph>
       </div>
       <Textfield
-        label='Endre navn på systemtilgang'
+        label={t('authent_detailpage.edit_systemuser_name')}
         className={classes.nameField}
         size='small'
         value={name}
         onChange={(event) => setName(event.target.value)}
       />
-      <div>
-        <Heading level={3} size='xxsmall' spacing>
-          Inkluderte rettigheter:
-        </Heading>
-        {!vendor?.defaultRights.length && <div>Systemtilgangen har ingen rettigheter</div>}
-        {vendor?.defaultRights.map((right) => {
-          return (
-            <ActionBar
-              key={right.right}
-              title={right.right}
-              subtitle={right.serviceProvider}
-              color='neutral'
-            >
-              <div>
-                <Paragraph size='small' spacing>
-                  Eventuell tekst om rettighetene kommer her.
-                </Paragraph>
-                <Chip.Group className={classes.rightsList} size='small'>
-                  {mockRightsActionsArray.map((action) => {
-                    return (
-                      <Chip.Toggle key={action.name} selected={action.on}>
-                        {action.name}
-                      </Chip.Toggle>
-                    );
-                  })}
-                </Chip.Group>
-              </div>
-            </ActionBar>
-          );
-        })}
-      </div>
-      {isUpdateError && <Alert severity='danger'>Kunne ikke oppdatere systemtilgang</Alert>}
+      {isUpdateError && (
+        <Alert severity='danger'>{t('authent_detailpage.update_systemuser_error')}</Alert>
+      )}
       <div>
         <div className={classes.buttonContainer}>
           <Button
@@ -133,10 +86,10 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
             }}
             disabled={!name.trim()}
           >
-            Lagre endringer
+            {t('authent_detailpage.save_systemuser')}
           </Button>
           <Button variant='tertiary' asChild>
-            <RouterLink to={AuthenticationRoute.Overview}>Avbryt</RouterLink>
+            <RouterLink to={AuthenticationRoute.Overview}>{t('common.cancel')}</RouterLink>
           </Button>
         </div>
         <Button
@@ -145,7 +98,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           onClick={() => deleteModalRef.current?.showModal()}
         >
           <TrashIcon />
-          Slett systemtilgang
+          {t('authent_detailpage.delete_systemuser')}
         </Button>
       </div>
     </div>

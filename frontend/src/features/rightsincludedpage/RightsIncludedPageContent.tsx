@@ -9,6 +9,7 @@ import { useCreateSystemUserMutation, useGetVendorsQuery } from '@/rtk/features/
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
+import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -23,6 +24,7 @@ export const RightsIncludedPageContent = () => {
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
   const selectedSystemVendor = useAppSelector((state) => state.createSystemUser.selectedSystemType);
   const { data: vendors } = useGetVendorsQuery();
+  const { data: userInfo } = useGetLoggedInUserQuery();
 
   const vendor = vendors?.find((x) => x.systemTypeId === selectedSystemVendor);
 
@@ -47,6 +49,7 @@ export const RightsIncludedPageContent = () => {
     const postObjekt = {
       integrationTitle: integrationTitle,
       selectedSystemType: selectedSystemVendor,
+      ownedByPartyId: userInfo?.partyId ?? '',
     };
 
     postNewSystemUser(postObjekt)
@@ -81,7 +84,7 @@ export const RightsIncludedPageContent = () => {
           />
         ))}
         {isCreateSystemUserError && (
-          <Alert severity='danger'>Kunne ikke opprette systemtilgang</Alert>
+          <Alert severity='danger'>{t('authent_includedrightspage.create_systemuser_error')}</Alert>
         )}
         <div className={classes.buttonContainer}>
           <Button
@@ -90,11 +93,13 @@ export const RightsIncludedPageContent = () => {
             onClick={handleConfirm}
             disabled={isCreatingSystemUser}
           >
-            {isCreatingSystemUser && <Spinner size='small' title={'Oppretter systemtilgang...'} />}
+            {isCreatingSystemUser && (
+              <Spinner size='small' title={t('authent_includedrightspage.creating_systemuser')} />
+            )}
             {t('authent_includedrightspage.confirm_button')}
           </Button>
           <Button variant='tertiary' size='small' onClick={handleReject}>
-            {t('authent_includedrightspage.cancel_button')}
+            {t('common.cancel')}
           </Button>
         </div>
       </div>

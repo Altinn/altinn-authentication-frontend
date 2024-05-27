@@ -61,7 +61,7 @@ public class SystemUserService : ISystemUserService
 
     public async Task<SystemUserReal?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        return await _systemUserClient.PostNewSystemUserReal(newSystemUserDescriptor, cancellation);
+        return await _systemUserClient.PostNewSystemUserReal(partyId, newSystemUserDescriptor, cancellation);
     }
 
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)

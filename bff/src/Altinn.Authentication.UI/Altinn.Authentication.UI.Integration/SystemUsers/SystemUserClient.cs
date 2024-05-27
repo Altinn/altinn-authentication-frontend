@@ -50,7 +50,7 @@ public class SystemUserClient : ISystemUserClient
     public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"authentication/api/v1/systemuser/{partyId}/{id}";
+        string endpointUrl = $"systemuser/{partyId}/{id}";
 
         HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
 
@@ -63,19 +63,22 @@ public class SystemUserClient : ISystemUserClient
     }
 
     public async Task<SystemUserReal?> PostNewSystemUserReal(
+        int partyId,
         SystemUserDescriptor newSystemUserDescriptor, 
         CancellationToken cancellation = default)
     {
+        if(partyId.ToString() != newSystemUserDescriptor.OwnedByPartyId) { return null; }
+
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"authentication/api/v1/systemuser";
+        string endpointUrl = $"systemuser/{partyId}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
-            PartyId = newSystemUserDescriptor.OwnedByPartyId!,
+            PartyId = partyId,
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
             ProductName = newSystemUserDescriptor.SelectedSystemType!            
         };
-        StringContent content = new(JsonSerializer.Serialize(requestObject));
+        StringContent content = new(JsonSerializer.Serialize(requestObject), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
         if (response.IsSuccessStatusCode)
@@ -108,7 +111,7 @@ public class SystemUserClient : ISystemUserClient
     public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"authentication/api/v1/systemuser/{id}";
+        string endpointUrl = $"systemuser/{id}";
 
         List<SystemUserReal> list = [];
 

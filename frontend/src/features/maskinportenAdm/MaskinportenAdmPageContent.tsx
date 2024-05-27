@@ -52,19 +52,19 @@ export const MaskinportenAdmPageContent = () => {
           {t('authent_maskinporten.sub_title')}
         </Heading>
         <Textfield
-          label='Navn'
+          label={t('authent_maskinporten.name')}
           type='text'
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <Textfield
-          label='Beskrivelse'
+          label={t('authent_maskinporten.description')}
           type='text'
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <div>
-          <Paragraph>Last opp i jwk i format</Paragraph>
+          <Paragraph>{t('authent_maskinporten.upload_jwk_format')}</Paragraph>
           <div className={classes.uploadButtonContainer}>
             <input
               type='file'
@@ -80,30 +80,32 @@ export const MaskinportenAdmPageContent = () => {
               size='small'
               onClick={handleKlikkSynligKnapp}
             >
-              Last opp fil.jwk
+              {t('authent_maskinporten.upload_jwk')}
             </Button>
             <Paragraph size='small'>
               {uploadedFile
-                ? `Fil opplastet er ${uploadedFile.name}, størrelse er ${uploadedFile.size} bytes.`
-                : `Ingen fil opplastet ennå (maks er 64 kB).`}
+                ? t('authent_maskinporten.uploaded_file_info', {
+                    filename: uploadedFile.name,
+                    filesize: uploadedFile.size,
+                  })
+                : t('authent_maskinporten.no_file_uploaded')}
             </Paragraph>
           </div>
-          <Paragraph size='xsmall'>
-            Maskinporten krever at du oppdaterer JWK hver 12. måned. Hvis JWK ikke oppdateres vil
-            integrasjonen slutte å virke.
-          </Paragraph>
+          <Paragraph size='xsmall'>{t('authent_maskinporten.upload_description')}</Paragraph>
         </div>
-        {isUploadError && <Alert severity='danger'>Kunne ikke opprette integrasjon</Alert>}
+        {isUploadError && (
+          <Alert severity='danger'>{t('authent_maskinporten.create_integration_error')}</Alert>
+        )}
         <div className={classes.buttonContainer}>
           <Button
             size='small'
             onClick={handleConfirm}
             disabled={!name || !description || !uploadedFile}
           >
-            Opprett integrasjon
+            {t('authent_maskinporten.create_integration')}
           </Button>
           <Button variant='tertiary' size='small' onClick={handleCancel}>
-            Avbryt
+            {t('common.cancel')}
           </Button>
         </div>
       </div>

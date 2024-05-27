@@ -8,7 +8,7 @@ import { useFirstRenderEffect } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
+import { setIntegrationTitle, setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
 import { SystemUserActionBar } from '@/components/SystemUserActionBar';
 
 export const OverviewPageContent = () => {
@@ -27,7 +27,8 @@ export const OverviewPageContent = () => {
 
   // reset create wizard values when overviewPage is rendered; the user ends up here after create, cancel or back navigation
   useFirstRenderEffect(() => {
-    dispatch(setCreateValues({ integrationTitle: '', selectedSystemType: '' }));
+    dispatch(setIntegrationTitle(''));
+    dispatch(setSelectedSystemType(''));
   });
 
   const goToStartNewSystemUser = () => {
@@ -56,7 +57,7 @@ export const OverviewPageContent = () => {
             : t('authent_overviewpage.new_system_user_button')}
         </Button>
       </div>
-      {isLoadingSystemUsers && <Spinner title='Laster systemtilganger' />}
+      {isLoadingSystemUsers && <Spinner title={t('authent_overviewpage.loading_systemusers')} />}
       {isLoadSystemUsersError && (
         <Alert severity='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
       )}

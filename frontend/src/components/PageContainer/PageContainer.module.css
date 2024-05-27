@@ -6,29 +6,24 @@
   width: 100%;
 }
 
-.closeButtonContainer {
+.buttonContainer {
   margin-top: var(--fds-spacing-8);
   display: flex;
-  justify-content: flex-end;
-}
-
-.closeButton {
-  border-radius: 50%;
-  background-color: var(--fds-semantic-background-default);
-  border: none;
-  padding: var(--fds-spacing-1);
-  cursor: pointer;
+  justify-content: space-between;
   margin-bottom: var(--fds-spacing-2);
 }
 
-.closeButtonIcon {
-  height: var(--fds-sizing-7);
-  width: var(--fds-sizing-7);
-  vertical-align: middle;
+.buttonContainerButton {
+  border-radius: 50%;
+  background-color: var(--fds-semantic-background-default);
+}
+.buttonContainerButton:last-child {
+  margin-left: auto;
 }
 
-.closeButton:hover {
-  background-color: #d6eefd; /* not defined in designsystemet */
+.buttonContainerIcon {
+  height: var(--fds-sizing-7);
+  width: var(--fds-sizing-7);
 }
 
 @media only screen and (min-width: 375px) {

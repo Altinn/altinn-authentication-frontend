@@ -80,7 +80,7 @@ public class SystemUserClientMock : ISystemUserClient
         return _systemUserList.Find(i => i.Id == id.ToString());
     }
 
-    public async Task<SystemUserReal> PostNewSystemUserReal(SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUserReal> PostNewSystemUserReal(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         await Task.Delay(50);
         var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);

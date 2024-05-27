@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   Textfield,
   Button,
-  HelpText,
   Heading,
   Combobox,
   Alert,
@@ -14,19 +13,15 @@ import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { setCreateValues } from '@/rtk/features/createSystemUserSlice';
+import { setIntegrationTitle, setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
 
 export const CreationPageContent = () => {
   const { t } = useTranslation();
 
   const dispatch = useAppDispatch();
 
-  const createValues = useAppSelector((state) => state.createSystemUser);
-  const [integrationTitle, setIntegrationTitle] = useState<string>(
-    createValues.integrationTitle ?? '',
-  );
-  const [selectedSystemType, setSelectedSystemType] = useState<string>(
-    createValues.selectedSystemType ?? '',
+  const { integrationTitle, selectedSystemType } = useAppSelector(
+    (state) => state.createSystemUser,
   );
 
   const { data: vendors, isError: isLoadVendorError } = useGetVendorsQuery();
@@ -38,12 +33,6 @@ export const CreationPageContent = () => {
   };
 
   const handleConfirm = () => {
-    dispatch(
-      setCreateValues({
-        integrationTitle: integrationTitle,
-        selectedSystemType: selectedSystemType,
-      }),
-    );
     navigate(AuthenticationRoute.RightsIncluded);
   };
 
@@ -51,16 +40,9 @@ export const CreationPageContent = () => {
     <div className={classes.creationPageContainer}>
       <div className={classes.inputContainer}>
         <Textfield
-          label={
-            <div className={classes.nameLabel}>
-              <div>{t('authent_creationpage.input_field_label')}</div>
-              <HelpText size='small' title='Hjelpetekst for systemtilgang'>
-                Hjelpetekst for systemtilgang
-              </HelpText>
-            </div>
-          }
+          label={t('authent_creationpage.input_field_label')}
           value={integrationTitle}
-          onChange={(e) => setIntegrationTitle(e.target.value)}
+          onChange={(e) => dispatch(setIntegrationTitle(e.target.value))}
         />
       </div>
       <div>
@@ -74,10 +56,10 @@ export const CreationPageContent = () => {
       <div className={classes.inputContainer}>
         <Combobox
           label={t('authent_creationpage.pull_down_menu_label')}
-          placeholder='Velg ...'
+          placeholder={t('common.choose')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
-              setSelectedSystemType(newValue[0]);
+              dispatch(setSelectedSystemType(newValue[0]));
             }
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
@@ -94,7 +76,9 @@ export const CreationPageContent = () => {
             );
           })}
         </Combobox>
-        {isLoadVendorError && <Alert severity='danger'>Kunne ikke laste systemleverandører</Alert>}
+        {isLoadVendorError && (
+          <Alert severity='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>
+        )}
       </div>
       <div className={classes.buttonContainer}>
         <Button
@@ -106,7 +90,7 @@ export const CreationPageContent = () => {
           {t('authent_creationpage.confirm_button')}
         </Button>
         <Button variant='tertiary' size='small' onClick={handleCancel}>
-          {t('authent_creationpage.cancel_button')}
+          {t('common.cancel')}
         </Button>
       </div>
     </div>

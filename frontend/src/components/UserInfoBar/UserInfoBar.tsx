@@ -17,7 +17,10 @@ export const UserInfoBar = () => {
           <div>
             {userInfo?.userName && <div className={classes.userInfoText}>{userInfo.userName}</div>}
             {userInfo?.organizationName && (
-              <div className={classes.userInfoText}>for {userInfo.organizationName}</div>
+              <div className={classes.userInfoText}>
+                {userInfo?.userName && 'for '}
+                {userInfo.organizationName}
+              </div>
             )}
           </div>
           <Buildings3FillIcon className={classes.companyIcon} />
