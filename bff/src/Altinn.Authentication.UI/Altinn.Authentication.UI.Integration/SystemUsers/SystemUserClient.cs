@@ -78,7 +78,7 @@ public class SystemUserClient : ISystemUserClient
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
             ProductName = newSystemUserDescriptor.SelectedSystemType!            
         };
-        StringContent content = new(JsonSerializer.Serialize(requestObject));
+        StringContent content = new(JsonSerializer.Serialize(requestObject), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
         if (response.IsSuccessStatusCode)
