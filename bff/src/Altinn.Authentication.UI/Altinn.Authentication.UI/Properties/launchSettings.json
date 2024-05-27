@@ -1,5 +1,16 @@
 {
   "profiles": {
+    "LocalDev": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost",
+      "useSSL": true
+    },
     "http": {
       "commandName": "Project",
       "launchBrowser": true,

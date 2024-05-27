@@ -107,7 +107,7 @@ public class HomeController : Controller
         //int userId = 007;
         UserProfile userProfile = await _profileService.GetUserProfile(userId);
         AntiforgeryTokenSet token = _antiforgery.GetAndStoreTokens(HttpContext); 
-        string language = userProfile.ProfileSettingPreference.Language;
+        string language = userProfile == null ? "no_nb" : userProfile?.ProfileSettingPreference?.Language;
         //string language = "no_nb";
 
         HttpContext.Response.Cookies.Append("il8next", language, new CookieOptions
