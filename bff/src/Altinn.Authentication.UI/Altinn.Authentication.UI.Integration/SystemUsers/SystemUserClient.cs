@@ -70,7 +70,7 @@ public class SystemUserClient : ISystemUserClient
         if(partyId.ToString() != newSystemUserDescriptor.OwnedByPartyId) { return null; }
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"systemuser";
+        string endpointUrl = $"systemuser/{partyId}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
@@ -78,7 +78,7 @@ public class SystemUserClient : ISystemUserClient
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
             ProductName = newSystemUserDescriptor.SelectedSystemType!            
         };
-        StringContent content = new(JsonSerializer.Serialize(requestObject));
+        StringContent content = new(JsonSerializer.Serialize(requestObject), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
         if (response.IsSuccessStatusCode)
