@@ -24,20 +24,21 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.DeleteSystemUserReal(id, cancellationToken);
     }
 
-    public async Task<List<SystemUserDTO>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default)
+    public async Task<List<SystemUser>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
-        var listofReal = await _systemUserClient.GetSystemUserRealsForChosenUser(id, cancellationToken);
-        List<SystemUserDTO> listofDTOs = new();
-        foreach(var sur in listofReal) {
-            var dto = MapFromSystemUserRealToDTO(sur);
-            if (dto is not null)  listofDTOs.Add(dto); 
-        }
-        return listofDTOs;
+        var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(id, cancellationToken);
+        //List<SystemUserDTO> listofDTOs = new();
+        //foreach(var sur in listofReal) {
+        //    var dto = MapFromSystemUserRealToDTO(sur);
+        //    if (dto is not null)  listofDTOs.Add(dto); 
+        //}
+        return lista;
     }
 
-    public async Task<SystemUserDTO?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
-    {              
-        return MapFromSystemUserRealToDTO(await _systemUserClient.GetSpecificSystemUserReal(partyId ,id, cancellationToken));
+    public async Task<SystemUser?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
+    {
+        //return MapFromSystemUserRealToDTO(await _systemUserClient.GetSpecificSystemUserReal(partyId ,id, cancellationToken));
+        return await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
     }
 
     private static SystemUserDTO? MapFromSystemUserRealToDTO(SystemUserReal? systemUserReal)
@@ -59,7 +60,7 @@ public class SystemUserService : ISystemUserService
         return systemUserDTO;
     }
 
-    public async Task<SystemUserReal?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUser?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         return await _systemUserClient.PostNewSystemUserReal(partyId, newSystemUserDescriptor, cancellation);
     }

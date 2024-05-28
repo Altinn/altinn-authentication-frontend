@@ -47,7 +47,7 @@ public class SystemUserClient : ISystemUserClient
         _httpClient = httpClient;
     }
 
-    public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
+    public async Task<SystemUser?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemuser/{partyId}/{id}";
@@ -56,13 +56,13 @@ public class SystemUserClient : ISystemUserClient
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<SystemUserReal>(await response.Content.ReadAsStringAsync(cancellationToken))!;
+            return JsonSerializer.Deserialize<SystemUser>(await response.Content.ReadAsStringAsync(cancellationToken))!;
         }
 
         return null;
     }
 
-    public async Task<SystemUserReal?> PostNewSystemUserReal(
+    public async Task<SystemUser?> PostNewSystemUserReal(
         int partyId,
         SystemUserDescriptor newSystemUserDescriptor, 
         CancellationToken cancellation = default)
@@ -83,7 +83,7 @@ public class SystemUserClient : ISystemUserClient
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<SystemUserReal>(await response.Content.ReadAsStringAsync(cancellation))!;
+            return JsonSerializer.Deserialize<SystemUser>(await response.Content.ReadAsStringAsync(cancellation))!;
         }
 
         return null;
@@ -108,24 +108,22 @@ public class SystemUserClient : ISystemUserClient
         throw new NotImplementedException();
     }
 
-    public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
+    public async Task<List<SystemUser>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemuser/{id}";
 
-        List<SystemUserReal> list = [];
+        List<SystemUser> list = [];
 
         HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl);
 
         if (response.IsSuccessStatusCode)
         {
-            list = JsonSerializer.Deserialize<List<SystemUserReal>>(await response.Content.ReadAsStringAsync(cancellationToken))!;
+            list = JsonSerializer.Deserialize<List<SystemUser>>(await response.Content.ReadAsStringAsync(cancellationToken))!;
         }
 
         return list;
     }
-
-
 
     public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
     {
