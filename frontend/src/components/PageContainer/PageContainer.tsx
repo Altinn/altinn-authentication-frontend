@@ -2,7 +2,7 @@ import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ArrowLeftIcon } from '@navikt/aksel-icons';
-import { Button, Link, Tooltip } from '@digdir/designsystemet-react';
+import { Button } from '@digdir/designsystemet-react';
 import CloseIcon from '@/assets/RedClose.svg?react';
 import { getCookie } from '@/resources/Cookie/CookieMethods';
 import { UserInfoBar } from '../UserInfoBar/UserInfoBar';
@@ -25,28 +25,31 @@ export const PageContainer = ({ backUrl, children }: PageContainerProps) => {
         <UserInfoBar />
         <div className={classes.buttonContainer}>
           {backUrl && (
-            <Tooltip content={t('common.back')}>
-              <Button
-                icon={true}
-                color='second'
-                variant='tertiary'
-                className={classes.buttonContainerButton}
-                size='small'
-                asChild
-              >
-                <RouterLink to={backUrl}>
-                  <ArrowLeftIcon className={classes.buttonContainerIcon} />
-                </RouterLink>
-              </Button>
-            </Tooltip>
-          )}
-          <Tooltip content={t('common.close')}>
-            <Button icon={true} className={classes.buttonContainerButton} size='small' asChild>
-              <Link href={profileUrl}>
-                <CloseIcon className={classes.buttonContainerIcon} />
-              </Link>
+            <Button
+              icon={true}
+              title={t('common.back')}
+              color='second'
+              variant='tertiary'
+              className={classes.buttonContainerButton}
+              size='small'
+              asChild
+            >
+              <RouterLink to={backUrl}>
+                <ArrowLeftIcon className={classes.buttonContainerIcon} />
+              </RouterLink>
             </Button>
-          </Tooltip>
+          )}
+          <Button
+            icon={true}
+            title={t('common.close')}
+            className={classes.buttonContainerButton}
+            size='small'
+            asChild
+          >
+            <a href={profileUrl}>
+              <CloseIcon className={classes.buttonContainerIcon} />
+            </a>
+          </Button>
         </div>
         <div>{children}</div>
       </div>
