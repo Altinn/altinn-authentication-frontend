@@ -47,6 +47,7 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> GetSystemUserListForLoggedInUser(CancellationToken cancellationToken = default)
     {
         var (partyId, actionResult) = ResolvePartyId();
+        
         if (partyId == 0) return actionResult;
 
         var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(partyId, cancellationToken);
@@ -61,7 +62,7 @@ public class SystemUserController : ControllerBase
         var (partyId, actionResult) = ResolvePartyId();
         if (partyId == 0) return actionResult;
 
-        SystemUserDTO? details = await _systemUserService.GetSpecificSystemUserDTO(partyId, guid, cancellationToken);
+        SystemUser? details = await _systemUserService.GetSpecificSystemUserDTO(partyId, guid, cancellationToken);
 
         return Ok(details);
     }
@@ -117,24 +118,24 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
         int partyId = AuthenticationHelper.GetUsersPartyId( _httpContextAccessor.HttpContext!);
-        if (partyId.ToString() != newSystemUserDescriptor.OwnedByPartyId) return BadRequest();
-
+                
+        newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
         var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
         if (usr is not null)
         {
-            SystemUserDTO dto = new() 
-            {
-                Id = usr.Id,
-                IntegrationTitle = usr.Title,
-                ClientId = usr.ClientId,
-                Created = usr.Created,
-                Description = usr.Description,
-                OwnedByPartyId = usr.OwnedByPartyId,
-                ProductName = usr.SystemType,
-                ServiceOwner = "",
-                SupplierName = "",
-                SupplierOrgno = ""
-            };
+            //SystemUserDTO dto = new() 
+            //{
+            //    Id = usr.Id,
+            //    IntegrationTitle = usr.Title,
+            //    ClientId = usr.ClientId,
+            //    Created = usr.Created,
+            //    Description = usr.Description,
+            //    OwnedByPartyId = usr.OwnedByPartyId,
+            //    ProductName = usr.SystemType,
+            //    ServiceOwner = "",
+            //    SupplierName = "",
+            //    SupplierOrgno = ""
+            //};
             return Ok(usr);
         }
 
