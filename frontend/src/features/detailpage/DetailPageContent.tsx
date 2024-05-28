@@ -27,7 +27,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
 
   const vendor = vendors?.find((x) => systemUser.productName === x.systemTypeId);
 
-  const [name, setName] = useState<string>(systemUser.integrationTitle);
+  const [name, setName] = useState<string>(systemUser.integrationTitle ?? '');
 
   return (
     <div className={classes.detailPageContent}>
@@ -59,7 +59,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
       </Modal>
       <div>
         <Heading level={2} size='medium'>
-          {systemUser.integrationTitle}
+          {systemUser.integrationTitle || t('authent_detailpage.no_name')}
         </Heading>
         <Paragraph size='small' spacing>
           {vendor?.systemVendor?.toUpperCase()}
