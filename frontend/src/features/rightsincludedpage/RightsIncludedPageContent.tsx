@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
-import { ActionBar } from '@/components';
 import { useCreateSystemUserMutation, useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
+import { RightsList } from '@/components/RightsList/RightsList';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -75,14 +75,7 @@ export const RightsIncludedPageContent = () => {
         {t('authent_includedrightspage.content_text')}
       </Paragraph>
       <div>
-        {vendor?.defaultRights?.map((productRight) => (
-          <ActionBar
-            key={productRight.right}
-            title={productRight.right}
-            subtitle={`${productRight.serviceProvider}`}
-            color={'neutral'}
-          />
-        ))}
+        <RightsList rights={vendor?.defaultRights ?? []} />
         {isCreateSystemUserError && (
           <Alert severity='danger'>{t('authent_includedrightspage.create_systemuser_error')}</Alert>
         )}

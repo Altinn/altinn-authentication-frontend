@@ -9,6 +9,7 @@ import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
 import { AuthenticationRoute } from '@/routes/paths';
 import { url } from '@/utils/urlUtils';
+import { RightsList } from '../RightsList/RightsList';
 
 interface SystemUserActionBarProps {
   systemUser: SystemUser;
@@ -47,16 +48,7 @@ export const SystemUserActionBar = ({
             </RouterLink>
           </Link>
         </div>
-        {vendor?.defaultRights?.map((right) => {
-          return (
-            <ActionBar
-              key={right.right}
-              title={right.right}
-              subtitle={right.serviceProvider}
-              color='neutral'
-            />
-          );
-        })}
+        <RightsList rights={vendor?.defaultRights ?? []} />
       </div>
     </ActionBar>
   );
