@@ -4,73 +4,73 @@ namespace Altinn.Authentication.UI.Mocks.SystemRegister;
 
 public class SystemRegisterClientMock : ISystemRegisterClient
 {
-  private static async Task<List<RegisteredSystemDTO>> MockTestHelper()
+  private static async Task<List<RegisteredSystem>> MockTestHelper()
         {
             await Task.Delay(250);
 
-        RegisteredSystemDTO regsys1 = new()
+        RegisteredSystem regsys1 = new()
         {
             SystemTypeId = "4human_hr_system_2024_2",
             SystemVendor = "4Human",
             Description = "4Humans HR system 2024 versjon.",
             DefaultRights =
             [
-                new DefaultRightsDTO { Right = "Sykemelding - Oppgi leder", ServiceProvider = "Arbeids- og velferdsetaten (NAV)" },
-                new DefaultRightsDTO { Right = "Søknad om sykepenger", ServiceProvider = "Arbeids- og velferdsetaten (NAV)" }
+                new DefaultRight { Right = "Sykemelding - Oppgi leder", ServiceProvider = "Arbeids- og velferdsetaten (NAV)" },
+                new DefaultRight { Right = "Søknad om sykepenger", ServiceProvider = "Arbeids- og velferdsetaten (NAV)" }
             ]
         };
 
-        RegisteredSystemDTO regsys2 = new()
+        RegisteredSystem regsys2 = new()
         {
             SystemTypeId = "din_lokale_regnskapspartner",
             SystemVendor = "Din Lokale Regnskapspartner AS",
             Description = "Regnskap og Revisor tjenester",
             DefaultRights =
             [
-                new DefaultRightsDTO { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
-                new DefaultRightsDTO { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" }
+                new DefaultRight { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
+                new DefaultRight { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" }
             ]
         };
 
-        RegisteredSystemDTO regsys3 = new()
+        RegisteredSystem regsys3 = new()
         {
             SystemTypeId = "fiken_smabedrift",
             SystemVendor = "Fiken",
             Description = "Fiken Småbedrift pakken",
             DefaultRights =
             [
-                new DefaultRightsDTO { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
-                new DefaultRightsDTO { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" }
+                new DefaultRight { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
+                new DefaultRight { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" }
             ]
         };
 
-        RegisteredSystemDTO regsys4 = new()
+        RegisteredSystem regsys4 = new()
         {
             SystemTypeId = "visma_mva_pakke",
             SystemVendor = "Visma",
             Description = "Visma MVA rapportering",
             DefaultRights =
             [
-                new DefaultRightsDTO { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" }
+                new DefaultRight { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" }
             ]
 
         };
 
-        RegisteredSystemDTO regsys5 = new()
+        RegisteredSystem regsys5 = new()
         {
             SystemTypeId = "visma_skatt_totalpakke",
             SystemVendor = "Visma",
             Description = "Visma Totalpakke for alle skatterapporterings behov",
             DefaultRights =
             [
-                new DefaultRightsDTO { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
-                new DefaultRightsDTO { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" },
-                new DefaultRightsDTO { Right = "Bytte av Revisor", ServiceProvider = "Skatteetaten" },
-                new DefaultRightsDTO { Right = "Levere Lakselus", ServiceProvider = "Mattilsynet" },
+                new DefaultRight { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
+                new DefaultRight { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" },
+                new DefaultRight { Right = "Bytte av Revisor", ServiceProvider = "Skatteetaten" },
+                new DefaultRight { Right = "Levere Lakselus", ServiceProvider = "Mattilsynet" },
             ]
         };
 
-        List<RegisteredSystemDTO> theList = new()
+        List<RegisteredSystem> theList = new()
         {
             regsys1,
             regsys2,
@@ -82,7 +82,7 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             return theList;
         }
 
-        public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
+        public async Task<List<RegisteredSystem>> GetListRegSys(CancellationToken cancellationToken)
     {
         return await MockTestHelper();
     }

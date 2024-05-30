@@ -22,7 +22,7 @@ public class SystemRegisterController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetListOfRegisteredSystems(CancellationToken cancellationToken = default)
     {
-        List<RegisteredSystemDTO> lista = [.. await _systemRegisterService.GetListRegSys(cancellationToken)];
+        List<RegisteredSystem> lista = [.. await _systemRegisterService.GetListRegSys(cancellationToken)];
 
         return Ok(lista);
     }

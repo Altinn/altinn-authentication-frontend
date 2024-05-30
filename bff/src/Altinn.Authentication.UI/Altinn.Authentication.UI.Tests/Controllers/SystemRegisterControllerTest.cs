@@ -35,7 +35,7 @@ public class SystemRegisterControllerTest : IClassFixture<CustomWebApplicationFa
         HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/systemregister");
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
 
-        List<RegisteredSystemDTO>? list = JsonSerializer.Deserialize<List<RegisteredSystemDTO>>(await response.Content.ReadAsStringAsync(), jsonSerializerOptions);
+        List<RegisteredSystem>? list = JsonSerializer.Deserialize<List<RegisteredSystem>>(await response.Content.ReadAsStringAsync(), jsonSerializerOptions);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.True(list is not null && list.Count > 0);        
         Assert.True(list[0].SystemTypeId is not null);
