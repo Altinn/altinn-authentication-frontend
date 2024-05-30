@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Altinn.Authentication.UI.Controllers;
 
 [Route("authfront/api/v1/systemregister")]
-[ApiController]
+[ApiController] 
 [AutoValidateAntiforgeryTokenIfAuthCookie]
 public class SystemRegisterController : ControllerBase
 {
