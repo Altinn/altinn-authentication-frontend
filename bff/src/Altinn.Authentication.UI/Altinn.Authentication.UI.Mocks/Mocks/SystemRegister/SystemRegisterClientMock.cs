@@ -12,11 +12,10 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemTypeId = "4human_hr_system_2024_2",
             SystemVendor = "4Human",
-            Description = "4Humans HR system 2024 versjon.",
+            FriendlyProductName = "4Humans HR system 2024 versjon.",
             DefaultRights =
             [
-                new DefaultRight { Right = "Sykemelding - Oppgi leder", ServiceProvider = "Arbeids- og velferdsetaten (NAV)" },
-                new DefaultRight { Right = "Søknad om sykepenger", ServiceProvider = "Arbeids- og velferdsetaten (NAV)" }
+                
             ]
         };
 
@@ -24,11 +23,10 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemTypeId = "din_lokale_regnskapspartner",
             SystemVendor = "Din Lokale Regnskapspartner AS",
-            Description = "Regnskap og Revisor tjenester",
+            FriendlyProductName = "Regnskap og Revisor tjenester",
             DefaultRights =
             [
-                new DefaultRight { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
-                new DefaultRight { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" }
+                
             ]
         };
 
@@ -36,11 +34,10 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemTypeId = "fiken_smabedrift",
             SystemVendor = "Fiken",
-            Description = "Fiken Småbedrift pakken",
+            FriendlyProductName = "Fiken Småbedrift pakken",
             DefaultRights =
             [
-                new DefaultRight { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
-                new DefaultRight { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" }
+                
             ]
         };
 
@@ -48,10 +45,9 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemTypeId = "visma_mva_pakke",
             SystemVendor = "Visma",
-            Description = "Visma MVA rapportering",
+            FriendlyProductName = "Visma MVA rapportering",
             DefaultRights =
             [
-                new DefaultRight { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" }
             ]
 
         };
@@ -60,13 +56,10 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemTypeId = "visma_skatt_totalpakke",
             SystemVendor = "Visma",
-            Description = "Visma Totalpakke for alle skatterapporterings behov",
+            FriendlyProductName = "Visma Totalpakke for alle skatterapporterings behov",
             DefaultRights =
             [
-                new DefaultRight { Right = "MVA rapportering", ServiceProvider = "Skatteetaten" },
-                new DefaultRight { Right = "Årsregnskap", ServiceProvider = "Skatteetaten" },
-                new DefaultRight { Right = "Bytte av Revisor", ServiceProvider = "Skatteetaten" },
-                new DefaultRight { Right = "Levere Lakselus", ServiceProvider = "Mattilsynet" },
+                
             ]
         };
 
