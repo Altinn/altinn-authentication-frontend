@@ -8,6 +8,7 @@
   border-color: var(--border-color);
   background-color: var(--background-color);
   margin-top: var(--fds-spacing-2);
+  overflow: hidden;
 }
 
 .actionBar.clickable {
