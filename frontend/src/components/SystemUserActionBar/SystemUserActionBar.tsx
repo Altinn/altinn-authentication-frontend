@@ -41,12 +41,14 @@ export const SystemUserActionBar = ({
               ? t('authent_overviewpage.system_user_no_rights')
               : t('authent_overviewpage.system_rights_header')}
           </Heading>
-          <Link asChild>
-            <RouterLink to={`${AuthenticationRoute.Details}/${url`${systemUser.id}`}`}>
-              <PencilIcon fontSize={24} />
-              {t('authent_overviewpage.edit_system_user')}
-            </RouterLink>
-          </Link>
+          {false && (
+            <Link asChild>
+              <RouterLink to={`${AuthenticationRoute.Details}/${url`${systemUser.id}`}`}>
+                <PencilIcon fontSize={24} />
+                {t('authent_overviewpage.edit_system_user')}
+              </RouterLink>
+            </Link>
+          )}
         </div>
         <RightsList rights={vendor?.defaultRights ?? []} />
       </div>
