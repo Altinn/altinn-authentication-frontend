@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace Altinn.Authentication.UI.Controllers;
 
 [Route("authfront/api/v1/systemregister")]
-[ApiController]
+[ApiController] 
 [AutoValidateAntiforgeryTokenIfAuthCookie]
 public class SystemRegisterController : ControllerBase
 {
@@ -17,12 +17,12 @@ public class SystemRegisterController : ControllerBase
         _systemRegisterService = systemRegisterService;
     }
 
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet]
     public async Task<ActionResult> GetListOfRegisteredSystems(CancellationToken cancellationToken = default)
     {
-        List<RegisteredSystemDTO> lista = [.. await _systemRegisterService.GetListRegSys(cancellationToken)];
+        List<RegisteredSystem> lista = [.. await _systemRegisterService.GetListRegSys(cancellationToken)];
 
         return Ok(lista);
     }
