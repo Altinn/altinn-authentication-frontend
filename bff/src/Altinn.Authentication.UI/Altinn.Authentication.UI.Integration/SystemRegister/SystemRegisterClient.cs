@@ -34,7 +34,7 @@ public class SystemRegisterClient : ISystemRegisterClient
         _httpClient = httpClient;
     }
 
-    public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken = default)
+    public async Task<List<RegisteredSystem>> GetListRegSys(CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemregister";
@@ -44,7 +44,7 @@ public class SystemRegisterClient : ISystemRegisterClient
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<List<RegisteredSystemDTO>>(await response.Content.ReadAsStringAsync(cancellationToken), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true})!;
+            return JsonSerializer.Deserialize<List<RegisteredSystem>>(await response.Content.ReadAsStringAsync(cancellationToken), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true})!;
         }
         return [];
     }
