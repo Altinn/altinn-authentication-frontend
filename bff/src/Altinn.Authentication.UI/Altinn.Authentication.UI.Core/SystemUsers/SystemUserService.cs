@@ -1,12 +1,19 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
+﻿using Altinn.Authentication.UI.Core.UserProfiles;
+using Altinn.Platform.Register.Models;
+
+namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 public class SystemUserService : ISystemUserService
 {
     private readonly ISystemUserClient _systemUserClient;
+    private readonly IPartyClient _partyLookUpClient;
 
-    public SystemUserService(ISystemUserClient systemUserClient)
+    public SystemUserService(
+        ISystemUserClient systemUserClient,
+        IPartyClient partyLookUpClient)
     {
         _systemUserClient = systemUserClient;
+        _partyLookUpClient = partyLookUpClient;
     }
 
     public async Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
@@ -27,11 +34,6 @@ public class SystemUserService : ISystemUserService
     public async Task<List<SystemUser>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(id, cancellationToken);
-        //List<SystemUserDTO> listofDTOs = new();
-        //foreach(var sur in listofReal) {
-        //    var dto = MapFromSystemUserRealToDTO(sur);
-        //    if (dto is not null)  listofDTOs.Add(dto); 
-        //}
         return lista;
     }
 
@@ -41,28 +43,11 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
     }
 
-    private static SystemUserDTO? MapFromSystemUserRealToDTO(SystemUserReal? systemUserReal)
-    {
-        if (systemUserReal is null) return null;
-        SystemUserDTO systemUserDTO = new()
-        {
-            IntegrationTitle = systemUserReal.Title,
-            Description = systemUserReal.Description,
-            Created = systemUserReal.Created,
-            // ClientId = systemUserReal.ClientId,//Not a deliverable in the first Phase of the Project
-            ProductName = systemUserReal.SystemType,
-            SupplierName = "Not implemented yet",
-            SupplierOrgno = "999999999MVA", 
-            Id = systemUserReal.Id,
-            OwnedByPartyId = systemUserReal.OwnedByPartyId,
-        };
-
-        return systemUserDTO;
-    }
-
     public async Task<SystemUser?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        return await _systemUserClient.PostNewSystemUserReal(partyId, newSystemUserDescriptor, cancellation);
+        Party party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);
+        string partyOrgNo = party.OrgNumber; 
+        return await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
     }
 
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)

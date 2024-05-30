@@ -46,6 +46,11 @@ public class SystemUser
     public string OwnedByPartyId { get; set; } = string.Empty;
 
     /// <summary>
+    /// The Organisation number for the end-user Organisation.         
+    /// </summary>
+    [JsonPropertyName("ownedByOrgNo")]
+    public string OwnedByOrgNo { get; set; } = string.Empty;
+    /// <summary>
     /// Nice to have for debugging and logging.
     /// </summary>
     [JsonPropertyName("created")]

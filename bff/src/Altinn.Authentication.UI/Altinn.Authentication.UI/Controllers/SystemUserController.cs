@@ -122,20 +122,7 @@ public class SystemUserController : ControllerBase
         newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
         var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
         if (usr is not null)
-        {
-            //SystemUserDTO dto = new() 
-            //{
-            //    Id = usr.Id,
-            //    IntegrationTitle = usr.Title,
-            //    ClientId = usr.ClientId,
-            //    Created = usr.Created,
-            //    Description = usr.Description,
-            //    OwnedByPartyId = usr.OwnedByPartyId,
-            //    ProductName = usr.SystemType,
-            //    ServiceOwner = "",
-            //    SupplierName = "",
-            //    SupplierOrgno = ""
-            //};
+        {           
             return Ok(usr);
         }
 
