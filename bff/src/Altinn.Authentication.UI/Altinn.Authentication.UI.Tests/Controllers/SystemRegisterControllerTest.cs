@@ -40,7 +40,7 @@ public class SystemRegisterControllerTest : IClassFixture<CustomWebApplicationFa
         Assert.True(list is not null && list.Count > 0);        
         Assert.True(list[0].SystemTypeId is not null);
         Assert.True(list[0].SystemVendor is not null);
-        Assert.True(list[0].Description is not null);
+        Assert.True(list[0].FriendlyProductName is not null);
     }
 }
 
