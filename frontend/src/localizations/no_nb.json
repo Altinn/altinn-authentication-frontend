@@ -45,6 +45,8 @@
   "authent_detailpage": {
     "edit_systemuser": "Rediger systemtilgang",
     "load_systemuser_error": "Kunne ikke laste systemtilgang",
+    "loading_systemuser": "laster systemtilgang",
+    "no_name": "<Systembruker uten navn>",
     "edit_systemuser_name": "Endre navn på systemtilgang",
     "delete_systemuser": "Slett systemtilgang",
     "delete_systemuser_header": "Slette systemtilgang",
