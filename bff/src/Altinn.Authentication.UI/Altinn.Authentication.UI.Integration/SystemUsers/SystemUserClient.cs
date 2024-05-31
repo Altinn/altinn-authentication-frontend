@@ -63,18 +63,17 @@ public class SystemUserClient : ISystemUserClient
     }
 
     public async Task<SystemUser?> PostNewSystemUserReal(
-        int partyId,
+        string partyOrgNo,
         SystemUserDescriptor newSystemUserDescriptor, 
         CancellationToken cancellation = default)
-    {
-        if(partyId.ToString() != newSystemUserDescriptor.OwnedByPartyId) { return null; }
+    {      
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"systemuser/{partyId}";
+        string endpointUrl = $"systemuser/{partyOrgNo}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
-            PartyId = partyId,
+            PartyId = newSystemUserDescriptor.OwnedByPartyId ?? string.Empty,
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
             ProductName = newSystemUserDescriptor.SelectedSystemType!            
         };

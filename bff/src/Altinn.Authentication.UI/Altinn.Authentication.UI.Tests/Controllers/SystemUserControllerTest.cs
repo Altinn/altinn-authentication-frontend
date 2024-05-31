@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Net.Http.Headers;
 using System.Security.Policy;
 using Xunit;
+using Altinn.Authentication.UI.Mocks.UserProfiles;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
 
@@ -25,7 +26,7 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
     {
         _factory = factory;
         _client = SetupUtils.GetTestClient(factory);
-        _systemUserService = new SystemUserService(new SystemUserClientMock(_client));
+        _systemUserService = new SystemUserService(new SystemUserClientMock(_client, new PartyClientMock()), new PartyClientMock());
     }
 
     [Fact]
