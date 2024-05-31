@@ -1,4 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Authentication.UI.Core.UserProfiles;
 
 namespace Altinn.Authentication.UI.Mocks.SystemUsers;
 
@@ -58,6 +59,7 @@ public class SystemUserClientMock : ISystemUserClient
     }
 
     private readonly HttpClient _httpClient;
+    private readonly IPartyClient _partyClient;
     private static List<SystemUser> _systemUserList = [];
 
     private static SystemUserReal MapDescriptorToSystemUserReal(SystemUserDescriptor sysdescr)
@@ -73,8 +75,9 @@ public class SystemUserClientMock : ISystemUserClient
         };       
     }
 
-    public SystemUserClientMock(HttpClient httpClient)
+    public SystemUserClientMock(HttpClient httpClient, IPartyClient partyClient)
     {
+        _partyClient = partyClient;
         _httpClient = httpClient;
         _systemUserList = MockTestHelperNew();
     }
