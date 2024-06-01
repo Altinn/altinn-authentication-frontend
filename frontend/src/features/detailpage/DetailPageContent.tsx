@@ -21,13 +21,15 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
   const navigate = useNavigate();
 
-  const [deleteSystemUser, { isError: isDeleteError }] = useDeleteSystemuserMutation();
-  const [updateSystemUser, { isError: isUpdateError }] = useUpdateSystemuserMutation();
+  const [deleteSystemUser, { isError: isDeleteError, isLoading: isDeletingSystemUser }] =
+    useDeleteSystemuserMutation();
+  const [updateSystemUser, { isError: isUpdateError, isLoading: isUpdatingSystemUser }] =
+    useUpdateSystemuserMutation();
   const { data: vendors } = useGetVendorsQuery();
 
   const vendor = vendors?.find((x) => systemUser.productName === x.systemTypeId);
 
-  const [name, setName] = useState<string>(systemUser.integrationTitle);
+  const [name, setName] = useState<string>(systemUser.integrationTitle ?? '');
 
   return (
     <div className={classes.detailPageContent}>
@@ -44,6 +46,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         <Modal.Footer>
           <Button
             color='danger'
+            disabled={isDeletingSystemUser}
             onClick={() =>
               deleteSystemUser(systemUser.id)
                 .unwrap()
@@ -59,7 +62,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
       </Modal>
       <div>
         <Heading level={2} size='medium'>
-          {systemUser.integrationTitle}
+          {systemUser.integrationTitle || t('authent_detailpage.no_name')}
         </Heading>
         <Paragraph size='small' spacing>
           {vendor?.systemVendor?.toUpperCase()}
@@ -84,7 +87,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
                 integrationTitle: name,
               });
             }}
-            disabled={!name.trim()}
+            disabled={!name.trim() || isUpdatingSystemUser}
           >
             {t('authent_detailpage.save_systemuser')}
           </Button>

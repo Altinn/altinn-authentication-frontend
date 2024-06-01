@@ -41,7 +41,7 @@ jobs:
            SOURCE-REVISION_ID=${{ github.sha }}
 
   deploy:
-    name: Deploy to AT21
+    name: Deploy to ${{ matrix.environment }}
     runs-on: ubuntu-latest
     environment: ${{ matrix.environment }}
     needs:
@@ -54,7 +54,7 @@ jobs:
 
     strategy:
       matrix:
-        environment: [AT21]       
+        environment: [AT21, AT22]       
 
     steps:        
       - name: Checkout

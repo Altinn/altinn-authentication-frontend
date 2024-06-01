@@ -9,6 +9,7 @@ import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
 import { AuthenticationRoute } from '@/routes/paths';
 import { url } from '@/utils/urlUtils';
+import { RightsList } from '../RightsList/RightsList';
 
 interface SystemUserActionBarProps {
   systemUser: SystemUser;
@@ -40,23 +41,16 @@ export const SystemUserActionBar = ({
               ? t('authent_overviewpage.system_user_no_rights')
               : t('authent_overviewpage.system_rights_header')}
           </Heading>
-          <Link asChild>
-            <RouterLink to={`${AuthenticationRoute.Details}/${url`${systemUser.id}`}`}>
-              <PencilIcon fontSize={24} />
-              {t('authent_overviewpage.edit_system_user')}
-            </RouterLink>
-          </Link>
+          {false && (
+            <Link asChild>
+              <RouterLink to={`${AuthenticationRoute.Details}/${url`${systemUser.id}`}`}>
+                <PencilIcon fontSize={24} />
+                {t('authent_overviewpage.edit_system_user')}
+              </RouterLink>
+            </Link>
+          )}
         </div>
-        {vendor?.defaultRights?.map((right) => {
-          return (
-            <ActionBar
-              key={right.right}
-              title={right.right}
-              subtitle={right.serviceProvider}
-              color='neutral'
-            />
-          );
-        })}
+        <RightsList rights={vendor?.defaultRights ?? []} />
       </div>
     </ActionBar>
   );

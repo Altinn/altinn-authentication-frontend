@@ -1,4 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Authentication.UI.Core.UserProfiles;
 
 namespace Altinn.Authentication.UI.Mocks.SystemUsers;
 
@@ -52,8 +53,14 @@ public class SystemUserClientMock : ISystemUserClient
         return systemUserList;
     }
 
+    private List<SystemUser> MockTestHelperNew()
+    {
+        return [];
+    }
+
     private readonly HttpClient _httpClient;
-    private static List<SystemUserReal> _systemUserList = [];
+    private readonly IPartyClient _partyClient;
+    private static List<SystemUser> _systemUserList = [];
 
     private static SystemUserReal MapDescriptorToSystemUserReal(SystemUserDescriptor sysdescr)
     {
@@ -68,30 +75,37 @@ public class SystemUserClientMock : ISystemUserClient
         };       
     }
 
-    public SystemUserClientMock(HttpClient httpClient)
+    public SystemUserClientMock(HttpClient httpClient, IPartyClient partyClient)
     {
+        _partyClient = partyClient;
         _httpClient = httpClient;
-        _systemUserList = MockTestHelper();
+        _systemUserList = MockTestHelperNew();
     }
    
-    public async Task<SystemUserReal?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
+    public async Task<SystemUser?> GetSpecificSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
         return _systemUserList.Find(i => i.Id == id.ToString());
     }
 
-    public async Task<SystemUserReal> PostNewSystemUserReal(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUser> PostNewSystemUserReal(string partyOrgNo, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         await Task.Delay(50);
-        var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);
-        _systemUserList.Add(sysreal);
-        return sysreal;
+        //var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);
+        SystemUser newSystemUser = MapDescriptorToSystemUser(newSystemUserDescriptor);
+        _systemUserList.Add(newSystemUser);
+        return newSystemUser;
+    }
+
+    private SystemUser MapDescriptorToSystemUser(SystemUserDescriptor newSystemUserDescriptor)
+    {
+        throw new NotImplementedException();
     }
 
     public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
-        SystemUserReal? toDelete = _systemUserList.Find(i => i.Id == id.ToString());        
+        SystemUser? toDelete = _systemUserList.Find(i => i.Id == id.ToString());        
         if (toDelete is null) return false;
         _systemUserList.Remove(toDelete);
         return true;
@@ -109,7 +123,7 @@ public class SystemUserClientMock : ISystemUserClient
         throw new NotImplementedException();
     }
 
-    public async Task<List<SystemUserReal>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
+    public async Task<List<SystemUser>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
         return _systemUserList;
