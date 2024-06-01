@@ -117,7 +117,7 @@ public class SystemUserController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
-        int partyId = AuthenticationHelper.GetUsersPartyId( _httpContextAccessor.HttpContext!);
+        int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
                 
         newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
         var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
