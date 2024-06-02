@@ -9,6 +9,7 @@ using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Altinn.Authentication.UI.Core.Common.Models;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 
@@ -47,7 +48,7 @@ public class PartyClient : IPartyClient
     }
 
     /// <inheritdoc/>
-    public async Task<Party> GetPartyFromReporteeListIfExists(int partyId)
+    public async Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId)
     {
         try
         {
@@ -59,7 +60,7 @@ public class PartyClient : IPartyClient
             if ( response.StatusCode == System.Net.HttpStatusCode.OK )
             {
                 string responseContent = await response.Content.ReadAsStringAsync();
-                return JsonSerializer.Deserialize<Party>(responseContent, _serializerOptions)!;
+                return JsonSerializer.Deserialize<AuthorizedPartyExternal>(responseContent, _serializerOptions)!;
             }
 
             return null!;
