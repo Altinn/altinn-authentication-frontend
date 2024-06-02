@@ -1,4 +1,5 @@
-﻿using Altinn.Platform.Register.Models;
+﻿using Altinn.Authentication.UI.Core.Common.Models;
+using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Core.UserProfiles;
 
@@ -9,5 +10,5 @@ public interface IPartyService
     /// </summary>
     /// <param name="partyId"></param>
     /// <returns></returns>
-    Task<Party> GetPartyFromReporteeListIfExists(int partyId);
+    Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId);
 }
