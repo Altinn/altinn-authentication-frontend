@@ -34,7 +34,9 @@ public class SystemUserService : ISystemUserService
 
     public async Task<List<SystemUser>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
-        var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(id, cancellationToken);
+        AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(id);
+        string partyOrgNo = party.OrganizationNumber;
+        var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(Convert.ToInt32(partyOrgNo), cancellationToken);
         return lista;
     }
 
