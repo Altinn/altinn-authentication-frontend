@@ -71,4 +71,29 @@ public class PartyClient : IPartyClient
             throw;
         }
     }
+
+    /// <inheritdoc/>
+    public async Task<PartyExternal> GetParty(int partyId)
+    {
+        try
+        {
+            string endpointUrl = $"authorizedparty/{partyId}?includeAltinn2=true";
+            string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+
+            HttpResponseMessage response = await _client.GetAsync(token, endpointUrl);
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                return JsonSerializer.Deserialize<PartyExternal>(responseContent, _serializerOptions)!;
+            }
+
+            return null!;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Authentication.UI // PartyClient // GetPartyFromReporteeListIfExists // Exception");
+            throw;
+        }
+    }
 }

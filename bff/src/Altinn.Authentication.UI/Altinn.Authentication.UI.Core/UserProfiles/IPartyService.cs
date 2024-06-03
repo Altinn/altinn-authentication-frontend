@@ -11,4 +11,11 @@ public interface IPartyService
     /// <param name="partyId"></param>
     /// <returns></returns>
     Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId);
+
+    /// <summary>
+    /// Retrieves the party
+    /// </summary>
+    /// <param name="partyId"></param>
+    /// <returns></returns>
+    Task<PartyExternal> GetParty(int partyId);
 }
