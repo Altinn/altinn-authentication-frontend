@@ -60,6 +60,7 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> GetSystemUserDetailsById(Guid guid, CancellationToken cancellationToken)
     {
         var (partyId, actionResult) = ResolvePartyId();
+        
         if (partyId == 0) return actionResult;
 
         SystemUser? details = await _systemUserService.GetSpecificSystemUserDTO(partyId, guid, cancellationToken);
@@ -158,12 +159,7 @@ public class SystemUserController : ControllerBase
             return (0, StatusCode(500));
         }
 
-        int _userid = AuthenticationHelper.GetUserId(_httpContextAccessor.HttpContext);
-        if (_userid == 0) {
-            return (0, BadRequest("Userid not provided in the context."));            
-        }
-
-        int _partyId = AuthenticationHelper.GetUsersPartyId(_httpContextAccessor.HttpContext);
+        int _partyId = AuthenticationHelper.GetRepresentingPartyId(_httpContextAccessor.HttpContext);
         if (_partyId == 0)
         {
             return (0, BadRequest("PartyId not provided in the context."));
