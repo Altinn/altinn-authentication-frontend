@@ -17,4 +17,9 @@ public class PartyClientMock : IPartyClient
 
         return mock;
     }
+
+    public async Task<PartyExternal> GetParty(int partyId)
+    {
+        throw new NotImplementedException();
+    }
 }
