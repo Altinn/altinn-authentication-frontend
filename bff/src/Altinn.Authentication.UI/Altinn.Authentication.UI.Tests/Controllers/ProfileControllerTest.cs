@@ -89,8 +89,8 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var content = response.Content;
         var temp = await content.ReadAsStringAsync();
-        UserNameAndOrganizatioNameDTO? result = JsonSerializer.Deserialize<UserNameAndOrganizatioNameDTO>(temp);
-        Assert.Equal(userProfile.UserName, result?.UserName);
+        ProfileInfo? result = JsonSerializer.Deserialize<ProfileInfo>(temp);
+        Assert.Equal(userProfile.UserName, result?.LoggedInPersonName);
     }
 
     [Fact]
