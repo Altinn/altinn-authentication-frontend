@@ -9,7 +9,6 @@ enum Tags {
 interface CreationRequest {
   integrationTitle: string;
   selectedSystemType: string;
-  ownedByPartyId: string;
 }
 
 const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers] });
