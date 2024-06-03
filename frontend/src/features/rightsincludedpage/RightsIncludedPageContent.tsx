@@ -49,7 +49,6 @@ export const RightsIncludedPageContent = () => {
     const postObjekt = {
       integrationTitle: integrationTitle,
       selectedSystemType: selectedSystemVendor,
-      ownedByPartyId: userInfo?.partyId ?? '',
     };
 
     postNewSystemUser(postObjekt)
