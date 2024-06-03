@@ -15,11 +15,13 @@ export const UserInfoBar = () => {
         </div>
         <div className={classes.userInfoContent}>
           <div>
-            {userInfo?.userName && <div className={classes.userInfoText}>{userInfo.userName}</div>}
-            {userInfo?.organizationName && (
+            {userInfo?.loggedInPersonName && (
+              <div className={classes.userInfoText}>{userInfo.loggedInPersonName}</div>
+            )}
+            {userInfo?.representingPartyName && (
               <div className={classes.userInfoText}>
-                {userInfo?.userName && 'for '}
-                {userInfo.organizationName}
+                {userInfo?.loggedInPersonName && 'for '}
+                {userInfo.representingPartyName}
               </div>
             )}
           </div>

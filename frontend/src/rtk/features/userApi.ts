@@ -1,9 +1,9 @@
 import { api } from './api';
-import { User } from '@/types';
+import { ProfileInfo } from '@/types';
 
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getLoggedInUser: builder.query<User, void>({
+    getLoggedInUser: builder.query<ProfileInfo, void>({
       query: () => `profile/user`,
     }),
   }),
