@@ -17,4 +17,10 @@ public class PartyService : IPartyService
         AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);
         return party;
     }
+
+    public async Task<PartyExternal> GetParty(int partyId)
+    {
+        PartyExternal party = await _partyLookUpClient.GetParty(partyId);
+        return party;
+    }
 }

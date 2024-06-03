@@ -5,6 +5,7 @@ using Altinn.Authentication.UI.Models;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Platform.Register.Models;
+using Altinn.Authentication.UI.Core.Common.Models;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -43,33 +44,25 @@ public class ProfileController : ControllerBase
     [HttpGet("user")]
     public async Task<ActionResult> GetUser()
     {
-        UserNameAndOrganizatioNameDTO? userDTO;
+        ProfileInfo? profileInfo = new ProfileInfo();
         UserProfile? user;
 
         var context = _httpContextAccessor.HttpContext;
         if (context is null) return StatusCode(500);
 
-        int userid = AuthenticationHelper.GetUserId(context);
-        if (userid == 0) return BadRequest("Userid not provided in the context.");
+        int loggedInPartyId = AuthenticationHelper.GetUsersPartyId(context);
+        if (loggedInPartyId == 0) return BadRequest("PartyId not provided in the context.");
+        PartyExternal loggedinParty = await _partyService.GetParty(loggedInPartyId);
+       
 
-        int partyId = AuthenticationHelper.GetUsersPartyId(context);
-        if (partyId == 0) return BadRequest("PartyId not provided in the context.");
+        int representingPartyId = AuthenticationHelper.GetRepresentingPartyId(context);
+        if (representingPartyId == 0) return BadRequest("PartyId not provided in the context.");
+        PartyExternal representingParty = await _partyService.GetParty(representingPartyId);
 
         try
         {
-            user = await _userProfileService.GetUserProfile(userid);
-            if (user is null) return NotFound();
-
-            //Party party = await _partyService.GetPartyFromReporteeListIfExists(partyId);
-
-            userDTO = new()
-            {
-                UserName = user.UserName,
-                OrganizationName = user.Party?.Name,
-                PartyId = partyId.ToString(),
-                UserId =userid.ToString(),
-            };
-
+            profileInfo.LoggedInPersonName = loggedinParty.Name;
+            profileInfo.RepresentingPartyName = representingParty.Name;
         }
         catch (Exception e)
         {
@@ -77,7 +70,7 @@ public class ProfileController : ControllerBase
         }
 
                 
-        return Ok( userDTO);
+        return Ok(profileInfo);
     }
 }
 
