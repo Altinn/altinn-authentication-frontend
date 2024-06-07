@@ -36,6 +36,8 @@ export const CreationPageContent = () => {
     navigate(AuthenticationRoute.RightsIncluded);
   };
 
+  const isNameTooLong = integrationTitle.length > 255;
+
   return (
     <div className={classes.creationPageContainer}>
       <div className={classes.inputContainer}>
@@ -43,6 +45,10 @@ export const CreationPageContent = () => {
           label={t('authent_creationpage.input_field_label')}
           value={integrationTitle}
           onChange={(e) => dispatch(setIntegrationTitle(e.target.value))}
+          error={
+            isNameTooLong &&
+            t('authent_creationpage.name_too_long', { nameLength: integrationTitle.length })
+          }
         />
       </div>
       <div>
@@ -85,7 +91,7 @@ export const CreationPageContent = () => {
           variant='primary'
           size='small'
           onClick={handleConfirm}
-          disabled={!integrationTitle.trim() || !selectedSystemType}
+          disabled={!integrationTitle.trim() || !selectedSystemType || isNameTooLong}
         >
           {t('authent_creationpage.confirm_button')}
         </Button>
