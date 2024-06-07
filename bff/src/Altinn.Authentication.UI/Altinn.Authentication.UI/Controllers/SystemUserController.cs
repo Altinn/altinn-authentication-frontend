@@ -92,11 +92,14 @@ public class SystemUserController : ControllerBase
     /// <summary>
     /// Endpoint for uploading a certificate for the System User
     /// </summary>
-    /// <param name = "cancellationToken" ></param >
+    /// <param name="file">The certificate file</param>
+    /// <param name="navn">The filename</param>
+    /// <param name="beskrivelse">User entered description</param>
+    /// <param name ="cancellationToken" >Cancellation token</param >
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploadjwk")]
-    public async Task<ActionResult> UploadCertificate([FromForm] IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
+    public async Task<ActionResult> UploadCertificate(IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse, CancellationToken cancellationToken = default)
     {
         using var form = new MultipartFormDataContent();
         using var streamContent = new StreamContent(file.OpenReadStream());

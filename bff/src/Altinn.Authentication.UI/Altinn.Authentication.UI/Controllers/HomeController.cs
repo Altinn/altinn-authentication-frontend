@@ -30,7 +30,6 @@ public class HomeController : Controller
     /// <summary>
     ///     Initializes a new instance of the <see cref="HomeController" /> class.
     /// </summary>
-    /// <param name="frontEndEntrypoints">Configuration of frontend entry points</param>
     /// <param name="antiforgery">the anti forgery service</param>
     /// <param name="platformSettings">settings related to the platform</param>
     /// <param name="env">the current environment</param>
