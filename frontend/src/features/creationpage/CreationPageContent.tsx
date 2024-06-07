@@ -75,9 +75,9 @@ export const CreationPageContent = () => {
               <Combobox.Option
                 key={vendor.systemTypeId}
                 value={vendor.systemTypeId}
-                description={vendor.friendlyProductName}
+                description={vendor.systemVendor}
               >
-                {vendor.systemVendor}
+                {vendor.friendlyProductName}
               </Combobox.Option>
             );
           })}
