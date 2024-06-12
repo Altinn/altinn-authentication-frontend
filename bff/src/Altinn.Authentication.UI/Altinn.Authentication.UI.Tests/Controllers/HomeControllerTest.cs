@@ -49,7 +49,7 @@ public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory<Home
         Assert.Equal(3, cookieHeaders.Count());
         Assert.StartsWith("AS-", cookieHeaders.ElementAt(0));
         Assert.StartsWith("XSR", cookieHeaders.ElementAt(1));
-        Assert.StartsWith("il8next", cookieHeaders.ElementAt(2));
+        Assert.StartsWith("i18next", cookieHeaders.ElementAt(2));
         Assert.StartsWith("deny", xframeHeaders.ElementAt(0));
         Assert.StartsWith("nosniff", contentTypeHeaders.ElementAt(0));
         Assert.StartsWith("0", xssProtectionHeaders.ElementAt(0));
@@ -98,7 +98,7 @@ public class HomeControllerTest : IClassFixture<CustomWebApplicationFactory<Home
         Assert.Equal(3, cookieHeaders.Count());
         Assert.StartsWith("AS-", cookieHeaders.ElementAt(0));
         Assert.StartsWith("XSR", cookieHeaders.ElementAt(1));
-        Assert.StartsWith("il8next", cookieHeaders.ElementAt(2));
+        Assert.StartsWith("i18next", cookieHeaders.ElementAt(2));
     }
 
     [Fact]
