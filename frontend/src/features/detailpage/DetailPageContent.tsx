@@ -43,7 +43,9 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           })}
         </Modal.Content>
         {isDeleteError && (
-          <Alert severity='danger'>{t('authent_detailpage.delete_systemuser_error')}</Alert>
+          <Alert severity='danger' role='alert'>
+            {t('authent_detailpage.delete_systemuser_error')}
+          </Alert>
         )}
         <Modal.Footer>
           <Button
@@ -79,7 +81,9 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         error={isNameTooLong && t('authent_detailpage.name_too_long', { nameLength: name.length })}
       />
       {isUpdateError && (
-        <Alert severity='danger'>{t('authent_detailpage.update_systemuser_error')}</Alert>
+        <Alert severity='danger' role='alert'>
+          {t('authent_detailpage.update_systemuser_error')}
+        </Alert>
       )}
       <div>
         <div className={classes.buttonContainer}>

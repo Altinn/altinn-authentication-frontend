@@ -76,7 +76,9 @@ export const RightsIncludedPageContent = () => {
       <div>
         <RightsList rights={vendor?.defaultRights ?? []} />
         {isCreateSystemUserError && (
-          <Alert severity='danger'>{t('authent_includedrightspage.create_systemuser_error')}</Alert>
+          <Alert severity='danger' role='alert'>
+            {t('authent_includedrightspage.create_systemuser_error')}
+          </Alert>
         )}
         <div className={classes.buttonContainer}>
           <Button
