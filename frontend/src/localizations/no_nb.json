@@ -14,7 +14,7 @@
     "banner_title": "Administrere systemtilgang",
     "sub_title": "Lag en systemtilgang",
     "sub_title_text": "Ved å opprette en systemtilgang gir du et fagsystem tilgang til å løse oppgaver i Altinn på vegne av bedriften din.",
-    "systemusers_load_error": "Kunne ikke laste systemtilgang",
+    "systemusers_load_error": "Kunne ikke laste systemtilganger",
     "new_system_user_button": "Lag ny systemtilgang",
     "new_first_system_user_button": "Lag systemtilgang",
     "existing_earlier_system_users_title": "Tidligere opprettede systemtilganger:",

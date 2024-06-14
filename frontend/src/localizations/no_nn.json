@@ -14,7 +14,7 @@
     "banner_title": "Administrera systemtilgangar",
     "sub_title": "Her kan du administrera dine systemtilgangar",
     "sub_title_text": "Ved å oppretta ein systemtilgang gir du eit fagsystem tilgang til å løysa oppgåver i Altinn på vegne av bedrifta di.",
-    "systemusers_load_error": "Kunne ikkje laste systemtilgang",
+    "systemusers_load_error": "Kunne ikkje laste systemtilgangar",
     "new_system_user_button": "Lag ny systemtilgang",
     "new_first_system_user_button": "Lag systemtilgang",
     "existing_earlier_system_users_title": "Tidlegare oppretta systemtilgangar:",
