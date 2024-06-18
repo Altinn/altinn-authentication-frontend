@@ -1,19 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import {
-  Textfield,
-  Button,
-  Heading,
-  Combobox,
-  Alert,
-  Paragraph,
-} from '@digdir/designsystemet-react';
+import { Button, Heading, Combobox, Alert, Paragraph } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { setIntegrationTitle, setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
+import { setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
 
 export const CreationPageContent = () => {
   const { t } = useTranslation();
@@ -38,13 +31,6 @@ export const CreationPageContent = () => {
 
   return (
     <div className={classes.creationPageContainer}>
-      <div className={classes.inputContainer}>
-        <Textfield
-          label={t('authent_creationpage.input_field_label')}
-          value={integrationTitle}
-          onChange={(e) => dispatch(setIntegrationTitle(e.target.value))}
-        />
-      </div>
       <div>
         <Heading level={2} size='small' spacing>
           {t('authent_creationpage.sub_title')}
@@ -59,7 +45,13 @@ export const CreationPageContent = () => {
           placeholder={t('common.choose')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
-              dispatch(setSelectedSystemType(newValue[0]));
+              const system = vendors?.find((x) => x.systemTypeId === newValue[0]);
+              dispatch(
+                setSelectedSystemType({
+                  systemId: newValue[0],
+                  friendlySystemName: system?.friendlyProductName ?? '',
+                }),
+              );
             }
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
@@ -69,9 +61,9 @@ export const CreationPageContent = () => {
               <Combobox.Option
                 key={vendor.systemTypeId}
                 value={vendor.systemTypeId}
-                description={vendor.friendlyProductName}
+                description={vendor.systemVendor}
               >
-                {vendor.systemVendor}
+                {vendor.friendlyProductName}
               </Combobox.Option>
             );
           })}

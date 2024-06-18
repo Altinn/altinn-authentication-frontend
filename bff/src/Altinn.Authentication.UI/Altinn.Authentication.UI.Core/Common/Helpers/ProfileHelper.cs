@@ -1,4 +1,6 @@
 ﻿using Altinn.Platform.Profile.Models;
+using Microsoft.AspNetCore.Http;
+
 namespace Altinn.Authentication.UI.Core.Common;
 
 /// <summary>
@@ -6,40 +8,57 @@ namespace Altinn.Authentication.UI.Core.Common;
 /// </summary>
 public static class ProfileHelper
 {
-
     /// <summary>
-    /// Gets the users prefered language from the profile
+    /// Gets the standard language code in ISO format
     /// </summary>
-    /// <param name="userProfile"></param>
-    /// <returns></returns>
-    public static string GetLanguageCodeForUser(UserProfile userProfile)
+    /// <returns>the logged in users language on ISO format (no_nb, no_nn, en)</returns>
+    public static string GetStandardLanguageCodeIsoStandard(UserProfile userProfile, HttpContext httpContext)
     {
-        if(userProfile is null)
+        string languageCookieValue = GetAltinnPersistenceCookieValueIsoStandard(httpContext);
+
+        if (!string.IsNullOrEmpty(languageCookieValue))
         {
-            return "nb";
+            return languageCookieValue;
         }
 
-        return userProfile.ProfileSettingPreference.Language;
+        if (userProfile != null)
+        {
+            return (userProfile.ProfileSettingPreference?.Language) switch
+            {
+                "nn" => "no_nn",
+                "nb" => "no_nb",
+                "en" => "en",
+                _ => "no_nb",
+            };
+        }
+
+        return "no_nb";
     }
 
-    /// <summary>
-    /// Gets the standard language code based on userprofile preference
-    /// </summary>
-    /// <param name="userProfile"></param>
-    /// <returns></returns>
-    public static string GetStandardLanguageCodeForUser(UserProfile userProfile)
+    private static string GetAltinnPersistenceCookieValueIsoStandard(HttpContext httpContext)
     {
-        if (userProfile is null)
+        var cookieValue = httpContext.Request.Cookies["altinnPersistentContext"];
+
+        if (cookieValue == null)
+        {
+            return string.Empty;
+        }
+
+        if (cookieValue.Contains("UL=1033"))
+        {
+            return "en";
+        }
+
+        if (cookieValue.Contains("UL=1044"))
         {
             return "no_nb";
         }
 
-        return (userProfile.ProfileSettingPreference?.Language) switch
+        if (cookieValue.Contains("UL=2068"))
         {
-            "nn" => "no_nn",
-            "nb" => "no_nb",
-            "en" => "en",
-            _ => "no_nb",
-        };
+            return "no_nn";
+        }
+
+        return string.Empty;
     }
 }

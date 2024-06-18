@@ -31,6 +31,8 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
 
   const [name, setName] = useState<string>(systemUser.integrationTitle ?? '');
 
+  const isNameTooLong = name.length > 255;
+
   return (
     <div className={classes.detailPageContent}>
       <Modal ref={deleteModalRef}>
@@ -41,7 +43,9 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           })}
         </Modal.Content>
         {isDeleteError && (
-          <Alert severity='danger'>{t('authent_detailpage.delete_systemuser_error')}</Alert>
+          <Alert severity='danger' role='alert'>
+            {t('authent_detailpage.delete_systemuser_error')}
+          </Alert>
         )}
         <Modal.Footer>
           <Button
@@ -74,9 +78,12 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         size='small'
         value={name}
         onChange={(event) => setName(event.target.value)}
+        error={isNameTooLong && t('authent_detailpage.name_too_long', { nameLength: name.length })}
       />
       {isUpdateError && (
-        <Alert severity='danger'>{t('authent_detailpage.update_systemuser_error')}</Alert>
+        <Alert severity='danger' role='alert'>
+          {t('authent_detailpage.update_systemuser_error')}
+        </Alert>
       )}
       <div>
         <div className={classes.buttonContainer}>
@@ -87,7 +94,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
                 integrationTitle: name,
               });
             }}
-            disabled={!name.trim() || isUpdatingSystemUser}
+            disabled={!name.trim() || isUpdatingSystemUser || isNameTooLong}
           >
             {t('authent_detailpage.save_systemuser')}
           </Button>

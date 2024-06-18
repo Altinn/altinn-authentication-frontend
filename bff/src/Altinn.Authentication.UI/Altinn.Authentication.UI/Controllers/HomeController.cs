@@ -8,6 +8,7 @@ using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Core.AppConfiguration;
 using Altinn.Authentication.UI.Integration.Configuration;
+using Altinn.Authentication.UI.Core.Common;
 
 namespace Altinn.Authentication.UI.Controllers;
 
@@ -111,10 +112,10 @@ public class HomeController : Controller
         //int userId = 007;
         UserProfile userProfile = await _profileService.GetUserProfile(userId);
         AntiforgeryTokenSet token = _antiforgery.GetAndStoreTokens(HttpContext); 
-        string language = userProfile.ProfileSettingPreference.Language;
+        string language = ProfileHelper.GetStandardLanguageCodeIsoStandard(userProfile, HttpContext);
         //string language = "no_nb";
 
-        HttpContext.Response.Cookies.Append("il8next", language, new CookieOptions
+        HttpContext.Response.Cookies.Append("i18next", language, new CookieOptions
         {   //Cookie should now be readable by javascript
             HttpOnly = false
         });
