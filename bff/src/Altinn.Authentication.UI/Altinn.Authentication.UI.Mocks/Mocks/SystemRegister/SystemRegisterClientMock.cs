@@ -4,66 +4,66 @@ namespace Altinn.Authentication.UI.Mocks.SystemRegister;
 
 public class SystemRegisterClientMock : ISystemRegisterClient
 {
-  private static async Task<List<RegisteredSystem>> MockTestHelper()
+  private static async Task<List<RegisterSystemResponse>> MockTestHelper()
         {
             await Task.Delay(250);
 
-        RegisteredSystem regsys1 = new()
+        RegisterSystemResponse regsys1 = new()
         {
-            SystemTypeId = "4human_hr_system_2024_2",
-            SystemVendor = "4Human",
-            FriendlyProductName = "4Humans HR system 2024 versjon.",
-            DefaultRights =
+            SystemId = "4human_hr_system_2024_2",
+            SystemVendorOrgName = "4Human",
+            SystemName = "4Humans HR system 2024 versjon.",
+            Rights =
             [
                 
             ]
         };
 
-        RegisteredSystem regsys2 = new()
+        RegisterSystemResponse regsys2 = new()
         {
-            SystemTypeId = "din_lokale_regnskapspartner",
-            SystemVendor = "Din Lokale Regnskapspartner AS",
-            FriendlyProductName = "Regnskap og Revisor tjenester",
-            DefaultRights =
+            SystemId = "din_lokale_regnskapspartner",
+            SystemVendorOrgName = "Din Lokale Regnskapspartner AS",
+            SystemName = "Regnskap og Revisor tjenester",
+            Rights =
             [
                 
             ]
         };
 
-        RegisteredSystem regsys3 = new()
+        RegisterSystemResponse regsys3 = new()
         {
-            SystemTypeId = "fiken_smabedrift",
-            SystemVendor = "Fiken",
-            FriendlyProductName = "Fiken Småbedrift pakken",
-            DefaultRights =
+            SystemId = "fiken_smabedrift",
+            SystemVendorOrgName = "Fiken",
+            SystemName = "Fiken Småbedrift pakken",
+            Rights =
             [
                 
             ]
         };
 
-        RegisteredSystem regsys4 = new()
+        RegisterSystemResponse regsys4 = new()
         {
-            SystemTypeId = "visma_mva_pakke",
-            SystemVendor = "Visma",
-            FriendlyProductName = "Visma MVA rapportering",
-            DefaultRights =
+            SystemId = "visma_mva_pakke",
+            SystemVendorOrgName = "Visma",
+            SystemName = "Visma MVA rapportering",
+            Rights =
             [
             ]
 
         };
 
-        RegisteredSystem regsys5 = new()
+        RegisterSystemResponse regsys5 = new()
         {
-            SystemTypeId = "visma_skatt_totalpakke",
-            SystemVendor = "Visma",
-            FriendlyProductName = "Visma Totalpakke for alle skatterapporterings behov",
-            DefaultRights =
+            SystemId = "visma_skatt_totalpakke",
+            SystemVendorOrgName = "Visma",
+            SystemName = "Visma Totalpakke for alle skatterapporterings behov",
+            Rights =
             [
                 
             ]
         };
 
-        List<RegisteredSystem> theList = new()
+        List<RegisterSystemResponse> theList = new()
         {
             regsys1,
             regsys2,
@@ -75,7 +75,7 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             return theList;
         }
 
-        public async Task<List<RegisteredSystem>> GetListRegSys(CancellationToken cancellationToken)
+        public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
     {
         return await MockTestHelper();
     }

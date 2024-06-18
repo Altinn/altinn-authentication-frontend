@@ -27,7 +27,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
     useUpdateSystemuserMutation();
   const { data: vendors } = useGetVendorsQuery();
 
-  const vendor = vendors?.find((x) => systemUser.productName === x.systemTypeId);
+  const vendor = vendors?.find((x) => systemUser.productName === x.systemId);
 
   const [name, setName] = useState<string>(systemUser.integrationTitle ?? '');
 
@@ -69,7 +69,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           {systemUser.integrationTitle || t('authent_detailpage.no_name')}
         </Heading>
         <Paragraph size='small' spacing>
-          {vendor?.systemVendor?.toUpperCase()}
+          {vendor?.systemVendorOrgName?.toUpperCase()}
         </Paragraph>
       </div>
       <Textfield

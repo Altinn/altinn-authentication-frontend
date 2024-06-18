@@ -8,7 +8,6 @@ import { useCreateSystemUserMutation, useGetVendorsQuery } from '@/rtk/features/
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
-import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { RightsList } from '@/components/RightsList/RightsList';
 
 export const RightsIncludedPageContent = () => {
@@ -24,9 +23,8 @@ export const RightsIncludedPageContent = () => {
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
   const selectedSystemVendor = useAppSelector((state) => state.createSystemUser.selectedSystemType);
   const { data: vendors } = useGetVendorsQuery();
-  const { data: userInfo } = useGetLoggedInUserQuery();
 
-  const vendor = vendors?.find((x) => x.systemTypeId === selectedSystemVendor);
+  const vendor = vendors?.find((x) => x.systemId === selectedSystemVendor);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -74,7 +72,7 @@ export const RightsIncludedPageContent = () => {
         {t('authent_includedrightspage.content_text')}
       </Paragraph>
       <div>
-        <RightsList rights={vendor?.defaultRights ?? []} />
+        <RightsList rights={vendor?.rights ?? []} />
         {isCreateSystemUserError && (
           <Alert severity='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}

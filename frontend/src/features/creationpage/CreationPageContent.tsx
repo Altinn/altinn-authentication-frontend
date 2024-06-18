@@ -45,11 +45,11 @@ export const CreationPageContent = () => {
           placeholder={t('common.choose')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
-              const system = vendors?.find((x) => x.systemTypeId === newValue[0]);
+              const system = vendors?.find((x) => x.systemId === newValue[0]);
               dispatch(
                 setSelectedSystemType({
                   systemId: newValue[0],
-                  friendlySystemName: system?.friendlyProductName ?? '',
+                  friendlySystemName: system?.systemName ?? '',
                 }),
               );
             }
@@ -59,11 +59,11 @@ export const CreationPageContent = () => {
           {vendors?.map((vendor) => {
             return (
               <Combobox.Option
-                key={vendor.systemTypeId}
-                value={vendor.systemTypeId}
-                description={vendor.systemVendor}
+                key={vendor.systemId}
+                value={vendor.systemId}
+                description={vendor.systemVendorOrgName}
               >
-                {vendor.friendlyProductName}
+                {vendor.systemName}
               </Combobox.Option>
             );
           })}

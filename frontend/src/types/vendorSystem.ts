@@ -1,8 +1,10 @@
 import { SystemRight } from './systemRight';
 
 export interface VendorSystem {
-  systemTypeId: string;
-  systemVendor: string;
-  friendlyProductName: string;
-  defaultRights: SystemRight[];
+  systemId: string;
+  systemVendorOrgName: string;
+  systemName: string;
+  rights: SystemRight[];
+  softDeleted: boolean;
+  isVisible: boolean;
 }
