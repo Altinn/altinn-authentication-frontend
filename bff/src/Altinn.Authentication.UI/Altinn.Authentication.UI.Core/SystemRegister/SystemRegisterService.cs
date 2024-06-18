@@ -9,9 +9,9 @@ public class SystemRegisterService : ISystemRegisterService
         _systemRegisterClient = systemRegisterClient;
     }
 
-    public async Task<List<RegisteredSystem>> GetListRegSys(CancellationToken cancellationToken)
+    public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
     {
-        List<RegisteredSystem> lista = [];
+        List<RegisterSystemResponse> lista = [];
 
         lista = await _systemRegisterClient.GetListRegSys(cancellationToken );
 
