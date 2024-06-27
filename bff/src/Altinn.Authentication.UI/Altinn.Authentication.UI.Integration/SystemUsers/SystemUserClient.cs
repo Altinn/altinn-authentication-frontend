@@ -75,7 +75,8 @@ public class SystemUserClient : ISystemUserClient
         { 
             PartyId = newSystemUserDescriptor.OwnedByPartyId ?? string.Empty,
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
-            ProductName = newSystemUserDescriptor.SelectedSystemType!            
+            SystemId = newSystemUserDescriptor.SelectedSystemType!,
+            ReporteeOrgNo = partyOrgNo
         };
         StringContent content = new(JsonSerializer.Serialize(requestObject), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
