@@ -47,8 +47,8 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> GetSystemUserListForLoggedInUser(CancellationToken cancellationToken = default)
     {
         var (partyId, actionResult) = ResolvePartyId();
-        
-        if (partyId == 0) return actionResult;
+
+        if (partyId == 0) return actionResult;               
 
         var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(partyId, cancellationToken);
 
@@ -96,7 +96,7 @@ public class SystemUserController : ControllerBase
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploadjwk")]
-    public async Task<ActionResult> UploadCertificate([FromForm] IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
+    public async Task<ActionResult> UploadCertificate(IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
     {
         using var form = new MultipartFormDataContent();
         using var streamContent = new StreamContent(file.OpenReadStream());
@@ -147,7 +147,7 @@ public class SystemUserController : ControllerBase
         int partyId = AuthenticationHelper.GetUsersPartyId(_httpContextAccessor.HttpContext!);
         var toBeDeleted = await _systemUserService.GetSpecificSystemUserDTO(partyId, id, cancellationToken);
         if (toBeDeleted == null) return NotFound();
-        if (partyId.ToString() != toBeDeleted.OwnedByPartyId) return BadRequest();
+        if (partyId.ToString() != toBeDeleted.PartyId) return BadRequest();
         await _systemUserService.DeleteSystemUser(id, cancellationToken);
         return Ok(toBeDeleted.Id);
     }

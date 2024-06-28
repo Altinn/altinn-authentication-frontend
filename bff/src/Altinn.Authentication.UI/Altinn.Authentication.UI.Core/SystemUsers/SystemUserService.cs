@@ -34,9 +34,11 @@ public class SystemUserService : ISystemUserService
 
     public async Task<List<SystemUser>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
-        AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(id);
-        string partyOrgNo = party.OrganizationNumber;
-        var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(Convert.ToInt32(partyOrgNo), cancellationToken);
+        AuthorizedPartyExternal reportee = await _partyLookUpClient.GetPartyFromReporteeListIfExists(id);
+        string reporteeOrgNo = reportee.OrganizationNumber;
+        int reporteePartyId = reportee.PartyId;
+        
+        var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(reporteePartyId, cancellationToken);
         return lista;
     }
 
@@ -48,7 +50,7 @@ public class SystemUserService : ISystemUserService
 
     public async Task<SystemUser?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);
+        AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);        
         string partyOrgNo = party.OrganizationNumber; 
         return await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
     }
