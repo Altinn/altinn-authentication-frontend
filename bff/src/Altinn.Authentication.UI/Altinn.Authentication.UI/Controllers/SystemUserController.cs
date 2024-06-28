@@ -47,8 +47,8 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> GetSystemUserListForLoggedInUser(CancellationToken cancellationToken = default)
     {
         var (partyId, actionResult) = ResolvePartyId();
-
-        if (partyId == 0) return actionResult;               
+        
+        if (partyId == 0) return actionResult;
 
         var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(partyId, cancellationToken);
 
