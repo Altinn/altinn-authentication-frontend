@@ -7,6 +7,7 @@ import { NotFoundSite } from '@/sites/NotFoundSite';
 import { RightsIncludedPage } from '@/features/rightsincludedpage';
 import { DetailPage } from '@/features/detailpage/DetailPage';
 import { AuthenticationRoute } from '../paths';
+import { LanguageUtil } from '@/languageUtil';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -36,6 +37,7 @@ export const Router = createBrowserRouter(
         element={<DetailPage />}
         errorElement={<NotFoundSite />}
       />
+      <Route path={'translations'} element={<LanguageUtil />} errorElement={<NotFoundSite />} />
     </Route>,
   ),
   { basename: '/authfront/ui' },
