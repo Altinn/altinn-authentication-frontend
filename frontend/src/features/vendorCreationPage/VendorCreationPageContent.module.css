@@ -1,0 +1,12 @@
+.vendorCreationContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fds-spacing-6);
+}
+
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  gap: var(--fds-spacing-4);
+  margin-top: var(--fds-spacing-4);
+}

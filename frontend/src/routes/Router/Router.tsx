@@ -7,6 +7,7 @@ import { NotFoundSite } from '@/sites/NotFoundSite';
 import { RightsIncludedPage } from '@/features/rightsincludedpage';
 import { DetailPage } from '@/features/detailpage/DetailPage';
 import { AuthenticationRoute } from '../paths';
+import { VendorCreationPage } from '@/features/vendorCreationPage';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,11 @@ export const Router = createBrowserRouter(
       <Route
         path={`${AuthenticationRoute.Details}/:id`}
         element={<DetailPage />}
+        errorElement={<NotFoundSite />}
+      />
+      <Route
+        path={`${AuthenticationRoute.VendorCreation}/:id`}
+        element={<VendorCreationPage />}
         errorElement={<NotFoundSite />}
       />
     </Route>,

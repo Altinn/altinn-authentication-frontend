@@ -5,6 +5,7 @@ enum AuthenticationPath {
   MaskinportenAdm = 'maskinportenadm',
   RightsIncluded = 'rightsincluded',
   Details = 'details',
+  VendorCreation = 'vendorcreation',
 }
 
 export enum AuthenticationRoute {
@@ -13,4 +14,5 @@ export enum AuthenticationRoute {
   Creation = `/${AuthenticationPath.Auth}/${AuthenticationPath.Creation}`,
   Details = `/${AuthenticationPath.Auth}/${AuthenticationPath.Details}`,
   MaskinportenAdm = `/${AuthenticationPath.Auth}/${AuthenticationPath.MaskinportenAdm}`,
+  VendorCreation = `/${AuthenticationPath.Auth}/${AuthenticationPath.VendorCreation}`,
 }
