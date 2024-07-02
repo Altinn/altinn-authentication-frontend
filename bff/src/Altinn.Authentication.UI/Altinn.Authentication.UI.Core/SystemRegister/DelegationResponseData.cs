@@ -1,6 +1,4 @@
-﻿using Altinn.Authentication.UI.Core.SystemRegister;
-
-namespace Altinn.Authentication.UI.Core.Common.Models;
+﻿namespace Altinn.Authentication.UI.Core.SystemRegister;
 
 /// <summary>
 ///  Represents the response of the backend for Delegation access check response.
