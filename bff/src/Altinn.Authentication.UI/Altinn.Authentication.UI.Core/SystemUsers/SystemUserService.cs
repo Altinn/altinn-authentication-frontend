@@ -7,11 +7,11 @@ namespace Altinn.Authentication.UI.Core.SystemUsers;
 public class SystemUserService : ISystemUserService
 {
     private readonly ISystemUserClient _systemUserClient;
-    private readonly IPartyClient _partyLookUpClient;
+    private readonly IAccessManagementClient _partyLookUpClient;
 
     public SystemUserService(
         ISystemUserClient systemUserClient,
-        IPartyClient partyLookUpClient)
+        IAccessManagementClient partyLookUpClient)
     {
         _systemUserClient = systemUserClient;
         _partyLookUpClient = partyLookUpClient;

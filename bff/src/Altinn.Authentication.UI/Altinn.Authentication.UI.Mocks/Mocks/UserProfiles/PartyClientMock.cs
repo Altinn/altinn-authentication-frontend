@@ -4,7 +4,7 @@ using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Mocks.UserProfiles;
 
-public class PartyClientMock : IPartyClient
+public class PartyClientMock : IAccessManagementClient
 {
     public async Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId)
     {

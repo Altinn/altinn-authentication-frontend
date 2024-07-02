@@ -5,9 +5,9 @@ namespace Altinn.Authentication.UI.Core.UserProfiles;
 
 public class PartyService : IPartyService
 {
-    private readonly IPartyClient _partyLookUpClient;
+    private readonly IAccessManagementClient _partyLookUpClient;
 
-    public PartyService(IPartyClient partyLookUpClient)
+    public PartyService(IAccessManagementClient partyLookUpClient)
     {
         _partyLookUpClient = partyLookUpClient;
     }

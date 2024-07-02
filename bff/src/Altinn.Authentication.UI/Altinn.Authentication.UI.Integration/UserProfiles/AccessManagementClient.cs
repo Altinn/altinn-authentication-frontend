@@ -10,6 +10,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Models;
+using Altinn.Authentication.UI.Core.SystemRegister;
+using System.Text;
+using System.Collections.Generic;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 
@@ -17,7 +20,7 @@ namespace Altinn.Authentication.UI.Integration.UserProfiles;
 /// Proxy implementation for parties
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class PartyClient : IPartyClient
+public class AccessManagementClient : IAccessManagementClient
 {
     private readonly ILogger _logger;
     private readonly HttpClient _client;
@@ -33,9 +36,9 @@ public class PartyClient : IPartyClient
     /// <param name="logger">the logger</param>
     /// <param name="httpContextAccessor">handler for http context</param>
     /// <param name="platformSettings">the platform setttings</param>
-    public PartyClient(
+    public AccessManagementClient(
         HttpClient httpClient,
-        ILogger<PartyClient> logger,
+        ILogger<AccessManagementClient> logger,
         IHttpContextAccessor httpContextAccessor,
         IOptions<PlatformSettings> platformSettings)
     {
@@ -93,6 +96,26 @@ public class PartyClient : IPartyClient
         catch (Exception ex)
         {
             _logger.LogError(ex, "Authentication.UI // PartyClient // GetPartyFromReporteeListIfExists // Exception");
+            throw;
+        }
+    }
+
+    /// <inheritdoc />
+    public async Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, Right request)
+    {
+        try
+        {
+            string endpointUrl = $"internal/{partyId}/rights/delegation/delegationcheck";
+            string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+            StringContent requestBody = new(JsonSerializer.Serialize(request, _serializerOptions), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
+
+            return JsonSerializer.Deserialize<List<DelegationResponseData>>( await response.Content.ReadAsStringAsync(), _serializerOptions) ;
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Authentication.UI // PartyClient // CheckDelegationAccess // Exception");
             throw;
         }
     }
