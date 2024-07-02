@@ -135,7 +135,9 @@ export const LanguageUtil = (): React.ReactNode => {
                           }
                         }}
                       >
-                        {translations[transKey][lang] || '-'}
+                        {translations[transKey][lang] || (
+                          <div style={{ color: 'red' }}>MANGLER</div>
+                        )}
                       </div>
                     )}
                   </td>
