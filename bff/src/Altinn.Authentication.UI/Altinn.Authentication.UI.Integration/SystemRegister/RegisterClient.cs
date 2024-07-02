@@ -1,12 +1,16 @@
-﻿using Altinn.Authentication.UI.Core.SystemRegister;
+﻿using Altinn.Authentication.UI.Core.Authentication;
+using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Integration.AccessToken;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Platform.Register.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Altinn.Authentication.UI.Core.Extensions;
 
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
 
@@ -52,7 +56,21 @@ public class RegisterClient : IRegisterClient
     {
         try
         {
-            return null;
+            string endpointUrl = $"parties/lookup";
+            string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+            var accessToken = await _accessTokenProvider.GetAccessToken();
+
+            StringContent requestContent = new(JsonSerializer.Serialize(new PartyLookup { OrgNo = organizationNumber}, _jsonSerializerOptions), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, requestContent, accessToken);
+            string responseContent = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                return JsonSerializer.Deserialize<Party>(responseContent, _jsonSerializerOptions)!;
+            }
+
+            return null!;
         }
         catch (Exception ex)
         {
