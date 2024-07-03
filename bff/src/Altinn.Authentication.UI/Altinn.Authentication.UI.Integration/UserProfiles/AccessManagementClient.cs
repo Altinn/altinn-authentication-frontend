@@ -2,7 +2,6 @@
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Core.Extensions;
-using Altinn.Platform.Register.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -12,7 +11,6 @@ using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Models;
 using Altinn.Authentication.UI.Core.SystemRegister;
 using System.Text;
-using System.Collections.Generic;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 
