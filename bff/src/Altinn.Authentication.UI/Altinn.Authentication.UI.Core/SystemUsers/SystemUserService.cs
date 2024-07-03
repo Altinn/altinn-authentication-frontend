@@ -86,7 +86,7 @@ public class SystemUserService : ISystemUserService
 
         List<Right> right = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
 
-        return ResolveIfHasAccess(await _partyLookUpClient.CheckDelegationAccess(loggedInPartyId.ToString(), right));
+        return ResolveIfHasAccess(await _partyLookUpClient.CheckDelegationAccess(reporteePartyId.ToString(), right));
     }
 
     private static bool ResolveIfHasAccess(List<DelegationResponseData>? rightResponse)
