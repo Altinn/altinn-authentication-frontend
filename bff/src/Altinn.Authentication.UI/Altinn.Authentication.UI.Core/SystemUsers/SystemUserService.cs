@@ -1,4 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Models;
+using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Platform.Register.Models;
 
@@ -58,5 +59,29 @@ public class SystemUserService : ISystemUserService
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
     {
         return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
+    }
+
+    public async Task<bool> UserDelegationCheckForReportee(int loggedInPartyId, string systemId ,CancellationToken cancellationToken = default)
+    {
+        AuthorizedPartyExternal reportee = await _partyLookUpClient.GetPartyFromReporteeListIfExists(loggedInPartyId);
+        string reporteeOrgNo = reportee.OrganizationNumber;
+        int reporteePartyId = reportee.PartyId;
+
+        Right right = new();
+
+        return ResolveIfHasAccess(await _partyLookUpClient.CheckDelegationAccess(loggedInPartyId.ToString(), right));
+    }
+
+    private static bool ResolveIfHasAccess(List<DelegationResponseData>? rightResponse)
+    {
+        if (rightResponse == null) { return false; }
+
+        foreach( var data in rightResponse)
+        {
+            if (data.Status != "Delegable")
+                return false;
+        }
+
+        return true;
     }
 }
