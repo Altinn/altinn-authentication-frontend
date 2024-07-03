@@ -17,6 +17,7 @@ public class SystemRegisterClient : ISystemRegisterClient
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly PlatformSettings _platformSettings;
     private readonly IAccessTokenProvider _accessTokenProvider;
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true};
 
     public SystemRegisterClient(
         ILogger<SystemRegisterClient> logger, 
@@ -44,7 +45,8 @@ public class SystemRegisterClient : ISystemRegisterClient
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<List<RegisterSystemResponse>>(await response.Content.ReadAsStringAsync(cancellationToken), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true})!;
+            return JsonSerializer.Deserialize<List<RegisterSystemResponse>>
+                (await response.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions)!;
         }
         return [];
     }
