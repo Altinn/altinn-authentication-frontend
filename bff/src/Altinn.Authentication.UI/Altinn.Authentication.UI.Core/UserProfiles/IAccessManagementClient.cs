@@ -10,5 +10,5 @@ public interface IAccessManagementClient
 
     Task<PartyExternal> GetParty(int partyId);
 
-    Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, Right request);
+    Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, List<Right> request);
 }

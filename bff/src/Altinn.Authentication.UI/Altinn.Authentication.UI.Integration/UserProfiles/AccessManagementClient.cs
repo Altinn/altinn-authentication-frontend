@@ -99,7 +99,7 @@ public class AccessManagementClient : IAccessManagementClient
     }
 
     /// <inheritdoc />
-    public async Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, Right request)
+    public async Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, List<Right> request)
     {
         try
         {

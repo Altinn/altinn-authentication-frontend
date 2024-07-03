@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using System.Threading;
 
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
 
@@ -46,6 +47,22 @@ public class SystemRegisterClient : ISystemRegisterClient
         if (response.IsSuccessStatusCode)
         {
             return JsonSerializer.Deserialize<List<RegisterSystemResponse>>
+                (await response.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions)!;
+        }
+        return [];
+    }
+
+    public async Task<List<Right>> GetRightFromSystem(string systemId, CancellationToken cancellationToken)
+    {
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        string endpointUrl = $"systemregister/system/{systemId}/rights";
+        var accessToken = await _accessTokenProvider.GetAccessToken();
+
+        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl, accessToken);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<List<Right>>
                 (await response.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions)!;
         }
         return [];

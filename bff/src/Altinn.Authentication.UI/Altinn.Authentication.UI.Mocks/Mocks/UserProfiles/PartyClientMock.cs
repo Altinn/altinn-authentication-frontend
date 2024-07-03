@@ -24,7 +24,7 @@ public class PartyClientMock : IAccessManagementClient
         throw new NotImplementedException();
     }
 
-    public Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, Right request)
+    public Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, List<Right> request)
     {
         throw new NotImplementedException();
     }

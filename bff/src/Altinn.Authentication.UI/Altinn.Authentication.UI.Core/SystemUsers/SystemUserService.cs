@@ -9,13 +9,16 @@ public class SystemUserService : ISystemUserService
 {
     private readonly ISystemUserClient _systemUserClient;
     private readonly IAccessManagementClient _partyLookUpClient;
+    private readonly ISystemRegisterClient _systemRegisterClient;
 
     public SystemUserService(
         ISystemUserClient systemUserClient,
-        IAccessManagementClient partyLookUpClient)
+        IAccessManagementClient partyLookUpClient,
+        ISystemRegisterClient systemRegisterClient)
     {
         _systemUserClient = systemUserClient;
         _partyLookUpClient = partyLookUpClient;
+        _systemRegisterClient = systemRegisterClient;
     }
 
     public async Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
@@ -67,7 +70,21 @@ public class SystemUserService : ISystemUserService
         string reporteeOrgNo = reportee.OrganizationNumber;
         int reporteePartyId = reportee.PartyId;
 
-        Right right = new();
+        //List<AttributePair> resource =
+        //    [
+        //        new AttributePair
+        //        {
+        //            Id = "urn:altinn:resource",
+        //            Value = "kravogbetalinger",
+        //        }
+        //    ];
+
+        //Right right = new() 
+        //{
+        //    Resources = resource,
+        //};
+
+        List<Right> right = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
 
         return ResolveIfHasAccess(await _partyLookUpClient.CheckDelegationAccess(loggedInPartyId.ToString(), right));
     }
