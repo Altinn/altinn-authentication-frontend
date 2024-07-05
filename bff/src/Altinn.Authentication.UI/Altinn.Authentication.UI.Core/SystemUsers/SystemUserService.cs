@@ -67,6 +67,7 @@ public class SystemUserService : ISystemUserService
         List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemUser.SystemId , cancellation);
 
         bool delagationSucceeded = await _partyLookUpClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rights);
+        if (delagationSucceeded) return systemUser;
 
         return null;        
     }
