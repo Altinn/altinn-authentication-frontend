@@ -62,8 +62,7 @@ public class SystemUserService : ISystemUserService
             return await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
         }
 
-        else return null;
-        
+        else return null;        
     }
 
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
@@ -71,11 +70,8 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
     }
 
-    public async Task<bool> UserDelegationCheckForReportee(int loggedInPartyId, string systemId ,CancellationToken cancellationToken = default)
-    {
-        AuthorizedPartyExternal reportee = await _partyLookUpClient.GetPartyFromReporteeListIfExists(loggedInPartyId);
-        int reporteePartyId = reportee.PartyId;
-
+    public async Task<bool> UserDelegationCheckForReportee(int partyId, string systemId ,CancellationToken cancellationToken = default)
+    {        
         //List<AttributePair> resource =
         //    [
         //        new AttributePair
@@ -92,7 +88,7 @@ public class SystemUserService : ISystemUserService
 
         List<Right> right = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
 
-        return ResolveIfHasAccess(await _partyLookUpClient.CheckDelegationAccess(reporteePartyId.ToString(), right));
+        return ResolveIfHasAccess(await _partyLookUpClient.CheckDelegationAccess(partyId.ToString(), right));
     }
 
     private static bool ResolveIfHasAccess(List<DelegationResponseData>? rightResponse)
