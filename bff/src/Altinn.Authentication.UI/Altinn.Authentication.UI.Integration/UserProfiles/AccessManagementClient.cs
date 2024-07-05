@@ -123,7 +123,7 @@ public class AccessManagementClient : IAccessManagementClient
     }
 
     /// <inheritdoc />
-    public async Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, Right right)
+    public async Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<Right> rights)
     {
         RightsDelegationRequest rightsDelegationRequest = new()
         {
@@ -136,7 +136,7 @@ public class AccessManagementClient : IAccessManagementClient
                 }
             ],
 
-            Rights = [right]
+            Rights = rights
         };
 
         try

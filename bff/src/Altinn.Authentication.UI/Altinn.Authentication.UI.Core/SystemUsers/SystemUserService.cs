@@ -54,15 +54,21 @@ public class SystemUserService : ISystemUserService
 
     public async Task<SystemUser?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
+        
+
         AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);        
         string partyOrgNo = party.OrganizationNumber;
         bool canDelegate = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
-        if (canDelegate)
-        {
-            return await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
-        }
+        if (!canDelegate) return null;
+        
+        SystemUser? systemUser; systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
+        if(systemUser is null) return null;
 
-        else return null;        
+        List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemUser.SystemId , cancellation);
+
+        bool delagationSucceeded = await _partyLookUpClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rights);
+
+        return null;        
     }
 
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
