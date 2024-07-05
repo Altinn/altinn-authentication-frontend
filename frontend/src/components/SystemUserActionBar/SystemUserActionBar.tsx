@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Heading, Link } from '@digdir/designsystemet-react';
+import { Heading, Link, Paragraph } from '@digdir/designsystemet-react';
 import { ActionBar } from '../ActionBar';
 import classes from './SystemUserActionBar.module.css';
 import { PencilIcon } from '@navikt/aksel-icons';
@@ -34,23 +34,37 @@ export const SystemUserActionBar = ({
       size='large'
       defaultOpen={defaultOpen}
     >
-      <div>
-        <div className={classes.rightsHeader}>
-          <Heading level={3} size='xxsmall' spacing>
-            {!vendor?.rights.length
-              ? t('authent_overviewpage.system_user_no_rights')
-              : t('authent_overviewpage.system_rights_header')}
-          </Heading>
-          {false && (
+      <div className={classes.systemUserContent}>
+        {false && (
+          <div className={classes.rightAlignedContainer}>
             <Link asChild>
               <RouterLink to={`${AuthenticationRoute.Details}/${url`${systemUser.id}`}`}>
                 <PencilIcon fontSize={24} />
                 {t('authent_overviewpage.edit_system_user')}
               </RouterLink>
             </Link>
-          )}
+          </div>
+        )}
+        <div>
+          <Heading level={3} size='xxsmall' spacing>
+            {!vendor?.rights.length
+              ? t('authent_overviewpage.system_user_no_rights')
+              : t('authent_overviewpage.system_rights_header')}
+          </Heading>
+          <RightsList rights={vendor?.rights ?? []} />
         </div>
-        <RightsList rights={vendor?.rights ?? []} />
+        <div className={classes.rightAlignedContainer}>
+          <Paragraph size='xs' className={classes.lastEditText}>
+            {t('authent_overviewpage.system_user_last_edit', {
+              createdDate: new Date(systemUser.created).toLocaleDateString('no-NB', {
+                year: '2-digit',
+                month: '2-digit',
+                day: '2-digit',
+              }),
+              lastChangeName: 'TODO',
+            })}
+          </Paragraph>
+        </div>
       </div>
     </ActionBar>
   );

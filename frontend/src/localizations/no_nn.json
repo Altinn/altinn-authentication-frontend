@@ -23,7 +23,8 @@
     "system_user_no_rights": "Systemtilgangen har ingen rettar",
     "system_rights_header": "Systemtilgangen har rettar til desse tenestene:",
     "edit_system_user": "Rediger systemtilgang",
-    "loading_systemusers": "Laster systemtilganger"
+    "loading_systemusers": "Laster systemtilganger",
+    "system_user_last_edit": "Oppretta {{createdDate}}, sist endra av {{lastChangeName}}"
   },
   "authent_creationpage": {
     "banner_title": "Opprett ny systemtilgang",
