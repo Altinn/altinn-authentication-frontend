@@ -60,6 +60,7 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> GetSystemUserDetailsById(Guid guid, CancellationToken cancellationToken)
     {
         var (partyId, actionResult) = ResolvePartyId();
+        
         if (partyId == 0) return actionResult;
 
         SystemUser? details = await _systemUserService.GetSpecificSystemUserDTO(partyId, guid, cancellationToken);
@@ -95,7 +96,7 @@ public class SystemUserController : ControllerBase
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost("uploadjwk")]
-    public async Task<ActionResult> UploadCertificate([FromForm] IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
+    public async Task<ActionResult> UploadCertificate(IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
     {
         using var form = new MultipartFormDataContent();
         using var streamContent = new StreamContent(file.OpenReadStream());
@@ -117,7 +118,7 @@ public class SystemUserController : ControllerBase
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
-        int partyId = AuthenticationHelper.GetUsersPartyId( _httpContextAccessor.HttpContext!);
+        int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
                 
         newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
         var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
@@ -146,7 +147,7 @@ public class SystemUserController : ControllerBase
         int partyId = AuthenticationHelper.GetUsersPartyId(_httpContextAccessor.HttpContext!);
         var toBeDeleted = await _systemUserService.GetSpecificSystemUserDTO(partyId, id, cancellationToken);
         if (toBeDeleted == null) return NotFound();
-        if (partyId.ToString() != toBeDeleted.OwnedByPartyId) return BadRequest();
+        if (partyId.ToString() != toBeDeleted.PartyId) return BadRequest();
         await _systemUserService.DeleteSystemUser(id, cancellationToken);
         return Ok(toBeDeleted.Id);
     }
@@ -158,12 +159,7 @@ public class SystemUserController : ControllerBase
             return (0, StatusCode(500));
         }
 
-        int _userid = AuthenticationHelper.GetUserId(_httpContextAccessor.HttpContext);
-        if (_userid == 0) {
-            return (0, BadRequest("Userid not provided in the context."));            
-        }
-
-        int _partyId = AuthenticationHelper.GetUsersPartyId(_httpContextAccessor.HttpContext);
+        int _partyId = AuthenticationHelper.GetRepresentingPartyId(_httpContextAccessor.HttpContext);
         if (_partyId == 0)
         {
             return (0, BadRequest("PartyId not provided in the context."));

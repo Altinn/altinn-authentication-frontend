@@ -27,9 +27,11 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
     useUpdateSystemuserMutation();
   const { data: vendors } = useGetVendorsQuery();
 
-  const vendor = vendors?.find((x) => systemUser.productName === x.systemTypeId);
+  const vendor = vendors?.find((x) => systemUser.productName === x.systemId);
 
   const [name, setName] = useState<string>(systemUser.integrationTitle ?? '');
+
+  const isNameTooLong = name.length > 255;
 
   return (
     <div className={classes.detailPageContent}>
@@ -41,7 +43,9 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           })}
         </Modal.Content>
         {isDeleteError && (
-          <Alert severity='danger'>{t('authent_detailpage.delete_systemuser_error')}</Alert>
+          <Alert severity='danger' role='alert'>
+            {t('authent_detailpage.delete_systemuser_error')}
+          </Alert>
         )}
         <Modal.Footer>
           <Button
@@ -65,7 +69,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           {systemUser.integrationTitle || t('authent_detailpage.no_name')}
         </Heading>
         <Paragraph size='small' spacing>
-          {vendor?.systemVendor?.toUpperCase()}
+          {vendor?.systemVendorOrgName?.toUpperCase()}
         </Paragraph>
       </div>
       <Textfield
@@ -74,9 +78,12 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         size='small'
         value={name}
         onChange={(event) => setName(event.target.value)}
+        error={isNameTooLong && t('authent_detailpage.name_too_long', { nameLength: name.length })}
       />
       {isUpdateError && (
-        <Alert severity='danger'>{t('authent_detailpage.update_systemuser_error')}</Alert>
+        <Alert severity='danger' role='alert'>
+          {t('authent_detailpage.update_systemuser_error')}
+        </Alert>
       )}
       <div>
         <div className={classes.buttonContainer}>
@@ -87,7 +94,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
                 integrationTitle: name,
               });
             }}
-            disabled={!name.trim() || isUpdatingSystemUser}
+            disabled={!name.trim() || isUpdatingSystemUser || isNameTooLong}
           >
             {t('authent_detailpage.save_systemuser')}
           </Button>

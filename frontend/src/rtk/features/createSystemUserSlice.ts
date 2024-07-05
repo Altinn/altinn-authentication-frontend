@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface CreateSystemUserState {
   integrationTitle: string;
@@ -16,18 +16,18 @@ const createSystemUserSlice = createSlice({
   name: 'createSystemUserSlice',
   initialState,
   reducers: {
-    setIntegrationTitle: (state, action: { payload: string }) => {
-      state.integrationTitle = action.payload;
+    setSelectedSystemType: (
+      state,
+      action: PayloadAction<{ systemId: string; friendlySystemName: string }>,
+    ) => {
+      state.selectedSystemType = action.payload.systemId;
+      state.integrationTitle = action.payload.friendlySystemName;
     },
-    setSelectedSystemType: (state, action: { payload: string }) => {
-      state.selectedSystemType = action.payload;
-    },
-    setCreatedId: (state, action: { payload: string }) => {
+    setCreatedId: (state, action: PayloadAction<string>) => {
       state.newlyCreatedId = action.payload;
     },
   },
 });
 
 export default createSystemUserSlice.reducer;
-export const { setIntegrationTitle, setSelectedSystemType, setCreatedId } =
-  createSystemUserSlice.actions;
+export const { setSelectedSystemType, setCreatedId } = createSystemUserSlice.actions;

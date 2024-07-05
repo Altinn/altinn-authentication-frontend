@@ -33,6 +33,9 @@ Run the BFF in the local folder (where program.cs is):
 Run the local-test in the local src folder (where program.cs is):
 > dotnet run
 
+Install the dependencies for the Frontend in its local folder if you are running the frontend for the first time: 
+> yarn install
+
 Run the Vite server for the Frontend in its local folder: 
 > yarn start
 

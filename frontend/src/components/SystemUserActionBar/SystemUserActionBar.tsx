@@ -24,12 +24,12 @@ export const SystemUserActionBar = ({
 
   const { data: vendors } = useGetVendorsQuery();
 
-  const vendor = vendors?.find((vendor) => vendor.systemTypeId === systemUser.productName);
+  const vendor = vendors?.find((vendor) => vendor.systemId === systemUser.productName);
 
   return (
     <ActionBar
       title={systemUser.integrationTitle}
-      subtitle={vendor?.systemVendor?.toUpperCase()}
+      subtitle={vendor?.systemVendorOrgName?.toUpperCase()}
       color='light'
       size='large'
       defaultOpen={defaultOpen}
@@ -37,7 +37,7 @@ export const SystemUserActionBar = ({
       <div>
         <div className={classes.rightsHeader}>
           <Heading level={3} size='xxsmall' spacing>
-            {!vendor?.defaultRights.length
+            {!vendor?.rights.length
               ? t('authent_overviewpage.system_user_no_rights')
               : t('authent_overviewpage.system_rights_header')}
           </Heading>
@@ -50,7 +50,7 @@ export const SystemUserActionBar = ({
             </Link>
           )}
         </div>
-        <RightsList rights={vendor?.defaultRights ?? []} />
+        <RightsList rights={vendor?.rights ?? []} />
       </div>
     </ActionBar>
   );

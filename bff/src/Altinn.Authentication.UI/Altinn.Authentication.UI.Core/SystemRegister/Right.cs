@@ -3,7 +3,7 @@
     /// <summary>
     /// Default Right on a Registered System
     /// </summary>
-    public class DefaultRight
+    public class Right
     {
         /// <summary>
         /// For instance: Read, Write, Sign

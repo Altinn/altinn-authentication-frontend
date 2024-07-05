@@ -15,6 +15,11 @@ public static class AuthenticationHelper
     public static int GetUsersPartyId(HttpContext context) => 
         GetIntValueFromClaim(context, AltinnCoreClaimType.PartyId);
 
+    public static int GetRepresentingPartyId(HttpContext context)
+    {
+        return Convert.ToInt32(context.Request.Cookies["AltinnPartyId"]);
+    }
+
     private static int GetIntValueFromClaim(HttpContext context, string claimType)
     {
         int value = 0;

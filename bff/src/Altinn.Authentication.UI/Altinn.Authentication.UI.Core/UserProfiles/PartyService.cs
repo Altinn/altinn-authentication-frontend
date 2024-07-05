@@ -1,4 +1,5 @@
-﻿using Altinn.Platform.Register.Models;
+﻿using Altinn.Authentication.UI.Core.Common.Models;
+using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Core.UserProfiles;
 
@@ -11,9 +12,15 @@ public class PartyService : IPartyService
         _partyLookUpClient = partyLookUpClient;
     }
 
-    public async Task<Party> GetPartyFromReporteeListIfExists(int partyId)
+    public async Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId)
     {
-        Party party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);
+        AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);
+        return party;
+    }
+
+    public async Task<PartyExternal> GetParty(int partyId)
+    {
+        PartyExternal party = await _partyLookUpClient.GetParty(partyId);
         return party;
     }
 }

@@ -1,4 +1,5 @@
-﻿using Altinn.Authentication.UI.Core.UserProfiles;
+﻿using Altinn.Authentication.UI.Core.Common.Models;
+using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Core.SystemUsers;
@@ -33,7 +34,11 @@ public class SystemUserService : ISystemUserService
 
     public async Task<List<SystemUser>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
-        var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(id, cancellationToken);
+        AuthorizedPartyExternal reportee = await _partyLookUpClient.GetPartyFromReporteeListIfExists(id);
+        string reporteeOrgNo = reportee.OrganizationNumber;
+        int reporteePartyId = reportee.PartyId;
+        
+        var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(reporteePartyId, cancellationToken);
         return lista;
     }
 
@@ -45,8 +50,8 @@ public class SystemUserService : ISystemUserService
 
     public async Task<SystemUser?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        Party party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);
-        string partyOrgNo = party.OrgNumber; 
+        AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);
+        string partyOrgNo = party.OrganizationNumber; 
         return await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
     }
 

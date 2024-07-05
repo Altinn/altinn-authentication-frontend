@@ -1,19 +1,25 @@
-﻿using Altinn.Authentication.UI.Core.UserProfiles;
+﻿using Altinn.Authentication.UI.Core.Common.Models;
+using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Mocks.UserProfiles;
 
 public class PartyClientMock : IPartyClient
 {
-    public async Task<Party> GetPartyFromReporteeListIfExists(int partyId)
+    public async Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId)
     {
-        Party mock = new()
+        AuthorizedPartyExternal mock = new()
         {
             PartyId = 5001,    
-            OrgNumber = "123456789MVA",
+            OrganizationNumber = "123456789MVA",
             Name = "Framifrå Verksemd AS"
         };
 
         return mock;
+    }
+
+    public async Task<PartyExternal> GetParty(int partyId)
+    {
+        throw new NotImplementedException();
     }
 }
