@@ -122,6 +122,7 @@ public class AccessManagementClient : IAccessManagementClient
         }
     }
 
+    /// <inheritdoc />
     public async Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, Right right)
     {
         RightsDelegationRequest rightsDelegationRequest = new()
