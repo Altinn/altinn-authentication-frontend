@@ -21,8 +21,15 @@ public class SystemRegisterService : ISystemRegisterService
 
         foreach (RegisterSystemResponse response in lista)
         {
-            response.SystemVendorOrgName = 
+            try
+            {
+                response.SystemVendorOrgName =
                 (await _registerClient.GetPartyForOrganization(response.SystemVendorOrgNumber)).Organization.Name;
+            }
+            catch(Exception ex)
+            {
+                Console.Write(ex.ToString());
+            }
         }
 
         return lista;
