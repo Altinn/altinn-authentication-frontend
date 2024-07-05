@@ -79,5 +79,14 @@
     "not_found_site_header": "Oi! Du har prøvd å komma til ei side me ikkje veit om",
     "not_found_site_upper_text": "Me veit ikkje kvar du eigentleg skulle, men kanskje du kan finna det du leitar etter på nokon av desse sidene:",
     "not_found_site_lower_text": "Viss dette ikkje var til hjelp kan du ta kontakt med Altinn brukarstøtte på telefon 75 00 60 00"
+  },
+  "vendor_creation": {
+    "banner_title": "Gi tilgang til system",
+    "creation_header": "{{vendorName}} ber om godkjenning til å laga ein systemtilgang",
+    "system_description": "Gjennom ein systemtilgang kan <strong>{{systemName}}</strong> løysa oppgåver på vegne av bedrifta di.",
+    "rights_list_header": "Systemtilgangen vil innehalda desse tenestene:",
+    "included_rights_description": "Desse tenestene er inkluderte. Du kan administrera systemtilgangen på Altinn seinare.",
+    "accept": "Godta",
+    "reject": "Avvis"
   }
 }
