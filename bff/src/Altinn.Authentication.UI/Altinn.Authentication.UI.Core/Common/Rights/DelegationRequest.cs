@@ -1,13 +1,12 @@
-﻿using Altinn.Authentication.UI.Core.SystemRegister;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 
-namespace Altinn.Authentication.UI.Core.SystemUsers;
+namespace Altinn.Authentication.UI.Core.Common.Rights;
 
 /// <summary>
 /// Model for performing a delegation of one or more rights to a recipient.
 /// </summary>
-public class RightsDelegationRequest
+public class DelegationRequest
 {
     /// <summary>
     /// Gets or sets a set of Attribute Id and Attribute Value identfying the single person or entity receiving the delegation

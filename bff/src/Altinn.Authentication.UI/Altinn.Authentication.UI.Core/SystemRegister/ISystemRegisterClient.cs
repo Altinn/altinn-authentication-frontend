@@ -1,4 +1,6 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemRegister;
+﻿using Altinn.Authentication.UI.Core.Common.Rights;
+
+namespace Altinn.Authentication.UI.Core.SystemRegister;
 
 public interface ISystemRegisterClient
 {

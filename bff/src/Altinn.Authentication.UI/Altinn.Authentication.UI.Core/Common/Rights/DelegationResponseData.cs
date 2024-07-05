@@ -1,4 +1,4 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemRegister;
+﻿namespace Altinn.Authentication.UI.Core.Common.Rights;
 
 /// <summary>
 ///  Represents the response of the backend for Delegation access check response.

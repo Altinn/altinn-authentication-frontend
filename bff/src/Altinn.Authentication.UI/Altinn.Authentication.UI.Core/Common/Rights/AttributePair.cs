@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace Altinn.Authentication.UI.Core.SystemRegister
+namespace Altinn.Authentication.UI.Core.Common.Rights
 {
     /// <summary>
     /// This model describes a pair of AttributeId and AttributeValue for use in matching in XACML policies, 
