@@ -21,6 +21,6 @@ public class RightFrontEnd
     /// <summary>
     /// The identifier for the Service Provider of the Resource.        
     /// </summary>
-    public string ServiceProvider { get;  } = "Skatteetaten";
+    public string ServiceProvider { get; set; } = string.Empty;
 }
 
