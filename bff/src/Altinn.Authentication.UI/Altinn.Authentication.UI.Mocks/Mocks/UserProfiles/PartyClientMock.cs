@@ -1,5 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Models;
-using Altinn.Authentication.UI.Core.SystemRegister;
+using Altinn.Authentication.UI.Core.Common.Rights;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Platform.Register.Models;
@@ -7,6 +7,7 @@ using Altinn.Platform.Register.Models;
 namespace Altinn.Authentication.UI.Mocks.UserProfiles;
 
 public class PartyClientMock : IAccessManagementClient
+
 {
     public async Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId)
     {
@@ -25,12 +26,12 @@ public class PartyClientMock : IAccessManagementClient
         throw new NotImplementedException();
     }
 
-    public Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, List<Right> request)
+    public Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<DelegationResponseData> rights)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<Right> rights)
+    public Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, DelegationCheckRequest request)
     {
         throw new NotImplementedException();
     }

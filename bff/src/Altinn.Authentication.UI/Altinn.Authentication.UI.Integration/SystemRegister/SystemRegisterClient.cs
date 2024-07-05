@@ -8,6 +8,7 @@ using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using System.Threading;
+using Altinn.Authentication.UI.Core.Common.Rights;
 
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
 

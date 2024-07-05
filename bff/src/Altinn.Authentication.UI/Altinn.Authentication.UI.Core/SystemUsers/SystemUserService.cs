@@ -1,4 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Models;
+using Altinn.Authentication.UI.Core.Common.Rights;
 using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Platform.Register.Models;
@@ -8,16 +9,16 @@ namespace Altinn.Authentication.UI.Core.SystemUsers;
 public class SystemUserService : ISystemUserService
 {
     private readonly ISystemUserClient _systemUserClient;
-    private readonly IAccessManagementClient _partyLookUpClient;
+    private readonly IAccessManagementClient _accessManagementClient;
     private readonly ISystemRegisterClient _systemRegisterClient;
 
     public SystemUserService(
         ISystemUserClient systemUserClient,
-        IAccessManagementClient partyLookUpClient,
+        IAccessManagementClient accessManagementClient,
         ISystemRegisterClient systemRegisterClient)
     {
         _systemUserClient = systemUserClient;
-        _partyLookUpClient = partyLookUpClient;
+        _accessManagementClient = accessManagementClient;
         _systemRegisterClient = systemRegisterClient;
     }
 
@@ -38,7 +39,7 @@ public class SystemUserService : ISystemUserService
 
     public async Task<List<SystemUser>> GetAllSystemUserDTOsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
-        AuthorizedPartyExternal reportee = await _partyLookUpClient.GetPartyFromReporteeListIfExists(id);
+        AuthorizedPartyExternal reportee = await _accessManagementClient.GetPartyFromReporteeListIfExists(id);
         string reporteeOrgNo = reportee.OrganizationNumber;
         int reporteePartyId = reportee.PartyId;
         
@@ -48,25 +49,21 @@ public class SystemUserService : ISystemUserService
 
     public async Task<SystemUser?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        //return MapFromSystemUserRealToDTO(await _systemUserClient.GetSpecificSystemUserReal(partyId ,id, cancellationToken));
         return await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
     }
 
     public async Task<SystemUser?> PostNewSystemUserDescriptor(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        
-
-        AuthorizedPartyExternal party = await _partyLookUpClient.GetPartyFromReporteeListIfExists(partyId);        
+        AuthorizedPartyExternal party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);        
         string partyOrgNo = party.OrganizationNumber;
-        bool canDelegate = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
-        if (!canDelegate) return null;
+
+        (List<DelegationResponseData>? rightResponse, bool canDelegate)  = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
+        if (!canDelegate || rightResponse is null) return null;
         
         SystemUser? systemUser; systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
         if(systemUser is null) return null;
-
-        List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemUser.SystemId , cancellation);
-
-        bool delagationSucceeded = await _partyLookUpClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rights);
+                
+        bool delagationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rightResponse!);
         if (delagationSucceeded) return systemUser;
 
         return null;        
@@ -77,25 +74,18 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
     }
 
-    public async Task<bool> UserDelegationCheckForReportee(int partyId, string systemId ,CancellationToken cancellationToken = default)
+    public async Task<(List<DelegationResponseData>?,bool)> UserDelegationCheckForReportee(int partyId, string systemId ,CancellationToken cancellationToken = default)
     {        
-        //List<AttributePair> resource =
-        //    [
-        //        new AttributePair
-        //        {
-        //            Id = "urn:altinn:resource",
-        //            Value = "kravogbetalinger",
-        //        }
-        //    ];
+        List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
+        DelegationCheckRequest request = new()
+        {
+            Resource = rights[0].Resource  
+        };
 
-        //Right right = new() 
-        //{
-        //    Resources = resource,
-        //};
+        List<DelegationResponseData>? rightResponse = await _accessManagementClient.CheckDelegationAccess(partyId.ToString(), request);
+        bool canDelegate = ResolveIfHasAccess(rightResponse);
 
-        List<Right> right = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
-
-        return ResolveIfHasAccess(await _partyLookUpClient.CheckDelegationAccess(partyId.ToString(), right));
+        return (rightResponse, canDelegate);
     }
 
     private static bool ResolveIfHasAccess(List<DelegationResponseData>? rightResponse)

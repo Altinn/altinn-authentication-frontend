@@ -9,12 +9,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Models;
-using Altinn.Authentication.UI.Core.SystemRegister;
 using System.Text;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Platform.Register.Models;
 using Azure.Core;
 using System.IO;
+using Altinn.Authentication.UI.Core.Common.Rights;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 
@@ -103,11 +103,11 @@ public class AccessManagementClient : IAccessManagementClient
     }
 
     /// <inheritdoc />
-    public async Task<List<DelegationResponseData>?> CheckDelegationAccess(string reporteePartyId, List<Right> request)
+    public async Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, DelegationCheckRequest request)
     {
         try
         {
-            string endpointUrl = $"internal/{reporteePartyId}/rights/delegation/delegationcheck";
+            string endpointUrl = $"internal/{partyId}/rights/delegation/delegationcheck";
             string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
             StringContent requestBody = new(JsonSerializer.Serialize(request, _serializerOptions), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
@@ -123,9 +123,22 @@ public class AccessManagementClient : IAccessManagementClient
     }
 
     /// <inheritdoc />
-    public async Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<Right> rights)
+    public async Task<bool> DelegateRightToSystemUser(string partyId, SystemUser systemUser, List<DelegationResponseData> responseData)
     {
-        RightsDelegationRequest rightsDelegationRequest = new()
+        List<Right> rights = [];
+        
+        foreach (DelegationResponseData data in responseData) 
+        {
+            Right right = new()
+            {
+                Action = data.Action,
+                Resource = data.Resource,
+            };
+
+            rights.Add(right);
+        }
+
+        DelegationRequest rightsDelegationRequest = new()
         {
             To =
             [
@@ -141,7 +154,7 @@ public class AccessManagementClient : IAccessManagementClient
 
         try
         {
-            string endpointUrl = $"internal/{reporteePartyId}/rights/delegation/offered";
+            string endpointUrl = $"internal/{partyId}/rights/delegation/offered";
             string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
             StringContent requestBody = new(JsonSerializer.Serialize(rightsDelegationRequest, _serializerOptions), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);

@@ -1,4 +1,5 @@
-﻿using Altinn.Authentication.UI.Core.SystemRegister;
+﻿using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Authentication.UI.Core.SystemRegister;
 
 namespace Altinn.Authentication.UI.Mocks.SystemRegister;
 
