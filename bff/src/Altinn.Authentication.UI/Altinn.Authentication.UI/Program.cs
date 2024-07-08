@@ -40,8 +40,6 @@ builder.Services.ConfigureAuthenticationAndSecurity(builder);
 builder.Services.AddCoreServices();
 builder.Services.AddIntegrationLayer(builder.Environment.IsDevelopment());
 
-Console.WriteLine("RTLTEXENV " + builder.Environment.EnvironmentName);
-
 //Swagger
 builder.Services.ConfigureDevelopmentAndTestingServices();
 

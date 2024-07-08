@@ -43,5 +43,5 @@ public class PlatformSettings
     /// <summary>
     /// Gets or sets the register api endpoint.
     /// </summary>
-    public string ApiRegisterEndpoint { get; internal set; }
+    public string ApiRegisterEndpoint { get; set; }
 }
