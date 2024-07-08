@@ -19,18 +19,19 @@ public class SystemRegisterService : ISystemRegisterService
 
         lista = await _systemRegisterClient.GetListRegSys(cancellationToken );
 
-        //foreach (RegisterSystemResponse response in lista)
-        //{
-        //    try
-        //    {
-        //        response.SystemVendorOrgName =
-        //        (await _registerClient.GetPartyForOrganization(response.SystemVendorOrgNumber)).Organization.Name;
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        Console.Write(ex.ToString());
-        //    }
-        //}
+        foreach (RegisterSystemResponse response in lista)
+        {
+            try
+            {
+                response.SystemVendorOrgName =
+                (await _registerClient.GetPartyForOrganization(response.SystemVendorOrgNumber)).Organization.Name;
+            }
+            catch (Exception ex)
+            {
+                response.SystemVendorOrgName = "N/A"; // "N/A" stands for "Not Available
+                Console.Write(ex.ToString());
+            }
+        }
 
         return lista;
     }
