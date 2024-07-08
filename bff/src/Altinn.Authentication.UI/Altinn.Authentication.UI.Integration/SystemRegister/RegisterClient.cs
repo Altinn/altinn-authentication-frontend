@@ -43,7 +43,9 @@ public class RegisterClient : IRegisterClient
         _logger = logger;
         _platformSettings = platformSettings.Value;
         _accessTokenProvider = accessTokenProvider;
-        httpClient.BaseAddress = new Uri(_platformSettings!.ApiRegisterEndpoint!);
+        Console.Write("RTLTECHTEXT " + _platformSettings.ApiRegisterEndpoint!);
+        Console.Write("RTLTECHTEXT2 " + _platformSettings.ApiAuthenticationEndpoint);
+        httpClient.BaseAddress = new Uri(_platformSettings.ApiRegisterEndpoint!);
         httpClient.DefaultRequestHeaders.Add(_platformSettings.SubscriptionKeyHeaderName, _platformSettings.SubscriptionKey);
         _httpClient = httpClient;
         _httpContextAccessor = httpContextAccessor;
