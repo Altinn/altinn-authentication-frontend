@@ -16,7 +16,7 @@ public class RightFrontEnd
     /// <summary>
     /// The list of resources at the Service Provider which this Right is for.
     /// </summary>
-    public List<AttributePair> Resource { get; set; } = [];
+    public List<AttributePair> Resources { get; set; } = [];
 
     /// <summary>
     /// The identifier for the Service Provider of the Resource.        
