@@ -1,7 +1,7 @@
 export interface SystemRight {
-  actionRight: string;
+  action: string;
   serviceProvider: string;
-  resources: {
+  resource: {
     id: string;
     value: string;
   }[];
