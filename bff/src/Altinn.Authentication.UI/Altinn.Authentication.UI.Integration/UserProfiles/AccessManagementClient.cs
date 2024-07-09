@@ -112,14 +112,7 @@ public class AccessManagementClient : IAccessManagementClient
             string content = JsonSerializer.Serialize(request, _serializerOptions);
             StringContent requestBody = new(content, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
-
-            
-            if(response.IsSuccessStatusCode == false)
-            {
-                Console.WriteLine("RTL Debug " + response.Content.ToString());
-                response.EnsureSuccessStatusCode();
-            }
-
+            response.EnsureSuccessStatusCode();
             return JsonSerializer.Deserialize<List<DelegationResponseData>>( await response.Content.ReadAsStringAsync(), _serializerOptions) ;
 
         }
