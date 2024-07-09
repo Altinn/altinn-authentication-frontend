@@ -108,9 +108,8 @@ public class AccessManagementClient : IAccessManagementClient
         try
         {
             string endpointUrl = $"internal/{partyId}/rights/delegation/delegationcheck";
-            string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+            string token = string.Empty; //JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
             string content = JsonSerializer.Serialize(request, _serializerOptions);
-            Console.Write("RTL DEBUG2 " + content);
             StringContent requestBody = new(content, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
 
