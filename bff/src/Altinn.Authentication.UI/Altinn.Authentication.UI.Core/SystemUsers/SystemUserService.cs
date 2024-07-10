@@ -3,6 +3,7 @@ using Altinn.Authentication.UI.Core.Common.Rights;
 using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Platform.Register.Models;
+using System.Text.Json;
 
 namespace Altinn.Authentication.UI.Core.SystemUsers;
 
@@ -57,9 +58,13 @@ public class SystemUserService : ISystemUserService
         AuthorizedPartyExternal party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);        
         string partyOrgNo = party.OrganizationNumber;
 
+        Console.WriteLine("RTLDEBUG0 " + partyOrgNo);
+
         (List<DelegationResponseData>? rightResponse, bool canDelegate)  = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
         if (!canDelegate || rightResponse is null) return null;
-        
+
+        Console.WriteLine("RTLDEBUG4 " + canDelegate);
+
         SystemUser? systemUser; systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
         if(systemUser is null) return null;
                 
@@ -83,7 +88,9 @@ public class SystemUserService : ISystemUserService
         };
 
         List<DelegationResponseData>? rightResponse = await _accessManagementClient.CheckDelegationAccess(partyId.ToString(), request);
+        Console.WriteLine("RTLDEBUG1 " + JsonSerializer.Serialize(rightResponse));
         bool canDelegate = ResolveIfHasAccess(rightResponse);
+        Console.WriteLine("RTLDEBUG2 " + canDelegate);
 
         return (rightResponse, canDelegate);
     }

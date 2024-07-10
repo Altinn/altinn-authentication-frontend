@@ -119,7 +119,7 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
         int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
-                
+        Console.WriteLine("RTL DEBUG HERE WE GO!");        
         newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
         var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
         if (usr is not null)
