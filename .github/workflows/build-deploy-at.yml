@@ -33,7 +33,7 @@ jobs:
          password: ${{ secrets.GITHUB_TOKEN }}
 
      - name: Build and Push to ghcr
-       uses: docker/build-push-action@v5
+       uses: docker/build-push-action@v6
        with:
          push: true
          tags: ghcr.io/altinn/altinn-authentication-frontend:${{ github.sha }}
