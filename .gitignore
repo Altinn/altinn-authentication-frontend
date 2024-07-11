@@ -2,6 +2,7 @@
 .DS_Store
 /frontend/node_modules/
 /frontend/dist/
+/cypress/.yarn/*
 /frontend/cypress/.yarn/*
 /frontend/playwright/test-results/
 /frontend/playwright/jsonReports/
