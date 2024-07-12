@@ -1,11 +1,14 @@
 import globals from 'globals';
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
+import { fixupPluginRules } from '@eslint/compat';
 import reactRecommended from 'eslint-plugin-react/configs/recommended.js';
+import eslintPluginReactHooks from 'eslint-plugin-react-hooks';
 
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
+  ...tseslint.configs.stylistic,
   reactRecommended,
   {
     settings: {
@@ -16,11 +19,15 @@ export default tseslint.config(
   },
   {
     files: ['src/**.ts*'],
+    plugins: {
+      'react-hooks': fixupPluginRules(eslintPluginReactHooks),
+    },
     languageOptions: {
       parserOptions: { ecmaFeatures: { jsx: true } },
       globals: { ...globals.browser },
     },
     rules: {
+      ...eslintPluginReactHooks.configs.recommended.rules,
       'react/jsx-filename-extension': ['warn', { extensions: ['.tsx', '.jsx'] }],
       'prefer-const': 'error',
       'object-curly-spacing': ['error', 'always'],
