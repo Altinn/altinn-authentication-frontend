@@ -787,6 +787,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@eslint/compat@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@eslint/compat@npm:1.1.1"
+  checksum: 10c0/ca8aa3811fa22d45913f5724978e6f3ae05fb7685b793de4797c9db3b0e22b530f0f492011b253754bffce879d7cece65762cc3391239b5d2249aef8230edc9a
+  languageName: node
+  linkType: hard
+
 "@eslint/config-array@npm:^0.17.0":
   version: 0.17.0
   resolution: "@eslint/config-array@npm:0.17.0"
@@ -2092,6 +2099,7 @@ __metadata:
     "@digdir/designsystemet-css": "npm:^0.10.0"
     "@digdir/designsystemet-react": "npm:^0.63.0"
     "@digdir/designsystemet-theme": "npm:^0.15.0"
+    "@eslint/compat": "npm:^1.1.1"
     "@navikt/aksel-icons": "npm:^6.0.0"
     "@playwright/test": "npm:^1.45.1"
     "@reduxjs/toolkit": "npm:^2.1.0"
@@ -2106,6 +2114,7 @@ __metadata:
     cypress-real-events: "npm:^1.12.0"
     eslint: "npm:9.6.0"
     eslint-plugin-react: "npm:7.34.3"
+    eslint-plugin-react-hooks: "npm:^4.6.2"
     globals: "npm:^15.8.0"
     husky: "npm:^9.0.11"
     i18next: "npm:^23.8.2"
@@ -3437,6 +3446,15 @@ __metadata:
     escodegen: bin/escodegen.js
     esgenerate: bin/esgenerate.js
   checksum: 10c0/e1450a1f75f67d35c061bf0d60888b15f62ab63aef9df1901cffc81cffbbb9e8b3de237c5502cf8613a017c1df3a3003881307c78835a1ab54d8c8d2206e01d3
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-react-hooks@npm:^4.6.2":
+  version: 4.6.2
+  resolution: "eslint-plugin-react-hooks@npm:4.6.2"
+  peerDependencies:
+    eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0
+  checksum: 10c0/4844e58c929bc05157fb70ba1e462e34f1f4abcbc8dd5bbe5b04513d33e2699effb8bca668297976ceea8e7ebee4e8fc29b9af9d131bcef52886feaa2308b2cc
   languageName: node
   linkType: hard
 

@@ -19,13 +19,22 @@ export default tseslint.config(
   },
   {
     files: ['src/**.ts*'],
+  },
+  {
+    ignores: ['dist/**', 'vite.config.ts', 'config.ts'],
+  },
+  {
     plugins: {
       'react-hooks': fixupPluginRules(eslintPluginReactHooks),
     },
+  },
+  {
     languageOptions: {
       parserOptions: { ecmaFeatures: { jsx: true } },
       globals: { ...globals.browser },
     },
+  },
+  {
     rules: {
       ...eslintPluginReactHooks.configs.recommended.rules,
       'react/jsx-filename-extension': ['warn', { extensions: ['.tsx', '.jsx'] }],
@@ -36,8 +45,5 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': 'warn',
     },
-  },
-  {
-    ignores: ['dist/**', 'vite.config.ts', 'config.ts'],
   },
 );
