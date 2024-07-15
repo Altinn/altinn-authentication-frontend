@@ -1,4 +1,3 @@
-import globals from 'globals';
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import { fixupPluginRules } from '@eslint/compat';
@@ -31,7 +30,6 @@ export default tseslint.config(
   {
     languageOptions: {
       parserOptions: { ecmaFeatures: { jsx: true } },
-      globals: { ...globals.browser },
     },
   },
   {
