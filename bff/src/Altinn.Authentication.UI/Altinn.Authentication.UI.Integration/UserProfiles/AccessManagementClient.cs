@@ -160,12 +160,9 @@ public class AccessManagementClient : IAccessManagementClient
             StringContent requestBody = new(JsonSerializer.Serialize(rightsDelegationRequest, _serializerOptions), Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
             
-            if(response.IsSuccessStatusCode)
-            {
-                return true;
-            }
-
             response.EnsureSuccessStatusCode();
+
+            return true;
         }
         catch (Exception ex)
         {
