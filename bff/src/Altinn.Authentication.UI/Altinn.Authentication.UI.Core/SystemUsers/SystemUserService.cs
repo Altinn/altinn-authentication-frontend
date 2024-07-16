@@ -58,17 +58,12 @@ public class SystemUserService : ISystemUserService
         AuthorizedPartyExternal party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);        
         string partyOrgNo = party.OrganizationNumber;
 
-        Console.WriteLine("RTLDEBUG0 " + partyOrgNo);
-
         (List<DelegationResponseData>? rightResponse, bool canDelegate)  = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
         if (!canDelegate || rightResponse is null) return null;
-
-        Console.WriteLine("RTLDEBUG4 " + canDelegate);
 
         SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
         if(systemUser is null) return null;
 
-        Console.WriteLine("RTLDEBUG5 " + systemUser.Id);
         bool delagationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rightResponse!);
         if (delagationSucceeded) return systemUser;
 

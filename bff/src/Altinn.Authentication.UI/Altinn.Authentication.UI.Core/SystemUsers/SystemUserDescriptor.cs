@@ -27,8 +27,5 @@ public class SystemUserDescriptor
     /// The OwnedByParty identifies the end-user's organisation/person, and is fetched by the BFF from the login Context Cookie
     /// </summary>
     public string? OwnedByPartyId { get; set; }
-    //public string? ControlledBy { get; set; }
-
-
 }
                           

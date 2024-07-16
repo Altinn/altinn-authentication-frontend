@@ -113,13 +113,19 @@ public class SystemUserController : ControllerBase
         return Ok();
     }
     
+    /// <summary>
+    /// Endpoint for creating a new System User for a given 
+    /// </summary>
+    /// <param name="newSystemUserDescriptor"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
+        // Get the partyId from the context (Altinn Part Coook)
         int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
-        Console.WriteLine("RTL DEBUG HERE WE GO!");        
         newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
         var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
         if (usr is not null)
