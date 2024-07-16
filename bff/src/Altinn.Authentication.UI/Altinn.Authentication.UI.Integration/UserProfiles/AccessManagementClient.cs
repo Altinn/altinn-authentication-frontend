@@ -165,8 +165,7 @@ public class AccessManagementClient : IAccessManagementClient
                 return true;
             }
 
-            return false;
-
+            response.EnsureSuccessStatusCode();
         }
         catch (Exception ex)
         {
