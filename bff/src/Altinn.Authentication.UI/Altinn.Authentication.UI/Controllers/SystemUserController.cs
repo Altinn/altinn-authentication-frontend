@@ -50,7 +50,7 @@ public class SystemUserController : ControllerBase
 
         if (partyId == 0) return actionResult;               
 
-        var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(partyId, cancellationToken);
+        var list = await _systemUserService.GetAllSystemUsersForParty(partyId, cancellationToken);
 
         return Ok(list);
     }
@@ -114,9 +114,11 @@ public class SystemUserController : ControllerBase
     }
     
     /// <summary>
-    /// Endpoint for creating a new System User for a given 
+    /// Endpoint for creating a new System User for the choosen reportee.The reportee is taken from the AltinnPartyId cookie 
+    /// 
+    /// Expects backend in Authenticaiton and in Access Management to perform authorization ch
     /// </summary>
-    /// <param name="newSystemUserDescriptor"></param>
+    /// <param name="newSystemUserDescriptor">The required params for a system to be created</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [Authorize]
@@ -127,10 +129,10 @@ public class SystemUserController : ControllerBase
         // Get the partyId from the context (Altinn Part Coook)
         int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
         newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
-        var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
-        if (usr is not null)
+        SystemUser? systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUserDescriptor, cancellationToken);
+        if (systemUser is not null)
         {           
-            return Ok(usr);
+            return Ok(systemUser);
         }
 
         return NotFound();
