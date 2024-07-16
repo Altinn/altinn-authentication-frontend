@@ -65,9 +65,10 @@ public class SystemUserService : ISystemUserService
 
         Console.WriteLine("RTLDEBUG4 " + canDelegate);
 
-        SystemUser? systemUser; systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
+        SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
         if(systemUser is null) return null;
-                
+
+        Console.WriteLine("RTLDEBUG5 " + systemUser.Id);
         bool delagationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rightResponse!);
         if (delagationSucceeded) return systemUser;
 
