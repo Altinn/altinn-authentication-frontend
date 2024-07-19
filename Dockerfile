@@ -1,5 +1,5 @@
 #Building the Authentication Frontend
-FROM node:alpine AS generate-authentication-frontend
+FROM node:lts AS generate-authentication-frontend
 WORKDIR /build
 COPY frontend .
 RUN corepack enable
