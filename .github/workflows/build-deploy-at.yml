@@ -33,7 +33,7 @@ jobs:
          password: ${{ secrets.GITHUB_TOKEN }}
 
      - name: Build and Push to ghcr
-       uses: docker/build-push-action@v5
+       uses: docker/build-push-action@v6
        with:
          push: true
          tags: ghcr.io/altinn/altinn-authentication-frontend:${{ github.sha }}
@@ -73,6 +73,18 @@ jobs:
           image-tag: ${{ github.sha }}
           resource-group: ${{ vars.CONTAINER_APP_RESOURCE_GROUP_NAME }}
           container-app: ${{ vars.CONTAINER_APP_NAME }}
+          
+  playwright:
+    name: "Playwright"
+    needs: deploy
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [AT21, AT22]
+    uses: "./.github/workflows/template-test-playwright.yml"
+    with:
+      environment: ${{ matrix.environment }}
+
 
 
        
