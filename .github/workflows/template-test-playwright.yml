@@ -24,7 +24,7 @@ jobs:
         run: |
           yarn --immutable
           yarn playwright install --with-deps
-          yarn run env:AT21
+          yarn run env:${{ inputs.environment }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
