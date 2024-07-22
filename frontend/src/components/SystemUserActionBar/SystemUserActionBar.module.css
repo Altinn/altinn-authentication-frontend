@@ -1,7 +1,15 @@
-.rightsHeader {
+.systemUserContent {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.rightAlignedContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.lastEditText {
+  font-style: italic;
+  font-size: 12px;
 }

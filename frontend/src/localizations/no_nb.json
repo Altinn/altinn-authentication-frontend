@@ -23,7 +23,8 @@
     "system_user_no_rights": "Systemtilgangen har ingen rettigheter",
     "system_rights_header": "Systemtilgangen har rettigheter til disse tjenestene:",
     "edit_system_user": "Rediger systemtilgang",
-    "loading_systemusers": "Laster systemtilganger"
+    "loading_systemusers": "Laster systemtilganger",
+    "system_user_last_edit": "Opprettet {{createdDate}}, sist endret av {{lastChangeName}}"
   },
   "authent_creationpage": {
     "banner_title": "Lag ny systemtilgang",

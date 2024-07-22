@@ -23,7 +23,8 @@
     "system_user_no_rights": "The system access has no rights",
     "system_rights_header": "The system access has rights to these services:",
     "edit_system_user": "Edit system access",
-    "loading_systemusers": "Loading system accesses"
+    "loading_systemusers": "Loading system accesses",
+    "system_user_last_edit": "Created {{createdDate}}, last modified by {{lastChangeName}}"
   },
   "authent_creationpage": {
     "banner_title": "Create new system access",
