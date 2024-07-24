@@ -19,12 +19,9 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "plugins": [{ "name": "typescript-plugin-css-modules" }],
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": [    
-  "**/*.ts",
-  "**/*.tsx",
-  "**/*.js",
-  "**/.eslintrc.js"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/.eslintrc.js"],
+  "exclude": ["node_modules", "dist", "eslint.config.js", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
