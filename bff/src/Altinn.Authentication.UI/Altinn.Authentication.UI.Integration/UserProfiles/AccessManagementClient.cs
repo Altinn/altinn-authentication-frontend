@@ -2,7 +2,6 @@
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Core.Extensions;
-using Altinn.Platform.Register.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -10,6 +9,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Models;
+using System.Text;
+using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Platform.Register.Models;
+using Azure.Core;
+using System.IO;
+using Altinn.Authentication.UI.Core.Common.Rights;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 
@@ -17,7 +22,7 @@ namespace Altinn.Authentication.UI.Integration.UserProfiles;
 /// Proxy implementation for parties
 /// </summary>
 [ExcludeFromCodeCoverage]
-public class PartyClient : IPartyClient
+public class AccessManagementClient : IAccessManagementClient
 {
     private readonly ILogger _logger;
     private readonly HttpClient _client;
@@ -33,9 +38,9 @@ public class PartyClient : IPartyClient
     /// <param name="logger">the logger</param>
     /// <param name="httpContextAccessor">handler for http context</param>
     /// <param name="platformSettings">the platform setttings</param>
-    public PartyClient(
+    public AccessManagementClient(
         HttpClient httpClient,
-        ILogger<PartyClient> logger,
+        ILogger<AccessManagementClient> logger,
         IHttpContextAccessor httpContextAccessor,
         IOptions<PlatformSettings> platformSettings)
     {
@@ -67,7 +72,7 @@ public class PartyClient : IPartyClient
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Authentication.UI // PartyClient // GetPartyFromReporteeListIfExists // Exception");
+            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // GetPartyFromReporteeListIfExists // Exception");
             throw;
         }
     }
@@ -92,7 +97,77 @@ public class PartyClient : IPartyClient
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Authentication.UI // PartyClient // GetPartyFromReporteeListIfExists // Exception");
+            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // GetPartyFromReporteeListIfExists // Exception");
+            throw;
+        }
+    }
+
+    /// <inheritdoc />
+    public async Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, DelegationCheckRequest request)
+    {
+        try
+        {
+            string endpointUrl = $"internal/{partyId}/rights/delegation/delegationcheck";
+            string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+            string content = JsonSerializer.Serialize(request, _serializerOptions);
+            StringContent requestBody = new(content, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
+            response.EnsureSuccessStatusCode();
+            return JsonSerializer.Deserialize<List<DelegationResponseData>>( await response.Content.ReadAsStringAsync(), _serializerOptions) ;
+
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // CheckDelegationAccess // Exception");
+            throw;
+        }
+    }
+
+    /// <inheritdoc />
+    public async Task<bool> DelegateRightToSystemUser(string partyId, SystemUser systemUser, List<DelegationResponseData> responseData)
+    {
+        List<Right> rights = [];
+        
+        foreach (DelegationResponseData data in responseData) 
+        {
+            Right right = new()
+            {
+                Action = data.Action,
+                Resource = data.Resource,
+            };
+
+            rights.Add(right);
+        }
+
+        DelegationRequest rightsDelegationRequest = new()
+        {
+            To =
+            [
+                new AttributePair()
+                {
+                    Id = "urn:altinn:systemuser:uuid",
+                    Value = systemUser.Id
+                }
+            ],
+
+            Rights = rights
+        };
+
+        try
+        {
+            string endpointUrl = $"internal/{partyId}/rights/delegation/offered";
+            string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+            StringContent requestBody = new(JsonSerializer.Serialize(rightsDelegationRequest, _serializerOptions), Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
+            
+
+            response.EnsureSuccessStatusCode();
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // DelegateRightToSystemUser // Exception");
             throw;
         }
     }
