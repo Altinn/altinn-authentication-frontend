@@ -1,4 +1,6 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
+﻿using Altinn.Authorization.ProblemDetails;
+
+namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 /// <summary>
 /// The "middleware" between the BFF's SystemUserAPI and Altinn's real SystemUserAPI in the Authentication Component
@@ -14,7 +16,7 @@ public interface ISystemUserService
     /// <summary>
     /// Creates a system user
     /// </summary>
-    Task<SystemUser?> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
+    Task<Result<SystemUser>> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
     
     /// <summary>
     /// Deletes system user
