@@ -7,7 +7,7 @@ namespace Altinn.Authentication.UI.Core.UserProfiles;
 
 public interface IAccessManagementClient
 {
-    Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId);
+    Task<AuthorizedPartyExternal?> GetPartyFromReporteeListIfExists(int partyId);
 
     Task<PartyExternal> GetParty(int partyId);
 
