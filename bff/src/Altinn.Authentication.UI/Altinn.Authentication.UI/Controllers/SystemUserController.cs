@@ -128,16 +128,14 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
         // Get the partyId from the context (Altinn Part Coook)
-        int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
-        newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
-        Result<SystemUser> systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUserDescriptor, cancellationToken);
-        if (systemUser.IsSuccess)
-        {           
-            return Ok(systemUser.Value);
-        }
+        int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);        
+        newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();        
 
-        return systemUser.Problem.ToActionResult();
+        Result<SystemUser> systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUserDescriptor, cancellationToken);
         
+        if (systemUser.IsProblem){return systemUser.Problem.ToActionResult();}
+
+        return Ok(systemUser.Value);
     }
 
     [Authorize]
