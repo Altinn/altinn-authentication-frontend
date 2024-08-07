@@ -137,7 +137,7 @@ public class SystemUserController : ControllerBase
 
         if (systemUser is null && problem is not null)
         {
-            return BadRequest(problem);
+            return NotFound(problem);
         }
 
         return NotFound();
