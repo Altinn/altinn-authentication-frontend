@@ -129,10 +129,15 @@ public class SystemUserController : ControllerBase
         // Get the partyId from the context (Altinn Part Coook)
         int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
         newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
-        SystemUser? systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUserDescriptor, cancellationToken);
-        if (systemUser is not null)
+        (SystemUser? systemUser, string? problem) = await _systemUserService.CreateSystemUser(partyId, newSystemUserDescriptor, cancellationToken);
+        if (systemUser is not null && problem is null )
         {           
             return Ok(systemUser);
+        }
+
+        if (systemUser is null && problem is not null)
+        {
+            return BadRequest(problem);
         }
 
         return NotFound();

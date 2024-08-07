@@ -53,21 +53,30 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
     }
 
-    public async Task<SystemUser?> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<(SystemUser?, string?)> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        AuthorizedPartyExternal party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);        
-        string partyOrgNo = party.OrganizationNumber;
+        string partyOrgNo;
+        try
+        {
+            AuthorizedPartyExternal party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
+            partyOrgNo = party.OrganizationNumber;
+
+        }
+        catch (Exception ex)
+        {
+            return (null, "Kunne ikke hente ut organisasjonsnummer for innlogget bruker.");
+        }
 
         (List<DelegationResponseData>? rightResponse, bool canDelegate)  = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
-        if (!canDelegate || rightResponse is null) return null;
+        if (!canDelegate || rightResponse is null) return (null,"En eller flere av rettighetene er ikke delegerbare.");
 
         SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
-        if(systemUser is null) return null;
+        if(systemUser is null) return (null, "Kunne ikke opprette Systembruker.");
 
         bool delagationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rightResponse!);
-        if (delagationSucceeded) return systemUser;
+        if (delagationSucceeded) return (systemUser, null);
 
-        return null;        
+        return (null, "Feilet");        
     }
 
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)

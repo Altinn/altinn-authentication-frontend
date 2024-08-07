@@ -14,7 +14,7 @@ public interface ISystemUserService
     /// <summary>
     /// Creates a system user
     /// </summary>
-    Task<SystemUser?> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
+    Task<(SystemUser?, string?)> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default);
     
     /// <summary>
     /// Deletes system user
