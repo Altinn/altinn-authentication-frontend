@@ -136,12 +136,8 @@ public class SystemUserController : ControllerBase
             return Ok(systemUser.Value);
         }
 
-        if (systemUser.IsProblem)
-        {
-            return systemUser.Problem.ToActionResult();
-        }
-
-        return NotFound();
+        return systemUser.Problem.ToActionResult();
+        
     }
 
     [Authorize]

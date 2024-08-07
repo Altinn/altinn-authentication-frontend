@@ -26,25 +26,25 @@ public static class Problem
     /// Gets a <see cref="ProblemDescriptor"/>.
     /// </summary>
     public static ProblemDescriptor Rights_FailedToDelegate { get; }
-        = _factory.Create(1, HttpStatusCode.BadRequest, "The Delegation failed.");
+        = _factory.Create(2, HttpStatusCode.BadRequest, "The Delegation failed.");
 
 
     /// <summary>
     /// Gets a <see cref="ProblemDescriptor"/>.
     /// </summary>
     public static ProblemDescriptor SystemUser_FailedToCreate { get; }
-        = _factory.Create(2, HttpStatusCode.BadRequest, "Failed to create the SystemUser.");
+        = _factory.Create(3, HttpStatusCode.BadRequest, "Failed to create the SystemUser.");
 
     /// <summary>
     /// Gets a <see cref="ProblemDescriptor"/>.
     /// </summary>
     public static ProblemDescriptor SystemUser_AlreadyExists { get; }
-        = _factory.Create(2, HttpStatusCode.BadRequest, "Failed to create new SystemUser, existing SystemUser tied to the given System-Id.");
+        = _factory.Create(4, HttpStatusCode.BadRequest, "Failed to create new SystemUser, existing SystemUser tied to the given System-Id.");
 
     /// <summary>
     /// Gets a <see cref="ProblemDescriptor"/>.
     /// </summary>
     public static ProblemDescriptor Generic_EndOfMethod { get; }
-        = _factory.Create(2, HttpStatusCode.BadRequest, "Default error at the end of logic chain. Not supposed to appear.");
+        = _factory.Create(5, HttpStatusCode.BadRequest, "Default error at the end of logic chain. Not supposed to appear.");
 
 }

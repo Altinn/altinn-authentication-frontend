@@ -59,19 +59,19 @@ public class SystemUserService : ISystemUserService
     public async Task<Result<SystemUser>> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         AuthorizedPartyExternal? party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
-        if(party is null){return new Result<SystemUser>( ProblemInstance.Create( Problem.Reportee_Orgno_NotFound ));}
+        if(party is null){return Problem.Reportee_Orgno_NotFound;}
         string partyOrgNo = party.OrganizationNumber;
 
         (List<DelegationResponseData>? rightResponse, bool canDelegate)  = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
-        if (!canDelegate || rightResponse is null){return new Result<SystemUser>(ProblemInstance.Create(Problem.Rights_NotFound_Or_NotDelegable));}
+        if (!canDelegate || rightResponse is null){return Problem.Rights_NotFound_Or_NotDelegable;}
 
         SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
-        if (systemUser is null){return new Result<SystemUser>( ProblemInstance.Create(Problem.SystemUser_FailedToCreate));}
+        if (systemUser is null){return Problem.SystemUser_FailedToCreate;}
 
         bool delagationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rightResponse!);
-        if (delagationSucceeded) { return new Result<SystemUser>(ProblemInstance.Create(Problem.Rights_FailedToDelegate));}
+        if (!delagationSucceeded) { return Problem.Rights_FailedToDelegate;}
 
-        return new Result<SystemUser>(ProblemInstance.Create(Problem.Generic_EndOfMethod));
+        return systemUser;
     }
 
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
