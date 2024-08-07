@@ -1,6 +1,7 @@
 ﻿using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
+using Altinn.Authorization.ProblemDetails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
@@ -129,15 +130,15 @@ public class SystemUserController : ControllerBase
         // Get the partyId from the context (Altinn Part Coook)
         int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
         newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
-        (SystemUser? systemUser, string? problem) = await _systemUserService.CreateSystemUser(partyId, newSystemUserDescriptor, cancellationToken);
-        if (systemUser is not null && problem is null )
+        Result<SystemUser> systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUserDescriptor, cancellationToken);
+        if (systemUser.IsSuccess)
         {           
-            return Ok(systemUser);
+            return Ok(systemUser.Value);
         }
 
-        if (systemUser is null && problem is not null)
+        if (systemUser.IsProblem)
         {
-            return NotFound(problem);
+            return systemUser.Problem.ToActionResult();
         }
 
         return NotFound();
