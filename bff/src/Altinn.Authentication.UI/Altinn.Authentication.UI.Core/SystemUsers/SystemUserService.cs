@@ -55,26 +55,18 @@ public class SystemUserService : ISystemUserService
 
     public async Task<(SystemUser?, string?)> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        string partyOrgNo;
-        try
-        {
-            AuthorizedPartyExternal party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
-            partyOrgNo = party.OrganizationNumber;
-
-        }
-        catch (Exception ex)
-        {
-            return (null, "Kunne ikke hente ut organisasjonsnummer for innlogget bruker.");
-        }
+        AuthorizedPartyExternal? party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
+        if(party is null){return (null, "Kunne ikke hente ut organisasjonsnummer for innlogget bruker.");}
+        string partyOrgNo = party.OrganizationNumber;
 
         (List<DelegationResponseData>? rightResponse, bool canDelegate)  = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
-        if (!canDelegate || rightResponse is null) return (null,"En eller flere av rettighetene er ikke delegerbare.");
+        if (!canDelegate || rightResponse is null){return (null, "En eller flere av rettighetene er ikke delegerbare.");}
 
         SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
-        if(systemUser is null) return (null, "Kunne ikke opprette Systembruker.");
+        if (systemUser is null){return (null, "Kunne ikke opprette Systembruker.");}
 
         bool delagationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rightResponse!);
-        if (delagationSucceeded) return (systemUser, null);
+        if (delagationSucceeded) { return (systemUser, null); }
 
         return (null, "Feilet");        
     }

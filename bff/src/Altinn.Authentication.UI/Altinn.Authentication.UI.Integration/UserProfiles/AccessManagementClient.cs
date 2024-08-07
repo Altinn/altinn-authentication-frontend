@@ -53,7 +53,7 @@ public class AccessManagementClient : IAccessManagementClient
     }
 
     /// <inheritdoc/>
-    public async Task<AuthorizedPartyExternal> GetPartyFromReporteeListIfExists(int partyId)
+    public async Task<AuthorizedPartyExternal?> GetPartyFromReporteeListIfExists(int partyId)
     {
         try
         {
@@ -68,7 +68,7 @@ public class AccessManagementClient : IAccessManagementClient
                 return JsonSerializer.Deserialize<AuthorizedPartyExternal>(responseContent, _serializerOptions)!;
             }
 
-            return null!;
+            return null;
         }
         catch (Exception ex)
         {
