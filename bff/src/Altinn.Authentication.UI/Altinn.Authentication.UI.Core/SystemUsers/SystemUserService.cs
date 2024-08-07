@@ -1,8 +1,11 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Models;
+using Altinn.Authentication.UI.Core.Common.Problems;
 using Altinn.Authentication.UI.Core.Common.Rights;
 using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Core.UserProfiles;
+using Altinn.Authorization.ProblemDetails;
 using Altinn.Platform.Register.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System.Text.Json;
 
 namespace Altinn.Authentication.UI.Core.SystemUsers;
@@ -53,22 +56,22 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
     }
 
-    public async Task<(SystemUser?, string?)> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<Result<SystemUser>> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         AuthorizedPartyExternal? party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
-        if(party is null){return (null, "Kunne ikke hente ut organisasjonsnummer for innlogget bruker.");}
+        if(party is null){return new Result<SystemUser>( ProblemInstance.Create( Problem.Reportee_Orgno_NotFound ));}
         string partyOrgNo = party.OrganizationNumber;
 
         (List<DelegationResponseData>? rightResponse, bool canDelegate)  = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
-        if (!canDelegate || rightResponse is null){return (null, "En eller flere av rettighetene er ikke delegerbare.");}
+        if (!canDelegate || rightResponse is null){return new Result<SystemUser>(ProblemInstance.Create(Problem.Rights_NotFound_Or_NotDelegable));}
 
         SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
-        if (systemUser is null){return (null, "Kunne ikke opprette Systembruker.");}
+        if (systemUser is null){return new Result<SystemUser>( ProblemInstance.Create(Problem.SystemUser_FailedToCreate));}
 
         bool delagationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rightResponse!);
-        if (delagationSucceeded) { return (systemUser, null); }
+        if (delagationSucceeded) { return new Result<SystemUser>(ProblemInstance.Create(Problem.Rights_FailedToDelegate));}
 
-        return (null, "Feilet");        
+        return new Result<SystemUser>(ProblemInstance.Create(Problem.Generic_EndOfMethod));
     }
 
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
