@@ -8,7 +8,7 @@ namespace Altinn.Authentication.UI.Core.Common.Problems;
 public static class Problem
 {
     private static readonly ProblemDescriptorFactory _factory
-        = ProblemDescriptorFactory.New("AuthnUi");
+        = ProblemDescriptorFactory.New("ATUI");
 
     /// <summary>
     /// Gets a <see cref="ProblemDescriptor"/>.
