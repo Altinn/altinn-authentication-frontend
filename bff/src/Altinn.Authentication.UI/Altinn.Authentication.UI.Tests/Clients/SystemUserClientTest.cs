@@ -46,7 +46,7 @@ public class SystemUserClientIntegrationTest : IClassFixture<CustomWebApplicatio
     {
         var usr = await _systemUserClient.PostNewSystemUserReal(
             "1",
-            new SystemUserDescriptor 
+            new CreateSystemUserRequestToAuthComp 
             { 
                 OwnedByPartyId = 1,
                 SelectedSystemType = "IntegrationTest ProductName",
