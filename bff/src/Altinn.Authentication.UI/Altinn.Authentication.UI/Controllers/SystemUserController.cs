@@ -122,16 +122,22 @@ public class SystemUserController : ControllerBase
     /// <param name="newSystemUserDescriptor">The required params for a system to be created</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    [Authorize]
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> Post([FromBody] CreateSystemUserRequestGUI newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
         // Get the partyId from the context (Altinn Part Coook)
         int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);        
-        newSystemUserDescriptor.OwnedByPartyId = partyId;        
 
-        Result<SystemUser> systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUserDescriptor, cancellationToken);
+        CreateSystemUserRequestToAuthComp newSystemUser = new() 
+        {
+            IntegrationTitle = newSystemUserDescriptor.IntegrationTitle,
+            SelectedSystemType = newSystemUserDescriptor.SelectedSystemType,
+            OwnedByPartyId = partyId,            
+        };    
+
+        Result<SystemUser> systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUser, cancellationToken);
         
         if (systemUser.IsProblem){return systemUser.Problem.ToActionResult();}
 
@@ -141,7 +147,7 @@ public class SystemUserController : ControllerBase
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPut("{id}")]
-    public async void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
+    public async void Put(Guid id, [FromBody] CreateSystemUserRequestGUI modifiedSystemUser, CancellationToken cancellationToken = default)
     {
         if (modifiedSystemUser.IntegrationTitle is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.IntegrationTitle, id, cancellationToken);      
         if (modifiedSystemUser.SelectedSystemType is not null) await _systemUserService.ChangeSystemUserProduct(modifiedSystemUser.SelectedSystemType, id, cancellationToken);

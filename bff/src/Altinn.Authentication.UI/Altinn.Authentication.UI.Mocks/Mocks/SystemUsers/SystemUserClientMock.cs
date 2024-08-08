@@ -62,7 +62,7 @@ public class SystemUserClientMock : ISystemUserClient
     private readonly IAccessManagementClient _partyClient;
     private static List<SystemUser> _systemUserList = [];
 
-    private static SystemUserReal MapDescriptorToSystemUserReal(SystemUserDescriptor sysdescr)
+    private static SystemUserReal MapDescriptorToSystemUserReal(CreateSystemUserRequestToAuthComp sysdescr)
     {
         return new SystemUserReal()
         {
@@ -88,7 +88,7 @@ public class SystemUserClientMock : ISystemUserClient
         return _systemUserList.Find(i => i.Id == id.ToString());
     }
 
-    public async Task<SystemUser> PostNewSystemUserReal(string partyOrgNo, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<SystemUser> PostNewSystemUserReal(string partyOrgNo, CreateSystemUserRequestToAuthComp newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         await Task.Delay(50);
         //var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);
@@ -97,7 +97,7 @@ public class SystemUserClientMock : ISystemUserClient
         return newSystemUser;
     }
 
-    private SystemUser MapDescriptorToSystemUser(SystemUserDescriptor newSystemUserDescriptor)
+    private SystemUser MapDescriptorToSystemUser(CreateSystemUserRequestToAuthComp newSystemUserDescriptor)
     {
         throw new NotImplementedException();
     }
