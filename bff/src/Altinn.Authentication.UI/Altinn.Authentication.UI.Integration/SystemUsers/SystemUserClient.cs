@@ -64,7 +64,7 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<SystemUser?> PostNewSystemUserReal(
         string partyOrgNo,
-        SystemUserDescriptor newSystemUserDescriptor, 
+        SystemUserDescriptor requestObject, 
         CancellationToken cancellation = default)
     {      
 
