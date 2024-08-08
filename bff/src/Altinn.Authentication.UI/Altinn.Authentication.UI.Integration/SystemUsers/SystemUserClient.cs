@@ -73,7 +73,7 @@ public class SystemUserClient : ISystemUserClient
         var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
-            PartyId = newSystemUserDescriptor.OwnedByPartyId ?? string.Empty,
+            PartyId = newSystemUserDescriptor.OwnedByPartyId,
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
             SystemId = newSystemUserDescriptor.SelectedSystemType!,
             ReporteeOrgNo = partyOrgNo
