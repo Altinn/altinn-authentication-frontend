@@ -56,7 +56,7 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
     }
 
-    public async Task<Result<SystemUser>> CreateSystemUser(int partyId, SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellation = default)
+    public async Task<Result<SystemUser>> CreateSystemUser(int partyId, CreateSystemUserRequestToAuthComp newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         AuthorizedPartyExternal? party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
         if(party is null){return Problem.Reportee_Orgno_NotFound;}
