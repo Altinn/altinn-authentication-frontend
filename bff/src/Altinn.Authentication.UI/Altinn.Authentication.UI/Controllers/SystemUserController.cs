@@ -128,7 +128,7 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> Post([FromBody] CreateSystemUserRequestGUI newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
         // Get the partyId from the context (Altinn Part Coook)
-        int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
+        int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);        
 
         CreateSystemUserRequestToAuthComp newSystemUser = new() 
         {

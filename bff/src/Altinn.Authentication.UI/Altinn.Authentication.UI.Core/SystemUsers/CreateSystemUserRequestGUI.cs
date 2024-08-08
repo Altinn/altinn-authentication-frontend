@@ -1,26 +1,34 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemUsers;
+﻿using System.Text.Json.Serialization;
+
+namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 public sealed record CreateSystemUserRequestGUI
 {
+    [JsonPropertyName("partyId")]
     /// <summary>
-    /// Friendly name chosen by the end-user
+    /// PartyId is the owning Legal Entity, whether an organization or a privat person
     /// </summary>
-    public string? IntegrationTitle { get; set; }
+    public int OwnedByPartyId { get; set; }
 
     /// <summary>
-    /// The actual chosen systemType that this SystemUser
-    /// creates an integration / delegation for
+    /// The Organisation Number for the end-user as it is stored in ER Registry        
     /// </summary>
-    public string? SelectedSystemType { get; set; }
+    [JsonPropertyName("reporteeOrgNo")]
+    public string ReporteeOrgNo { get; set; }
 
     /// <summary>
-    /// Only set if the end-user has a self-made system
-    /// and not an off-the-shelf system
+    /// The Title is set by the end-user in the Frontend, by default it is the same as the System's Display Name
+    /// Even if this DTO allows null, the db field is of course still required   
     /// </summary>
-    public string? ClientId { get; set; }
+    [JsonPropertyName("integrationTitle")]
+    public string IntegrationTitle { get; set; }
 
     /// <summary>
-    /// The OwnedByParty identifies the end-user's organisation/person, and is fetched by the BFF from the login Context Cookie
+    /// For off the shelf systems.
+    /// Should probably be human readable (instead of a GUID) but unique string without whitespace
+    /// The "real" Authentication Component should validate that the SystemName is unique
+    /// Retrieved from the SystemRegister, the full CRUD Api is in a different service
     /// </summary>
-    public string? OwnedByPartyId { get; set; }
+    [JsonPropertyName("systemId")]
+    public string SelectedSystemType { get; set; }
 }
