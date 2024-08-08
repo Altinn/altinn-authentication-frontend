@@ -48,7 +48,7 @@ public class SystemUserClientIntegrationTest : IClassFixture<CustomWebApplicatio
             "1",
             new SystemUserDescriptor 
             { 
-                OwnedByPartyId = "1",
+                OwnedByPartyId = 1,
                 SelectedSystemType = "IntegrationTest ProductName",
                 IntegrationTitle = "IntegrationTest Title"
             });
