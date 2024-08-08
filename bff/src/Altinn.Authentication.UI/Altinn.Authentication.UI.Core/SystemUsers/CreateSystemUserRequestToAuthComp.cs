@@ -3,8 +3,8 @@
 namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 /// <summary>
-/// When the Frontend POST a new SystemUser this is the descriptor
-/// passed deeper into the layers to create the new Entity 
+/// When the Frontend POST a new SystemUser this is the DTO 
+/// sent to the Authentication Component
 /// </summary>
 public class CreateSystemUserRequestToAuthComp
 {
@@ -34,5 +34,5 @@ public class CreateSystemUserRequestToAuthComp
     /// Retrieved from the SystemRegister, the full CRUD Api is in a different service
     /// </summary>
     [JsonPropertyName("systemId")]
-    public string? SelectedSystemType { get; set; }
+    public string? SelectedSystemType { get; set; } 
 }
