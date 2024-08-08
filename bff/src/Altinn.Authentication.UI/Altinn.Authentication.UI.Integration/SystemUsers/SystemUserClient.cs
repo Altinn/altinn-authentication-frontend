@@ -71,13 +71,7 @@ public class SystemUserClient : ISystemUserClient
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemuser/{partyOrgNo}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
-        var requestObject = new
-        { 
-            PartyId = newSystemUserDescriptor.OwnedByPartyId,
-            IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
-            SystemId = newSystemUserDescriptor.SelectedSystemType!,
-            ReporteeOrgNo = partyOrgNo
-        };
+
         StringContent content = new(JsonSerializer.Serialize(requestObject), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
