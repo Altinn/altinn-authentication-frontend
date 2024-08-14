@@ -124,19 +124,22 @@ public class AccessManagementClient : IAccessManagementClient
     }
 
     /// <inheritdoc />
-    public async Task<bool> DelegateRightToSystemUser(string partyId, SystemUser systemUser, List<DelegationResponseData> responseData)
+    public async Task<bool> DelegateRightToSystemUser(string partyId, SystemUser systemUser, List<RightResponses> responseData)
     {
         List<Right> rights = [];
-        
-        foreach (DelegationResponseData data in responseData) 
-        {
-            Right right = new()
-            {
-                Action = data.Action,
-                Resource = data.Resource,
-            };
 
-            rights.Add(right);
+        foreach (RightResponses outer in responseData)
+        {   
+            foreach (DelegationResponseData inner in outer.ResponseDataSet)
+            {
+                Right right = new()
+                {
+                    Action = inner.Action,
+                    Resource = inner.Resource,
+                };
+
+                rights.Add(right);
+            }
         }
 
         DelegationRequest rightsDelegationRequest = new()

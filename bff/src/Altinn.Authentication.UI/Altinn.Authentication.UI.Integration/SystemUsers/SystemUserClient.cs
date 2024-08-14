@@ -72,7 +72,7 @@ public class SystemUserClient : ISystemUserClient
         string endpointUrl = $"systemuser/{partyOrgNo}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
 
-        StringContent content = new(JsonSerializer.Serialize(requestObject), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
+        StringContent content = new(JsonSerializer.Serialize(newSystemUserDescriptor), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
         if (response.IsSuccessStatusCode)
