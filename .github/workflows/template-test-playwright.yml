@@ -24,10 +24,12 @@ jobs:
         run: |
           yarn --immutable
           yarn playwright install --with-deps
-          yarn run env:${{ inputs.environment }}
+      - name: Run Playwright tests
+        working-directory: frontend/playwright
+        run: yarn run env:${{ inputs.environment }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: playwright-report
-          path: frontend/playwright-report/playwright-report
+          path: frontend/playwright/test-results
           retention-days: 30
