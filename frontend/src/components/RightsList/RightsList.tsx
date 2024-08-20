@@ -9,8 +9,8 @@ interface RightsListProps {
 export const RightsList = ({ rights }: RightsListProps): React.ReactNode => {
   return rights.map((productRight) => (
     <ActionBar
-      key={productRight.actionRight}
-      title={productRight.resources.map(({ value }) => value).join(', ')}
+      key={productRight.action}
+      title={productRight.resource.map(({ value }) => value).join(', ')}
       subtitle={productRight.serviceProvider}
       color='neutral'
     />

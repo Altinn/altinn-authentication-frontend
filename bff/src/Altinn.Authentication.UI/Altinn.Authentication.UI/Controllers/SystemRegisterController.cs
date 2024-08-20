@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Altinn.Authentication.UI.Controllers;
 
+/// <summary>
+/// Responsible for presenting the list of registered system to UI. 
+/// </summary>
 [Route("authfront/api/v1/systemregister")]
 [ApiController] 
 [AutoValidateAntiforgeryTokenIfAuthCookie]
@@ -12,11 +15,20 @@ public class SystemRegisterController : ControllerBase
 {
     private readonly ISystemRegisterService _systemRegisterService;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SystemRegisterController"/> class.
+    /// </summary>
+    /// <param name="systemRegisterService"></param>
     public SystemRegisterController(ISystemRegisterService systemRegisterService)
     {
         _systemRegisterService = systemRegisterService;
     }
 
+    /// <summary>
+    /// Get list of registered systems.
+    /// </summary>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpGet]

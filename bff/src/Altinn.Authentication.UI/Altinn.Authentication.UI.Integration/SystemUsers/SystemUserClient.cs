@@ -18,7 +18,7 @@ public class SystemUserClient : ISystemUserClient
     private readonly PlatformSettings _platformSettings;
     private readonly IAccessTokenProvider _accessTokenProvider;
 
-    private static SystemUserReal MapDescriptorToSystemUserReal(SystemUserDescriptor sysdescr)
+    private static SystemUserReal MapDescriptorToSystemUserReal(CreateSystemUserRequestToAuthComp sysdescr)
     {
         return new SystemUserReal()
         {
@@ -64,7 +64,7 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<SystemUser?> PostNewSystemUserReal(
         string partyOrgNo,
-        SystemUserDescriptor newSystemUserDescriptor, 
+        CreateSystemUserRequestToAuthComp newSystemUserDescriptor, 
         CancellationToken cancellation = default)
     {      
 
@@ -73,7 +73,7 @@ public class SystemUserClient : ISystemUserClient
         var accessToken = await _accessTokenProvider.GetAccessToken();
         var requestObject = new
         { 
-            PartyId = newSystemUserDescriptor.OwnedByPartyId ?? string.Empty,
+            PartyId = newSystemUserDescriptor.OwnedByPartyId,
             IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
             SystemId = newSystemUserDescriptor.SelectedSystemType!,
             ReporteeOrgNo = partyOrgNo

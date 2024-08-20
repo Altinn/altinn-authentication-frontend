@@ -1,4 +1,5 @@
-﻿using Altinn.Authentication.UI.Core.SystemRegister;
+﻿using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Authentication.UI.Core.SystemRegister;
 
 namespace Altinn.Authentication.UI.Mocks.SystemRegister;
 
@@ -78,5 +79,10 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
     {
         return await MockTestHelper();
+    }
+
+    public Task<List<Right>> GetRightFromSystem(string systemId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
     }
 }

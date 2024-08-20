@@ -1,6 +1,7 @@
 ﻿using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
+using Altinn.Authorization.ProblemDetails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
@@ -47,10 +48,10 @@ public class SystemUserController : ControllerBase
     public async Task<ActionResult> GetSystemUserListForLoggedInUser(CancellationToken cancellationToken = default)
     {
         var (partyId, actionResult) = ResolvePartyId();
-        
-        if (partyId == 0) return actionResult;
 
-        var list = await _systemUserService.GetAllSystemUserDTOsForChosenUser(partyId, cancellationToken);
+        if (partyId == 0) return actionResult;               
+
+        var list = await _systemUserService.GetAllSystemUsersForParty(partyId, cancellationToken);
 
         return Ok(list);
     }
@@ -113,27 +114,40 @@ public class SystemUserController : ControllerBase
         return Ok();
     }
     
-    [Authorize]
+    /// <summary>
+    /// Endpoint for creating a new System User for the choosen reportee.The reportee is taken from the AltinnPartyId cookie 
+    /// 
+    /// Expects backend in Authenticaiton and in Access Management to perform authorization ch
+    /// </summary>
+    /// <param name="newSystemUserDescriptor">The required params for a system to be created</param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] SystemUserDescriptor newSystemUserDescriptor, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> Post([FromBody] CreateSystemUserRequestGUI newSystemUserDescriptor, CancellationToken cancellationToken = default)
     {
-        int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);
-                
-        newSystemUserDescriptor.OwnedByPartyId = partyId.ToString();
-        var usr = await _systemUserService.PostNewSystemUserDescriptor(partyId, newSystemUserDescriptor, cancellationToken);
-        if (usr is not null)
-        {           
-            return Ok(usr);
-        }
+        // Get the partyId from the context (Altinn Part Coook)
+        int partyId = AuthenticationHelper.GetRepresentingPartyId( _httpContextAccessor.HttpContext!);        
 
-        return NotFound();
+        CreateSystemUserRequestToAuthComp newSystemUser = new() 
+        {
+            IntegrationTitle = newSystemUserDescriptor.IntegrationTitle,
+            SelectedSystemType = newSystemUserDescriptor.SelectedSystemType,
+            OwnedByPartyId = partyId,            
+        };    
+
+        Result<SystemUser> systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUser, cancellationToken);
+        
+        if (systemUser.IsProblem){return systemUser.Problem.ToActionResult();}
+
+        return Ok(systemUser.Value);
     }
 
     [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPut("{id}")]
-    public async void Put(Guid id, [FromBody] SystemUserDescriptor modifiedSystemUser, CancellationToken cancellationToken = default)
+    public async void Put(Guid id, [FromBody] CreateSystemUserRequestGUI modifiedSystemUser, CancellationToken cancellationToken = default)
     {
         if (modifiedSystemUser.IntegrationTitle is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.IntegrationTitle, id, cancellationToken);      
         if (modifiedSystemUser.SelectedSystemType is not null) await _systemUserService.ChangeSystemUserProduct(modifiedSystemUser.SelectedSystemType, id, cancellationToken);
