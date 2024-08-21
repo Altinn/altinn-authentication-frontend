@@ -42,7 +42,7 @@
     "eslint-plugin-react-hooks": "4.6.2",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "madge": "^7.0.0",
+    "madge": "^8.0.0",
     "prettier": "^3.2.5",
     "typescript": "*",
     "typescript-eslint": "^7.16.0",
