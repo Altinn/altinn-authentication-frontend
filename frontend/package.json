@@ -38,7 +38,7 @@
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "typescript": "*",
-    "typescript-eslint": "^7.16.0",
+    "typescript-eslint": "^8.0.0",
     "typescript-plugin-css-modules": "^5.1.0",
     "vite": "^5.1.4",
     "vite-plugin-svgr": "^4.2.0"
