@@ -5,10 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "build": "vite build",
-    "test": "vite & wait-on http://localhost:5173 & cypress open",
-    "coverage": "cypress run --component",
-    "coverage:e2e": "vite & wait-on http://localhost:5173 & cypress run"
+    "build": "vite build"
   },
   "dependencies": {
     "@digdir/designsystemet-css": "^0.10.0",
@@ -29,20 +26,16 @@
   "devDependencies": {
     "@eslint/compat": "^1.1.1",
     "@playwright/test": "^1.45.1",
-    "@testing-library/cypress": "^10.0.1",
     "@types/node": "^20.14.10",
     "@types/react": "^18.2.58",
     "@types/react-dom": "^18.2.19",
     "@types/redux-logger": "^3.0.13",
     "@vitejs/plugin-react": "^4.2.1",
-    "cypress": "13.13.1",
-    "cypress-real-events": "^1.12.0",
     "eslint": "9.7.0",
     "eslint-plugin-react": "7.35.0",
     "eslint-plugin-react-hooks": "4.6.2",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
-    "madge": "^7.0.0",
     "prettier": "^3.2.5",
     "typescript": "*",
     "typescript-eslint": "^7.16.0",
