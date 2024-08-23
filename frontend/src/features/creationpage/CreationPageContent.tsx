@@ -61,7 +61,7 @@ export const CreationPageContent = () => {
               <Combobox.Option
                 key={vendor.systemId}
                 value={vendor.systemId}
-                description={vendor.systemVendorOrgName}
+                description={`${vendor.systemVendorOrgName} (${vendor.systemVendorOrgNumber})`}
               >
                 {vendor.systemName}
               </Combobox.Option>
