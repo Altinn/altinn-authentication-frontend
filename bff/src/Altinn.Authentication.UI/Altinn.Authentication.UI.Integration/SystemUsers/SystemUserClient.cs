@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
@@ -72,7 +73,7 @@ public class SystemUserClient : ISystemUserClient
         string endpointUrl = $"systemuser/{partyOrgNo}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
 
-        StringContent content = new(JsonSerializer.Serialize(newSystemUserDescriptor), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
+        var content = JsonContent.Create(newSystemUserDescriptor);
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
         if (response.IsSuccessStatusCode)
