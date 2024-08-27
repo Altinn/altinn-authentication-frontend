@@ -1,7 +1,7 @@
 ﻿namespace Altinn.Authentication.UI.Core.Common.Rights;
 
 /// <summary>
-///  Represents the response of the backend for Delegation access check response.
+///  Represents the response of the backend for Delegation access check response
 /// </summary>
 public class DelegationResponseData
 {

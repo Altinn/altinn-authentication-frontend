@@ -59,17 +59,17 @@ public class SystemUserService : ISystemUserService
     public async Task<Result<SystemUser>> CreateSystemUser(int partyId, CreateSystemUserRequestToAuthComp newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         AuthorizedPartyExternal? party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
-        if(party is null){return Problem.Reportee_Orgno_NotFound;}
+        if(party is null) {return Problem.Reportee_Orgno_NotFound;}
         string partyOrgNo = party.OrganizationNumber;
 
-        (List<DelegationResponseData>? rightResponse, bool canDelegate)  = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
-        if (!canDelegate || rightResponse is null){return Problem.Rights_NotFound_Or_NotDelegable;}
+        DelegationCheckResult delegationCheckFinalResult = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
+        if (!delegationCheckFinalResult.CanDelegate || delegationCheckFinalResult.RightResponses is null) {return Problem.Rights_NotFound_Or_NotDelegable;}
 
         SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyOrgNo, newSystemUserDescriptor, cancellation);
-        if (systemUser is null){return Problem.SystemUser_FailedToCreate;}
+        if (systemUser is null) {return Problem.SystemUser_FailedToCreate;}
 
-        bool delagationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, rightResponse!);
-        if (!delagationSucceeded) { return Problem.Rights_FailedToDelegate;}
+        bool delegationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, delegationCheckFinalResult.RightResponses);
+        if (!delegationSucceeded) { return Problem.Rights_FailedToDelegate;}
 
         return systemUser;
     }
@@ -79,25 +79,32 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
     }
 
-    public async Task<(List<DelegationResponseData>?,bool)> UserDelegationCheckForReportee(int partyId, string systemId ,CancellationToken cancellationToken = default)
+    private async Task<DelegationCheckResult> UserDelegationCheckForReportee(int partyId, string systemId ,CancellationToken cancellationToken = default)
     {        
         List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
-        DelegationCheckRequest request = new()
+        List<RightResponses> rightResponsesList = [];
+                  
+        foreach (Right right in rights)
         {
-            Resource = rights[0].Resource  
-        };
+            DelegationCheckRequest request = new()
+            {
+                Resource = right.Resource
+            };
 
-        List<DelegationResponseData>? rightResponse = await _accessManagementClient.CheckDelegationAccess(partyId.ToString(), request);
-        Console.WriteLine("RTLDEBUG1 " + JsonSerializer.Serialize(rightResponse));
-        bool canDelegate = ResolveIfHasAccess(rightResponse);
-        Console.WriteLine("RTLDEBUG2 " + canDelegate);
+            List<DelegationResponseData>? rightResponses = await _accessManagementClient.CheckDelegationAccess(partyId.ToString(), request);
 
-        return (rightResponse, canDelegate);
+            if (rightResponses is null) { return new DelegationCheckResult(false, null); }
+
+            if (!ResolveIfHasAccess(rightResponses)) { return new DelegationCheckResult(false, null);}
+
+            rightResponsesList.Add( new RightResponses( rightResponses));
+        }
+
+        return new DelegationCheckResult(true, rightResponsesList);
     }
 
-    private static bool ResolveIfHasAccess(List<DelegationResponseData>? rightResponse)
-    {
-        if (rightResponse == null) { return false; }
+    private static bool ResolveIfHasAccess(List<DelegationResponseData> rightResponse)
+    {      
 
         foreach( var data in rightResponse)
         {
