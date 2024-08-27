@@ -4,13 +4,16 @@ public class SystemRegisterService : ISystemRegisterService
 {
     ISystemRegisterClient _systemRegisterClient;
     IRegisterClient _registerClient;
+    IResourceRegistryClient _resourceRegistryClient;
 
     public SystemRegisterService(
         ISystemRegisterClient systemRegisterClient,
-        IRegisterClient registerClient)
+        IRegisterClient registerClient,
+        IResourceRegistryClient resourceRegistryClient)
     {
         _systemRegisterClient = systemRegisterClient;
         _registerClient = registerClient;
+        _resourceRegistryClient = resourceRegistryClient;
     }
 
     public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
@@ -21,6 +24,16 @@ public class SystemRegisterService : ISystemRegisterService
 
         foreach (RegisterSystemResponse response in lista)
         {
+            foreach (RightFrontEnd right in response.Rights) 
+            {
+                string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
+                
+                if (resourceId != null) 
+                {
+                    right.ServiceResource = await _resourceRegistryClient.GetResource(resourceId, cancellationToken);;
+                }
+            }
+
             try
             {
                 response.SystemVendorOrgName =
