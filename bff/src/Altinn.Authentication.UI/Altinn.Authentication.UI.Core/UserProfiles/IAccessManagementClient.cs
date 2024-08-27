@@ -13,5 +13,5 @@ public interface IAccessManagementClient
 
     Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, DelegationCheckRequest request);
 
-    Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<DelegationResponseData> rights);
+    Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<RightResponses> rights); 
 }

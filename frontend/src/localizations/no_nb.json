@@ -38,8 +38,8 @@
   },
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",
-    "sub_title": "Systemtilgangen vil få rettigheter til disse tjenestene",
-    "content_text": "Disse rettighetene er forhåndsvalgt av fagsystemet. Har du behov for andre rettigheter, kan du legge det til senere.",
+    "sub_title": "Systemtilgangen vil inneholde disse tjenestene",
+    "content_text": "Disse tjenestene er forhåndsvalgt av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikke opprette systemtilgang",
     "creating_systemuser": "Oppretter systemtilgang..."

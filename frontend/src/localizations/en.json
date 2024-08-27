@@ -38,8 +38,8 @@
   },
   "authent_includedrightspage": {
     "banner_title": "Create new system access",
-    "sub_title": "The system access will be granted rights to these services",
-    "content_text": "These rights are pre-selected by the vendor system. If you need other rights, you can add them later.",
+    "sub_title": "The system access will contain these services",
+    "content_text": "These services are pre-selected by the vendor system.",
     "confirm_button": "Create system access",
     "create_systemuser_error": "Could not create system access",
     "creating_systemuser": "Creating system access..."

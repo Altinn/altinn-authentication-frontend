@@ -35,4 +35,9 @@ public class PartyClientMock : IAccessManagementClient
     {
         throw new NotImplementedException();
     }
+
+    public Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<RightResponses> rights)
+    {
+        throw new NotImplementedException();
+    }
 }
