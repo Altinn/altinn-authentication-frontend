@@ -4,3 +4,7 @@
   margin-top: var(--fds-spacing-22);
   gap: var(--fds-spacing-4);
 }
+
+.successButton {
+  background-color: var(--fds-semantic-surface-success-default);
+}
