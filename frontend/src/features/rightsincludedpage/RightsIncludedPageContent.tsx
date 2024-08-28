@@ -81,9 +81,10 @@ export const RightsIncludedPageContent = () => {
         <div className={classes.buttonContainer}>
           <Button
             size='small'
-            color='success'
+            variant='primary'
             onClick={handleConfirm}
             disabled={isCreatingSystemUser}
+            className={classes.successButton}
           >
             {isCreatingSystemUser && (
               <Spinner size='small' title={t('authent_includedrightspage.creating_systemuser')} />
