@@ -73,6 +73,8 @@ public class SystemUserClient : ISystemUserClient
         string endpointUrl = $"systemuser/{partyId}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
 
+        _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUserDescriptor} ");
+
         var content = JsonContent.Create(newSystemUserDescriptor);
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
