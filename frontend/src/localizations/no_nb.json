@@ -33,7 +33,8 @@
     "pull_down_menu_label": "Velg fagsystem",
     "confirm_button": "Gå videre",
     "load_vendors_error": "Kunne ikke laste systemleverandører",
-    "name_too_long": "Navn på systemtilgang kan kun være 255 tegn, du har skrevet inn {{ nameLength }} tegn."
+    "name_too_long": "Navn på systemtilgang kan kun være 255 tegn, du har skrevet inn {{ nameLength }} tegn.",
+    "loading_systems": "Laster leverandører og system..."
   },
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",

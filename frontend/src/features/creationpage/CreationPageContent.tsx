@@ -17,7 +17,11 @@ export const CreationPageContent = () => {
     (state) => state.createSystemUser,
   );
 
-  const { data: vendors, isError: isLoadVendorError } = useGetVendorsQuery();
+  const {
+    data: vendors,
+    isLoading: isLoadingVendors,
+    isError: isLoadVendorError,
+  } = useGetVendorsQuery();
 
   const navigate = useNavigate();
 
@@ -46,6 +50,8 @@ export const CreationPageContent = () => {
       <div className={classes.inputContainer}>
         <Combobox
           label={t('authent_creationpage.pull_down_menu_label')}
+          loading={isLoadingVendors}
+          loadingLabel={t('authent_creationpage.loading_systems')}
           placeholder={t('common.choose')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {

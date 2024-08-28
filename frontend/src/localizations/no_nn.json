@@ -33,7 +33,8 @@
     "pull_down_menu_label": "Vel systemleverandør og system",
     "confirm_button": "Gå vidare",
     "load_vendors_error": "Kunne ikkje lasta systemleverandørar",
-    "name_too_long": "Namn på systemtilgang kan berre vera 255 teikn, du har skrive inn {{ nameLength }} teikn."
+    "name_too_long": "Namn på systemtilgang kan berre vera 255 teikn, du har skrive inn {{ nameLength }} teikn.",
+    "loading_systems": "Laster leverandørar og system..."
   },
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",
