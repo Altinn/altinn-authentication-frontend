@@ -7,9 +7,18 @@ interface RightsListProps {
   rights: SystemRight[];
 }
 
+const i18nLanguageToResourceLanguage = (i18nLanguage: string): ValidLanguage => {
+  if (i18nLanguage === 'en') {
+    return 'en';
+  } else if (i18nLanguage === 'no_nn') {
+    return 'nn';
+  }
+  return 'nb';
+};
+
 export const RightsList = ({ rights }: RightsListProps): React.ReactNode => {
   const { i18n } = useTranslation();
-  const currentLanguage = i18n.language as ValidLanguage;
+  const currentLanguage = i18nLanguageToResourceLanguage(i18n.language);
   return rights
     .filter((productRight) => !!productRight.serviceResource)
     .map((productRight) => {
