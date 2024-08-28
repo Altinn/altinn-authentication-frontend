@@ -56,17 +56,19 @@ export const CreationPageContent = () => {
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
         >
-          {vendors?.map((vendor) => {
-            return (
-              <Combobox.Option
-                key={vendor.systemId}
-                value={vendor.systemId}
-                description={`${vendor.systemVendorOrgName} (${vendor.systemVendorOrgNumber})`}
-              >
-                {vendor.systemName}
-              </Combobox.Option>
-            );
-          })}
+          {vendors
+            ?.filter((vendor) => vendor.isVisible && !vendor.softDeleted)
+            .map((vendor) => {
+              return (
+                <Combobox.Option
+                  key={vendor.systemId}
+                  value={vendor.systemId}
+                  description={`${vendor.systemVendorOrgName} (${vendor.systemVendorOrgNumber})`}
+                >
+                  {vendor.systemName}
+                </Combobox.Option>
+              );
+            })}
         </Combobox>
         {isLoadVendorError && (
           <Alert severity='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>
