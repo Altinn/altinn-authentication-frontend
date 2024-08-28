@@ -8,11 +8,11 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// <summary>
         /// The key word
         /// </summary>
-        public string Word { get; set; }
+        public required string Word { get; set; }
 
         /// <summary>
         /// Language of the key word
         /// </summary>
-        public string Language { get; set; }
+        public required string Language { get; set; }
     }
 }

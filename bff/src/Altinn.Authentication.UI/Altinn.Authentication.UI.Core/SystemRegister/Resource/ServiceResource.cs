@@ -1,4 +1,4 @@
-﻿#nullable enable
+﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Rights;
 
@@ -12,6 +12,7 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// <summary>
         /// The identifier of the resource
         /// </summary>
+        [Required]
         public string? Identifier { get; set; }
 
         /// <summary>
@@ -22,11 +23,13 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// <summary>
         /// The title of service
         /// </summary>
+        [Required]
         public Dictionary<string, string>? Title { get; set; }
 
         /// <summary>
         /// Description
         /// </summary>
+        [Required]
         public Dictionary<string, string>? Description { get; set; }
 
         /// <summary>
@@ -53,7 +56,8 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// <summary>
         /// List of possible contact points
         /// </summary>
-        public List<ContactPoint> ContactPoints { get; set; }
+        [Required]
+        public List<ContactPoint>? ContactPoints { get; set; }
 
         /// <summary>
         /// Linkes to the outcome of a public service
@@ -66,9 +70,9 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         public string? IsPartOf { get; set; }
 
         /// <summary>
-        /// ThematicArea
+        /// ThematicAreas
         /// </summary>
-        public string? ThematicArea { get; set; }
+        public List<string>? ThematicAreas { get; set; }
 
         /// <summary>
         /// ResourceReference
@@ -78,16 +82,17 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// <summary>
         /// Is this resource possible to delegate to others or not
         /// </summary>
-        public bool? Delegable { get; set; } = true;
-
+        public bool Delegable { get; set; } = true;
+        
         /// <summary>
         /// The visibility of the resource
         /// </summary>
-        public bool? Visible { get; set; } = true;
+        public bool Visible { get; set; } = true; 
 
         /// <summary>
         /// HasCompetentAuthority
         /// </summary>
+        [Required]
         public CompetentAuthority? HasCompetentAuthority { get; set; }
 
         /// <summary>
@@ -114,7 +119,7 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// ResourceType
         /// </summary>
         [JsonConverter(typeof(JsonStringEnumConverter))]
-        public ResourceType? ResourceType { get; set; }
+        public ResourceType ResourceType { get; set; }
 
         /// <summary>
         /// Available for type defines which type of entity / person that resource targets

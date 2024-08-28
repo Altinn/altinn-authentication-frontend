@@ -5,7 +5,7 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
     /// <summary>
     /// Enum for the different reference sources for resources in the resource registry
     /// </summary>
-    public enum ReferenceSource
+    public enum ReferenceSource : int
     {
         [EnumMember(Value = "Default")]
         Default = 0,

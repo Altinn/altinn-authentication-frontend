@@ -8,7 +8,7 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
     /// </summary>
     public class ResourceReference
     {
-        /// <summary>
+        //// <summary>
         /// The source the reference identifier points to
         /// </summary>
         [JsonConverter(typeof(JsonStringEnumConverter))]
