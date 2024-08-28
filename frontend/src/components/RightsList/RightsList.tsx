@@ -1,5 +1,6 @@
 import React from 'react';
-import { SystemRight } from '@/types';
+import { useTranslation } from 'react-i18next';
+import { SystemRight, ValidLanguage } from '@/types';
 import { ActionBar } from '../ActionBar';
 
 interface RightsListProps {
@@ -7,12 +8,20 @@ interface RightsListProps {
 }
 
 export const RightsList = ({ rights }: RightsListProps): React.ReactNode => {
-  return rights.map((productRight) => (
-    <ActionBar
-      key={productRight.action}
-      title={productRight.resource.map(({ value }) => value).join(', ')}
-      subtitle={productRight.serviceProvider}
-      color='neutral'
-    />
-  ));
+  const { i18n } = useTranslation();
+  const currentLanguage = i18n.language as ValidLanguage;
+  return rights
+    .filter((productRight) => !!productRight.serviceResource)
+    .map((productRight) => {
+      return (
+        <ActionBar
+          key={productRight.serviceResource.identifier}
+          title={productRight.serviceResource.title?.[currentLanguage]}
+          subtitle={productRight.serviceResource?.hasCompetentAuthority?.name?.[currentLanguage]}
+          color='neutral'
+        >
+          <div>{productRight.serviceResource.description?.[currentLanguage]}</div>
+        </ActionBar>
+      );
+    });
 };
