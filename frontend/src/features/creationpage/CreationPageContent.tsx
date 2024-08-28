@@ -29,6 +29,10 @@ export const CreationPageContent = () => {
     navigate(AuthenticationRoute.RightsIncluded);
   };
 
+  const isStringMatch = (inputString: string, matchString: string): boolean => {
+    return matchString.toLowerCase().indexOf(inputString.toLowerCase()) >= 0;
+  };
+
   return (
     <div className={classes.creationPageContainer}>
       <div>
@@ -53,6 +57,16 @@ export const CreationPageContent = () => {
                 }),
               );
             }
+          }}
+          filter={(inputValue: string, option) => {
+            const vendor = vendors?.find((x) => x.systemId === option.value);
+            if (!vendor) {
+              return false;
+            }
+            const isOrgNrMatch = isStringMatch(inputValue, vendor.systemVendorOrgNumber);
+            const isOrgNameMatch = isStringMatch(inputValue, vendor.systemVendorOrgName);
+            const isSystemNameMatch = isStringMatch(inputValue, vendor.systemName);
+            return isOrgNrMatch || isOrgNameMatch || isSystemNameMatch;
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
         >
