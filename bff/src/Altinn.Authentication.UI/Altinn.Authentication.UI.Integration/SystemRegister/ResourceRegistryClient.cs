@@ -3,6 +3,7 @@ using Altinn.Authentication.UI.Integration.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
 
@@ -24,7 +25,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
         _httpClient = httpClient;
     }
 
-    public async Task<ServiceResource> GetResource(string resourceId, CancellationToken cancellationToken = default)
+    public async Task<ServiceResource?> GetResource(string resourceId, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -32,13 +33,11 @@ public class ResourceRegistryClient : IResourceRegistryClient
 
             HttpResponseMessage response = await _httpClient.GetAsync(endpointUrl, cancellationToken);
 
-            return JsonSerializer.Deserialize<ServiceResource>
-                (await response.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions)!;
+            return await response.Content.ReadFromJsonAsync<ServiceResource>(_jsonSerializerOptions, cancellationToken);
 
         }
         catch (Exception ex)
         {
-            Console.WriteLine("exception thrown");
             _logger.LogError(ex, $"Authentication.UI // ResourceRegistry // GetResource ({resourceId}) // Exception");
             throw;
         }
