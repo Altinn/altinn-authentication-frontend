@@ -33,7 +33,8 @@
     "pull_down_menu_label": "Choose vendor system",
     "confirm_button": "Proceed",
     "load_vendors_error": "Could not load system providers",
-    "name_too_long": "Name of system access cannot be longer than 255 characters, you have entered {{ nameLength }} characters."
+    "name_too_long": "Name of system access cannot be longer than 255 characters, you have entered {{ nameLength }} characters.",
+    "loading_systems": "Loading vendors and systems..."
   },
   "authent_includedrightspage": {
     "banner_title": "Create new system access",
