@@ -11,11 +11,11 @@ public class ResourceRegistryClient : IResourceRegistryClient
     private readonly ILogger _logger;
     private readonly HttpClient _httpClient;
     private readonly PlatformSettings _platformSettings;
-    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true};
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
     public ResourceRegistryClient(
-        ILogger<SystemRegisterClient> logger, 
-        HttpClient httpClient, 
+        ILogger<SystemRegisterClient> logger,
+        HttpClient httpClient,
         IOptions<PlatformSettings> platformSettings)
     {
         _logger = logger;
@@ -26,15 +26,15 @@ public class ResourceRegistryClient : IResourceRegistryClient
 
     public async Task<ServiceResource> GetResource(string resourceId, CancellationToken cancellationToken = default)
     {
-        try 
+        try
         {
             string endpointUrl = $"resource/{resourceId}";
-            
+
             HttpResponseMessage response = await _httpClient.GetAsync(endpointUrl, cancellationToken);
 
             return JsonSerializer.Deserialize<ServiceResource>
                 (await response.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions)!;
-           
+
         }
         catch (Exception ex)
         {

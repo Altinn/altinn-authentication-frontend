@@ -24,13 +24,13 @@ public class SystemRegisterService : ISystemRegisterService
 
         foreach (RegisterSystemResponse response in lista)
         {
-            foreach (RightFrontEnd right in response.Rights) 
+            foreach (RightFrontEnd right in response.Rights)
             {
                 string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
                 
                 if (resourceId != null) 
                 {
-                    right.ServiceResource = await _resourceRegistryClient.GetResource(resourceId, cancellationToken);;
+                    right.ServiceResource = await _resourceRegistryClient.GetResource(resourceId, cancellationToken);
                 }
             }
 

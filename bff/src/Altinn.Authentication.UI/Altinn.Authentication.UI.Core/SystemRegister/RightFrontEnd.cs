@@ -13,5 +13,8 @@ public class RightFrontEnd
     /// </summary>
     public List<AttributePair> Resource { get; set; } = [];
 
+    /// <summary>
+    /// The the full resource object of this Right.
+    /// </summary>
     public ServiceResource? ServiceResource { get; set; }
 }
