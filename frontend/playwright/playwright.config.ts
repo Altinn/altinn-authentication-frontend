@@ -32,6 +32,7 @@ export default defineConfig({
       },
     ],
   ],
+  outputDir: `test-results/${process.env.environment ?? 'at22'}`,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     headless: true,
