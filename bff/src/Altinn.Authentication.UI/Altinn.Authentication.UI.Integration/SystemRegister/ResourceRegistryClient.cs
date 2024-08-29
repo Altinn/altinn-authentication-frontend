@@ -32,8 +32,15 @@ public class ResourceRegistryClient : IResourceRegistryClient
             string endpointUrl = $"resource/{resourceId}";
 
             HttpResponseMessage response = await _httpClient.GetAsync(endpointUrl, cancellationToken);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK) 
+            {
+                return await response.Content.ReadFromJsonAsync<ServiceResource>(_jsonSerializerOptions, cancellationToken);
+            }
+            else 
+            {
+                return null;
+            }
 
-            return await response.Content.ReadFromJsonAsync<ServiceResource>(_jsonSerializerOptions, cancellationToken);
 
         }
         catch (Exception ex)
