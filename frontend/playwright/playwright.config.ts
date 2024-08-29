@@ -32,7 +32,7 @@ export default defineConfig({
       },
     ],
   ],
-  outputDir: `frontend/playwright/test-results/${process.env.environment?.toLowerCase() ?? 'at22'}`,
+  outputDir: `frontend/playwright/test-results/${process.env.environment?.toUpperCase() ?? 'at22'}`,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     headless: true,
