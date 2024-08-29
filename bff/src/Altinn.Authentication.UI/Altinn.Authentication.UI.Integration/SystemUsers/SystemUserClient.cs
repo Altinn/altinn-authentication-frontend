@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
+using System.Net.Http.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
@@ -18,7 +19,7 @@ public class SystemUserClient : ISystemUserClient
     private readonly PlatformSettings _platformSettings;
     private readonly IAccessTokenProvider _accessTokenProvider;
 
-    private static SystemUserReal MapDescriptorToSystemUserReal(SystemUserDescriptor sysdescr)
+    private static SystemUserReal MapDescriptorToSystemUserReal(CreateSystemUserRequestToAuthComp sysdescr)
     {
         return new SystemUserReal()
         {
@@ -64,21 +65,15 @@ public class SystemUserClient : ISystemUserClient
 
     public async Task<SystemUser?> PostNewSystemUserReal(
         string partyOrgNo,
-        SystemUserDescriptor newSystemUserDescriptor, 
+        CreateSystemUserRequestToAuthComp newSystemUserDescriptor, 
         CancellationToken cancellation = default)
     {      
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemuser/{partyOrgNo}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
-        var requestObject = new
-        { 
-            PartyId = newSystemUserDescriptor.OwnedByPartyId ?? string.Empty,
-            IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
-            SystemId = newSystemUserDescriptor.SelectedSystemType!,
-            ReporteeOrgNo = partyOrgNo
-        };
-        StringContent content = new(JsonSerializer.Serialize(requestObject), new System.Net.Http.Headers.MediaTypeHeaderValue("application/json")) ;
+
+        var content = JsonContent.Create(newSystemUserDescriptor);
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
 
         if (response.IsSuccessStatusCode)

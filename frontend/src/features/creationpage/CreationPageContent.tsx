@@ -17,7 +17,11 @@ export const CreationPageContent = () => {
     (state) => state.createSystemUser,
   );
 
-  const { data: vendors, isError: isLoadVendorError } = useGetVendorsQuery();
+  const {
+    data: vendors,
+    isLoading: isLoadingVendors,
+    isError: isLoadVendorError,
+  } = useGetVendorsQuery();
 
   const navigate = useNavigate();
 
@@ -27,6 +31,10 @@ export const CreationPageContent = () => {
 
   const handleConfirm = () => {
     navigate(AuthenticationRoute.RightsIncluded);
+  };
+
+  const isStringMatch = (inputString: string, matchString: string): boolean => {
+    return matchString.toLowerCase().indexOf(inputString.toLowerCase()) >= 0;
   };
 
   return (
@@ -42,6 +50,8 @@ export const CreationPageContent = () => {
       <div className={classes.inputContainer}>
         <Combobox
           label={t('authent_creationpage.pull_down_menu_label')}
+          loading={isLoadingVendors}
+          loadingLabel={t('authent_creationpage.loading_systems')}
           placeholder={t('common.choose')}
           onValueChange={(newValue: string[]) => {
             if (newValue?.length) {
@@ -54,19 +64,31 @@ export const CreationPageContent = () => {
               );
             }
           }}
+          filter={(inputValue: string, option) => {
+            const vendor = vendors?.find((x) => x.systemId === option.value);
+            if (!vendor) {
+              return false;
+            }
+            const isOrgNrMatch = isStringMatch(inputValue, vendor.systemVendorOrgNumber);
+            const isOrgNameMatch = isStringMatch(inputValue, vendor.systemVendorOrgName);
+            const isSystemNameMatch = isStringMatch(inputValue, vendor.systemName);
+            return isOrgNrMatch || isOrgNameMatch || isSystemNameMatch;
+          }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
         >
-          {vendors?.map((vendor) => {
-            return (
-              <Combobox.Option
-                key={vendor.systemId}
-                value={vendor.systemId}
-                description={vendor.systemVendorOrgName}
-              >
-                {vendor.systemName}
-              </Combobox.Option>
-            );
-          })}
+          {vendors
+            ?.filter((vendor) => vendor.isVisible && !vendor.softDeleted)
+            .map((vendor) => {
+              return (
+                <Combobox.Option
+                  key={vendor.systemId}
+                  value={vendor.systemId}
+                  description={`${vendor.systemVendorOrgName} (${vendor.systemVendorOrgNumber})`}
+                >
+                  {vendor.systemName}
+                </Combobox.Option>
+              );
+            })}
         </Combobox>
         {isLoadVendorError && (
           <Alert severity='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>

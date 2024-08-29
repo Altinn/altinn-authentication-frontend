@@ -33,12 +33,13 @@
     "pull_down_menu_label": "Vel systemleverandør og system",
     "confirm_button": "Gå vidare",
     "load_vendors_error": "Kunne ikkje lasta systemleverandørar",
-    "name_too_long": "Namn på systemtilgang kan berre vera 255 teikn, du har skrive inn {{ nameLength }} teikn."
+    "name_too_long": "Namn på systemtilgang kan berre vera 255 teikn, du har skrive inn {{ nameLength }} teikn.",
+    "loading_systems": "Laster leverandørar og system..."
   },
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",
-    "sub_title": "Systemtilgangen vil få rettar til desse tenestene",
-    "content_text": "Desse rettane er førehandsvalde av fagsystemet. Har du behov for andre rettar, kan du leggja det til seinare.",
+    "sub_title": "Systemtilgangen vil innehalde desse tenestene",
+    "content_text": "Desse tenestene er førehandsvalde av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikkje oppretta systemtilgang",
     "creating_systemuser": "Opprettar systemtilgang..."

@@ -24,7 +24,7 @@ public class SystemRegisterControllerTest : IClassFixture<CustomWebApplicationFa
     {
         _factory = factory;
         _client = SetupUtils.GetTestClient(_factory, false);
-        _systemRegisterService = new SystemRegisterService(new SystemRegisterClientMock());
+        _systemRegisterService = new SystemRegisterService(new SystemRegisterClientMock(), new RegisterClientMock(), new ResourceRegistryClientMock());
     }
 
     [Fact]

@@ -1,8 +1,9 @@
+import { ServiceResource } from './serviceResource';
+
 export interface SystemRight {
-  actionRight: string;
-  serviceProvider: string;
-  resources: {
+  resource: {
     id: string;
     value: string;
   }[];
+  serviceResource: ServiceResource;
 }

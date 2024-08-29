@@ -1,5 +1,4 @@
 ﻿using Altinn.App.Core.Health;
-using Altinn.Authentiation.UI.Configuration;
 using Altinn.Authentication.UI.Core.AppConfiguration;
 using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemRegister;
@@ -8,24 +7,14 @@ using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Filters;
 using Altinn.Authentication.UI.Integration.AccessToken;
 using Altinn.Authentication.UI.Integration.Authentication;
-using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authentication.UI.Integration.KeyVault;
 using Altinn.Authentication.UI.Integration.SystemRegister;
 using Altinn.Authentication.UI.Integration.SystemUsers;
 using Altinn.Authentication.UI.Integration.UserProfiles;
-using Altinn.Authentication.UI.Mocks.SystemRegister;
-using Altinn.Authentication.UI.Mocks.SystemUsers;
-using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Common.AccessTokenClient.Services;
-using Altinn.Common.PEP.Configuration;
 using AltinnCore.Authentication.JwtCookie;
-using Microsoft.ApplicationInsights.AspNetCore.Extensions;
-using Microsoft.ApplicationInsights.Channel;
-using Microsoft.ApplicationInsights.Extensibility;
-using Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.IdentityModel.Tokens;
-using System.Configuration;
 using System.Reflection;
 
 namespace Altinn.Authentication.UI.Extensions
@@ -39,7 +28,6 @@ namespace Altinn.Authentication.UI.Extensions
         /// Extension method on Program.cs
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="configuration"></param>
         /// <returns></returns>
         public static IServiceCollection ConfigureServiceDefaults(this IServiceCollection services)
         {
@@ -157,7 +145,8 @@ namespace Altinn.Authentication.UI.Extensions
             //Clients for the actual Features' Services
             services.AddHttpClient<ISystemUserClient, SystemUserClient>();
             services.AddSingleton<ISystemRegisterClient, SystemRegisterClient>();
-            services.AddHttpClient<IPartyClient, PartyClient>();
+            services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
+            services.AddHttpClient<IResourceRegistryClient, ResourceRegistryClient>();
 
             return services;
         }
@@ -177,6 +166,8 @@ namespace Altinn.Authentication.UI.Extensions
             //Altinn actual Features' Services        
             services.AddSingleton<ISystemUserService, SystemUserService>();
             services.AddSingleton<ISystemRegisterService, SystemRegisterService>();
+            services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
+            services.AddHttpClient<IRegisterClient, RegisterClient>();
 
             return services;
         }

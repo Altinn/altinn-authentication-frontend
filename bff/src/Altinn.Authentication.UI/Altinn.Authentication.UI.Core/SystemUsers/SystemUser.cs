@@ -9,6 +9,7 @@ namespace Altinn.Authentication.UI.Core.SystemUsers;
 /// The model of the System User response given in the CRUD API in SystemUserController.cs
 /// This model will be exchanged between this Authentication component, the PostGress db and the BFF for the Frontend.
 /// The BFF will provide a tailored DTO to the Frontend.
+/// The Altinn URN is: urn:altinn:systemuser:uuid
 /// </summary>
 [ExcludeFromCodeCoverage]
 public class SystemUser
