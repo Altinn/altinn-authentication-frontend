@@ -64,7 +64,7 @@ public class SystemUserClient : ISystemUserClient
     }
 
     public async Task<SystemUser?> PostNewSystemUserReal(
-        string partyOrgNo,
+        int partyId,
         CreateSystemUserRequestToAuthComp newSystemUserDescriptor, 
         CancellationToken cancellation = default)
     {      
@@ -73,12 +73,14 @@ public class SystemUserClient : ISystemUserClient
         string endpointUrl = $"systemuser/{partyOrgNo}";
         //var accessToken = await _accessTokenProvider.GetAccessToken();
 
+        _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUserDescriptor} ");
+
         var content = JsonContent.Create(newSystemUserDescriptor);
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<SystemUser>(await response.Content.ReadAsStringAsync(cancellation))!;
+            return await response.Content.ReadFromJsonAsync<SystemUser>(cancellation);            
         }
 
         return null;
