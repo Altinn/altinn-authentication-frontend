@@ -71,10 +71,10 @@ public class SystemUserClient : ISystemUserClient
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemuser/{partyOrgNo}";
-        var accessToken = await _accessTokenProvider.GetAccessToken();
+        //var accessToken = await _accessTokenProvider.GetAccessToken();
 
         var content = JsonContent.Create(newSystemUserDescriptor);
-        HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
+        HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
 
         if (response.IsSuccessStatusCode)
         {
