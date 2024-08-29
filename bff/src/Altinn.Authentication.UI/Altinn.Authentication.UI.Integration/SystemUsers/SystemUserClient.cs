@@ -76,7 +76,7 @@ public class SystemUserClient : ISystemUserClient
         _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUserDescriptor} ");
 
         var content = JsonContent.Create(newSystemUserDescriptor);
-        HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content, accessToken);
+        HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
 
         if (response.IsSuccessStatusCode)
         {
