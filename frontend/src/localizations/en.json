@@ -23,7 +23,9 @@
     "system_user_no_rights": "The system access has no rights",
     "system_rights_header": "The system access has rights to these services:",
     "edit_system_user": "Edit system access",
-    "loading_systemusers": "Loading system accesses"
+    "loading_systemusers": "Loading system accesses",
+    "no_key_role1": "You do not have sufficient rights.",
+    "no_key_role2": "To create a system access you need the role Access controller, Main administrator or General manager"
   },
   "authent_creationpage": {
     "banner_title": "Create new system access",

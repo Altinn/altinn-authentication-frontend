@@ -23,7 +23,9 @@
     "system_user_no_rights": "Systemtilgangen har ingen rettigheter",
     "system_rights_header": "Systemtilgangen har rettigheter til disse tjenestene:",
     "edit_system_user": "Rediger systemtilgang",
-    "loading_systemusers": "Laster systemtilganger"
+    "loading_systemusers": "Laster systemtilganger",
+    "no_key_role1": "Du mangler nødvendige fullmakter.",
+    "no_key_role2": "For å lage en systemtilgang trenger du rollen Tilgangsstyrer, Hovedadministrator eller Daglig leder."
   },
   "authent_creationpage": {
     "banner_title": "Lag ny systemtilgang",
