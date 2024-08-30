@@ -69,8 +69,8 @@ public class SystemUserService : ISystemUserService
         SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyId, newSystemUserDescriptor, cancellation);
         if (systemUser is null) {return Problem.SystemUser_FailedToCreate;}
 
-        bool delegationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, delegationCheckFinalResult.RightResponses);
-        if (!delegationSucceeded) { return Problem.Rights_FailedToDelegate;}
+        Result<bool> delegationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, delegationCheckFinalResult.RightResponses);
+        if (delegationSucceeded.IsProblem) { return delegationSucceeded.Problem;}
 
         return systemUser;
     }

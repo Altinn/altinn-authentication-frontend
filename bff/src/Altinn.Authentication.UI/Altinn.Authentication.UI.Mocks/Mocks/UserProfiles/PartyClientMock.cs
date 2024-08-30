@@ -2,6 +2,7 @@
 using Altinn.Authentication.UI.Core.Common.Rights;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Core.UserProfiles;
+using Altinn.Authorization.ProblemDetails;
 using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Mocks.UserProfiles;
@@ -36,7 +37,7 @@ public class PartyClientMock : IAccessManagementClient
         throw new NotImplementedException();
     }
 
-    public Task<bool> DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<RightResponses> rights)
+    Task<Result<bool>> IAccessManagementClient.DelegateRightToSystemUser(string reporteePartyId, SystemUser systemUser, List<RightResponses> rights)
     {
         throw new NotImplementedException();
     }
