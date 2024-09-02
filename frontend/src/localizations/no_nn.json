@@ -24,7 +24,9 @@
     "system_rights_header": "Systemtilgangen har rettar til desse tenestene:",
     "edit_system_user": "Rediger systemtilgang",
     "loading_systemusers": "Laster systemtilganger",
-    "system_user_last_edit": "Oppretta {{createdDate}}, sist endra av {{lastChangeName}}"
+    "system_user_last_edit": "Oppretta {{createdDate}}, sist endra av {{lastChangeName}}",
+    "no_key_role1": "Du mangler nødvendige fullmakter.",
+    "no_key_role2": "For å laga ein systemtilgang treng du rolla Tilgangsstyrar, Hovudadministrator eller Dagleg leiar."
   },
   "authent_creationpage": {
     "banner_title": "Opprett ny systemtilgang",
@@ -34,7 +36,8 @@
     "pull_down_menu_label": "Vel systemleverandør og system",
     "confirm_button": "Gå vidare",
     "load_vendors_error": "Kunne ikkje lasta systemleverandørar",
-    "name_too_long": "Namn på systemtilgang kan berre vera 255 teikn, du har skrive inn {{ nameLength }} teikn."
+    "name_too_long": "Namn på systemtilgang kan berre vera 255 teikn, du har skrive inn {{ nameLength }} teikn.",
+    "loading_systems": "Laster leverandørar og system..."
   },
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",

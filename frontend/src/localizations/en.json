@@ -24,7 +24,9 @@
     "system_rights_header": "The system access has rights to these services:",
     "edit_system_user": "Edit system access",
     "loading_systemusers": "Loading system accesses",
-    "system_user_last_edit": "Created {{createdDate}}, last modified by {{lastChangeName}}"
+    "system_user_last_edit": "Created {{createdDate}}, last modified by {{lastChangeName}}",
+    "no_key_role1": "You do not have sufficient rights.",
+    "no_key_role2": "To create a system access you need the role Access controller, Main administrator or General manager"
   },
   "authent_creationpage": {
     "banner_title": "Create new system access",
@@ -34,7 +36,8 @@
     "pull_down_menu_label": "Choose vendor system",
     "confirm_button": "Proceed",
     "load_vendors_error": "Could not load system providers",
-    "name_too_long": "Name of system access cannot be longer than 255 characters, you have entered {{ nameLength }} characters."
+    "name_too_long": "Name of system access cannot be longer than 255 characters, you have entered {{ nameLength }} characters.",
+    "loading_systems": "Loading vendors and systems..."
   },
   "authent_includedrightspage": {
     "banner_title": "Create new system access",

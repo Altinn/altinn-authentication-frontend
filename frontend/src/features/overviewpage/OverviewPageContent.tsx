@@ -10,6 +10,7 @@ import { useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
 import { SystemUserActionBar } from '@/components/SystemUserActionBar';
+import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 
 export const OverviewPageContent = () => {
   const {
@@ -17,6 +18,8 @@ export const OverviewPageContent = () => {
     isLoading: isLoadingSystemUsers,
     isError: isLoadSystemUsersError,
   } = useGetSystemUsersQuery();
+
+  const { data: userInfo, isLoading: isLoadingUserInfo } = useGetLoggedInUserQuery();
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -34,13 +37,19 @@ export const OverviewPageContent = () => {
     navigate(AuthenticationRoute.Creation);
   };
 
+  const userCanCreateSystemUser = userInfo?.canCreateSystemUser;
+
   const systemUsersWithoutCreatedItem =
     systemUsers &&
     [...systemUsers].reverse().filter((systemUser) => systemUser.id !== newlyCreatedId);
 
+  if (isLoadingUserInfo || isLoadingSystemUsers) {
+    return <Spinner title={t('authent_overviewpage.loading_systemusers')} />;
+  }
+
   return (
     <div>
-      {systemUsers && systemUsers.length === 0 && (
+      {(!userCanCreateSystemUser || (systemUsers && systemUsers.length === 0)) && (
         <>
           <Heading level={2} size='xsmall' spacing>
             {t('authent_overviewpage.sub_title')}
@@ -49,14 +58,25 @@ export const OverviewPageContent = () => {
         </>
       )}
       <div>
-        <Button variant='secondary' onClick={goToStartNewSystemUser}>
+        <Button
+          variant='secondary'
+          onClick={goToStartNewSystemUser}
+          disabled={!userCanCreateSystemUser}
+        >
           <PlusIcon fontSize={28} />
           {systemUsers && systemUsers.length === 0
             ? t('authent_overviewpage.new_first_system_user_button')
             : t('authent_overviewpage.new_system_user_button')}
         </Button>
       </div>
-      {isLoadingSystemUsers && <Spinner title={t('authent_overviewpage.loading_systemusers')} />}
+      {!userCanCreateSystemUser && (
+        <Paragraph className={classes.noRightsParagraph}>
+          <span className={classes.noRightsParagraphBold}>
+            {t('authent_overviewpage.no_key_role1')}{' '}
+          </span>
+          {t('authent_overviewpage.no_key_role2')}
+        </Paragraph>
+      )}
       {isLoadSystemUsersError && (
         <Alert severity='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
       )}
