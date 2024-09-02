@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Altinn.Platform.Profile.Models;
 using Microsoft.AspNetCore.Mvc;
 using Altinn.Authentication.UI.Models;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Core.Authentication;
-using Altinn.Platform.Register.Models;
 using Altinn.Authentication.UI.Core.Common.Models;
 
 namespace Altinn.Authentication.UI.Controllers;
@@ -17,7 +15,6 @@ namespace Altinn.Authentication.UI.Controllers;
 public class ProfileController : ControllerBase
 {    
     private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IUserProfileService _userProfileService;
     private readonly IPartyService _partyService;
 
     /// <summary>
@@ -25,12 +22,10 @@ public class ProfileController : ControllerBase
     /// </summary>
     public ProfileController(
         IHttpContextAccessor httpContextAccessor,
-        IUserProfileService userProfileService,
         IPartyService partyService
         )
     {
         _httpContextAccessor = httpContextAccessor;
-        _userProfileService = userProfileService;
         _partyService = partyService;
     }
 
@@ -44,8 +39,7 @@ public class ProfileController : ControllerBase
     [HttpGet("user")]
     public async Task<ActionResult> GetUser()
     {
-        ProfileInfo? profileInfo = new ProfileInfo();
-        UserProfile? user;
+        ProfileInfo? profileInfo = new();
 
         var context = _httpContextAccessor.HttpContext;
         if (context is null) return StatusCode(500);
@@ -53,22 +47,23 @@ public class ProfileController : ControllerBase
         int loggedInPartyId = AuthenticationHelper.GetUsersPartyId(context);
         if (loggedInPartyId == 0) return BadRequest("PartyId not provided in the context.");
         PartyExternal loggedinParty = await _partyService.GetParty(loggedInPartyId);
-       
 
         int representingPartyId = AuthenticationHelper.GetRepresentingPartyId(context);
         if (representingPartyId == 0) return BadRequest("PartyId not provided in the context.");
-        PartyExternal representingParty = await _partyService.GetParty(representingPartyId);
+        AuthorizedPartyExternal representingParty = await _partyService.GetPartyFromReporteeListIfExists(representingPartyId);
 
         try
         {
             profileInfo.LoggedInPersonName = loggedinParty.Name;
             profileInfo.RepresentingPartyName = representingParty.Name;
+            profileInfo.CanCreateSystemUser = 
+                representingParty.AuthorizedRoles.Any(role => role == "DAGL" || role == "HADM" || role == "ADMAI") && 
+                representingParty.Type == AuthorizedPartyTypeExternal.Organization;
         }
         catch (Exception e)
         {
             return StatusCode(500, e.Message);
         }
-
                 
         return Ok(profileInfo);
     }

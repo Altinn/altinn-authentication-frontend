@@ -45,10 +45,10 @@ public class SystemUserClientIntegrationTest : IClassFixture<CustomWebApplicatio
     public async Task CreateSystemUser_ReturnOk()
     {
         var usr = await _systemUserClient.PostNewSystemUserReal(
-            "1",
-            new SystemUserDescriptor 
+            1,
+            new CreateSystemUserRequestToAuthComp 
             { 
-                OwnedByPartyId = "1",
+                OwnedByPartyId = 1,
                 SelectedSystemType = "IntegrationTest ProductName",
                 IntegrationTitle = "IntegrationTest Title"
             });

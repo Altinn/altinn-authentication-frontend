@@ -23,7 +23,9 @@
     "system_user_no_rights": "Systemtilgangen har ingen rettigheter",
     "system_rights_header": "Systemtilgangen har rettigheter til disse tjenestene:",
     "edit_system_user": "Rediger systemtilgang",
-    "loading_systemusers": "Laster systemtilganger"
+    "loading_systemusers": "Laster systemtilganger",
+    "no_key_role1": "Du mangler nødvendige fullmakter.",
+    "no_key_role2": "For å lage en systemtilgang trenger du rollen Tilgangsstyrer, Hovedadministrator eller Daglig leder."
   },
   "authent_creationpage": {
     "banner_title": "Lag ny systemtilgang",
@@ -33,12 +35,13 @@
     "pull_down_menu_label": "Velg fagsystem",
     "confirm_button": "Gå videre",
     "load_vendors_error": "Kunne ikke laste systemleverandører",
-    "name_too_long": "Navn på systemtilgang kan kun være 255 tegn, du har skrevet inn {{ nameLength }} tegn."
+    "name_too_long": "Navn på systemtilgang kan kun være 255 tegn, du har skrevet inn {{ nameLength }} tegn.",
+    "loading_systems": "Laster leverandører og system..."
   },
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",
-    "sub_title": "Systemtilgangen vil få rettigheter til disse tjenestene",
-    "content_text": "Disse rettighetene er forhåndsvalgt av fagsystemet. Har du behov for andre rettigheter, kan du legge det til senere.",
+    "sub_title": "Systemtilgangen vil inneholde disse tjenestene",
+    "content_text": "Disse tjenestene er forhåndsvalgt av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikke opprette systemtilgang",
     "creating_systemuser": "Oppretter systemtilgang..."

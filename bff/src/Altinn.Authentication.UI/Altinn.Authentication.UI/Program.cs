@@ -37,8 +37,8 @@ builder.Services.ConfigureAppSettings(builder.Configuration);
 builder.Services.ConfigureAuthenticationAndSecurity(builder);
 
 //Adds the layers
-builder.Services.AddIntegrationLayer(builder.Environment.IsDevelopment());
 builder.Services.AddCoreServices();
+builder.Services.AddIntegrationLayer(builder.Environment.IsDevelopment());
 
 //Swagger
 builder.Services.ConfigureDevelopmentAndTestingServices();

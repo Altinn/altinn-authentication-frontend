@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
+using Altinn.Authentication.UI.Core.Common.Rights;
 
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
 
@@ -17,6 +18,7 @@ public class SystemRegisterClient : ISystemRegisterClient
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly PlatformSettings _platformSettings;
     private readonly IAccessTokenProvider _accessTokenProvider;
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true};
 
     public SystemRegisterClient(
         ILogger<SystemRegisterClient> logger, 
@@ -44,7 +46,24 @@ public class SystemRegisterClient : ISystemRegisterClient
 
         if (response.IsSuccessStatusCode)
         {
-            return JsonSerializer.Deserialize<List<RegisterSystemResponse>>(await response.Content.ReadAsStringAsync(cancellationToken), new JsonSerializerOptions() { PropertyNameCaseInsensitive = true})!;
+            return JsonSerializer.Deserialize<List<RegisterSystemResponse>>
+                (await response.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions)!;
+        }
+        return [];
+    }
+
+    public async Task<List<Right>> GetRightFromSystem(string systemId, CancellationToken cancellationToken)
+    {
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        string endpointUrl = $"systemregister/system/{systemId}/rights";
+        var accessToken = await _accessTokenProvider.GetAccessToken();
+
+        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl, accessToken);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<List<Right>>
+                (await response.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions)!;
         }
         return [];
     }

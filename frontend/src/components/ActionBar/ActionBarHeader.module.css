@@ -8,7 +8,6 @@
   border-color: var(--border-color);
   background-color: var(--background-color);
   margin-top: var(--fds-spacing-2);
-  overflow: hidden;
 }
 
 .actionBar.clickable {
@@ -61,6 +60,7 @@
   font-size: var(--font_size-300);
   color: inherit;
   word-break: break-word;
+  border-radius: inherit;
 }
 
 .actionBarHeader:focus-visible {
