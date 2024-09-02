@@ -19,7 +19,7 @@ export const OverviewPageContent = () => {
     isError: isLoadSystemUsersError,
   } = useGetSystemUsersQuery();
 
-  const { data: userInfo } = useGetLoggedInUserQuery();
+  const { data: userInfo, isLoading: isLoadingUserInfo } = useGetLoggedInUserQuery();
 
   const dispatch = useAppDispatch();
   const { t } = useTranslation();
@@ -42,6 +42,10 @@ export const OverviewPageContent = () => {
   const systemUsersWithoutCreatedItem =
     systemUsers &&
     [...systemUsers].reverse().filter((systemUser) => systemUser.id !== newlyCreatedId);
+
+  if (isLoadingUserInfo || isLoadingSystemUsers) {
+    return <Spinner title={t('authent_overviewpage.loading_systemusers')} />;
+  }
 
   return (
     <div>
@@ -73,7 +77,6 @@ export const OverviewPageContent = () => {
           {t('authent_overviewpage.no_key_role2')}
         </Paragraph>
       )}
-      {isLoadingSystemUsers && <Spinner title={t('authent_overviewpage.loading_systemusers')} />}
       {isLoadSystemUsersError && (
         <Alert severity='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
       )}
