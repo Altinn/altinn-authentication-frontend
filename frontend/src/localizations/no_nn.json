@@ -90,6 +90,7 @@
     "rights_list_header": "Systemtilgangen vil innehalda desse tenestene:",
     "included_rights_description": "Desse tenestene er inkluderte. Du kan administrera systemtilgangen på Altinn seinare.",
     "accept": "Godta",
-    "reject": "Avvis"
+    "reject": "Avvis",
+    "org_nr": "org.nr."
   }
 }

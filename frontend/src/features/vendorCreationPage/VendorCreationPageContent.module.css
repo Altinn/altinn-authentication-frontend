@@ -1,7 +1,7 @@
 .vendorCreationContainer {
   display: flex;
   flex-direction: column;
-  gap: var(--fds-spacing-6);
+  gap: var(--fds-spacing-8);
 }
 
 .buttonRow {
@@ -9,4 +9,20 @@
   flex-direction: row;
   gap: var(--fds-spacing-4);
   margin-top: var(--fds-spacing-4);
+}
+
+.vendorCreationWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 280px;
+  max-width: 1056px;
+  width: 100%;
+}
+
+.vendorCreationHeader {
+  display: flex;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 3rem 2rem;
+  margin-top: 2rem;
 }

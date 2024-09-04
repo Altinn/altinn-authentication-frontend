@@ -90,6 +90,7 @@
     "rights_list_header": "Systemtilgangen vil inneholde disse tjenestene:",
     "included_rights_description": "Disse tjenestene er inkludert. Du kan administrere systemtilgangen på Altinn senere.",
     "accept": "Godta",
-    "reject": "Avvis"
+    "reject": "Avvis",
+    "org_nr": "org.nr."
   }
 }

@@ -90,6 +90,7 @@
     "rights_list_header": "The system access will contain these services:",
     "included_rights_description": "These services are included. You can modify the system access on Altinn later.",
     "accept": "Accept",
-    "reject": "Reject"
+    "reject": "Reject",
+    "org_nr": "org.nr."
   }
 }
