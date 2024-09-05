@@ -1,4 +1,4 @@
-namespace Altinn.Authentication.UI.Core.SystemRegister
+namespace Altinn.Authentication.UI.Core.Resource
 {
     /// <summary>
     /// Enum representation of the different types of resources supported by the resource registry

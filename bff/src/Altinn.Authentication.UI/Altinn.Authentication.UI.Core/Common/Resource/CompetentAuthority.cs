@@ -1,4 +1,4 @@
-namespace Altinn.Authentication.UI.Core.SystemRegister
+namespace Altinn.Authentication.UI.Core.Resource
 {
     /// <summary>
     /// Model representation of Competent Authority part of the ServiceResource model

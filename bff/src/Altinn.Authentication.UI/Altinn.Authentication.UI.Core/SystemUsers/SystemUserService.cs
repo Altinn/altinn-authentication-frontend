@@ -1,6 +1,7 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Models;
 using Altinn.Authentication.UI.Core.Common.Problems;
 using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Authentication.UI.Core.Resource;
 using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authorization.ProblemDetails;
@@ -15,15 +16,18 @@ public class SystemUserService : ISystemUserService
     private readonly ISystemUserClient _systemUserClient;
     private readonly IAccessManagementClient _accessManagementClient;
     private readonly ISystemRegisterClient _systemRegisterClient;
+    IResourceRegistryClient _resourceRegistryClient;
 
     public SystemUserService(
         ISystemUserClient systemUserClient,
         IAccessManagementClient accessManagementClient,
-        ISystemRegisterClient systemRegisterClient)
+        ISystemRegisterClient systemRegisterClient,
+        IResourceRegistryClient resourceRegistryClient)
     {
         _systemUserClient = systemUserClient;
         _accessManagementClient = accessManagementClient;
         _systemRegisterClient = systemRegisterClient;
+        _resourceRegistryClient = resourceRegistryClient;
     }
 
     public async Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
@@ -78,6 +82,37 @@ public class SystemUserService : ISystemUserService
     public async Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
     {
         return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
+    }
+
+    public async Task<List<RightFrontEnd>> GetSystemRights(int partyId, string systemId, CancellationToken cancellationToken)
+    {
+        DelegationCheckResult delegationCheckFinalResult = await UserDelegationCheckForReportee(partyId, systemId, cancellationToken);
+        List<RightFrontEnd> rightFrontEnds = [];
+        
+        foreach (RightResponses rightResponses in delegationCheckFinalResult.RightResponses)
+        {
+            foreach (DelegationResponseData right in rightResponses.ResponseDataSet)
+            {
+                rightFrontEnds.Add(new() 
+                {
+                    DelegationResponseData = right,
+                    ServiceResource = await GetResource(right.Resource, cancellationToken)
+                });
+            }
+        }
+            
+        return rightFrontEnds;
+    }
+
+    private async Task<ServiceResource?> GetResource(List<AttributePair> resource, CancellationToken cancellationToken)
+    {
+        string? resourceId = resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
+        if (resourceId != null)
+        {
+            return await _resourceRegistryClient.GetResource(resourceId, cancellationToken);
+        }
+
+        return null;
     }
 
     private async Task<DelegationCheckResult> UserDelegationCheckForReportee(int partyId, string systemId ,CancellationToken cancellationToken = default)

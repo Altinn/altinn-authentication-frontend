@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
-import { useCreateSystemUserMutation, useGetVendorsQuery } from '@/rtk/features/systemUserApi';
+import {
+  useCreateSystemUserMutation,
+  useGetSystemuserRightsQuery,
+} from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
@@ -22,9 +25,8 @@ export const RightsIncludedPageContent = () => {
 
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
   const selectedSystemVendor = useAppSelector((state) => state.createSystemUser.selectedSystemType);
-  const { data: vendors } = useGetVendorsQuery();
-
-  const vendor = vendors?.find((x) => x.systemId === selectedSystemVendor);
+  const { data: rights, isLoading: isLoadingRights } =
+    useGetSystemuserRightsQuery(selectedSystemVendor);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -61,6 +63,10 @@ export const RightsIncludedPageContent = () => {
     navigateToOverview();
   };
 
+  if (isLoadingRights) {
+    return <Spinner title={'Laster rettigheter'} />;
+  }
+
   return (
     <div>
       <Heading level={2} size='small' spacing>
@@ -72,7 +78,7 @@ export const RightsIncludedPageContent = () => {
         {t('authent_includedrightspage.content_text')}
       </Paragraph>
       <div>
-        <RightsList rights={vendor?.rights ?? []} />
+        {rights && <RightsList rights={rights ?? []} />}
         {isCreateSystemUserError && (
           <Alert severity='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}

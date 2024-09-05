@@ -1,4 +1,6 @@
-namespace Altinn.Authentication.UI.Core.SystemRegister;
+using Altinn.Authentication.UI.Core.Resource;
+
+namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 public interface IResourceRegistryClient
 {

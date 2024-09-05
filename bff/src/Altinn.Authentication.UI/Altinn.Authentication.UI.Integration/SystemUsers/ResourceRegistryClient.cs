@@ -4,8 +4,10 @@ using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
+using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Authentication.UI.Core.Resource;
 
-namespace Altinn.Authentication.UI.Integration.SystemRegister;
+namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
 public class ResourceRegistryClient : IResourceRegistryClient
 {
@@ -15,7 +17,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
     private readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
     public ResourceRegistryClient(
-        ILogger<SystemRegisterClient> logger,
+        ILogger<SystemUserClient> logger,
         HttpClient httpClient,
         IOptions<PlatformSettings> platformSettings)
     {

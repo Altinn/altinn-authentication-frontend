@@ -2,7 +2,7 @@
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Rights;
 
-namespace Altinn.Authentication.UI.Core.SystemRegister
+namespace Altinn.Authentication.UI.Core.Resource
 {
     /// <summary>
     /// Model describing a complete resource from the resource registry

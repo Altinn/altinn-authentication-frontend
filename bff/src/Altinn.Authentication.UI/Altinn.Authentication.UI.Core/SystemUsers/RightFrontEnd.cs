@@ -1,6 +1,7 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Authentication.UI.Core.Resource;
 
-namespace Altinn.Authentication.UI.Core.SystemRegister;
+namespace Altinn.Authentication.UI.Core.SystemUsers;
 
 
 /// <summary>
@@ -9,12 +10,9 @@ namespace Altinn.Authentication.UI.Core.SystemRegister;
 public class RightFrontEnd
 {
     /// <summary>
-    /// The list of resources at the Service Provider which this Right is for.
-    /// </summary>
-    public List<AttributePair> Resource { get; set; } = [];
-
-    /// <summary>
     /// The the full resource object of this Right.
     /// </summary>
+    public DelegationResponseData DelegationResponseData { get; set; }
+
     public ServiceResource? ServiceResource { get; set; }
 }

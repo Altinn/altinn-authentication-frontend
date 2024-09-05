@@ -37,4 +37,6 @@ public interface ISystemUserService
     /// Change system user product. To do. Do we need this?
     /// </summary>
     Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default);
+
+    Task<List<RightFrontEnd>> GetSystemRights(int partyId, string systemId, CancellationToken cancellationToken);
 }

@@ -1,7 +1,7 @@
-using Altinn.Authentication.UI.Core.Common.Rights;
-using Altinn.Authentication.UI.Core.SystemRegister;
+using Altinn.Authentication.UI.Core.Resource;
+using Altinn.Authentication.UI.Core.SystemUsers;
 
-namespace Altinn.Authentication.UI.Mocks.SystemRegister;
+namespace Altinn.Authentication.UI.Mocks.SystemUsers;
 
 public class ResourceRegistryClientMock : IResourceRegistryClient
 {

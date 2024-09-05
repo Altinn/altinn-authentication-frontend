@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Altinn.Authentication.UI.Core.SystemRegister
+namespace Altinn.Authentication.UI.Core.Resource
 {
     /// <summary>
     /// Enum for reference types of resources in the resource registry

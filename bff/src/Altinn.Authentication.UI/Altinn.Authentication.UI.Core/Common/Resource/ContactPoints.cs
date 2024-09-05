@@ -1,4 +1,4 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemRegister
+﻿namespace Altinn.Authentication.UI.Core.Resource
 {
     /// <summary>
     /// Defines a contact point

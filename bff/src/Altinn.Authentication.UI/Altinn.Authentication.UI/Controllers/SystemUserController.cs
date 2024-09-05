@@ -68,7 +68,20 @@ public class SystemUserController : ControllerBase
 
         return Ok(details);
     }
-    
+
+    [Authorize]
+    [HttpGet("rights/{systemId}")]
+    public async Task<ActionResult> GetSystemRights(string systemId, CancellationToken cancellationToken)
+    {
+        var (partyId, actionResult) = ResolvePartyId();
+
+        if (partyId == 0) return actionResult;       
+
+        List<RightFrontEnd> rights = await _systemUserService.GetSystemRights(partyId, systemId, cancellationToken);
+
+        return Ok(rights);
+    }
+
     /// <summary>
     /// Used to upload a certificate for the System User
     /// </summary>
