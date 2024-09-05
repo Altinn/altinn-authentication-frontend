@@ -1,6 +1,4 @@
-﻿using Altinn.Authentication.UI.Core.Common.Rights;
-
-namespace Altinn.Authentication.UI.Core.SystemRegister;
+﻿namespace Altinn.Authentication.UI.Core.SystemRegister;
 
 public class SystemRegisterService : ISystemRegisterService
 {
@@ -17,22 +15,10 @@ public class SystemRegisterService : ISystemRegisterService
 
     public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
     {
-        List<RegisterSystemResponse> lista = [];
-
-        lista = await _systemRegisterClient.GetListRegSys(cancellationToken );
+        List<RegisterSystemResponse> lista = await _systemRegisterClient.GetListRegSys(cancellationToken );
 
         foreach (RegisterSystemResponse response in lista)
         {
-            foreach (RightFrontEnd right in response.Rights)
-            {
-                string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
-                
-                if (resourceId != null) 
-                {
-                    right.ServiceResource = await _resourceRegistryClient.GetResource(resourceId, cancellationToken);
-                }
-            }
-
             try
             {
                 response.SystemVendorOrgName =
