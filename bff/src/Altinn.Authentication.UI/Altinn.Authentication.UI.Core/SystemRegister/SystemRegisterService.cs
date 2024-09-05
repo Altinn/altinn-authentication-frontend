@@ -1,19 +1,18 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemRegister;
+﻿using Altinn.Authentication.UI.Core.Common.Rights;
+
+namespace Altinn.Authentication.UI.Core.SystemRegister;
 
 public class SystemRegisterService : ISystemRegisterService
 {
     ISystemRegisterClient _systemRegisterClient;
     IRegisterClient _registerClient;
-    IResourceRegistryClient _resourceRegistryClient;
 
     public SystemRegisterService(
         ISystemRegisterClient systemRegisterClient,
-        IRegisterClient registerClient,
-        IResourceRegistryClient resourceRegistryClient)
+        IRegisterClient registerClient)
     {
         _systemRegisterClient = systemRegisterClient;
         _registerClient = registerClient;
-        _resourceRegistryClient = resourceRegistryClient;
     }
 
     public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
