@@ -25,8 +25,11 @@ export const RightsIncludedPageContent = () => {
 
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
   const selectedSystemVendor = useAppSelector((state) => state.createSystemUser.selectedSystemType);
-  const { data: rights, isLoading: isLoadingRights } =
-    useGetSystemuserRightsQuery(selectedSystemVendor);
+  const {
+    data: rights,
+    isLoading: isLoadingRights,
+    isError: isLoadRightsError,
+  } = useGetSystemuserRightsQuery(selectedSystemVendor);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -64,7 +67,7 @@ export const RightsIncludedPageContent = () => {
   };
 
   if (isLoadingRights) {
-    return <Spinner title={'Laster rettigheter'} />;
+    return <Spinner title={t('authent_includedrightspage.loading_rights')} />;
   }
 
   return (
@@ -82,6 +85,11 @@ export const RightsIncludedPageContent = () => {
         {isCreateSystemUserError && (
           <Alert severity='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}
+          </Alert>
+        )}
+        {isLoadRightsError && (
+          <Alert severity='danger' role='alert'>
+            {t('authent_includedrightspage.load_rights_error')}
           </Alert>
         )}
         <div className={classes.buttonContainer}>

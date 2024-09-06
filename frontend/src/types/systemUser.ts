@@ -1,3 +1,5 @@
+import { SystemRight } from './systemRight';
+
 export interface SystemUser {
   id: string;
   integrationTitle: string;
@@ -7,4 +9,5 @@ export interface SystemUser {
   supplierOrgno: string;
   ownedByPartyId: string;
   created: string;
+  rights: SystemRight[];
 }

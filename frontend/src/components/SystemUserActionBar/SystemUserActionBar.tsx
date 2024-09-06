@@ -5,7 +5,7 @@ import { Heading, Link } from '@digdir/designsystemet-react';
 import { ActionBar } from '../ActionBar';
 import classes from './SystemUserActionBar.module.css';
 import { PencilIcon } from '@navikt/aksel-icons';
-import { useGetSystemuserRightsQuery, useGetVendorsQuery } from '@/rtk/features/systemUserApi';
+import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
 import { AuthenticationRoute } from '@/routes/paths';
 import { url } from '@/utils/urlUtils';
@@ -25,9 +25,6 @@ export const SystemUserActionBar = ({
   const { data: vendors } = useGetVendorsQuery();
 
   const vendor = vendors?.find((vendor) => vendor.systemId === systemUser.productName);
-  const { data: rights, isLoading: isLoadingRights } = useGetSystemuserRightsQuery(
-    systemUser.productName,
-  );
 
   return (
     <ActionBar
@@ -40,8 +37,9 @@ export const SystemUserActionBar = ({
       <div>
         <div className={classes.rightsHeader}>
           <Heading level={3} size='xxsmall' spacing>
-            {!rights?.length && !isLoadingRights && t('authent_overviewpage.system_user_no_rights')}
-            {rights?.length && !isLoadingRights && t('authent_overviewpage.system_rights_header')}
+            {systemUser.rights.length
+              ? t('authent_overviewpage.system_rights_header')
+              : t('authent_overviewpage.system_user_no_rights')}
           </Heading>
           {false && (
             <Link asChild>
@@ -52,7 +50,7 @@ export const SystemUserActionBar = ({
             </Link>
           )}
         </div>
-        <RightsList rights={rights ?? []} />
+        <RightsList rights={systemUser.rights ?? []} />
       </div>
     </ActionBar>
   );

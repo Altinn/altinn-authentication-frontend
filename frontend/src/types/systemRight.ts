@@ -1,7 +1,7 @@
 import { ServiceResource } from './serviceResource';
 
 export interface SystemRight {
-  delegationResponseData: {
+  delegationResponseData?: {
     rightKey: string;
     resource: {
       id: string;
