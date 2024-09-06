@@ -84,9 +84,13 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.ChangeSystemUserRealProduct(selectedSystemType, id, cancellationToken);
     }
 
-    public async Task<List<RightFrontEnd>> GetSystemRights(int partyId, string systemId, CancellationToken cancellationToken)
+    public async Task<Result<List<RightFrontEnd>>> GetSystemRights(int partyId, string systemId, CancellationToken cancellationToken)
     {
         DelegationCheckResult delegationCheckFinalResult = await UserDelegationCheckForReportee(partyId, systemId, cancellationToken);
+        if (!delegationCheckFinalResult.CanDelegate || delegationCheckFinalResult.RightResponses is null) 
+        {
+            return Problem.Rights_NotFound_Or_NotDelegable;
+        }
         List<RightFrontEnd> rightFrontEnds = [];
         
         foreach (RightResponses rightResponses in delegationCheckFinalResult.RightResponses)

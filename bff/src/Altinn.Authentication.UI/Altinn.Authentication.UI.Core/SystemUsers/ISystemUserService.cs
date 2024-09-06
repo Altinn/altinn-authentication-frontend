@@ -38,5 +38,5 @@ public interface ISystemUserService
     /// </summary>
     Task<bool> ChangeSystemUserProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default);
 
-    Task<List<RightFrontEnd>> GetSystemRights(int partyId, string systemId, CancellationToken cancellationToken);
+    Task<Result<List<RightFrontEnd>>> GetSystemRights(int partyId, string systemId, CancellationToken cancellationToken);
 }
