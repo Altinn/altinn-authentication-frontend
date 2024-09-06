@@ -27,7 +27,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
     useUpdateSystemuserMutation();
   const { data: vendors } = useGetVendorsQuery();
 
-  const vendor = vendors?.find((x) => systemUser.productName === x.systemId);
+  const vendor = vendors?.find((x) => systemUser.systemId === x.systemId);
 
   const [name, setName] = useState<string>(systemUser.integrationTitle ?? '');
 
