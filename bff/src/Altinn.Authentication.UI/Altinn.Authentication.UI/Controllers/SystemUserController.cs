@@ -77,9 +77,14 @@ public class SystemUserController : ControllerBase
 
         if (partyId == 0) return actionResult;       
 
-        List<RightFrontEnd> rights = await _systemUserService.GetSystemRights(partyId, systemId, cancellationToken);
+        Result<List<RightFrontEnd>> rights = await _systemUserService.GetSystemRights(partyId, systemId, cancellationToken);
+        
+        if (rights.IsProblem)
+        {
+            return rights.Problem.ToActionResult();
+        }
 
-        return Ok(rights);
+        return Ok(rights.Value);
     }
 
     /// <summary>
