@@ -24,7 +24,7 @@ export const SystemUserActionBar = ({
 
   const { data: vendors } = useGetVendorsQuery();
 
-  const vendor = vendors?.find((vendor) => vendor.systemId === systemUser.productName);
+  const vendor = vendors?.find((vendor) => vendor.systemId === systemUser.systemId);
 
   return (
     <ActionBar
