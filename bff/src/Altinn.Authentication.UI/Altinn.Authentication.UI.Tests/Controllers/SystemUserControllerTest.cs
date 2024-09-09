@@ -41,11 +41,11 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
         var result = await response.Content.ReadAsStringAsync();
 
-        List<SystemUserDTO>? list = JsonSerializer.Deserialize<List<SystemUserDTO>>(result, jsonOptions);
+        List<SystemUser>? list = JsonSerializer.Deserialize<List<SystemUser>>(result, jsonOptions);
 
         Assert.True(response.IsSuccessStatusCode);
         Assert.True(list is not null);
         Assert.True(list[0].Id is not null);
-        Assert.True(list[0].ProductName is not null);
+        Assert.True(list[0].SystemId is not null);
     }
 }

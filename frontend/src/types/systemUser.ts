@@ -2,7 +2,7 @@ export interface SystemUser {
   id: string;
   integrationTitle: string;
   description: string;
-  productName: string;
+  systemId: string;
   supplierName: string;
   supplierOrgno: string;
   ownedByPartyId: string;

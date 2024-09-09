@@ -35,14 +35,6 @@ public class SystemUser
     public string SystemId { get; set; } = string.Empty;
 
     /// <summary>
-    /// Identifier for off the shelf systems, registered in the SystemRegister db.
-    /// Should be human readable (instead of a GUID) and unique string without whitespace.                
-    /// To be deprecated, use the systemId field going forward, it contains the same value.
-    /// </summary>
-    [JsonPropertyName("productName")]
-    public string ProductName { get { return SystemId; } set { } } 
-
-    /// <summary>
     /// The underlying identifier for the System for persistance in the db.        
     /// </summary>
     [JsonPropertyName("systemInternalId")]
