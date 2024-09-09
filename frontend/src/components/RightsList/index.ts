@@ -1,0 +1,1 @@
+export { RightsList } from './RightsList';

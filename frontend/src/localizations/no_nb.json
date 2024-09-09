@@ -91,6 +91,12 @@
     "included_rights_description": "Disse tjenestene er inkludert. Du kan administrere systemtilgangen på Altinn senere.",
     "accept": "Godta",
     "reject": "Avvis",
-    "org_nr": "org.nr."
+    "org_nr": "org.nr.",
+    "loading_creation_request": "Laster forespørsel",
+    "load_creation_request_error": "Kunne ikke laste tilgangs-forespørsel",
+    "accept_error": "Kunne ikke opprette systemtilgang",
+    "reject_error": "Kunne ikke avvise forespørsel",
+    "accept_loading": "Oppretter systemtilgang...",
+    "reject_loading": "Avviser forespørsel..."
   }
 }

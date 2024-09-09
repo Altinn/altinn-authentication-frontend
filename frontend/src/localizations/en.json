@@ -91,6 +91,12 @@
     "included_rights_description": "These services are included. You can modify the system access on Altinn later.",
     "accept": "Accept",
     "reject": "Reject",
-    "org_nr": "org.nr."
+    "org_nr": "org.nr.",
+    "loading_creation_request": "Laster request",
+    "load_creation_request_error": "Could not load creation request",
+    "accept_error": "Could not create system access",
+    "reject_error": "Could not reject request",
+    "accept_loading": "Creating system access...",
+    "reject_loading": "Rejecting request..."
   }
 }

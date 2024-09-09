@@ -8,7 +8,7 @@ import { useCreateSystemUserMutation, useGetVendorsQuery } from '@/rtk/features/
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
-import { RightsList } from '@/components/RightsList/RightsList';
+import { RightsList } from '@/components/RightsList';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)

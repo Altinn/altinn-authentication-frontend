@@ -5,6 +5,7 @@ export interface VendorSystem {
   systemVendorOrgName: string;
   systemVendorOrgNumber: string;
   systemName: string;
+  description: string;
   rights: SystemRight[];
   softDeleted: boolean;
   isVisible: boolean;

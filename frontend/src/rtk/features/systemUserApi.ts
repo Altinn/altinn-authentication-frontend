@@ -1,6 +1,6 @@
 import { url } from '@/utils/urlUtils';
 import { api } from './api';
-import { SystemUser, VendorSystem } from '@/types';
+import { SystemUser, SystemUserCreationRequest, VendorSystem } from '@/types';
 
 enum Tags {
   SystemUsers = 'Systemusers',
@@ -9,6 +9,11 @@ enum Tags {
 interface CreationRequest {
   integrationTitle: string;
   selectedSystemType: string;
+}
+
+interface CreationRequestResponse {
+  id: string;
+  redirectUrl: string;
 }
 
 const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers] });
@@ -49,6 +54,29 @@ export const systemUserApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: [Tags.SystemUsers],
     }),
+    getSystemUserRequest: builder.query<SystemUserCreationRequest, string>({
+      query: (requestId) => url`systemuser/requests/${requestId}`,
+    }),
+    acceptSystemUserRequest: builder.mutation<CreationRequestResponse, string>({
+      query: (creationRequestId) => ({
+        url: url`systemuser/requests/${creationRequestId}`,
+        method: 'POST',
+        body: {
+          accepted: true,
+        },
+      }),
+      invalidatesTags: [Tags.SystemUsers],
+    }),
+    rejectSystemUserRequest: builder.mutation<CreationRequestResponse, string>({
+      query: (creationRequestId) => ({
+        url: url`systemuser/requests/${creationRequestId}`,
+        method: 'POST',
+        body: {
+          accepted: false,
+        },
+      }),
+      invalidatesTags: [Tags.SystemUsers],
+    }),
   }),
 });
 
@@ -59,4 +87,7 @@ export const {
   useGetSystemUsersQuery,
   useUpdateSystemuserMutation,
   useGetVendorsQuery,
+  useGetSystemUserRequestQuery,
+  useAcceptSystemUserRequestMutation,
+  useRejectSystemUserRequestMutation,
 } = systemUserApi;
