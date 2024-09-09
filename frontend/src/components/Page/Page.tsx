@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import cn from 'classnames';
 
 import classes from './Page.module.css';
 import { PageHeader } from './';
@@ -8,9 +9,16 @@ export interface PageProps {
   icon?: React.JSX.Element;
   title?: string;
   color?: 'dark' | 'light' | 'success' | 'danger';
+  smallContentPadding?: boolean;
 }
 
-export const Page = ({ children, icon, title, color = 'dark' }: PageProps) => {
+export const Page = ({
+  children,
+  icon,
+  title,
+  color = 'dark',
+  smallContentPadding = false,
+}: PageProps) => {
   useEffect(() => {
     document.title = title ? `${title} - Altinn` : 'Altinn';
   }, [title]);
@@ -22,7 +30,11 @@ export const Page = ({ children, icon, title, color = 'dark' }: PageProps) => {
           {title}
         </PageHeader>
       )}
-      <div className={classes.pageContent}>{children}</div>
+      <div
+        className={cn({ [classes.smallContentPadding]: smallContentPadding }, classes.pageContent)}
+      >
+        {children}
+      </div>
     </div>
   );
 };

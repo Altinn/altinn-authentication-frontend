@@ -22,7 +22,6 @@
 .pageHeader.light {
   --component-page_header-background-color: var(--fds-semantic-surface-neutral-default);
   --component-page_header-color: var(--fds-semantic-text-neutral-default);
-  border-bottom: solid 1px var(--fds-semantic-border-neutral-subtle);
 }
 
 .pageHeader.success {

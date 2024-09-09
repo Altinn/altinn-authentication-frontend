@@ -157,7 +157,12 @@ export const VendorCreationPage = () => {
           </div>
         </div>
       </div>
-      <Page color='light' icon={<ApiIcon />} title={t('vendor_creation.banner_title')}>
+      <Page
+        color='light'
+        icon={<ApiIcon />}
+        title={t('vendor_creation.banner_title')}
+        smallContentPadding
+      >
         <VendorCreationPageContent system={system} />
       </Page>
     </div>

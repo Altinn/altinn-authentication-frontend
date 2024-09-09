@@ -29,7 +29,7 @@ export const VendorCreationPageContent = ({ system }: VendorCreationPageContentP
         <Heading level={3} size='xs'>
           {t('vendor_creation.rights_list_header')}
         </Heading>
-        <RightsList rights={[]} /> {/** TODO: fix rights */}
+        <RightsList rights={system.rights} />
       </div>
       <Paragraph>{t('vendor_creation.included_rights_description')}</Paragraph>
       <div className={classes.buttonRow}>
