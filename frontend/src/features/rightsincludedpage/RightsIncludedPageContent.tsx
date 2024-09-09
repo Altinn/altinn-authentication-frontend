@@ -97,7 +97,7 @@ export const RightsIncludedPageContent = () => {
             size='small'
             variant='primary'
             onClick={handleConfirm}
-            disabled={isCreatingSystemUser}
+            disabled={isCreatingSystemUser || isLoadRightsError}
             className={classes.successButton}
           >
             {isCreatingSystemUser && (
