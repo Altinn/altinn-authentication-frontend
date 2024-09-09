@@ -55,9 +55,4 @@ public class SystemUserClientIntegrationTest : IClassFixture<CustomWebApplicatio
 
         Assert.True(usr is not null);
     }
-
-
-
-
-
 }

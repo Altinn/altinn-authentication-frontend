@@ -92,14 +92,22 @@ public class SystemUserClientMock : ISystemUserClient
     {
         await Task.Delay(50);
         //var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);
-        SystemUser newSystemUser = MapDescriptorToSystemUser(newSystemUserDescriptor);
+        SystemUser newSystemUser = new ()
+        {
+            Created = System.DateTime.UtcNow,
+            Id = Guid.NewGuid().ToString(),
+            IsDeleted = false,
+            IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
+            PartyId = party.ToString(),
+            ReporteeOrgNo = newSystemUserDescriptor.ReporteeOrgNo!,
+            SystemId = newSystemUserDescriptor.SelectedSystemType!,            
+            SupplierOrgNo = newSystemUserDescriptor.SelectedSystemType!,// need to call Auth-System-Register to find the orgno, based on the system_id
+            SupplierName = newSystemUserDescriptor.SelectedSystemType!, // need to call Registry to find the name, based on the orgno
+            SystemInternalId = Guid.NewGuid()              
+        };
+
         _systemUserList.Add(newSystemUser);
         return newSystemUser;
-    }
-
-    private SystemUser MapDescriptorToSystemUser(CreateSystemUserRequestToAuthComp newSystemUserDescriptor)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
