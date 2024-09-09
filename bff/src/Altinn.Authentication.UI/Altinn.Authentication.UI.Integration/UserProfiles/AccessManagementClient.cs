@@ -11,9 +11,6 @@ using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Models;
 using System.Text;
 using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Platform.Register.Models;
-using Azure.Core;
-using System.IO;
 using Altinn.Authentication.UI.Core.Common.Rights;
 using System.Net.Http.Json;
 using Altinn.Authorization.ProblemDetails;
@@ -100,7 +97,7 @@ public class AccessManagementClient : IAccessManagementClient
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // GetPartyFromReporteeListIfExists // Exception");
+            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // GetParty // Exception");
             throw;
         }
     }
