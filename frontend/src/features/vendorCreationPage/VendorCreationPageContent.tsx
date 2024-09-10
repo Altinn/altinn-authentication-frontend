@@ -7,7 +7,7 @@ import { RightsList } from '@/components/RightsList';
 import { SystemUserCreationRequest } from '@/types';
 import { RightsError } from '@/components/RightsError';
 import {
-  useAcceptSystemUserRequestMutation,
+  useApproveSystemUserRequestMutation,
   useRejectSystemUserRequestMutation,
 } from '@/rtk/features/systemUserApi';
 import { AuthenticationRoute } from '@/routes/paths';
@@ -31,7 +31,7 @@ export const VendorCreationPageContent = ({
   const [
     postAcceptCreationRequest,
     { isError: isAcceptCreationRequestError, isLoading: isAcceptingSystemUser },
-  ] = useAcceptSystemUserRequestMutation();
+  ] = useApproveSystemUserRequestMutation();
 
   const [
     postRejectCreationRequest,
@@ -41,19 +41,19 @@ export const VendorCreationPageContent = ({
   const acceptSystemUser = () => {
     postAcceptCreationRequest(request.requestId)
       .unwrap()
-      .then((response) => redirectAfterAction(response.redirectUrl, response.id));
+      .then(() => redirectAfterAction(request.requestId));
   };
 
   const rejectSystemUser = () => {
     postRejectCreationRequest(request.requestId)
       .unwrap()
-      .then((response) => redirectAfterAction(response.redirectUrl, response.id));
+      .then(() => redirectAfterAction());
   };
 
-  const redirectAfterAction = (redirectUrl: string, createdId: string) => {
-    if (redirectUrl) {
+  const redirectAfterAction = (createdId?: string) => {
+    if (request.redirectUrl) {
       // logout and redirect
-      window.location.assign(redirectUrl);
+      window.location.assign(request.redirectUrl);
     } else {
       // redirect to overview page
       if (createdId) {

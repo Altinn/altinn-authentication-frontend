@@ -11,11 +11,6 @@ interface CreationRequest {
   selectedSystemType: string;
 }
 
-interface CreationRequestResponse {
-  id: string;
-  redirectUrl: string;
-}
-
 const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers] });
 
 export const systemUserApi = apiWithTag.injectEndpoints({
@@ -57,23 +52,17 @@ export const systemUserApi = apiWithTag.injectEndpoints({
     getSystemUserRequest: builder.query<SystemUserCreationRequest, string>({
       query: (requestId) => url`systemuser/requests/${requestId}`,
     }),
-    acceptSystemUserRequest: builder.mutation<CreationRequestResponse, string>({
+    approveSystemUserRequest: builder.mutation<void, string>({
       query: (creationRequestId) => ({
-        url: url`systemuser/requests/${creationRequestId}`,
+        url: url`systemuser/requests/${creationRequestId}/approve`,
         method: 'POST',
-        body: {
-          accepted: true,
-        },
       }),
       invalidatesTags: [Tags.SystemUsers],
     }),
-    rejectSystemUserRequest: builder.mutation<CreationRequestResponse, string>({
+    rejectSystemUserRequest: builder.mutation<void, string>({
       query: (creationRequestId) => ({
-        url: url`systemuser/requests/${creationRequestId}`,
+        url: url`systemuser/requests/${creationRequestId}/reject`,
         method: 'POST',
-        body: {
-          accepted: false,
-        },
       }),
       invalidatesTags: [Tags.SystemUsers],
     }),
@@ -88,6 +77,6 @@ export const {
   useUpdateSystemuserMutation,
   useGetVendorsQuery,
   useGetSystemUserRequestQuery,
-  useAcceptSystemUserRequestMutation,
+  useApproveSystemUserRequestMutation,
   useRejectSystemUserRequestMutation,
 } = systemUserApi;

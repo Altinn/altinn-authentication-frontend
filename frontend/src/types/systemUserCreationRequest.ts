@@ -6,5 +6,5 @@ export interface SystemUserCreationRequest {
   system: VendorSystem;
   status: string;
   singleRights: SystemRight[];
-  redirectUrl: string;
+  redirectUrl?: string;
 }
