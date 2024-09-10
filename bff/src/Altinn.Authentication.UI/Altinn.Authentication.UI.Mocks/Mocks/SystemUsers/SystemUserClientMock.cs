@@ -69,19 +69,6 @@ public class SystemUserClientMock : ISystemUserClient
     private readonly IAccessManagementClient _partyClient;
     private static List<SystemUser> _systemUserList = [];
 
-    private static SystemUserReal MapDescriptorToSystemUserReal(CreateSystemUserRequestToAuthComp sysdescr)
-    {
-        return new SystemUserReal()
-        {
-            Id = Guid.NewGuid().ToString(),
-            ClientId = Guid.NewGuid().ToString(), 
-            SystemType = sysdescr.SelectedSystemType,
-            Title = sysdescr.IntegrationTitle,
-            Created = DateTime.UtcNow.Date.ToString()
-
-        };       
-    }
-
     public SystemUserClientMock(HttpClient httpClient, IAccessManagementClient partyClient)
     {
         _partyClient = partyClient;
