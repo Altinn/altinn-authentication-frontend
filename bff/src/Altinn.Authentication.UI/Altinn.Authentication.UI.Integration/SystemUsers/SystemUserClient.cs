@@ -19,19 +19,6 @@ public class SystemUserClient : ISystemUserClient
     private readonly PlatformSettings _platformSettings;
     private readonly IAccessTokenProvider _accessTokenProvider;
 
-    private static SystemUserReal MapDescriptorToSystemUserReal(CreateSystemUserRequestToAuthComp sysdescr)
-    {
-        return new SystemUserReal()
-        {
-            Id = Guid.NewGuid().ToString(),
-            ClientId = Guid.NewGuid().ToString(), 
-            SystemType = sysdescr.SelectedSystemType,
-            Title = sysdescr.IntegrationTitle,
-            Created = DateTime.UtcNow.Date.ToString()
-
-        };       
-    }
-
     public SystemUserClient(
         ILogger<SystemUserClient> logger, 
         HttpClient httpClient, 
