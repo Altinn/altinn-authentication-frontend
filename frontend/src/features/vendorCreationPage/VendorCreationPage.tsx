@@ -8,16 +8,18 @@ import AltinnLogo from '@/assets/AltinnTextLogo.svg?react';
 import classes from './VendorCreationPageContent.module.css';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { useGetSystemUserRequestQuery } from '@/rtk/features/systemUserApi';
+import { useParams } from 'react-router-dom';
 
 export const VendorCreationPage = () => {
   const { t } = useTranslation();
+  const { id } = useParams();
 
   const { data: userInfo, isLoading: isLoadingUserInfo } = useGetLoggedInUserQuery();
   const {
     data: creationRequest,
     isLoading: isLoadingCreationRequest,
     isError: isLoadingCreationRequestError,
-  } = useGetSystemUserRequestQuery('123');
+  } = useGetSystemUserRequestQuery(id ?? '');
 
   const userCanCreateSystemUser = userInfo?.canCreateSystemUser;
 
