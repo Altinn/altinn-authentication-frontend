@@ -4,8 +4,16 @@ export interface VendorSystem {
   systemId: string;
   systemVendorOrgName: string;
   systemVendorOrgNumber: string;
-  systemName: string;
-  description: string;
+  systemName: {
+    nb: string;
+    nn: string;
+    en: string;
+  };
+  description?: {
+    nb: string;
+    nn: string;
+    en: string;
+  };
   rights: SystemRight[];
   softDeleted: boolean;
   isVisible: boolean;

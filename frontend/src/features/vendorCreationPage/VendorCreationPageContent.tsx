@@ -13,6 +13,7 @@ import {
 import { AuthenticationRoute } from '@/routes/paths';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
+import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 
 interface VendorCreationPageContentProps {
   request: SystemUserCreationRequest;
@@ -23,7 +24,8 @@ export const VendorCreationPageContent = ({
   request,
   canCreateSystemUser,
 }: VendorCreationPageContentProps) => {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -73,10 +75,10 @@ export const VendorCreationPageContent = ({
       <Paragraph>
         <Trans
           i18nKey={'vendor_creation.system_description'}
-          values={{ systemName: request.system.systemName }}
+          values={{ systemName: request.system.systemName[currentLanguage] }}
         ></Trans>
       </Paragraph>
-      <Paragraph>{request.system.description}</Paragraph>
+      <Paragraph>{request.system.description?.[currentLanguage]}</Paragraph>
       <div>
         <Heading level={3} size='xs'>
           {t('vendor_creation.rights_list_header')}
