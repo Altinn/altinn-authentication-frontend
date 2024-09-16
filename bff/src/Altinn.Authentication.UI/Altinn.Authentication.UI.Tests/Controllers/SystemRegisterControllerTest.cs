@@ -1,9 +1,7 @@
 ﻿using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Core.SystemRegister;
-using Altinn.Authentication.UI.Mocks.SystemRegister;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Altinn.Authentication.UI.Tests.Utils;
-using Altinn.Platform.Profile.Models;
 using System.Text.Json;
 using System.Net;
 using System.Net.Http.Headers;
@@ -16,7 +14,6 @@ public class SystemRegisterControllerTest : IClassFixture<CustomWebApplicationFa
 {
     private readonly CustomWebApplicationFactory<SystemRegisterController> _factory;
     private readonly HttpClient _client;
-    private readonly ISystemRegisterService _systemRegisterService;
     private readonly JsonSerializerOptions jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
     public SystemRegisterControllerTest(
@@ -24,7 +21,6 @@ public class SystemRegisterControllerTest : IClassFixture<CustomWebApplicationFa
     {
         _factory = factory;
         _client = SetupUtils.GetTestClient(_factory, false);
-        _systemRegisterService = new SystemRegisterService(new SystemRegisterClientMock(), new RegisterClientMock(), new ResourceRegistryClientMock());
     }
 
     [Fact]
@@ -34,9 +30,10 @@ public class SystemRegisterControllerTest : IClassFixture<CustomWebApplicationFa
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/systemregister");
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
         List<RegisterSystemResponse>? list = JsonSerializer.Deserialize<List<RegisterSystemResponse>>(await response.Content.ReadAsStringAsync(), jsonSerializerOptions);
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        
         Assert.True(list is not null && list.Count > 0);        
         Assert.True(list[0].SystemId is not null);
         Assert.True(list[0].SystemVendorOrgName is not null);
