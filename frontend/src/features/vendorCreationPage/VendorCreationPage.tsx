@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Heading, Spinner } from '@digdir/designsystemet-react';
+import { Alert, Spinner } from '@digdir/designsystemet-react';
 import { VendorCreationPageContent } from './VendorCreationPageContent';
 import AltinnLogo from '@/assets/AltinnLogoDefault.svg?react';
 import classes from './VendorCreationPageContent.module.css';
