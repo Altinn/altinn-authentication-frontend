@@ -6,9 +6,11 @@ import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 
 interface RightsListProps {
   rights: SystemRight[];
+  color?: 'light' | 'neutral';
+  includeHeader?: boolean;
 }
 
-export const RightsList = ({ rights }: RightsListProps): React.ReactNode => {
+export const RightsList = ({ rights, color = 'neutral' }: RightsListProps): React.ReactNode => {
   const { i18n } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
   return rights
@@ -19,7 +21,7 @@ export const RightsList = ({ rights }: RightsListProps): React.ReactNode => {
           key={productRight.serviceResource.identifier}
           title={productRight.serviceResource.title?.[currentLanguage]}
           subtitle={productRight.serviceResource?.hasCompetentAuthority?.name?.[currentLanguage]}
-          color='neutral'
+          color={color}
         >
           <div>{productRight.serviceResource.description?.[currentLanguage]}</div>
         </ActionBar>

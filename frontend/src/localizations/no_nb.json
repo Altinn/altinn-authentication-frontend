@@ -88,6 +88,7 @@
     "creation_header": "{{vendorName}} ber om godkjenning til å lage en systemtilgang",
     "system_description": "Gjennom en systemtilgang kan <strong>{{systemName}}</strong> løse oppgaver på vegne av bedriften din.",
     "rights_list_header": "Systemtilgangen vil inneholde disse tjenestene:",
+    "rights_list_header_single": "Systemtilgangen vil inneholde denne tjenesten:",
     "included_rights_description": "Disse tjenestene er inkludert. Du kan administrere systemtilgangen på Altinn senere.",
     "accept": "Godta",
     "reject": "Avvis",

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Spinner } from '@digdir/designsystemet-react';
-import { Page } from '@/components';
-import ApiIcon from '@/assets/Api.svg?react';
+import { Alert, Heading, Spinner } from '@digdir/designsystemet-react';
 import { VendorCreationPageContent } from './VendorCreationPageContent';
-import AltinnLogo from '@/assets/AltinnTextLogo.svg?react';
+import AltinnLogo from '@/assets/AltinnLogoDefault.svg?react';
 import classes from './VendorCreationPageContent.module.css';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { useGetSystemUserRequestQuery } from '@/rtk/features/systemUserApi';
@@ -24,25 +22,10 @@ export const VendorCreationPage = () => {
   const userCanCreateSystemUser = userInfo?.canCreateSystemUser;
 
   return (
-    <div className={classes.vendorCreationWrapper}>
-      <div className={classes.vendorCreationHeader}>
+    <div className={classes.vendorCreationPage}>
+      <div className={classes.vendorCreationWrapper}>
         <AltinnLogo />
-        {creationRequest && (
-          <div>
-            <div>{creationRequest?.system.systemVendorOrgName}</div>
-            <div>
-              {t('vendor_creation.org_nr')}{' '}
-              {creationRequest?.system.systemVendorOrgNumber.match(/.{1,3}/g)?.join(' ')}
-            </div>
-          </div>
-        )}
-      </div>
-      <Page
-        color='light'
-        icon={<ApiIcon />}
-        title={t('vendor_creation.banner_title')}
-        smallContentPadding
-      >
+        <Heading>{t('vendor_creation.banner_title')}</Heading>
         {isLoadingCreationRequestError && (
           <Alert severity='danger'>{t('vendor_creation.load_creation_request_error')}</Alert>
         )}
@@ -55,7 +38,7 @@ export const VendorCreationPage = () => {
             canCreateSystemUser={!!userCanCreateSystemUser}
           />
         )}
-      </Page>
+      </div>
     </div>
   );
 };

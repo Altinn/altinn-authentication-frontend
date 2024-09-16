@@ -69,7 +69,7 @@ export const VendorCreationPageContent = ({
     <div className={classes.vendorCreationContainer}>
       <Heading level={2} size='sm'>
         {t('vendor_creation.creation_header', {
-          vendorName: request.system.systemVendorOrgName,
+          vendorName: request.system.systemName[currentLanguage],
         })}
       </Heading>
       <Paragraph>
@@ -78,12 +78,13 @@ export const VendorCreationPageContent = ({
           values={{ systemName: request.system.systemName[currentLanguage] }}
         ></Trans>
       </Paragraph>
-      <Paragraph>{request.system.description?.[currentLanguage]}</Paragraph>
       <div>
         <Heading level={3} size='xs'>
-          {t('vendor_creation.rights_list_header')}
+          {request.singleRights.length === 1
+            ? t('vendor_creation.rights_list_header_single')
+            : t('vendor_creation.rights_list_header')}
         </Heading>
-        <RightsList rights={request.singleRights} />
+        <RightsList rights={request.singleRights} color='light' />
       </div>
       <Paragraph>{t('vendor_creation.included_rights_description')}</Paragraph>
       <div>
@@ -120,6 +121,10 @@ export const VendorCreationPageContent = ({
             {t('vendor_creation.reject')}
           </Button>
         </div>
+      </div>
+      <div className={classes.vendorInfo}>
+        {request.system.systemVendorOrgName}, {t('vendor_creation.org_nr')}{' '}
+        {request.system.systemVendorOrgNumber.match(/.{1,3}/g)?.join(' ')}
       </div>
     </div>
   );

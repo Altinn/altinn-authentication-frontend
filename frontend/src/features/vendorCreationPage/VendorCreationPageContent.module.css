@@ -11,19 +11,24 @@
   margin-top: var(--fds-spacing-4);
 }
 
+.vendorCreationPage {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
 .vendorCreationWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   margin-left: auto;
   margin-right: auto;
   min-width: 280px;
   max-width: 1056px;
-  width: 100%;
+  padding-top: 5rem;
 }
 
-.vendorCreationHeader {
-  display: flex;
-  justify-content: space-between;
-  background-color: #ffffff;
-  padding: 3rem 2rem;
-  min-height: 3rem;
-  margin-top: 2rem;
+.vendorInfo {
+  align-self: flex-end;
+  font-style: italic;
 }

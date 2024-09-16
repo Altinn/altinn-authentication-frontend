@@ -1,21 +1,18 @@
 .page {
   width: 100%;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
 }
 
 .pageContent {
   background-color: var(--fds-semantic-background-default);
   box-sizing: inherit;
-  --component-page-content-padding: var(--fds-spacing-12) var(--fds-spacing-26);
+  --component-page-content-padding: var(--fds-spacing-12);
   padding: var(--component-page-content-padding);
-}
-
-.pageContent.smallContentPadding {
-  --component-page-content-padding: var(--fds-spacing-8);
 }
 
 @media only screen and (max-width: 769px) {
   .pageContent {
-    --component-page-content-padding: var(--fds-spacing-4);
+    --component-page-content-padding: var(--fds-spacing-2);
   }
 }
