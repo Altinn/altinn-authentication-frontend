@@ -41,7 +41,9 @@
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",
     "sub_title": "Systemtilgangen vil innehalde desse tenestene",
+    "sub_title_single": "Systemtilgangen vil innehalde denne tenesten",
     "content_text": "Desse tenestene er førehandsvalde av fagsystemet.",
+    "content_text_single": "Denne tenesten er førehandsvald av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikkje oppretta systemtilgang",
     "creating_systemuser": "Opprettar systemtilgang..."

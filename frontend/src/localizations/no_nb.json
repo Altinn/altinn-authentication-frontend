@@ -41,7 +41,9 @@
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",
     "sub_title": "Systemtilgangen vil inneholde disse tjenestene",
+    "sub_title_single": "Systemtilgangen vil inneholde denne tjenesten",
     "content_text": "Disse tjenestene er forhåndsvalgt av fagsystemet.",
+    "content_text_single": "Denne tjenesten er forhåndsvalgt av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikke opprette systemtilgang",
     "creating_systemuser": "Oppretter systemtilgang..."
