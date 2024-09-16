@@ -65,6 +65,9 @@ export const VendorCreationPageContent = ({
     }
   };
 
+  const isActionButtonDisabled =
+    !canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser;
+
   return (
     <>
       <div className={classes.vendorCreationBlock}>
@@ -108,8 +111,12 @@ export const VendorCreationPageContent = ({
           <div className={classes.buttonRow}>
             <Button
               variant='primary'
-              disabled={!canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser}
-              onClick={() => acceptSystemUser()}
+              aria-disabled={isActionButtonDisabled}
+              onClick={() => {
+                if (!isActionButtonDisabled) {
+                  acceptSystemUser();
+                }
+              }}
             >
               {isAcceptingSystemUser && (
                 <Spinner size='small' title={t('vendor_creation.accept_loading')} />
@@ -118,8 +125,12 @@ export const VendorCreationPageContent = ({
             </Button>
             <Button
               variant='tertiary'
-              disabled={!canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser}
-              onClick={() => rejectSystemUser()}
+              aria-disabled={isActionButtonDisabled}
+              onClick={() => {
+                if (!isActionButtonDisabled) {
+                  rejectSystemUser();
+                }
+              }}
             >
               {isRejectingSystemUser && (
                 <Spinner size='small' title={t('vendor_creation.reject_loading')} />
