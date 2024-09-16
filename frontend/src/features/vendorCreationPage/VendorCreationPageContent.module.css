@@ -1,7 +1,30 @@
-.vendorCreationContainer {
+:root {
+  --vendor-container-padding: var(--fds-spacing-12);
+}
+
+.vendorCreationPage {
+  min-height: 100vh;
+  background-color: var(--fds-semantic-background-subtle);
+}
+
+.vendorCreationWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 280px;
+  max-width: 1056px;
+}
+
+.headerContainer {
+  padding: var(--vendor-container-padding);
+}
+
+.vendorCreationBlock {
   display: flex;
   flex-direction: column;
   gap: var(--fds-spacing-8);
+  background-color: var(--fds-semantic-background-default);
+  padding: var(--vendor-container-padding);
+  margin-bottom: 3px;
 }
 
 .buttonRow {
@@ -11,24 +34,10 @@
   margin-top: var(--fds-spacing-4);
 }
 
-.vendorCreationPage {
-  width: 100%;
-  min-height: 100vh;
-  background-color: #fff;
-}
-
-.vendorCreationWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 280px;
-  max-width: 1056px;
-  padding-top: 5rem;
-}
-
 .vendorInfo {
-  align-self: flex-end;
+  padding-top: var(--fds-spacing-4);
+  padding-right: var(--vendor-container-padding);
+  padding-bottom: var(--vendor-container-padding);
+  text-align: right;
   font-style: italic;
 }

@@ -24,8 +24,9 @@ export const VendorCreationPage = () => {
   return (
     <div className={classes.vendorCreationPage}>
       <div className={classes.vendorCreationWrapper}>
-        <AltinnLogo />
-        <Heading>{t('vendor_creation.banner_title')}</Heading>
+        <div className={classes.headerContainer}>
+          <AltinnLogo />
+        </div>
         {isLoadingCreationRequestError && (
           <Alert severity='danger'>{t('vendor_creation.load_creation_request_error')}</Alert>
         )}

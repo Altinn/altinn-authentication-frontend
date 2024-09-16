@@ -66,66 +66,76 @@ export const VendorCreationPageContent = ({
   };
 
   return (
-    <div className={classes.vendorCreationContainer}>
-      <Heading level={2} size='sm'>
-        {t('vendor_creation.creation_header', {
-          vendorName: request.system.systemName[currentLanguage],
-        })}
-      </Heading>
-      <Paragraph>
-        <Trans
-          i18nKey={'vendor_creation.system_description'}
-          values={{ systemName: request.system.systemName[currentLanguage] }}
-        ></Trans>
-      </Paragraph>
-      <div>
-        <Heading level={3} size='xs'>
-          {request.singleRights.length === 1
-            ? t('vendor_creation.rights_list_header_single')
-            : t('vendor_creation.rights_list_header')}
+    <>
+      <div className={classes.vendorCreationBlock}>
+        <Heading level={1} size='lg'>
+          {t('vendor_creation.banner_title')}
         </Heading>
-        <RightsList rights={request.singleRights} color='light' />
       </div>
-      <Paragraph>{t('vendor_creation.included_rights_description')}</Paragraph>
-      <div>
-        {!canCreateSystemUser && <RightsError />}
-        {isAcceptCreationRequestError && (
-          <Alert severity='danger' role='alert'>
-            {t('vendor_creation.accept_error')}
-          </Alert>
-        )}
-        {isRejectCreationRequestError && (
-          <Alert severity='danger' role='alert'>
-            {t('vendor_creation.reject_error')}
-          </Alert>
-        )}
-        <div className={classes.buttonRow}>
-          <Button
-            variant='primary'
-            disabled={!canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser}
-            onClick={() => acceptSystemUser()}
-          >
-            {isAcceptingSystemUser && (
-              <Spinner size='small' title={t('vendor_creation.accept_loading')} />
-            )}
-            {t('vendor_creation.accept')}
-          </Button>
-          <Button
-            variant='tertiary'
-            disabled={!canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser}
-            onClick={() => rejectSystemUser()}
-          >
-            {isRejectingSystemUser && (
-              <Spinner size='small' title={t('vendor_creation.reject_loading')} />
-            )}
-            {t('vendor_creation.reject')}
-          </Button>
+      <div className={classes.vendorCreationBlock}>
+        <Heading level={2} size='sm'>
+          {t('vendor_creation.creation_header', {
+            vendorName: request.system.systemName[currentLanguage],
+          })}
+        </Heading>
+        <Paragraph spacing>
+          <Trans
+            i18nKey={'vendor_creation.system_description'}
+            values={{ systemName: request.system.systemName[currentLanguage] }}
+          ></Trans>
+        </Paragraph>
+        <div>
+          <Heading level={3} size='xs'>
+            {request.singleRights.length === 1
+              ? t('vendor_creation.rights_list_header_single')
+              : t('vendor_creation.rights_list_header')}
+          </Heading>
+          <RightsList rights={request.singleRights} />
+        </div>
+        <Paragraph>{t('vendor_creation.withdraw_consent_info')}</Paragraph>
+        <div>
+          {!canCreateSystemUser && <RightsError />}
+          {isAcceptCreationRequestError && (
+            <Alert severity='danger' role='alert'>
+              {t('vendor_creation.accept_error')}
+            </Alert>
+          )}
+          {isRejectCreationRequestError && (
+            <Alert severity='danger' role='alert'>
+              {t('vendor_creation.reject_error')}
+            </Alert>
+          )}
+          <div className={classes.buttonRow}>
+            <Button
+              variant='primary'
+              disabled={!canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser}
+              onClick={() => acceptSystemUser()}
+            >
+              {isAcceptingSystemUser && (
+                <Spinner size='small' title={t('vendor_creation.accept_loading')} />
+              )}
+              {t('vendor_creation.accept')}
+            </Button>
+            <Button
+              variant='tertiary'
+              disabled={!canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser}
+              onClick={() => rejectSystemUser()}
+            >
+              {isRejectingSystemUser && (
+                <Spinner size='small' title={t('vendor_creation.reject_loading')} />
+              )}
+              {t('vendor_creation.reject')}
+            </Button>
+          </div>
         </div>
       </div>
-      <div className={classes.vendorInfo}>
-        {request.system.systemVendorOrgName}, {t('vendor_creation.org_nr')}{' '}
-        {request.system.systemVendorOrgNumber.match(/.{1,3}/g)?.join(' ')}
-      </div>
-    </div>
+      <Paragraph size='sm' className={classes.vendorInfo}>
+        {t('vendor_creation.org_nr', {
+          systemName: request.system.systemName[currentLanguage],
+          vendorName: request.system.systemVendorOrgName,
+          vendorOrg: request.system.systemVendorOrgNumber.match(/.{1,3}/g)?.join(' '),
+        })}
+      </Paragraph>
+    </>
   );
 };
