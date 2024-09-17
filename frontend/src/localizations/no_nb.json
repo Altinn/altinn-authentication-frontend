@@ -88,7 +88,7 @@
   "vendor_creation": {
     "banner_title": "Gi tilgang til system",
     "creation_header": "{{vendorName}} ber om godkjenning til å lage en systemtilgang",
-    "system_description": "Gjennom en systemtilgang kan <strong>{{systemName}}</strong> løse oppgaver på vegne av bedriften din.",
+    "system_description": "Gjennom en systemtilgang kan <strong>{{systemName}}</strong> løse oppgaver på vegne av <strong>{{partyName}}</strong>.",
     "rights_list_header": "Systemtilgangen vil inneholde disse tjenestene:",
     "rights_list_header_single": "Systemtilgangen vil inneholde denne tjenesten:",
     "withdraw_consent_info": "Du kan når som helst trekke tilbake godkjenningen og endre systemtilgangen på altinn.no.",

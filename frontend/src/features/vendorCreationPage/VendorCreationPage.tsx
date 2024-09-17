@@ -19,13 +19,19 @@ export const VendorCreationPage = () => {
     isError: isLoadingCreationRequestError,
   } = useGetSystemUserRequestQuery(id ?? '');
 
-  const userCanCreateSystemUser = userInfo?.canCreateSystemUser;
-
   return (
     <div className={classes.vendorCreationPage}>
       <div className={classes.vendorCreationWrapper}>
         <div className={classes.headerContainer}>
           <AltinnLogo />
+          {userInfo && (
+            <div>
+              <div>{userInfo?.loggedInPersonName}</div>
+              <div>
+                for <strong>{userInfo?.representingPartyName}</strong>
+              </div>
+            </div>
+          )}
         </div>
         {isLoadingCreationRequestError && (
           <Alert severity='danger'>{t('vendor_creation.load_creation_request_error')}</Alert>
@@ -33,11 +39,8 @@ export const VendorCreationPage = () => {
         {(isLoadingUserInfo || isLoadingCreationRequest) && (
           <Spinner title={t('vendor_creation.loading')} />
         )}
-        {creationRequest && (
-          <VendorCreationPageContent
-            request={creationRequest}
-            canCreateSystemUser={!!userCanCreateSystemUser}
-          />
+        {creationRequest && userInfo && (
+          <VendorCreationPageContent request={creationRequest} userInfo={userInfo} />
         )}
       </div>
     </div>

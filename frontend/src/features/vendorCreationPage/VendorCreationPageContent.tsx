@@ -4,7 +4,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
 import classes from './VendorCreationPageContent.module.css';
 import { RightsList } from '@/components/RightsList';
-import { SystemUserCreationRequest } from '@/types';
+import { ProfileInfo, SystemUserCreationRequest } from '@/types';
 import { RightsError } from '@/components/RightsError';
 import {
   useApproveSystemUserRequestMutation,
@@ -17,12 +17,12 @@ import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 
 interface VendorCreationPageContentProps {
   request: SystemUserCreationRequest;
-  canCreateSystemUser: boolean;
+  userInfo: ProfileInfo;
 }
 
 export const VendorCreationPageContent = ({
   request,
-  canCreateSystemUser,
+  userInfo,
 }: VendorCreationPageContentProps) => {
   const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
@@ -66,7 +66,7 @@ export const VendorCreationPageContent = ({
   };
 
   const isActionButtonDisabled =
-    !canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser;
+    !userInfo.canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser;
 
   return (
     <>
@@ -84,7 +84,10 @@ export const VendorCreationPageContent = ({
         <Paragraph spacing>
           <Trans
             i18nKey={'vendor_creation.system_description'}
-            values={{ systemName: request.system.systemName[currentLanguage] }}
+            values={{
+              systemName: request.system.systemName[currentLanguage],
+              partyName: userInfo.representingPartyName,
+            }}
           ></Trans>
         </Paragraph>
         <div>
@@ -97,7 +100,7 @@ export const VendorCreationPageContent = ({
         </div>
         <Paragraph>{t('vendor_creation.withdraw_consent_info')}</Paragraph>
         <div>
-          {!canCreateSystemUser && <RightsError />}
+          {!userInfo.canCreateSystemUser && <RightsError />}
           {isAcceptCreationRequestError && (
             <Alert severity='danger' role='alert'>
               {t('vendor_creation.accept_error')}

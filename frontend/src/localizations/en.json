@@ -88,7 +88,7 @@
   "vendor_creation": {
     "banner_title": "Give access to system",
     "creation_header": "{{vendorName}} is requesting permission to create a system access",
-    "system_description": "Through a system access <strong>{{systemName}}</strong> will be able to solve issues on behalf of your company.",
+    "system_description": "Through a system access <strong>{{systemName}}</strong> will be able to solve issues on behalf of <strong>{{partyName}}</strong>.",
     "rights_list_header": "The system access will contain these services:",
     "rights_list_header_single": "The system access will contain this service:",
     "withdraw_consent_info": "You can withdraw your consent or change the system access at altinn.no at any time.",
