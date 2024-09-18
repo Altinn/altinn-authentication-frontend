@@ -11,6 +11,10 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Altinn.Common.PEP.Interfaces;
+using Altinn.Authentication.UI.Core.SystemRegister;
+using Altinn.Authentication.UI.Mocks.SystemRegister;
+using Altinn.Authentication.UI.Core.SystemUsers;
+using Altinn.Authentication.UI.Mocks.SystemUsers;
 
 namespace Altinn.Authentication.UI.Tests.Utils;
 
@@ -22,8 +26,13 @@ public static class SetupUtils
         WebApplicationFactory<T> factory = customerFactory.WithWebHostBuilder(builder =>
         {
             builder.ConfigureTestServices(services =>
-            {                                
+            {
                 services.AddTransient<IAuthenticationClient, AuthenticationClientMock>();
+                services.AddTransient<IRegisterClient, RegisterClientMock>();
+                services.AddTransient<ISystemRegisterClient, SystemRegisterClientMock>();
+                services.AddTransient<ISystemUserClient, SystemUserClientMock>();
+                services.AddTransient<IAccessManagementClient, PartyClientMock>();
+                services.AddTransient<IResourceRegistryClient, ResourceRegistryClientMock>();
                 services.AddTransient<IUserProfileClient, UserProfileClientMock>();
                 services.AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
                 services.AddSingleton<IPDP, PdpPermitMock>();
@@ -53,5 +62,10 @@ public static class SetupUtils
         {
             req.Headers.Add("X-XSRF-TOKEN", xsrfToken);
         }
+    }
+
+    public static void AddAltinnPartyCookie(HttpRequestMessage req, string reporteePartyId)
+    {
+        req.Headers.Add("Cookie", "AltinnPartyId" + "=" + reporteePartyId);
     }
 }

@@ -80,7 +80,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [AT21, AT22]
+        environment: [AT22]
     uses: "./.github/workflows/template-test-playwright.yml"
     with:
       environment: ${{ matrix.environment }}

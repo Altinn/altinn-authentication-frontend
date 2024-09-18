@@ -8,7 +8,7 @@ enum TestNames {
 }
 
 dotenv.config({
-  path: path.resolve(__dirname, `config/.env.${process.env.environment ?? 'at22'}`),
+  path: path.resolve(__dirname, `config/.env.${process.env.environment ?? 'AT22'}`),
 });
 
 /**
@@ -32,6 +32,7 @@ export default defineConfig({
       },
     ],
   ],
+  outputDir: `test-results/${process.env.environment?.toUpperCase() ?? 'AT22'}`,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     headless: true,

@@ -1,27 +1,12 @@
 ﻿using Altinn.Authentication.UI.Controllers;
-using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Authentication.UI.Core.UserProfiles;
-using Altinn.Authentication.UI.Mocks.UserProfiles;
-using Altinn.Authentication.UI.Mocks.Mocks;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Altinn.Authentication.UI.Models;
 using Altinn.Authentication.UI.Tests.Utils;
-using Altinn.Common.PEP.Interfaces;
 using Altinn.Platform.Profile.Models;
-using AltinnCore.Authentication.JwtCookie;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json;
 using Xunit;
-using Microsoft.Extensions.Logging;
-//using Moq;
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
 
@@ -30,16 +15,14 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
 {
     private readonly CustomWebApplicationFactory<ProfileController> _factory;
     private readonly HttpClient _client;
-    private readonly IUserProfileService _userProfileService;   
+    private readonly JsonSerializerOptions jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
     public ProfileControllerTest(
         CustomWebApplicationFactory<ProfileController> factory
         )        
     {
         _factory = factory;
-        //_userProfileClient = new UserProfileClientMock(); //Mock.Of<IUserProfileClient>();
-        _userProfileService = new UserProfileService(null,  new UserProfileClientMock() );
-        _client = SetupUtils.GetTestClient(_factory, false);
+        _client = SetupUtils.GetTestClient(_factory);
     }
 
     private static UserProfile GetMockedUserProfile(int id)
@@ -56,7 +39,7 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
             Party = new Platform.Register.Models.Party()
             {
                 PartyId = 5001,
-                OrgNumber = "123456789MVA",
+                OrgNumber = "123456789",
                 Name = "Ei kul bedrift"
             },
             ProfileSettingPreference = new ProfileSettingPreference
@@ -81,16 +64,15 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/profile/user");        
         SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
+        SetupUtils.AddAltinnPartyCookie(request, "5001");
         
-        HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
-                
-        UserProfile userProfile = await _userProfileService.GetUserProfile(userId);
+        HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead); 
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         var content = response.Content;
         var temp = await content.ReadAsStringAsync();
-        ProfileInfo? result = JsonSerializer.Deserialize<ProfileInfo>(temp);
-        Assert.Equal(userProfile.UserName, result?.LoggedInPersonName);
+        ProfileInfo? result = JsonSerializer.Deserialize<ProfileInfo>(temp, jsonSerializerOptions);
+        Assert.Equal(user.UserName, result?.LoggedInPersonName);
     }
 
     [Fact]
@@ -98,7 +80,7 @@ public class ProfileControllerTest : IClassFixture<CustomWebApplicationFactory<P
     {
         HttpRequestMessage request = new(HttpMethod.Get, $"authfront/api/v1/profile/user");
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
-        Assert.NotEqual(HttpStatusCode.OK , response.StatusCode);
+        Assert.Equal(HttpStatusCode.Unauthorized , response.StatusCode);
     }
 
     //[Fact]

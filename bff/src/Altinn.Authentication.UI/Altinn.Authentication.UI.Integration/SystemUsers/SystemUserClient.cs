@@ -19,19 +19,6 @@ public class SystemUserClient : ISystemUserClient
     private readonly PlatformSettings _platformSettings;
     private readonly IAccessTokenProvider _accessTokenProvider;
 
-    private static SystemUserReal MapDescriptorToSystemUserReal(CreateSystemUserRequestToAuthComp sysdescr)
-    {
-        return new SystemUserReal()
-        {
-            Id = Guid.NewGuid().ToString(),
-            ClientId = Guid.NewGuid().ToString(), 
-            SystemType = sysdescr.SelectedSystemType,
-            Title = sysdescr.IntegrationTitle,
-            Created = DateTime.UtcNow.Date.ToString()
-
-        };       
-    }
-
     public SystemUserClient(
         ILogger<SystemUserClient> logger, 
         HttpClient httpClient, 
@@ -70,8 +57,8 @@ public class SystemUserClient : ISystemUserClient
     {      
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"systemuser/{partyOrgNo}";
-        //var accessToken = await _accessTokenProvider.GetAccessToken();
+        string endpointUrl = $"systemuser/{partyId}";
+        var accessToken = await _accessTokenProvider.GetAccessToken();
 
         _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUserDescriptor} ");
 

@@ -59,7 +59,7 @@ export const CreationPageContent = () => {
               dispatch(
                 setSelectedSystemType({
                   systemId: newValue[0],
-                  friendlySystemName: system?.systemName ?? '',
+                  friendlySystemName: system?.name.nb ?? '',
                 }),
               );
             }
@@ -71,7 +71,7 @@ export const CreationPageContent = () => {
             }
             const isOrgNrMatch = isStringMatch(inputValue, vendor.systemVendorOrgNumber);
             const isOrgNameMatch = isStringMatch(inputValue, vendor.systemVendorOrgName);
-            const isSystemNameMatch = isStringMatch(inputValue, vendor.systemName);
+            const isSystemNameMatch = isStringMatch(inputValue, vendor.name.nb);
             return isOrgNrMatch || isOrgNameMatch || isSystemNameMatch;
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
@@ -85,7 +85,7 @@ export const CreationPageContent = () => {
                   value={vendor.systemId}
                   description={`${vendor.systemVendorOrgName} (${vendor.systemVendorOrgNumber})`}
                 >
-                  {vendor.systemName}
+                  {vendor.name.nb}
                 </Combobox.Option>
               );
             })}

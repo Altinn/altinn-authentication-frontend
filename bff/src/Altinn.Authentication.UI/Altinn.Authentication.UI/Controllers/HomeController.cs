@@ -1,5 +1,4 @@
-﻿using Altinn.Authentication.UI.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.Extensions.Options;
 using System.Web;
@@ -23,7 +22,6 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly IAntiforgery _antiforgery;
     private readonly IWebHostEnvironment _env;
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IUserProfileService _profileService;
     private readonly GeneralSettings _generalSettings;
     private readonly PlatformSettings _platformSettings;
@@ -31,19 +29,16 @@ public class HomeController : Controller
     /// <summary>
     ///     Initializes a new instance of the <see cref="HomeController" /> class.
     /// </summary>
-    /// <param name="frontEndEntrypoints">Configuration of frontend entry points</param>
     /// <param name="antiforgery">the anti forgery service</param>
     /// <param name="platformSettings">settings related to the platform</param>
     /// <param name="env">the current environment</param>
     /// <param name="profileService">service implementation for user profile</param>
-    /// <param name="httpContextAccessor">http context</param>
     /// <param name="generalSettings">general settings</param>
     /// <param name="logger">logger</param>
     public HomeController(
         IUserProfileService profileService,
         IAntiforgery antiforgery,
         IWebHostEnvironment env,
-        IHttpContextAccessor httpContextAccessor,
         IOptions<PlatformSettings> platformSettings,
         IOptions<GeneralSettings> generalSettings,
         ILogger<HomeController> logger)
@@ -51,7 +46,6 @@ public class HomeController : Controller
         _logger = logger;
         _antiforgery = antiforgery;
         _env = env;
-        _httpContextAccessor = httpContextAccessor;
         _profileService = profileService;
         _generalSettings = generalSettings.Value;
         _platformSettings = platformSettings.Value;
@@ -85,17 +79,12 @@ public class HomeController : Controller
             });
         }
 
-        //return View();
-
         if (await ShouldShowAppView())
         {
             return View();
         }
 
-        string goToUrl = HttpUtility.UrlEncode($"{_generalSettings.FrontendBaseUrl}{Request.Path}");
-        //string goToUrl = "https://localhost:7170/authfront/ui/home";
-        //string authApiEndpoint = "http://localhost:5101/authentication/api/v1/openid";
-        //string redirectUrl = authApiEndpoint + "?goto=" + goToUrl;
+        string goToUrl = HttpUtility.UrlEncode($"{_generalSettings.FrontendBaseUrl}{Request.Path}{Request.QueryString}");
         string redirectUrl = $"{_platformSettings.ApiAuthenticationEndpoint}authentication?goto={goToUrl}";
         return Redirect(redirectUrl);
 
@@ -103,17 +92,11 @@ public class HomeController : Controller
 
     private async Task SetLanguageCookie()        
     {
-        int userId = 0;
-        var context = _httpContextAccessor.HttpContext;
-        if (context is not null)
-        {
-            userId = AuthenticationHelper.GetUserId(context);
-        }
-        //int userId = 007;
+        int userId = AuthenticationHelper.GetUserId(HttpContext);
+    
         UserProfile userProfile = await _profileService.GetUserProfile(userId);
-        AntiforgeryTokenSet token = _antiforgery.GetAndStoreTokens(HttpContext); 
+        _antiforgery.GetAndStoreTokens(HttpContext);
         string language = ProfileHelper.GetStandardLanguageCodeIsoStandard(userProfile, HttpContext);
-        //string language = "no_nb";
 
         HttpContext.Response.Cookies.Append("i18next", language, new CookieOptions
         {   //Cookie should now be readable by javascript

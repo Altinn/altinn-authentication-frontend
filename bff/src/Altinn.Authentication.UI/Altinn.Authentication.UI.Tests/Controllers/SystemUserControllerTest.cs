@@ -1,13 +1,10 @@
 ﻿using Altinn.Authentication.UI.Controllers;
 using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Authentication.UI.Mocks.SystemUsers;
 using Altinn.Authentication.UI.Mocks.Utils;
 using Altinn.Authentication.UI.Tests.Utils;
 using System.Text.Json;
 using System.Net.Http.Headers;
 using Xunit;
-using Altinn.Authentication.UI.Mocks.UserProfiles;
-using Altinn.Authentication.UI.Mocks.SystemRegister; 
 
 namespace Altinn.Authentication.UI.Tests.Controllers;
 
@@ -16,7 +13,6 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
 {
     private readonly CustomWebApplicationFactory<SystemUserController> _factory;
     private readonly HttpClient _client;
-    private readonly SystemUserService _systemUserService;
     private readonly JsonSerializerOptions jsonOptions = new()
     {
         PropertyNameCaseInsensitive = true 
@@ -25,8 +21,7 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
     public SystemUserControllerTest(CustomWebApplicationFactory<SystemUserController> factory)
     {
         _factory = factory;
-        _client = SetupUtils.GetTestClient(factory);
-        _systemUserService = new SystemUserService(new SystemUserClientMock(_client, new PartyClientMock()), new PartyClientMock(), new SystemRegisterClientMock());
+        _client = SetupUtils.GetTestClient(_factory);
     }
 
     [Fact]
@@ -38,14 +33,17 @@ public class SystemUserControllerTest :IClassFixture<CustomWebApplicationFactory
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
+        SetupUtils.AddAuthCookie(request, token, "AltinnStudioRuntime");
+        SetupUtils.AddAltinnPartyCookie(request, "5001");
+
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
         var result = await response.Content.ReadAsStringAsync();
 
-        List<SystemUserDTO>? list = JsonSerializer.Deserialize<List<SystemUserDTO>>(result, jsonOptions);
+        List<SystemUser>? list = JsonSerializer.Deserialize<List<SystemUser>>(result, jsonOptions);
 
         Assert.True(response.IsSuccessStatusCode);
         Assert.True(list is not null);
         Assert.True(list[0].Id is not null);
-        Assert.True(list[0].ProductName is not null);
+        Assert.True(list[0].SystemId is not null);
     }
 }

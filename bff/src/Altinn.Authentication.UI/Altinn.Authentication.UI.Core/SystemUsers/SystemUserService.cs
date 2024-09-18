@@ -61,6 +61,7 @@ public class SystemUserService : ISystemUserService
         AuthorizedPartyExternal? party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
         if(party is null) {return Problem.Reportee_Orgno_NotFound;}
         string partyOrgNo = party.OrganizationNumber;
+        newSystemUserDescriptor.ReporteeOrgNo = partyOrgNo;
 
         DelegationCheckResult delegationCheckFinalResult = await UserDelegationCheckForReportee(partyId, newSystemUserDescriptor.SelectedSystemType!, cancellation);
         if (!delegationCheckFinalResult.CanDelegate || delegationCheckFinalResult.RightResponses is null) {return Problem.Rights_NotFound_Or_NotDelegable;}
@@ -68,8 +69,8 @@ public class SystemUserService : ISystemUserService
         SystemUser? systemUser = await _systemUserClient.PostNewSystemUserReal(partyId, newSystemUserDescriptor, cancellation);
         if (systemUser is null) {return Problem.SystemUser_FailedToCreate;}
 
-        bool delegationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, delegationCheckFinalResult.RightResponses);
-        if (!delegationSucceeded) { return Problem.Rights_FailedToDelegate;}
+        Result<bool> delegationSucceeded = await _accessManagementClient.DelegateRightToSystemUser(partyId.ToString(),systemUser, delegationCheckFinalResult.RightResponses);
+        if (delegationSucceeded.IsProblem) { return delegationSucceeded.Problem;}
 
         return systemUser;
     }

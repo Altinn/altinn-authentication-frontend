@@ -11,10 +11,10 @@ using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Models;
 using System.Text;
 using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Platform.Register.Models;
-using Azure.Core;
-using System.IO;
 using Altinn.Authentication.UI.Core.Common.Rights;
+using System.Net.Http.Json;
+using Altinn.Authorization.ProblemDetails;
+using Altinn.Authentication.UI.Core.Common.Problems;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 
@@ -97,7 +97,7 @@ public class AccessManagementClient : IAccessManagementClient
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // GetPartyFromReporteeListIfExists // Exception");
+            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // GetParty // Exception");
             throw;
         }
     }
@@ -124,22 +124,33 @@ public class AccessManagementClient : IAccessManagementClient
     }
 
     /// <inheritdoc />
-    public async Task<bool> DelegateRightToSystemUser(string partyId, SystemUser systemUser, List<RightResponses> responseData)
+    public async Task<Result<bool>> DelegateRightToSystemUser(string partyId, SystemUser systemUser, List<RightResponses> responseData)
+    {
+
+        foreach (RightResponses rightResponse in responseData)
+        {
+            if (! await DelegateSingleRightToSystemUser(partyId, systemUser, rightResponse) )
+            {
+                return Problem.Rights_FailedToDelegate;
+            };
+        }
+
+        return true;
+    }
+
+    private async Task<bool> DelegateSingleRightToSystemUser(string partyId, SystemUser systemUser, RightResponses rightResponses)
     {
         List<Right> rights = [];
 
-        foreach (RightResponses outer in responseData)
-        {   
-            foreach (DelegationResponseData inner in outer.ResponseDataSet)
+        foreach (DelegationResponseData inner in rightResponses.ResponseDataSet)
+        {
+            Right right = new()
             {
-                Right right = new()
-                {
-                    Action = inner.Action,
-                    Resource = inner.Resource,
-                };
+                Action = inner.Action,
+                Resource = inner.Resource,
+            };
 
-                rights.Add(right);
-            }
+            rights.Add(right);
         }
 
         DelegationRequest rightsDelegationRequest = new()
@@ -160,9 +171,7 @@ public class AccessManagementClient : IAccessManagementClient
         {
             string endpointUrl = $"internal/{partyId}/rights/delegation/offered";
             string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-            StringContent requestBody = new(JsonSerializer.Serialize(rightsDelegationRequest, _serializerOptions), Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
-            
+            HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, JsonContent.Create(rightsDelegationRequest));
 
             response.EnsureSuccessStatusCode();
 
@@ -170,8 +179,9 @@ public class AccessManagementClient : IAccessManagementClient
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // DelegateRightToSystemUser // Exception");
+            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // DelegateSingleRightToSystemUser // Exception");
             throw;
         }
+
     }
 }
