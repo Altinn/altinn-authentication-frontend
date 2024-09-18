@@ -8,6 +8,6 @@ internal class RequestService(
 {
     public Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId)
     {
-        requestClient.GetVendorRequest(partyId, requestId);
+        return requestClient.GetVendorRequest(partyId, requestId);
     }
 }
