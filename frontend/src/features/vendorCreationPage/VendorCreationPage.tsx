@@ -27,9 +27,7 @@ export const VendorCreationPage = () => {
           {userInfo && (
             <div>
               <div>{userInfo?.loggedInPersonName}</div>
-              <div>
-                for <strong>{userInfo?.representingPartyName}</strong>
-              </div>
+              <div>for {userInfo?.representingPartyName}</div>
             </div>
           )}
         </div>
