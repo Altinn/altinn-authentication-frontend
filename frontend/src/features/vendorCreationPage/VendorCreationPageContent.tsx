@@ -41,13 +41,13 @@ export const VendorCreationPageContent = ({
   ] = useRejectSystemUserRequestMutation();
 
   const acceptSystemUser = () => {
-    postAcceptCreationRequest(request.requestId)
+    postAcceptCreationRequest(request.id)
       .unwrap()
-      .then(() => redirectAfterAction(request.requestId));
+      .then(() => redirectAfterAction(request.id));
   };
 
   const rejectSystemUser = () => {
-    postRejectCreationRequest(request.requestId)
+    postRejectCreationRequest(request.id)
       .unwrap()
       .then(() => redirectAfterAction());
   };
@@ -92,11 +92,11 @@ export const VendorCreationPageContent = ({
         </Paragraph>
         <div>
           <Heading level={3} size='xs'>
-            {request.singleRights.length === 1
+            {request.rights.length === 1
               ? t('vendor_creation.rights_list_header_single')
               : t('vendor_creation.rights_list_header')}
           </Heading>
-          <RightsList rights={request.singleRights} />
+          <RightsList rights={request.rights} />
         </div>
         <Paragraph>{t('vendor_creation.withdraw_consent_info')}</Paragraph>
         <div>
