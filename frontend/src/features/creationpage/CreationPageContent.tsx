@@ -61,7 +61,7 @@ export const CreationPageContent = () => {
               dispatch(
                 setSelectedSystemType({
                   systemId: newValue[0],
-                  friendlySystemName: system?.systemName[currentLanguage] ?? '',
+                  friendlySystemName: system?.name[currentLanguage] ?? '',
                 }),
               );
             }
@@ -73,7 +73,7 @@ export const CreationPageContent = () => {
             }
             const isOrgNrMatch = isStringMatch(inputValue, vendor.systemVendorOrgNumber);
             const isOrgNameMatch = isStringMatch(inputValue, vendor.systemVendorOrgName);
-            const isSystemNameMatch = isStringMatch(inputValue, vendor.systemName[currentLanguage]);
+            const isSystemNameMatch = isStringMatch(inputValue, vendor.name[currentLanguage]);
             return isOrgNrMatch || isOrgNameMatch || isSystemNameMatch;
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
@@ -87,7 +87,7 @@ export const CreationPageContent = () => {
                   value={vendor.systemId}
                   description={`${vendor.systemVendorOrgName} (${vendor.systemVendorOrgNumber})`}
                 >
-                  {vendor.systemName[currentLanguage]}
+                  {vendor.name[currentLanguage]}
                 </Combobox.Option>
               );
             })}

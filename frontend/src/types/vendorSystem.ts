@@ -4,12 +4,7 @@ export interface VendorSystem {
   systemId: string;
   systemVendorOrgName: string;
   systemVendorOrgNumber: string;
-  systemName: {
-    nb: string;
-    nn: string;
-    en: string;
-  };
-  description?: {
+  name: {
     nb: string;
     nn: string;
     en: string;

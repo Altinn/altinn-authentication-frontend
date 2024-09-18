@@ -13,7 +13,12 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemId = "4human_hr_system_2024_2",
             SystemVendorOrgName = "4Human",
-            SystemName = "4Humans HR system 2024 versjon.",
+            Name = new Dictionary<string, string>
+            {
+                {"nb", "4Humans HR system 2024 versjon." },
+                {"en", "4Humans HR system 2024 versjon." },
+                {"nn", "4Humans HR system 2024 versjon." }
+            },
             Rights =
             [
                 
@@ -24,7 +29,12 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemId = "din_lokale_regnskapspartner",
             SystemVendorOrgName = "Din Lokale Regnskapspartner AS",
-            SystemName = "Regnskap og Revisor tjenester",
+            Name = new Dictionary<string, string>
+            {
+                {"nb", "4Humans HR system 2024 versjon." },
+                {"en", "4Humans HR system 2024 versjon." },
+                {"nn", "4Humans HR system 2024 versjon." }
+            },
             Rights =
             [
                 
@@ -35,7 +45,12 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemId = "fiken_smabedrift",
             SystemVendorOrgName = "Fiken",
-            SystemName = "Fiken Småbedrift pakken",
+            Name = new Dictionary<string, string>
+            {
+                {"nb", "4Humans HR system 2024 versjon." },
+                {"en", "4Humans HR system 2024 versjon." },
+                {"nn", "4Humans HR system 2024 versjon." }
+            },
             Rights =
             [
                 
@@ -46,7 +61,12 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemId = "visma_mva_pakke",
             SystemVendorOrgName = "Visma",
-            SystemName = "Visma MVA rapportering",
+            Name = new Dictionary<string, string>
+            {
+                {"nb", "4Humans HR system 2024 versjon." },
+                {"en", "4Humans HR system 2024 versjon." },
+                {"nn", "4Humans HR system 2024 versjon." }
+            },
             Rights =
             [
             ]
@@ -57,7 +77,12 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         {
             SystemId = "visma_skatt_totalpakke",
             SystemVendorOrgName = "Visma",
-            SystemName = "Visma Totalpakke for alle skatterapporterings behov",
+            Name = new Dictionary<string, string>
+            {
+                {"nb", "4Humans HR system 2024 versjon." },
+                {"en", "4Humans HR system 2024 versjon." },
+                {"nn", "4Humans HR system 2024 versjon." }
+            },
             Rights =
             [
                 
