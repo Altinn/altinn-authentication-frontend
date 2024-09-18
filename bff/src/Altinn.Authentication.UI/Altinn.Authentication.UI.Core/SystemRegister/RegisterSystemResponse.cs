@@ -55,11 +55,6 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         public required IDictionary<string, string> Name { get; set; }
 
         /// <summary>
-        /// A short description of the product, used when displaying to the user
-        /// </summary>
-        public required IDictionary<string, string> Description { get; set; }
-
-        /// <summary>
         /// The array of Rights versus System Provider's Resources needed to use this Registered System
         /// </summary>
         public List<RightFrontEnd> Rights { get; set; } = [];
