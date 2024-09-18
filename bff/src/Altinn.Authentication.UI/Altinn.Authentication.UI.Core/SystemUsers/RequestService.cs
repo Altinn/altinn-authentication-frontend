@@ -2,6 +2,10 @@
 
 namespace Altinn.Authentication.UI.Core.SystemUsers;
 
+/// <summary>
+/// Request Service
+/// </summary>
+/// <param name="requestClient">The client</param>
 internal class RequestService(
     IRequestClient requestClient
     ) : IRequestService
