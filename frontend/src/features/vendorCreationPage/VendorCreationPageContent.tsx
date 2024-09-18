@@ -78,14 +78,14 @@ export const VendorCreationPageContent = ({
       <div className={classes.vendorCreationBlock}>
         <Heading level={2} size='sm'>
           {t('vendor_creation.creation_header', {
-            vendorName: request.system.systemName[currentLanguage],
+            vendorName: request.system.name[currentLanguage],
           })}
         </Heading>
         <Paragraph spacing>
           <Trans
             i18nKey={'vendor_creation.system_description'}
             values={{
-              systemName: request.system.systemName[currentLanguage],
+              systemName: request.system.name[currentLanguage],
               partyName: userInfo.representingPartyName,
             }}
           ></Trans>
@@ -145,7 +145,7 @@ export const VendorCreationPageContent = ({
       </div>
       <Paragraph size='sm' className={classes.vendorInfo}>
         {t('vendor_creation.org_nr', {
-          systemName: request.system.systemName[currentLanguage],
+          systemName: request.system.name[currentLanguage],
           vendorName: request.system.systemVendorOrgName,
           vendorOrg: request.system.systemVendorOrgNumber.match(/.{1,3}/g)?.join(' '),
         })}
