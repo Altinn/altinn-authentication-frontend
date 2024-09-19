@@ -16,7 +16,8 @@ public class RequestClient(
     IOptions<PlatformSettings> optionsPlatformSetting,
     IHttpContextAccessor httpContext
     ) : IRequestClient
-{    
+{
+    private readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
     private string InitClient()
     {
@@ -25,14 +26,14 @@ public class RequestClient(
         return JwtTokenUtil.GetTokenFromContext(httpContext.HttpContext!, optionsPlatformSetting.Value.JwtCookieName!)!;
     }
 
-    public async Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId)
+    public async Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
     {        
         string endpoint = $"systemuser/request/{partyId}/{requestId}";
         HttpResponseMessage res = await client.GetAsync(InitClient(), endpoint);
 
         if (res.IsSuccessStatusCode)
         {
-            var val = JsonSerializer.Deserialize<VendorRequest>(await res.Content.ReadAsStringAsync());
+            var val = JsonSerializer.Deserialize<VendorRequest>(await res.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions);
             if (val is null)
             {
                 return Problem.Generic_EndOfMethod;
