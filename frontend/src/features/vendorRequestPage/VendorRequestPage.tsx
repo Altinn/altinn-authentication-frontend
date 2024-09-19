@@ -6,11 +6,12 @@ import AltinnLogo from '@/assets/AltinnLogoDefault.svg?react';
 import classes from './VendorRequestPageContent.module.css';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { useGetSystemUserRequestQuery } from '@/rtk/features/systemUserApi';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 export const VendorRequestPage = () => {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const [searchParams] = useSearchParams();
+  const requestId = searchParams.get('requestId');
 
   const {
     data: userInfo,
@@ -21,7 +22,9 @@ export const VendorRequestPage = () => {
     data: creationRequest,
     isLoading: isLoadingCreationRequest,
     isError: isLoadingCreationRequestError,
-  } = useGetSystemUserRequestQuery(id ?? '');
+  } = useGetSystemUserRequestQuery(requestId ?? '', {
+    skip: !requestId,
+  });
 
   return (
     <div className={classes.vendorRequestPage}>
@@ -35,6 +38,9 @@ export const VendorRequestPage = () => {
             </div>
           )}
         </div>
+        {!requestId && (
+          <Alert severity='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
+        )}
         {isLoadingCreationRequestError && (
           <Alert severity='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
         )}

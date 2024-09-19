@@ -38,7 +38,7 @@ export const Router = createBrowserRouter(
         errorElement={<NotFoundSite />}
       />
       <Route
-        path={`${AuthenticationRoute.VendorRequest}/:id`}
+        path={`${AuthenticationRoute.VendorRequest}`}
         element={<VendorRequestPage />}
         errorElement={<NotFoundSite />}
       />

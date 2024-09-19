@@ -50,18 +50,18 @@ export const systemUserApi = apiWithTag.injectEndpoints({
       invalidatesTags: [Tags.SystemUsers],
     }),
     getSystemUserRequest: builder.query<SystemUserCreationRequest, string>({
-      query: (requestId) => url`systemuser/requests/${requestId}`,
+      query: (requestId) => url`systemuser/request/${requestId}`,
     }),
     approveSystemUserRequest: builder.mutation<void, string>({
       query: (creationRequestId) => ({
-        url: url`systemuser/requests/${creationRequestId}/approve`,
+        url: url`systemuser/request/${creationRequestId}/approve`,
         method: 'POST',
       }),
       invalidatesTags: [Tags.SystemUsers],
     }),
     rejectSystemUserRequest: builder.mutation<void, string>({
       query: (creationRequestId) => ({
-        url: url`systemuser/requests/${creationRequestId}/reject`,
+        url: url`systemuser/request/${creationRequestId}/reject`,
         method: 'POST',
       }),
       invalidatesTags: [Tags.SystemUsers],

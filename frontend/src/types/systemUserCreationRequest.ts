@@ -6,6 +6,7 @@ type RequestStatus = 'new' | 'accepted' | 'rejected' | 'denied';
 export interface SystemUserCreationRequest {
   id: string;
   system: VendorSystem;
+  systemId: string;
   status: RequestStatus;
   rights: SystemRight[];
   redirectUrl?: string;

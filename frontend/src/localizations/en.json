@@ -98,6 +98,7 @@
     "loading_creation_request": "Laster request",
     "load_creation_request_error": "Could not load creation request",
     "load_user_info_error": "Could not load user info",
+    "load_creation_request_no_id": "requestId must be included as query-parameter in url",
     "accept_error": "Could not create system access",
     "reject_error": "Could not reject request",
     "accept_loading": "Creating system access...",

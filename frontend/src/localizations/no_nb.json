@@ -98,6 +98,7 @@
     "loading_creation_request": "Laster forespørsel",
     "load_creation_request_error": "Kunne ikke laste tilgangs-forespørsel",
     "load_user_info_error": "Kunne ikke laste brukerinfo",
+    "load_creation_request_no_id": "requestId må være med som query-parameter i url",
     "accept_error": "Kunne ikke opprette systemtilgang",
     "reject_error": "Kunne ikke avvise forespørsel",
     "accept_loading": "Oppretter systemtilgang...",
