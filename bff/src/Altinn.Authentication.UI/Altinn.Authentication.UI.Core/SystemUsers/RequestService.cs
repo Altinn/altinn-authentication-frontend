@@ -14,4 +14,9 @@ public class RequestService(
     {
         return await requestClient.GetVendorRequest(partyId, requestId, cancellationToken);
     }
+
+    public async Task<Result<bool>> ApproveRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
+    {
+        return await requestClient.ApproveRequest(partyId, requestId, cancellationToken);
+    }
 }
