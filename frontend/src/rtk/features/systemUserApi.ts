@@ -54,7 +54,7 @@ export const systemUserApi = apiWithTag.injectEndpoints({
     }),
     approveSystemUserRequest: builder.mutation<void, string>({
       query: (creationRequestId) => ({
-        url: url`systemuser/request/${creationRequestId}/`,
+        url: url`systemuser/request/${creationRequestId}/approve`,
         method: 'POST',
       }),
       invalidatesTags: [Tags.SystemUsers],
