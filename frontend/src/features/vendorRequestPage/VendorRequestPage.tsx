@@ -1,14 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Spinner } from '@digdir/designsystemet-react';
-import { VendorCreationPageContent } from './VendorCreationPageContent';
+import { VendorRequestPageContent } from './VendorRequestPageContent';
 import AltinnLogo from '@/assets/AltinnLogoDefault.svg?react';
-import classes from './VendorCreationPageContent.module.css';
+import classes from './VendorRequestPageContent.module.css';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { useGetSystemUserRequestQuery } from '@/rtk/features/systemUserApi';
 import { useParams } from 'react-router-dom';
 
-export const VendorCreationPage = () => {
+export const VendorRequestPage = () => {
   const { t } = useTranslation();
   const { id } = useParams();
 
@@ -20,8 +20,8 @@ export const VendorCreationPage = () => {
   } = useGetSystemUserRequestQuery(id ?? '');
 
   return (
-    <div className={classes.vendorCreationPage}>
-      <div className={classes.vendorCreationWrapper}>
+    <div className={classes.vendorRequestPage}>
+      <div className={classes.vendorRequestWrapper}>
         <div className={classes.headerContainer}>
           <AltinnLogo />
           {userInfo && (
@@ -32,13 +32,13 @@ export const VendorCreationPage = () => {
           )}
         </div>
         {isLoadingCreationRequestError && (
-          <Alert severity='danger'>{t('vendor_creation.load_creation_request_error')}</Alert>
+          <Alert severity='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
         )}
         {(isLoadingUserInfo || isLoadingCreationRequest) && (
-          <Spinner title={t('vendor_creation.loading')} />
+          <Spinner title={t('vendor_request.loading')} />
         )}
         {creationRequest && userInfo && (
-          <VendorCreationPageContent request={creationRequest} userInfo={userInfo} />
+          <VendorRequestPageContent request={creationRequest} userInfo={userInfo} />
         )}
       </div>
     </div>

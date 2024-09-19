@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
-import classes from './VendorCreationPageContent.module.css';
+import classes from './VendorRequestPageContent.module.css';
 import { RightsList } from '@/components/RightsList';
 import { ProfileInfo, SystemUserCreationRequest } from '@/types';
 import { RightsError } from '@/components/RightsError';
@@ -15,15 +15,12 @@ import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 
-interface VendorCreationPageContentProps {
+interface VendorRequestPageContentProps {
   request: SystemUserCreationRequest;
   userInfo: ProfileInfo;
 }
 
-export const VendorCreationPageContent = ({
-  request,
-  userInfo,
-}: VendorCreationPageContentProps) => {
+export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPageContentProps) => {
   const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
 
@@ -70,20 +67,20 @@ export const VendorCreationPageContent = ({
 
   return (
     <>
-      <div className={classes.vendorCreationBlock}>
+      <div className={classes.vendorRequestBlock}>
         <Heading level={1} size='lg'>
-          {t('vendor_creation.banner_title')}
+          {t('vendor_request.banner_title')}
         </Heading>
       </div>
-      <div className={classes.vendorCreationBlock}>
+      <div className={classes.vendorRequestBlock}>
         <Heading level={2} size='sm'>
-          {t('vendor_creation.creation_header', {
+          {t('vendor_request.creation_header', {
             vendorName: request.system.name[currentLanguage],
           })}
         </Heading>
         <Paragraph spacing>
           <Trans
-            i18nKey={'vendor_creation.system_description'}
+            i18nKey={'vendor_request.system_description'}
             values={{
               systemName: request.system.name[currentLanguage],
               partyName: userInfo.representingPartyName,
@@ -93,22 +90,22 @@ export const VendorCreationPageContent = ({
         <div>
           <Heading level={3} size='xs'>
             {request.rights.length === 1
-              ? t('vendor_creation.rights_list_header_single')
-              : t('vendor_creation.rights_list_header')}
+              ? t('vendor_request.rights_list_header_single')
+              : t('vendor_request.rights_list_header')}
           </Heading>
           <RightsList rights={request.rights} />
         </div>
-        <Paragraph>{t('vendor_creation.withdraw_consent_info')}</Paragraph>
+        <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
         <div>
           {!userInfo.canCreateSystemUser && <RightsError />}
           {isAcceptCreationRequestError && (
             <Alert severity='danger' role='alert'>
-              {t('vendor_creation.accept_error')}
+              {t('vendor_request.accept_error')}
             </Alert>
           )}
           {isRejectCreationRequestError && (
             <Alert severity='danger' role='alert'>
-              {t('vendor_creation.reject_error')}
+              {t('vendor_request.reject_error')}
             </Alert>
           )}
           <div className={classes.buttonRow}>
@@ -122,9 +119,9 @@ export const VendorCreationPageContent = ({
               }}
             >
               {isAcceptingSystemUser && (
-                <Spinner size='small' title={t('vendor_creation.accept_loading')} />
+                <Spinner size='small' title={t('vendor_request.accept_loading')} />
               )}
-              {t('vendor_creation.accept')}
+              {t('vendor_request.accept')}
             </Button>
             <Button
               variant='tertiary'
@@ -136,15 +133,15 @@ export const VendorCreationPageContent = ({
               }}
             >
               {isRejectingSystemUser && (
-                <Spinner size='small' title={t('vendor_creation.reject_loading')} />
+                <Spinner size='small' title={t('vendor_request.reject_loading')} />
               )}
-              {t('vendor_creation.reject')}
+              {t('vendor_request.reject')}
             </Button>
           </div>
         </div>
       </div>
       <Paragraph size='sm' className={classes.vendorInfo}>
-        {t('vendor_creation.org_nr', {
+        {t('vendor_request.org_nr', {
           systemName: request.system.name[currentLanguage],
           vendorName: request.system.systemVendorOrgName,
           vendorOrg: request.system.systemVendorOrgNumber.match(/.{1,3}/g)?.join(' '),

@@ -85,7 +85,7 @@
     "not_found_site_upper_text": "We don't know where you were actually going, but maybe you can find what you're looking for on some of these pages:",
     "not_found_site_lower_text": "If this did not help, you can contact Altinn user support by phone 75 00 60 00"
   },
-  "vendor_creation": {
+  "vendor_request": {
     "banner_title": "Give access to system",
     "creation_header": "{{vendorName}} is requesting permission to create a system access",
     "system_description": "Through the system access <strong>{{systemName}}</strong> will be able to solve issues on behalf of <strong>{{partyName}}</strong>.",

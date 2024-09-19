@@ -2,12 +2,12 @@
   --vendor-container-padding: var(--fds-spacing-12);
 }
 
-.vendorCreationPage {
+.vendorRequestPage {
   min-height: 100vh;
   background-color: var(--fds-semantic-background-subtle);
 }
 
-.vendorCreationWrapper {
+.vendorRequestWrapper {
   margin-left: auto;
   margin-right: auto;
   min-width: 280px;
@@ -23,7 +23,7 @@
   padding: var(--vendor-container-padding);
 }
 
-.vendorCreationBlock {
+.vendorRequestBlock {
   display: flex;
   flex-direction: column;
   gap: var(--fds-spacing-8);

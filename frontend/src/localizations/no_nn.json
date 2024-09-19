@@ -85,7 +85,7 @@
     "not_found_site_upper_text": "Me veit ikkje kvar du eigentleg skulle, men kanskje du kan finna det du leitar etter på nokon av desse sidene:",
     "not_found_site_lower_text": "Viss dette ikkje var til hjelp kan du ta kontakt med Altinn brukarstøtte på telefon 75 00 60 00"
   },
-  "vendor_creation": {
+  "vendor_request": {
     "banner_title": "Gi tilgang til system",
     "creation_header": "{{vendorName}} ber om godkjenning til å laga ein systemtilgang",
     "system_description": "Gjennom systemtilgangen kan <strong>{{systemName}}</strong> løysa oppgåver på vegne av <strong>{{partyName}}</strong>.",
