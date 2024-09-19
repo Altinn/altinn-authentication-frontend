@@ -11,7 +11,7 @@ import { useSearchParams } from 'react-router-dom';
 export const VendorRequestPage = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const requestId = searchParams.get('requestId');
+  const requestId = searchParams.get('id');
 
   const {
     data: userInfo,
