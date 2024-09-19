@@ -942,10 +942,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:^6.0.0":
-  version: 6.16.3
-  resolution: "@navikt/aksel-icons@npm:6.16.3"
-  checksum: 10c0/a7d41d24ce93b076690d126246bb418ca4e9c1a8479bd438751d3ca233dfb5dba4132e8b54a8b63fe4d67e4a7076e1b8043191cd58747f33e576902c30cfc713
+"@navikt/aksel-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@navikt/aksel-icons@npm:7.0.0"
+  checksum: 10c0/3cf5693f840e9f9324abd031c18a845e3db51caba105e41cf46b8d76cf37da6781b4e9ae22e0723ec17876520da6e54975231cce319036c45052591df262a616
   languageName: node
   linkType: hard
 
@@ -1829,7 +1829,7 @@ __metadata:
     "@digdir/designsystemet-react": "npm:^0.63.0"
     "@digdir/designsystemet-theme": "npm:^0.15.0"
     "@eslint/compat": "npm:^1.1.1"
-    "@navikt/aksel-icons": "npm:^6.0.0"
+    "@navikt/aksel-icons": "npm:^7.0.0"
     "@playwright/test": "npm:^1.45.1"
     "@reduxjs/toolkit": "npm:^2.1.0"
     "@types/node": "npm:^20.14.10"
