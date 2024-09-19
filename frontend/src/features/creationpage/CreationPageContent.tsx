@@ -7,9 +7,11 @@ import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
+import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 
 export const CreationPageContent = () => {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
 
   const dispatch = useAppDispatch();
 
@@ -59,7 +61,7 @@ export const CreationPageContent = () => {
               dispatch(
                 setSelectedSystemType({
                   systemId: newValue[0],
-                  friendlySystemName: system?.name.nb ?? '',
+                  friendlySystemName: system?.name[currentLanguage] ?? '',
                 }),
               );
             }
@@ -71,7 +73,7 @@ export const CreationPageContent = () => {
             }
             const isOrgNrMatch = isStringMatch(inputValue, vendor.systemVendorOrgNumber);
             const isOrgNameMatch = isStringMatch(inputValue, vendor.systemVendorOrgName);
-            const isSystemNameMatch = isStringMatch(inputValue, vendor.name.nb);
+            const isSystemNameMatch = isStringMatch(inputValue, vendor.name[currentLanguage]);
             return isOrgNrMatch || isOrgNameMatch || isSystemNameMatch;
           }}
           value={selectedSystemType ? [selectedSystemType] : undefined}
@@ -85,7 +87,7 @@ export const CreationPageContent = () => {
                   value={vendor.systemId}
                   description={`${vendor.systemVendorOrgName} (${vendor.systemVendorOrgNumber})`}
                 >
-                  {vendor.name.nb}
+                  {vendor.name[currentLanguage]}
                 </Combobox.Option>
               );
             })}

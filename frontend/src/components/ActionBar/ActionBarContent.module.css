@@ -13,7 +13,7 @@
 }
 
 .actionBarContent.light {
-  --border-color: #80b1dd; /* not defined in designsystemet */
+  --border-color: var(--fds-semantic-border-neutral-subtle);
 }
 
 .actionBarContent.neutral {

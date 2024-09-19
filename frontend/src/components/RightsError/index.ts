@@ -1,0 +1,1 @@
+export { RightsError } from './RightsError';

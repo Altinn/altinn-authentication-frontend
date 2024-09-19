@@ -5,7 +5,7 @@ import { ArrowLeftIcon } from '@navikt/aksel-icons';
 import { Button } from '@digdir/designsystemet-react';
 import CloseIcon from '@/assets/RedClose.svg?react';
 import { getCookie } from '@/resources/Cookie/CookieMethods';
-import { UserInfoBar } from '../UserInfoBar/UserInfoBar';
+import { UserInfoBar } from '../UserInfoBar';
 import classes from './PageContainer.module.css';
 import { getHostUrl } from '@/utils/urlUtils';
 

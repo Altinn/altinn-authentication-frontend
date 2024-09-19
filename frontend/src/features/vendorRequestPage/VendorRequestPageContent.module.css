@@ -1,0 +1,48 @@
+:root {
+  --vendor-container-padding: var(--fds-spacing-12);
+}
+
+.vendorRequestPage {
+  min-height: 100vh;
+  background-color: var(--fds-semantic-background-subtle);
+}
+
+.vendorRequestWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 280px;
+  max-width: 1056px;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+  padding: var(--vendor-container-padding);
+}
+
+.vendorRequestBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--fds-spacing-8);
+  background-color: var(--fds-semantic-background-default);
+  padding: var(--vendor-container-padding);
+  margin-bottom: 3px;
+}
+
+.buttonRow {
+  display: flex;
+  flex-direction: row;
+  gap: var(--fds-spacing-4);
+  margin-top: var(--fds-spacing-4);
+}
+
+.vendorInfo {
+  padding-top: var(--fds-spacing-4);
+  padding-right: var(--vendor-container-padding);
+  padding-bottom: var(--vendor-container-padding);
+  text-align: right;
+  font-style: italic;
+}

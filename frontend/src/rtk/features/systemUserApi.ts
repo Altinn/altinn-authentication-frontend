@@ -1,6 +1,6 @@
 import { url } from '@/utils/urlUtils';
 import { api } from './api';
-import { SystemUser, VendorSystem } from '@/types';
+import { SystemUser, SystemUserCreationRequest, VendorSystem } from '@/types';
 
 enum Tags {
   SystemUsers = 'Systemusers',
@@ -49,6 +49,23 @@ export const systemUserApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: [Tags.SystemUsers],
     }),
+    getSystemUserRequest: builder.query<SystemUserCreationRequest, string>({
+      query: (requestId) => url`systemuser/request/${requestId}`,
+    }),
+    approveSystemUserRequest: builder.mutation<void, string>({
+      query: (creationRequestId) => ({
+        url: url`systemuser/request/${creationRequestId}/approve`,
+        method: 'POST',
+      }),
+      invalidatesTags: [Tags.SystemUsers],
+    }),
+    rejectSystemUserRequest: builder.mutation<void, string>({
+      query: (creationRequestId) => ({
+        url: url`systemuser/request/${creationRequestId}/reject`,
+        method: 'POST',
+      }),
+      invalidatesTags: [Tags.SystemUsers],
+    }),
   }),
 });
 
@@ -59,4 +76,7 @@ export const {
   useGetSystemUsersQuery,
   useUpdateSystemuserMutation,
   useGetVendorsQuery,
+  useGetSystemUserRequestQuery,
+  useApproveSystemUserRequestMutation,
+  useRejectSystemUserRequestMutation,
 } = systemUserApi;

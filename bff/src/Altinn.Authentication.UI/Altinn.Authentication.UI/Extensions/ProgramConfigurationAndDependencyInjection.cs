@@ -166,8 +166,10 @@ namespace Altinn.Authentication.UI.Extensions
             //Altinn actual Features' Services        
             services.AddSingleton<ISystemUserService, SystemUserService>();
             services.AddSingleton<ISystemRegisterService, SystemRegisterService>();
+            services.AddSingleton<IRequestService, RequestService>();
             services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
             services.AddHttpClient<IRegisterClient, RegisterClient>();
+            services.AddHttpClient<IRequestClient, RequestClient>();
 
             return services;
         }

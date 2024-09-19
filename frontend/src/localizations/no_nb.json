@@ -41,7 +41,9 @@
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",
     "sub_title": "Systemtilgangen vil inneholde disse tjenestene",
+    "sub_title_single": "Systemtilgangen vil inneholde denne tjenesten",
     "content_text": "Disse tjenestene er forhåndsvalgt av fagsystemet.",
+    "content_text_single": "Denne tjenesten er forhåndsvalgt av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikke opprette systemtilgang",
     "creating_systemuser": "Oppretter systemtilgang..."
@@ -82,5 +84,24 @@
     "not_found_site_header": "Oi! Du har prøvd å komme til en side vi ikke vet om",
     "not_found_site_upper_text": "Vi vet ikke hvor du egentlig skulle, men kanskje du kan finne det du leter etter på noen av disse sidene:",
     "not_found_site_lower_text": "Hvis dette ikke var til hjelp kan du ta kontakt med Altinn brukerstøtte på telefon 75 00 60 00"
+  },
+  "vendor_request": {
+    "banner_title": "Gi tilgang til system",
+    "creation_header": "{{vendorName}} ber om godkjenning til å lage en systemtilgang",
+    "system_description": "Gjennom systemtilgangen kan <strong>{{systemName}}</strong> løse oppgaver på vegne av <strong>{{partyName}}</strong>.",
+    "rights_list_header": "Systemtilgangen vil inneholde disse tjenestene:",
+    "rights_list_header_single": "Systemtilgangen vil inneholde denne tjenesten:",
+    "withdraw_consent_info": "Du kan når som helst trekke tilbake godkjenningen og endre systemtilgangen på altinn.no.",
+    "accept": "Godkjenn systemtilgang",
+    "reject": "Avvis",
+    "org_nr": "{{systemName}} blir levert av {{vendorName}}, org.nr. {{vendorOrg}}",
+    "loading_creation_request": "Laster forespørsel",
+    "load_creation_request_error": "Kunne ikke laste tilgangs-forespørsel",
+    "load_user_info_error": "Kunne ikke laste brukerinfo",
+    "load_creation_request_no_id": "requestId må være med som query-parameter i url",
+    "accept_error": "Kunne ikke opprette systemtilgang",
+    "reject_error": "Kunne ikke avvise forespørsel",
+    "accept_loading": "Oppretter systemtilgang...",
+    "reject_loading": "Avviser forespørsel..."
   }
 }
