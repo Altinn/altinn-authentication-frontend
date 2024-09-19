@@ -97,6 +97,7 @@
     "org_nr": "{{systemName}} blir levert av {{vendorName}}, org.nr. {{vendorOrg}}",
     "loading_creation_request": "Laster forespørsel",
     "load_creation_request_error": "Kunne ikke laste tilgangs-forespørsel",
+    "load_user_info_error": "Kunne ikke laste brukerinfo",
     "accept_error": "Kunne ikke opprette systemtilgang",
     "reject_error": "Kunne ikke avvise forespørsel",
     "accept_loading": "Oppretter systemtilgang...",

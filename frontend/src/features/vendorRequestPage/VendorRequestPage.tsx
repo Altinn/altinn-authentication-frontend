@@ -12,7 +12,11 @@ export const VendorRequestPage = () => {
   const { t } = useTranslation();
   const { id } = useParams();
 
-  const { data: userInfo, isLoading: isLoadingUserInfo } = useGetLoggedInUserQuery();
+  const {
+    data: userInfo,
+    isLoading: isLoadingUserInfo,
+    isError: isLoadUserInfoError,
+  } = useGetLoggedInUserQuery();
   const {
     data: creationRequest,
     isLoading: isLoadingCreationRequest,
@@ -33,6 +37,9 @@ export const VendorRequestPage = () => {
         </div>
         {isLoadingCreationRequestError && (
           <Alert severity='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
+        )}
+        {isLoadUserInfoError && (
+          <Alert severity='danger'>{t('vendor_request.load_user_info_error')}</Alert>
         )}
         {(isLoadingUserInfo || isLoadingCreationRequest) && (
           <Spinner title={t('vendor_request.loading')} />
