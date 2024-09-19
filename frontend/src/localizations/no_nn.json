@@ -41,7 +41,9 @@
   "authent_includedrightspage": {
     "banner_title": "Lag ny systemtilgang",
     "sub_title": "Systemtilgangen vil innehalde desse tenestene",
+    "sub_title_single": "Systemtilgangen vil innehalde denne tenesten",
     "content_text": "Desse tenestene er førehandsvalde av fagsystemet.",
+    "content_text_single": "Denne tenesten er førehandsvald av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikkje oppretta systemtilgang",
     "creating_systemuser": "Opprettar systemtilgang..."
@@ -82,5 +84,24 @@
     "not_found_site_header": "Oi! Du har prøvd å komma til ei side me ikkje veit om",
     "not_found_site_upper_text": "Me veit ikkje kvar du eigentleg skulle, men kanskje du kan finna det du leitar etter på nokon av desse sidene:",
     "not_found_site_lower_text": "Viss dette ikkje var til hjelp kan du ta kontakt med Altinn brukarstøtte på telefon 75 00 60 00"
+  },
+  "vendor_request": {
+    "banner_title": "Gi tilgang til system",
+    "creation_header": "{{vendorName}} ber om godkjenning til å laga ein systemtilgang",
+    "system_description": "Gjennom systemtilgangen kan <strong>{{systemName}}</strong> løysa oppgåver på vegne av <strong>{{partyName}}</strong>.",
+    "rights_list_header": "Systemtilgangen vil innehalda desse tenestene:",
+    "rights_list_header_single": "Systemtilgangen vil innehalda denne tenesten:",
+    "withdraw_consent_info": "Du kan når som helst trekke tilbake godkjenningen og endre systemtilgangen på altinn.no.",
+    "accept": "Godkjenn systemtilgang",
+    "reject": "Avvis",
+    "org_nr": "{{systemName}} blir levert av {{vendorName}}, org.nr. {{vendorOrg}}",
+    "loading_creation_request": "Laster forespørsel",
+    "load_creation_request_error": "Kunne ikke laste tilgangs-forespørsel",
+    "load_user_info_error": "Kunne ikke laste brukerinfo",
+    "load_creation_request_no_id": "requestId må være med som query-parameter i url",
+    "accept_error": "Kunne ikkje opprette systemtilgang",
+    "reject_error": "Kunne ikkje avvise forespørsel",
+    "accept_loading": "Oppretter systemtilgang...",
+    "reject_loading": "Avviser forespørsel..."
   }
 }

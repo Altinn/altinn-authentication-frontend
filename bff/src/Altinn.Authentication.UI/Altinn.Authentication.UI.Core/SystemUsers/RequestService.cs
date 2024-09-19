@@ -10,8 +10,8 @@ internal class RequestService(
     IRequestClient requestClient
     ) : IRequestService
 {
-    public Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId)
+    public async Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
     {
-        return requestClient.GetVendorRequest(partyId, requestId);
+        return await requestClient.GetVendorRequest(partyId, requestId, cancellationToken);
     }
 }

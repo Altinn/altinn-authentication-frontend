@@ -23,7 +23,7 @@ public class RequestController(
     /// <returns></returns>
     [Authorize]
     [HttpGet("{requestId}")]
-    public async Task<ActionResult> GetRequestByPartyIdAndRequestId(Guid requestId)
+    public async Task<ActionResult> GetRequestByPartyIdAndRequestId(Guid requestId, CancellationToken cancellationToken = default)
     {
         int partyId = AuthenticationHelper.GetRepresentingPartyId(HttpContext);
         if (partyId == 0)
@@ -31,7 +31,7 @@ public class RequestController(
             return BadRequest("PartyId not provided in the context.");
         }
 
-        Result<VendorRequest> req = await _requestService.GetVendorRequest(partyId, requestId);
+        Result<VendorRequest> req = await _requestService.GetVendorRequest(partyId, requestId, cancellationToken);
         if (req.IsProblem)
         {
             return req.Problem.ToActionResult();

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-
 import classes from './Page.module.css';
 import { PageHeader } from './';
 

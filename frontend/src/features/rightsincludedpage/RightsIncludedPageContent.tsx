@@ -8,7 +8,7 @@ import { useCreateSystemUserMutation, useGetVendorsQuery } from '@/rtk/features/
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
-import { RightsList } from '@/components/RightsList/RightsList';
+import { RightsList } from '@/components/RightsList';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -64,12 +64,14 @@ export const RightsIncludedPageContent = () => {
   return (
     <div>
       <Heading level={2} size='small' spacing>
-        {t('authent_includedrightspage.sub_title', {
-          name: integrationTitle,
-        })}
+        {vendor?.rights.length === 1
+          ? t('authent_includedrightspage.sub_title_single')
+          : t('authent_includedrightspage.sub_title')}
       </Heading>
       <Paragraph size='small' spacing>
-        {t('authent_includedrightspage.content_text')}
+        {vendor?.rights.length === 1
+          ? t('authent_includedrightspage.content_text_single')
+          : t('authent_includedrightspage.content_text')}
       </Paragraph>
       <div>
         <RightsList rights={vendor?.rights ?? []} />

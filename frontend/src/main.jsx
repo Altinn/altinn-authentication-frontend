@@ -26,6 +26,7 @@ use(LanguageDetector)
     fallbackLng: getConfig('defaultLocale'),
     keySeparator: '.',
     returnNull: false,
+    interpolation: { escapeValue: false },
   });
 
 createRoot(document.getElementById('root')).render(

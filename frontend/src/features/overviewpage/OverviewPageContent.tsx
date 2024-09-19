@@ -11,6 +11,7 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
 import { SystemUserActionBar } from '@/components/SystemUserActionBar';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
+import { RightsError } from '@/components/RightsError';
 
 export const OverviewPageContent = () => {
   const {
@@ -69,14 +70,7 @@ export const OverviewPageContent = () => {
             : t('authent_overviewpage.new_system_user_button')}
         </Button>
       </div>
-      {!userCanCreateSystemUser && (
-        <Paragraph className={classes.noRightsParagraph}>
-          <span className={classes.noRightsParagraphBold}>
-            {t('authent_overviewpage.no_key_role1')}{' '}
-          </span>
-          {t('authent_overviewpage.no_key_role2')}
-        </Paragraph>
-      )}
+      {!userCanCreateSystemUser && <RightsError />}
       {isLoadSystemUsersError && (
         <Alert severity='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
       )}

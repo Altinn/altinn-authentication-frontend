@@ -9,7 +9,7 @@ import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
 import { AuthenticationRoute } from '@/routes/paths';
 import { url } from '@/utils/urlUtils';
-import { RightsList } from '../RightsList/RightsList';
+import { RightsList } from '../RightsList';
 
 interface SystemUserActionBarProps {
   systemUser: SystemUser;
