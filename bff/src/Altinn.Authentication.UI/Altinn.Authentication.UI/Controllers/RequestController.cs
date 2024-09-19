@@ -54,7 +54,7 @@ public class RequestController(
             return BadRequest("PartyId not provided in the context.");
         }
 
-        Result<VendorRequest> req = await _requestService.GetVendorRequest(partyId, requestId, cancellationToken);
+        Result<bool> req = await _requestService.ApproveRequest(partyId, requestId, cancellationToken);
         if (req.IsProblem)
         {
             return req.Problem.ToActionResult();
