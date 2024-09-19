@@ -39,4 +39,27 @@ public class RequestController(
         
         return Ok(req.Value);
     }
+
+    /// <summary>
+    /// Gets a VendorRequest by Id
+    /// </summary>
+    /// <returns></returns>
+    [Authorize]
+    [HttpPost("{requestId}/approve")]
+    public async Task<ActionResult> ApproveRequest(Guid requestId, CancellationToken cancellationToken = default)
+    {
+        int partyId = AuthenticationHelper.GetRepresentingPartyId(HttpContext);
+        if (partyId == 0)
+        {
+            return BadRequest("PartyId not provided in the context.");
+        }
+
+        Result<VendorRequest> req = await _requestService.GetVendorRequest(partyId, requestId, cancellationToken);
+        if (req.IsProblem)
+        {
+            return req.Problem.ToActionResult();
+        }
+
+        return Ok(req.Value);
+    }
 }

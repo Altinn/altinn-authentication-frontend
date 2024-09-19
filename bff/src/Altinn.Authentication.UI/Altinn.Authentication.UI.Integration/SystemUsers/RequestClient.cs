@@ -44,4 +44,17 @@ public class RequestClient(
 
         return Problem.Generic_EndOfMethod;
     }
+
+    public async Task<Result<bool>> ApproveRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
+    {
+        string endpoint = $"systemuser/request/{partyId}/{requestId}/approve";
+        HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
+
+        if (res.IsSuccessStatusCode)
+        {
+            return true;
+        }
+
+        return Problem.Generic_EndOfMethod;
+    }
 }
