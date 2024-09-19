@@ -131,15 +131,15 @@ namespace Altinn.Authentication.UI.Extensions
             //Providers and supporting services
             if (isDevelopment)
             {
-                services.AddSingleton<IKeyVaultService, LocalKeyVaultService>();
+                services.AddTransient<IKeyVaultService, LocalKeyVaultService>();
             }
             else
             {
-                services.AddSingleton<IKeyVaultService, KeyVaultService>();
+                services.AddTransient<IKeyVaultService, KeyVaultService>();
             }
 
-            services.AddSingleton<IAccessTokenGenerator, AccessTokenGenerator>();
-            services.AddSingleton<IAccessTokenProvider,  AccessTokenProvider>();
+            services.AddTransient<IAccessTokenGenerator, AccessTokenGenerator>();
+            services.AddTransient<IAccessTokenProvider,  AccessTokenProvider>();
 
 
             //Clients for the actual Features' Services
@@ -147,6 +147,7 @@ namespace Altinn.Authentication.UI.Extensions
             services.AddHttpClient<ISystemRegisterClient, SystemRegisterClient>();
             services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
             services.AddHttpClient<IResourceRegistryClient, ResourceRegistryClient>();
+            services.AddHttpClient<IRequestClient, RequestClient>();
 
             return services;
         }
@@ -160,13 +161,13 @@ namespace Altinn.Authentication.UI.Extensions
         public static IServiceCollection AddCoreServices(this IServiceCollection services)
         {
             //Services for the login user and auth logic
-            services.AddSingleton<IUserProfileService, UserProfileService>();
-            services.AddSingleton<IPartyService, PartyService>();
+            services.AddTransient<IUserProfileService, UserProfileService>();
+            services.AddTransient<IPartyService, PartyService>();
 
             //Altinn actual Features' Services        
-            services.AddSingleton<ISystemUserService, SystemUserService>();
-            services.AddSingleton<ISystemRegisterService, SystemRegisterService>();
-            services.AddSingleton<IRequestService, RequestService>();
+            services.AddTransient<ISystemUserService, SystemUserService>();
+            services.AddTransient<ISystemRegisterService, SystemRegisterService>();
+            services.AddTransient<IRequestService, RequestService>();
             services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
             services.AddHttpClient<IRegisterClient, RegisterClient>();
             services.AddHttpClient<IRequestClient, RequestClient>();
