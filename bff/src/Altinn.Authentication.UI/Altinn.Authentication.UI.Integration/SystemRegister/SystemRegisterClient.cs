@@ -52,6 +52,22 @@ public class SystemRegisterClient : ISystemRegisterClient
         return [];
     }
 
+    public async Task<RegisterSystemResponse?> GetSystem(string systemId, CancellationToken cancellationToken = default)
+    {
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        string endpointUrl = $"systemregister/system/{systemId}";
+        var accessToken = await _accessTokenProvider.GetAccessToken();
+
+        HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl, accessToken);
+
+        if (response.IsSuccessStatusCode)
+        {
+            return JsonSerializer.Deserialize<RegisterSystemResponse>(await response.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions)!;   
+        }
+        return null;
+    }
+
+
     public async Task<List<Right>> GetRightFromSystem(string systemId, CancellationToken cancellationToken)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
