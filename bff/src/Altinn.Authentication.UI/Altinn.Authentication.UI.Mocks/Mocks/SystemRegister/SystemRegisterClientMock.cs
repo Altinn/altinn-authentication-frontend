@@ -110,4 +110,9 @@ public class SystemRegisterClientMock : ISystemRegisterClient
     {
         throw new NotImplementedException();
     }
+
+    public Task<RegisterSystemResponse?> GetSystem(string systemId, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }
