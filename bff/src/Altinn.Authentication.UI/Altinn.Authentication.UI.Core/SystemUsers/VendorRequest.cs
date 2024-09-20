@@ -33,6 +33,9 @@ public class VendorRequest
     [JsonPropertyName("systemId")]
     public string SystemId { get; set; }
 
+    [JsonPropertyName("system")]
+    public RegisterSystemResponse? System { get; set; }
+
     /// <summary>
     /// The organisation number for the SystemUser's Party ( the customer that delegates rights to the systemuser).
     /// Is one of the three parts of the External Request Id.

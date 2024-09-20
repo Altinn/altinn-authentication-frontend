@@ -9,15 +9,17 @@ namespace Altinn.Authentication.UI.Core.SystemUsers;
 /// <param name="requestClient">The client</param>
 public class RequestService(
     IRequestClient requestClient,
-    IResourceRegistryClient resourceRegistryClient
+    IResourceRegistryClient resourceRegistryClient,
+    ISystemRegisterClient systemRegisterClient
     ) : IRequestService
 {
     public async Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
     {
         Result<VendorRequest> request = await requestClient.GetVendorRequest(partyId, requestId, cancellationToken);
         
-        if (request.Value?.Rights != null) 
+        if (request.Value != null) 
         {
+            // add resources
             foreach (RightFrontEnd right in request.Value.Rights)
             {
                 string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
@@ -27,6 +29,10 @@ public class RequestService(
                     right.ServiceResource = await resourceRegistryClient.GetResource(resourceId, cancellationToken);
                 }
             }
+
+            // add system
+            RegisterSystemResponse? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);
+            request.Value.System = system;
         }
         
 
