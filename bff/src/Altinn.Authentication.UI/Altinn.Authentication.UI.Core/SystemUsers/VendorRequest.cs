@@ -1,4 +1,4 @@
-﻿using Altinn.Authentication.UI.Core.Common.Rights;
+﻿using Altinn.Authentication.UI.Core.SystemRegister;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -47,7 +47,7 @@ public class VendorRequest
     /// </summary>
     [Required]
     [JsonPropertyName("rights")]
-    public List<Right> Rights { get; set; }
+    public List<RightFrontEnd> Rights { get; set; }
 
     /// <summary>
     /// Initially the request is "new", 

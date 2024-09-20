@@ -1,4 +1,5 @@
-﻿using Altinn.Authorization.ProblemDetails;
+﻿using Altinn.Authentication.UI.Core.SystemRegister;
+using Altinn.Authorization.ProblemDetails;
 
 namespace Altinn.Authentication.UI.Core.SystemUsers;
 
@@ -7,12 +8,29 @@ namespace Altinn.Authentication.UI.Core.SystemUsers;
 /// </summary>
 /// <param name="requestClient">The client</param>
 public class RequestService(
-    IRequestClient requestClient
+    IRequestClient requestClient,
+    IResourceRegistryClient resourceRegistryClient
     ) : IRequestService
 {
     public async Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
     {
-        return await requestClient.GetVendorRequest(partyId, requestId, cancellationToken);
+        Result<VendorRequest> request = await requestClient.GetVendorRequest(partyId, requestId, cancellationToken);
+        
+        if (request.Value?.Rights != null) 
+        {
+            foreach (RightFrontEnd right in request.Value.Rights)
+            {
+                string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
+                
+                if (resourceId != null) 
+                {
+                    right.ServiceResource = await resourceRegistryClient.GetResource(resourceId, cancellationToken);
+                }
+            }
+        }
+        
+
+        return request;
     }
 
     public async Task<Result<bool>> ApproveRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
