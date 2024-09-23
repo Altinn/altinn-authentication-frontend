@@ -36,9 +36,9 @@ public class SystemUserService : ISystemUserService
         return await _systemUserClient.ChangeSystemUserRealTitle(newTitle, id, cancellationToken);
     }
 
-    public async Task<bool> DeleteSystemUser(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Result<bool>> DeleteSystemUser(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        return await _systemUserClient.DeleteSystemUserReal(id, cancellationToken);
+        return await _systemUserClient.DeleteSystemUserReal(partyId, id, cancellationToken);
     }
 
     public async Task<List<SystemUser>> GetAllSystemUsersForParty(int id, CancellationToken cancellationToken = default)

@@ -8,6 +8,8 @@ using Microsoft.Extensions.Options;
 using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
 using System.Net.Http.Json;
+using Altinn.Authorization.ProblemDetails;
+using Altinn.Authentication.UI.Core.Common.Problems;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
@@ -73,13 +75,16 @@ public class SystemUserClient : ISystemUserClient
         return null;
     }
 
-    public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Result<bool>> DeleteSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        //    SystemUserReal? toDelete = _systemUserList.Find(i => i.Id == id.ToString());        
-        //    if (toDelete is null) return false;
-        //    _systemUserList.Remove(toDelete);
-        //    return true;
-        throw new NotImplementedException();
+        string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
+        string endpointUrl = $"systemuser/{partyId}/{id}";
+        HttpResponseMessage response = await _httpClient.DeleteAsync(token, endpointUrl);
+        if (response.IsSuccessStatusCode)
+        {
+            return true;
+        }
+        return Problem.Generic_EndOfMethod;
     }
 
     public Task<bool> ChangeSystemUserRealTitle(string newTitle, Guid id, CancellationToken cancellationToken = default)
