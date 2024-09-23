@@ -15,15 +15,21 @@ public class SystemUserService : ISystemUserService
     private readonly ISystemUserClient _systemUserClient;
     private readonly IAccessManagementClient _accessManagementClient;
     private readonly ISystemRegisterClient _systemRegisterClient;
+    private readonly IRegisterClient _registerClient;
+    private readonly IResourceRegistryClient _resourceRegistryClient;
 
     public SystemUserService(
         ISystemUserClient systemUserClient,
         IAccessManagementClient accessManagementClient,
-        ISystemRegisterClient systemRegisterClient)
+        ISystemRegisterClient systemRegisterClient,
+        IRegisterClient registerClient,
+        IResourceRegistryClient resourceRegistryClient)
     {
         _systemUserClient = systemUserClient;
         _accessManagementClient = accessManagementClient;
         _systemRegisterClient = systemRegisterClient;
+        _registerClient = registerClient;
+        _resourceRegistryClient = resourceRegistryClient;
     }
 
     public async Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
@@ -48,12 +54,20 @@ public class SystemUserService : ISystemUserService
         int reporteePartyId = reportee.PartyId;
         
         var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(reporteePartyId, cancellationToken);
+
+        foreach (SystemUser systemUser in lista)
+        {
+            AddRightsAndVendorName(systemUser, cancellationToken);
+        }
+
         return lista;
     }
 
     public async Task<SystemUser?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        return await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
+        SystemUser systemUser = await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
+        AddRightsAndVendorName(systemUser, cancellationToken);
+        return systemUser;
     }
 
     public async Task<Result<SystemUser>> CreateSystemUser(int partyId, CreateSystemUserRequestToAuthComp newSystemUserDescriptor, CancellationToken cancellation = default)
@@ -114,5 +128,37 @@ public class SystemUserService : ISystemUserService
         }
 
         return true;
+    }
+
+    private async void AddRightsAndVendorName(SystemUser systemUser, CancellationToken cancellationToken)
+    {
+        List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemUser.SystemId, cancellationToken);
+            
+            // add resources
+            foreach (Right right in rights)
+            {
+                string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
+
+                if (resourceId != null) 
+                {
+                    systemUser.Rights.Add(new RightFrontEnd() 
+                    {
+                        Resource = right.Resource,
+                        ServiceResource = await _resourceRegistryClient.GetResource(resourceId, cancellationToken)
+                    });
+                }
+            }
+
+            // add system name
+            try
+            {
+                systemUser.SupplierName =
+                    (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
+            }
+            catch (Exception ex)
+            {
+                systemUser.SupplierName = "N/A"; // "N/A" stands for "Not Available
+                Console.Write(ex.ToString());
+            }
     }
 }
