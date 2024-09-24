@@ -109,7 +109,6 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
             <Button
               variant='tertiary'
               onClick={() => {
-                // TODO: what will be the id of the new system user?
                 dispatch(setCreatedId(request.id));
                 navigate(AuthenticationRoute.Overview);
               }}
