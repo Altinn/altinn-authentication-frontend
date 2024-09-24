@@ -57,4 +57,17 @@ public class RequestClient(
 
         return Problem.Generic_EndOfMethod;
     }
+
+    public async Task<Result<bool>> RejectRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
+    {
+        string endpoint = $"systemuser/request/{partyId}/{requestId}/reject";
+        HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
+
+        if (res.IsSuccessStatusCode)
+        {
+            return true;
+        }
+
+        return Problem.Generic_EndOfMethod;
+    }
 }
