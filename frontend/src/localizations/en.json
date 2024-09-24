@@ -96,12 +96,17 @@
     "reject": "Reject",
     "org_nr": "{{systemName}} is delivered by {{vendorName}}, org.nr. {{vendorOrg}}",
     "loading_creation_request": "Laster request",
-    "load_creation_request_error": "Could not load creation request",
+    "load_creation_request_error": "Could not load system access request",
     "load_user_info_error": "Could not load user info",
-    "load_creation_request_no_id": "requestId must be included as query-parameter in url",
+    "load_creation_request_no_id": "id must be included as query-parameter in url",
     "accept_error": "Could not create system access",
     "reject_error": "Could not reject request",
     "accept_loading": "Creating system access...",
-    "reject_loading": "Rejecting request..."
+    "reject_loading": "Rejecting request...",
+    "receipt_header": "The system access is ready",
+    "receipt_ingress": "You can now use {{systemName}}",
+    "receipt_body": "At altinn.no you will find and overview of your system accesses. There you can also edit the name of the system accesses, and withdraw the approval at any time.",
+    "receipt_close": "Close",
+    "receipt_go_to_overview": "Go to overview in Altinn"
   }
 }

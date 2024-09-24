@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
@@ -23,6 +23,7 @@ interface VendorRequestPageContentProps {
 export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPageContentProps) => {
   const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
+  const [isReceiptVisible, setIsReceiptVisible] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -37,33 +38,89 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
     { isError: isRejectCreationRequestError, isLoading: isRejectingSystemUser },
   ] = useRejectSystemUserRequestMutation();
 
-  const acceptSystemUser = () => {
+  const acceptSystemUser = (): void => {
     postAcceptCreationRequest(request.id)
       .unwrap()
-      .then(() => redirectAfterAction(request.id));
+      .then(() => {
+        if (request.redirectUrl) {
+          redirectToVendor(request.redirectUrl);
+        } else {
+          setIsReceiptVisible(true);
+        }
+      });
   };
 
-  const rejectSystemUser = () => {
+  const rejectSystemUser = (): void => {
     postRejectCreationRequest(request.id)
       .unwrap()
-      .then(() => redirectAfterAction());
+      .then(() => {
+        if (request.redirectUrl) {
+          redirectToVendor(request.redirectUrl);
+        } else {
+          logoutUser();
+        }
+      });
   };
 
-  const redirectAfterAction = (createdId?: string) => {
-    if (request.redirectUrl) {
-      // logout and redirect
-      window.location.assign(request.redirectUrl);
-    } else {
-      // redirect to overview page
-      if (createdId) {
-        dispatch(setCreatedId(createdId));
-      }
-      navigate(AuthenticationRoute.Overview);
-    }
+  const redirectToVendor = (requestUrl: string): void => {
+    const url = new URL(requestUrl);
+    url.searchParams.append('id', request.id);
+    window.location.assign(url.toString());
+  };
+
+  const logoutUser = (): void => {
+    window.location.assign('/ui/Authentication/Logout');
   };
 
   const isActionButtonDisabled =
     !userInfo.canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser;
+
+  const renderFooter = (): React.ReactNode => {
+    return (
+      <Paragraph size='sm' className={classes.vendorInfo}>
+        {t('vendor_request.org_nr', {
+          systemName: request.system.name[currentLanguage],
+          vendorName: request.system.systemVendorOrgName,
+          vendorOrg: request.system.systemVendorOrgNumber.match(/.{1,3}/g)?.join(' '),
+        })}
+      </Paragraph>
+    );
+  };
+
+  if (isReceiptVisible) {
+    return (
+      <>
+        <div className={classes.vendorRequestBlock}>
+          <Heading level={1} size='lg'>
+            {t('vendor_request.receipt_header')}
+          </Heading>
+        </div>
+        <div className={classes.vendorRequestBlock}>
+          <Heading level={2} size='sm'>
+            {t('vendor_request.receipt_ingress', {
+              systemName: request.system.name[currentLanguage],
+            })}
+          </Heading>
+          <Paragraph>{t('vendor_request.receipt_body')}</Paragraph>
+          <div className={classes.buttonRow}>
+            <Button variant='primary' onClick={() => logoutUser()}>
+              {t('vendor_request.receipt_close')}
+            </Button>
+            <Button
+              variant='tertiary'
+              onClick={() => {
+                dispatch(setCreatedId(request.id));
+                navigate(AuthenticationRoute.Overview);
+              }}
+            >
+              {t('vendor_request.receipt_go_to_overview')}
+            </Button>
+          </div>
+        </div>
+        {renderFooter()}
+      </>
+    );
+  }
 
   return (
     <>
@@ -140,13 +197,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
           </div>
         </div>
       </div>
-      <Paragraph size='sm' className={classes.vendorInfo}>
-        {t('vendor_request.org_nr', {
-          systemName: request.system.name[currentLanguage],
-          vendorName: request.system.systemVendorOrgName,
-          vendorOrg: request.system.systemVendorOrgNumber.match(/.{1,3}/g)?.join(' '),
-        })}
-      </Paragraph>
+      {renderFooter()}
     </>
   );
 };
