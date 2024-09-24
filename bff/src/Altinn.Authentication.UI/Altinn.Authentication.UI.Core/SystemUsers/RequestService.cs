@@ -20,7 +20,7 @@ public class RequestService(
         return await requestClient.ApproveRequest(partyId, requestId, cancellationToken);
     }
 
-        public async Task<Result<bool>> RejectRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
+    public async Task<Result<bool>> RejectRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
     {
         return await requestClient.RejectRequest(partyId, requestId, cancellationToken);
     }
