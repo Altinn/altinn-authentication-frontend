@@ -43,8 +43,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       .unwrap()
       .then(() => {
         if (request.redirectUrl) {
-          // TODO: should the server return the redirectUrl with appended id of new systemUser?
-          window.location.assign(request.redirectUrl);
+          redirectToVendor(request.redirectUrl);
         } else {
           setIsReceiptVisible(true);
         }
@@ -56,11 +55,17 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       .unwrap()
       .then(() => {
         if (request.redirectUrl) {
-          window.location.assign(request.redirectUrl);
+          redirectToVendor(request.redirectUrl);
         } else {
           logoutUser();
         }
       });
+  };
+
+  const redirectToVendor = (requestUrl: string): void => {
+    const url = new URL(requestUrl);
+    url.searchParams.append('id', request.id);
+    window.location.assign(url.toString());
   };
 
   const logoutUser = (): void => {
