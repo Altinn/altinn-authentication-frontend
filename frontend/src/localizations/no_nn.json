@@ -102,6 +102,9 @@
     "accept_error": "Kunne ikkje opprette systemtilgang",
     "reject_error": "Kunne ikkje avvise forespørsel",
     "accept_loading": "Oppretter systemtilgang...",
-    "reject_loading": "Avviser forespørsel..."
+    "reject_loading": "Avviser forespørsel...",
+    "request_accepted": "Denne forespørselen er allerede akseptert",
+    "request_rejected": "Denne forespørselen er allerede avvist",
+    "request_expired": "Denne forespørselen har utløpt"
   }
 }

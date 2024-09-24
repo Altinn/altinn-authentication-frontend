@@ -102,6 +102,9 @@
     "accept_error": "Could not create system access",
     "reject_error": "Could not reject request",
     "accept_loading": "Creating system access...",
-    "reject_loading": "Rejecting request..."
+    "reject_loading": "Rejecting request...",
+    "request_accepted": "This request is already accepted",
+    "request_rejected": "This request is already rejected",
+    "request_expired": "This request has expired"
   }
 }

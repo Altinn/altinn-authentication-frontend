@@ -63,7 +63,10 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   };
 
   const isActionButtonDisabled =
-    !userInfo.canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser;
+    !userInfo.canCreateSystemUser ||
+    isAcceptingSystemUser ||
+    isRejectingSystemUser ||
+    request.status !== 'new';
 
   return (
     <>
@@ -73,6 +76,15 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         </Heading>
       </div>
       <div className={classes.vendorRequestBlock}>
+        {request.status === 'accepted' && (
+          <Alert severity='info'>{t('vendor_request.request_accepted')}</Alert>
+        )}
+        {request.status === 'rejected' && (
+          <Alert severity='info'>{t('vendor_request.request_rejected')}</Alert>
+        )}
+        {request.status === 'denied' && (
+          <Alert severity='info'>{t('vendor_request.request_expired')}</Alert>
+        )}
         <Heading level={2} size='sm'>
           {t('vendor_request.creation_header', {
             vendorName: request.system.name[currentLanguage],
