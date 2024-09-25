@@ -1,5 +1,6 @@
 ﻿using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Core.UserProfiles;
+using Altinn.Authorization.ProblemDetails;
 
 namespace Altinn.Authentication.UI.Mocks.SystemUsers;
 
@@ -104,7 +105,7 @@ public class SystemUserClientMock : ISystemUserClient
         return newSystemUser;
     }
 
-    public async Task<bool> DeleteSystemUserReal(Guid id, CancellationToken cancellationToken = default)
+    public async Task<Result<bool>> DeleteSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
         SystemUser? toDelete = _systemUserList.Find(i => i.Id == id.ToString());        

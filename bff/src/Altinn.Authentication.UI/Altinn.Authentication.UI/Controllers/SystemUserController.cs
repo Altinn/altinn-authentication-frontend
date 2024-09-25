@@ -162,8 +162,12 @@ public class SystemUserController : ControllerBase
         var toBeDeleted = await _systemUserService.GetSpecificSystemUserDTO(partyId, id, cancellationToken);
         if (toBeDeleted == null) return NotFound();
         if (partyId.ToString() != toBeDeleted.PartyId) return BadRequest();
-        await _systemUserService.DeleteSystemUser(id, cancellationToken);
-        return Ok(toBeDeleted.Id);
+        Result<bool> result = await _systemUserService.DeleteSystemUser(partyId, id, cancellationToken);
+        if (result.IsProblem)
+        {
+            return result.Problem.ToActionResult();
+        }
+        return NoContent();
     }
 
     private (int partyId, ActionResult actionResult) ResolvePartyId()
