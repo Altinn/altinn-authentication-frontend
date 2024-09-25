@@ -132,6 +132,8 @@ public class SystemUserService : ISystemUserService
 
     private async void AddRightsAndVendorName(SystemUser systemUser, CancellationToken cancellationToken)
     {
+        // TODO: rights for a systemuser is not 1:1 with system rights, but we have no way to 
+        // get rights for a specific systemuser yet, so return the rights for the system for now.
         List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemUser.SystemId, cancellationToken);
         
         // add resources

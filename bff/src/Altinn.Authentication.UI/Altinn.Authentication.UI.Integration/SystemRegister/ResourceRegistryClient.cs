@@ -36,7 +36,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
             
             if (resourceId != null)
             {
-                ServiceResource? serviceResource = resourceId != null ? await GetResource(resourceId, cancellationToken) : null;
+                ServiceResource? serviceResource = await GetResource(resourceId, cancellationToken);
                 if (serviceResource != null) 
                 {
                     resources.Add(serviceResource);

@@ -54,7 +54,7 @@ public class VendorRequest
     public List<Right> Rights { get; set; } = [];
 
     /// <summary>
-    /// The set of Rights requested for this system user. Must be equal to or less than the set defined in the Registered System.
+    /// The list of resources calculated from Rights.
     /// Must be a minimum of 1 selected Right.
     /// </summary>
     [Required]
