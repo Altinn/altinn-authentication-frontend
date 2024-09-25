@@ -26,15 +26,13 @@ namespace Altinn.Authentication.UI.Controllers;
 public class SystemUserController : ControllerBase
 {
     ISystemUserService _systemUserService;
-    IHttpContextAccessor _httpContextAccessor;
 
     /// <summary>
     /// Constructor for <see cref="SystemUserController"/>
     /// </summary>
-    public SystemUserController(ISystemUserService systemUserService, IHttpContextAccessor httpContextAccessor)
+    public SystemUserController(ISystemUserService systemUserService)
     {
         _systemUserService = systemUserService;
-        _httpContextAccessor = httpContextAccessor;
     }
     
     /// <summary>
@@ -158,7 +156,8 @@ public class SystemUserController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid id, CancellationToken cancellationToken = default)
     {
-        int partyId = AuthenticationHelper.GetUsersPartyId(_httpContextAccessor.HttpContext!);
+        // Get the partyId from the context (Altinn Part Coook)
+        int partyId = AuthenticationHelper.GetRepresentingPartyId(HttpContext);
         var toBeDeleted = await _systemUserService.GetSpecificSystemUserDTO(partyId, id, cancellationToken);
         if (toBeDeleted == null) return NotFound();
         if (partyId.ToString() != toBeDeleted.PartyId) return BadRequest();
