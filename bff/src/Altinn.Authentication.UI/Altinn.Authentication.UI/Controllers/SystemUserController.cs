@@ -158,7 +158,7 @@ public class SystemUserController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(Guid id, CancellationToken cancellationToken = default)
     {
-        int partyId = AuthenticationHelper.GetUsersPartyId(_httpContextAccessor.HttpContext!);
+        int partyId = AuthenticationHelper.GetRepresentingPartyId(_httpContextAccessor.HttpContext!);
         var toBeDeleted = await _systemUserService.GetSpecificSystemUserDTO(partyId, id, cancellationToken);
         if (toBeDeleted == null) return NotFound();
         if (partyId.ToString() != toBeDeleted.PartyId) return BadRequest();
