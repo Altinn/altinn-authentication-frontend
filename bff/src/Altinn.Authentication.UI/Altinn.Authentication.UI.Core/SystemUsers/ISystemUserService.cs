@@ -21,7 +21,7 @@ public interface ISystemUserService
     /// <summary>
     /// Deletes system user
     /// </summary>
-    Task<bool> DeleteSystemUser(Guid id, CancellationToken cancellationToken = default);
+    Task<Result<bool>> DeleteSystemUser(int partyId, Guid id, CancellationToken cancellationToken = default);
  
     /// <summary>
     /// Change system user title

@@ -41,7 +41,7 @@ public class RequestController(
     }
 
     /// <summary>
-    /// Gets a VendorRequest by Id
+    /// Approve a VendorRequest by Id
     /// </summary>
     /// <returns></returns>
     [Authorize]
@@ -55,6 +55,29 @@ public class RequestController(
         }
 
         Result<bool> req = await _requestService.ApproveRequest(partyId, requestId, cancellationToken);
+        if (req.IsProblem)
+        {
+            return req.Problem.ToActionResult();
+        }
+
+        return Ok(req.Value);
+    }
+
+    /// <summary>
+    /// Reject a VendorRequest by Id
+    /// </summary>
+    /// <returns></returns>
+    [Authorize]
+    [HttpPost("{requestId}/reject")]
+    public async Task<ActionResult> RejectRequest(Guid requestId, CancellationToken cancellationToken = default)
+    {
+        int partyId = AuthenticationHelper.GetRepresentingPartyId(HttpContext);
+        if (partyId == 0)
+        {
+            return BadRequest("PartyId not provided in the context.");
+        }
+
+        Result<bool> req = await _requestService.RejectRequest(partyId, requestId, cancellationToken);
         if (req.IsProblem)
         {
             return req.Problem.ToActionResult();

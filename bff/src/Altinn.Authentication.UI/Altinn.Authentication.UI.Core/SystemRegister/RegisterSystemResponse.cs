@@ -46,12 +46,6 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// <summary>
         /// A short name of the product, used when displaying to the user
         /// </summary>
-        [Required]
-        public string SystemName { get; set; } = string.Empty;
-
-        /// <summary>
-        /// A short name of the product, used when displaying to the user
-        /// </summary>
         public required IDictionary<string, string> Name { get; set; }
 
         /// <summary>

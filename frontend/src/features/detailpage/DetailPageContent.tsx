@@ -15,6 +15,8 @@ interface DetailPageContentProps {
   systemUser: SystemUser;
 }
 
+const IS_EDIT_NAME_ENABLED = localStorage.getItem('systemuser-editname');
+
 export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
   const { t } = useTranslation();
   const deleteModalRef = useRef<HTMLDialogElement | null>(null);
@@ -68,36 +70,42 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           {systemUser.supplierName?.toUpperCase()}
         </Paragraph>
       </div>
-      <Textfield
-        label={t('authent_detailpage.edit_systemuser_name')}
-        className={classes.nameField}
-        size='small'
-        value={name}
-        onChange={(event) => setName(event.target.value)}
-        error={isNameTooLong && t('authent_detailpage.name_too_long', { nameLength: name.length })}
-      />
+      {IS_EDIT_NAME_ENABLED && (
+        <Textfield
+          label={t('authent_detailpage.edit_systemuser_name')}
+          className={classes.nameField}
+          size='small'
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+          error={
+            isNameTooLong && t('authent_detailpage.name_too_long', { nameLength: name.length })
+          }
+        />
+      )}
       {isUpdateError && (
         <Alert severity='danger' role='alert'>
           {t('authent_detailpage.update_systemuser_error')}
         </Alert>
       )}
       <div>
-        <div className={classes.buttonContainer}>
-          <Button
-            onClick={() => {
-              updateSystemUser({
-                ...systemUser,
-                integrationTitle: name,
-              });
-            }}
-            disabled={!name.trim() || isUpdatingSystemUser || isNameTooLong}
-          >
-            {t('authent_detailpage.save_systemuser')}
-          </Button>
-          <Button variant='tertiary' asChild>
-            <RouterLink to={AuthenticationRoute.Overview}>{t('common.cancel')}</RouterLink>
-          </Button>
-        </div>
+        {IS_EDIT_NAME_ENABLED && (
+          <div className={classes.buttonContainer}>
+            <Button
+              onClick={() => {
+                updateSystemUser({
+                  ...systemUser,
+                  integrationTitle: name,
+                });
+              }}
+              disabled={!name.trim() || isUpdatingSystemUser || isNameTooLong}
+            >
+              {t('authent_detailpage.save_systemuser')}
+            </Button>
+            <Button variant='tertiary' asChild>
+              <RouterLink to={AuthenticationRoute.Overview}>{t('common.cancel')}</RouterLink>
+            </Button>
+          </div>
+        )}
         <Button
           variant='tertiary'
           color='danger'

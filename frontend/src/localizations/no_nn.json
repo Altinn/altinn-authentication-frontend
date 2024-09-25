@@ -96,12 +96,17 @@
     "reject": "Avvis",
     "org_nr": "{{systemName}} blir levert av {{vendorName}}, org.nr. {{vendorOrg}}",
     "loading_creation_request": "Laster forespørsel",
-    "load_creation_request_error": "Kunne ikke laste tilgangs-forespørsel",
+    "load_creation_request_error": "Kunne ikke laste systemtilgang-forespørsel",
     "load_user_info_error": "Kunne ikke laste brukerinfo",
-    "load_creation_request_no_id": "requestId må være med som query-parameter i url",
+    "load_creation_request_no_id": "id må være med som query-parameter i url",
     "accept_error": "Kunne ikkje opprette systemtilgang",
     "reject_error": "Kunne ikkje avvise forespørsel",
     "accept_loading": "Oppretter systemtilgang...",
-    "reject_loading": "Avviser forespørsel..."
+    "reject_loading": "Avviser forespørsel...",
+    "receipt_header": "Systemtilgangen er klar",
+    "receipt_ingress": " Du kan nå ta i bruk {{systemName}}",
+    "receipt_body": "På altinn.no finner du ei oversikt over systemtilgangene dine. Der kan du også endre navn på systemtilgangen, og når som helst trekke tilbake godkjenninga.",
+    "receipt_close": "Lukk",
+    "receipt_go_to_overview": "Se oversikt i Altinn"
   }
 }
