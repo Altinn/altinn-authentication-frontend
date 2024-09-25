@@ -142,8 +142,11 @@ public class SystemUserService : ISystemUserService
         // add system name
         try
         {
-            systemUser.SupplierName =
-                (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
+            systemUser.SupplierName = (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
+            if (string.IsNullOrEmpty(systemUser.SupplierName))
+            {
+                systemUser.SupplierName = "Null-value";
+            }
         }
         catch (Exception ex)
         {
