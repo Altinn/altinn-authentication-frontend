@@ -57,7 +57,7 @@ public class SystemUserService : ISystemUserService
 
         foreach (SystemUser systemUser in lista)
         {
-            AddRightsAndVendorName(systemUser, cancellationToken);
+            await AddRightsAndVendorName(systemUser, cancellationToken);
         }
 
         return lista;
@@ -66,7 +66,7 @@ public class SystemUserService : ISystemUserService
     public async Task<SystemUser?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         SystemUser systemUser = await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
-        AddRightsAndVendorName(systemUser, cancellationToken);
+        await AddRightsAndVendorName(systemUser, cancellationToken);
         return systemUser;
     }
 
@@ -130,7 +130,7 @@ public class SystemUserService : ISystemUserService
         return true;
     }
 
-    private async void AddRightsAndVendorName(SystemUser systemUser, CancellationToken cancellationToken)
+    private async Task AddRightsAndVendorName(SystemUser systemUser, CancellationToken cancellationToken)
     {
         // TODO: rights for a systemuser is not 1:1 with system rights, but we have no way to 
         // get rights for a specific systemuser yet, so return the rights for the system for now.
@@ -143,10 +143,6 @@ public class SystemUserService : ISystemUserService
         try
         {
             systemUser.SupplierName = (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
-            if (string.IsNullOrEmpty(systemUser.SupplierName))
-            {
-                systemUser.SupplierName = "Null-value";
-            }
         }
         catch (Exception ex)
         {
