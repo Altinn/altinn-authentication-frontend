@@ -1,4 +1,5 @@
-﻿using Altinn.Authentication.UI.Core.SystemRegister;
+﻿using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Authentication.UI.Core.SystemRegister;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -50,7 +51,15 @@ public class VendorRequest
     /// </summary>
     [Required]
     [JsonPropertyName("rights")]
-    public List<RightFrontEnd> Rights { get; set; }
+    public List<Right> Rights { get; set; } = [];
+
+    /// <summary>
+    /// The set of Rights requested for this system user. Must be equal to or less than the set defined in the Registered System.
+    /// Must be a minimum of 1 selected Right.
+    /// </summary>
+    [Required]
+    [JsonPropertyName("resources")]
+    public List<ServiceResource> Resources { get; set; } = [];
 
     /// <summary>
     /// Initially the request is "new", 

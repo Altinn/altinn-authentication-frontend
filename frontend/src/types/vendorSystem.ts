@@ -1,3 +1,4 @@
+import { ServiceResource } from './serviceResource';
 import { SystemRight } from './systemRight';
 
 export interface VendorSystem {
@@ -10,6 +11,7 @@ export interface VendorSystem {
     en: string;
   };
   rights: SystemRight[];
+  resources: ServiceResource[];
   softDeleted: boolean;
   isVisible: boolean;
 }

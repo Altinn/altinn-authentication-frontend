@@ -32,7 +32,7 @@ export const SystemUserActionBar = ({
       <div>
         <div className={classes.rightsHeader}>
           <Heading level={3} size='xxsmall' spacing>
-            {!systemUser?.rights.length
+            {!systemUser?.resources.length
               ? t('authent_overviewpage.system_user_no_rights')
               : t('authent_overviewpage.system_rights_header')}
           </Heading>
@@ -43,7 +43,7 @@ export const SystemUserActionBar = ({
             </RouterLink>
           </Link>
         </div>
-        <RightsList rights={systemUser?.rights ?? []} />
+        <RightsList resources={systemUser?.resources ?? []} />
       </div>
     </ActionBar>
   );

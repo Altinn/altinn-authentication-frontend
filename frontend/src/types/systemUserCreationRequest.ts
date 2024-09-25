@@ -1,3 +1,4 @@
+import { ServiceResource } from './serviceResource';
 import { SystemRight } from './systemRight';
 import { VendorSystem } from './vendorSystem';
 
@@ -9,5 +10,6 @@ export interface SystemUserCreationRequest {
   systemId: string;
   status: RequestStatus;
   rights: SystemRight[];
+  resources: ServiceResource[];
   redirectUrl?: string;
 }

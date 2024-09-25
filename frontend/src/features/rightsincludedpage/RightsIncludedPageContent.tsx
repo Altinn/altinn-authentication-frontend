@@ -64,17 +64,17 @@ export const RightsIncludedPageContent = () => {
   return (
     <div>
       <Heading level={2} size='small' spacing>
-        {vendor?.rights.length === 1
+        {vendor?.resources.length === 1
           ? t('authent_includedrightspage.sub_title_single')
           : t('authent_includedrightspage.sub_title')}
       </Heading>
       <Paragraph size='small' spacing>
-        {vendor?.rights.length === 1
+        {vendor?.resources.length === 1
           ? t('authent_includedrightspage.content_text_single')
           : t('authent_includedrightspage.content_text')}
       </Paragraph>
       <div>
-        <RightsList rights={vendor?.rights ?? []} />
+        <RightsList resources={vendor?.resources ?? []} />
         {isCreateSystemUserError && (
           <Alert severity='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}

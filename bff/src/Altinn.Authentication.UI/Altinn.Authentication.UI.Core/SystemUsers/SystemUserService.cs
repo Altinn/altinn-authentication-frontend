@@ -133,32 +133,20 @@ public class SystemUserService : ISystemUserService
     private async void AddRightsAndVendorName(SystemUser systemUser, CancellationToken cancellationToken)
     {
         List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemUser.SystemId, cancellationToken);
-            
-            // add resources
-            foreach (Right right in rights)
-            {
-                string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
-
-                if (resourceId != null) 
-                {
-                    systemUser.Rights.Add(new RightFrontEnd() 
-                    {
-                        Resource = right.Resource,
-                        ServiceResource = await _resourceRegistryClient.GetResource(resourceId, cancellationToken)
-                    });
-                }
-            }
-
-            // add system name
-            try
-            {
-                systemUser.SupplierName =
-                    (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
-            }
-            catch (Exception ex)
-            {
-                systemUser.SupplierName = "N/A"; // "N/A" stands for "Not Available
-                Console.Write(ex.ToString());
-            }
+        
+        // add resources
+        systemUser.Resources = await _resourceRegistryClient.GetResources(rights, cancellationToken);
+        
+        // add system name
+        try
+        {
+            systemUser.SupplierName =
+                (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
+        }
+        catch (Exception ex)
+        {
+            systemUser.SupplierName = "N/A"; // "N/A" stands for "Not Available
+            Console.Write(ex.ToString());
+        }
     }
 }

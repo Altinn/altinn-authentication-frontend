@@ -21,15 +21,7 @@ public class RequestService(
         if (request.Value != null) 
         {
             // add resources
-            foreach (RightFrontEnd right in request.Value.Rights)
-            {
-                string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
-                
-                if (resourceId != null) 
-                {
-                    right.ServiceResource = await resourceRegistryClient.GetResource(resourceId, cancellationToken);
-                }
-            }
+            request.Value.Resources = await resourceRegistryClient.GetResources(request.Value.Rights, cancellationToken);
 
             // add system
             RegisterSystemResponse? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);

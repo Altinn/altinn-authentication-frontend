@@ -1,3 +1,4 @@
+import { ServiceResource } from './serviceResource';
 import { SystemRight } from './systemRight';
 
 export interface SystemUser {
@@ -10,4 +11,5 @@ export interface SystemUser {
   ownedByPartyId: string;
   created: string;
   rights: SystemRight[];
+  resources: ServiceResource[];
 }

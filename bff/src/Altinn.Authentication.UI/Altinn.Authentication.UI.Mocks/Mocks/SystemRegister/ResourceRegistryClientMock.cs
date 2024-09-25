@@ -21,4 +21,9 @@ public class ResourceRegistryClientMock : IResourceRegistryClient
     {
         return await MockTestHelper();
     }
+
+    public Task<List<ServiceResource>> GetResources(List<Right> rights, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }

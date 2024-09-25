@@ -4,6 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
+using Altinn.Authentication.UI.Core.Common.Rights;
 
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
 
@@ -25,6 +26,27 @@ public class ResourceRegistryClient : IResourceRegistryClient
         _httpClient = httpClient;
     }
 
+    public async Task<List<ServiceResource>> GetResources(List<Right> rights, CancellationToken cancellationToken = default)
+    {
+        List<ServiceResource> resources = [];
+
+        foreach (Right right in rights)
+        {
+            string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
+            
+            if (resourceId != null)
+            {
+                ServiceResource? serviceResource = resourceId != null ? await GetResource(resourceId, cancellationToken) : null;
+                if (serviceResource != null) 
+                {
+                    resources.Add(serviceResource);
+                }
+            }
+        }
+
+        return resources;
+    }
+
     public async Task<ServiceResource?> GetResource(string resourceId, CancellationToken cancellationToken = default)
     {
         try
@@ -40,8 +62,6 @@ public class ResourceRegistryClient : IResourceRegistryClient
             {
                 return null;
             }
-
-
         }
         catch (Exception ex)
         {
