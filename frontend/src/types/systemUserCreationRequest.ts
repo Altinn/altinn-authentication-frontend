@@ -1,7 +1,7 @@
 import { SystemRight } from './systemRight';
 import { VendorSystem } from './vendorSystem';
 
-type RequestStatus = 'new' | 'accepted' | 'rejected' | 'denied';
+type RequestStatus = 'New' | 'Accepted' | 'Rejected' | 'Denied';
 
 export interface SystemUserCreationRequest {
   id: string;

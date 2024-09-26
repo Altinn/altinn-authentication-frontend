@@ -76,7 +76,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
     !userInfo.canCreateSystemUser ||
     isAcceptingSystemUser ||
     isRejectingSystemUser ||
-    request.status !== 'new';
+    request.status !== 'New';
 
   const renderFooter = (): React.ReactNode => {
     return (
@@ -133,13 +133,13 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         </Heading>
       </div>
       <div className={classes.vendorRequestBlock}>
-        {request.status === 'accepted' && (
+        {request.status === 'Accepted' && (
           <Alert severity='info'>{t('vendor_request.request_accepted')}</Alert>
         )}
-        {request.status === 'rejected' && (
+        {request.status === 'Rejected' && (
           <Alert severity='info'>{t('vendor_request.request_rejected')}</Alert>
         )}
-        {request.status === 'denied' && (
+        {request.status === 'Denied' && (
           <Alert severity='info'>{t('vendor_request.request_expired')}</Alert>
         )}
         <Heading level={2} size='sm'>
