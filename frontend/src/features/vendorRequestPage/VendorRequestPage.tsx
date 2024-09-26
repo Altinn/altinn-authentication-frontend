@@ -42,7 +42,7 @@ export const VendorRequestPage = () => {
         {!requestId && (
           <Alert severity='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
         )}
-        {isLoadingCreationRequestError && (
+        {(isLoadingCreationRequestError || (creationRequest && !creationRequest.system)) && (
           <Alert severity='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
         )}
         {isLoadUserInfoError && (
@@ -51,7 +51,7 @@ export const VendorRequestPage = () => {
         {(isLoadingUserInfo || isLoadingCreationRequest) && (
           <Spinner title={t('vendor_request.loading')} />
         )}
-        {creationRequest && userInfo && (
+        {creationRequest && creationRequest.system && userInfo && (
           <VendorRequestPageContent request={creationRequest} userInfo={userInfo} />
         )}
       </div>
