@@ -12,6 +12,4 @@ export interface VendorSystem {
   };
   rights: SystemRight[];
   resources: ServiceResource[];
-  softDeleted: boolean;
-  isVisible: boolean;
 }

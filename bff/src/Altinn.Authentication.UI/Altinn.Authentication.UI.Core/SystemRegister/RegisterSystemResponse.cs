@@ -35,7 +35,7 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// Organization number of the system Vendor that offers the product (system)
         /// </summary>
         [Required]
-        public string SystemVendorOrgNumber { get; set; }
+        public string SystemVendorOrgNumber { get; set; } = string.Empty;
 
         /// <summary>
         /// Organization number of the system Vendor that offers the product (system)
@@ -59,25 +59,9 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         public List<ServiceResource> Resources { get; set; } = [];
 
         /// <summary>
-        /// Registered Systems can be set to Soft Deleted
-        /// </summary>
-        public bool SoftDeleted { get; set; } = false;
-
-        /// <summary>
-        /// The client Id
-        /// </summary>
-        [Required]
-        public List<string> ClientId { get; set; } = [];
-
-        /// <summary>
         /// Registered systems can be set to false to hide it from the user interface.
         /// This is used when the vendor does not want the user to create system users for specific systems
         /// </summary>
         public bool IsVisible { get; set; } = true;
-
-        /// <summary>
-        /// White listing of redirect urls
-        /// </summary>
-        public List<Uri> AllowedRedirectUrls { get; set; } = [];
     }
 }

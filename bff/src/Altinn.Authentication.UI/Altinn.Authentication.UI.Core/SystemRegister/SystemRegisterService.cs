@@ -19,8 +19,9 @@ public class SystemRegisterService : ISystemRegisterService
     public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
     {
         List<RegisterSystemResponse> lista = await _systemRegisterClient.GetListRegSys(cancellationToken );
-
-        foreach (RegisterSystemResponse response in lista)
+        IEnumerable<RegisterSystemResponse> visibleSystems = lista.Where(system => system.IsVisible);
+        
+        foreach (RegisterSystemResponse response in visibleSystems)
         {
             response.Resources = await _resourceRegistryClient.GetResources(response.Rights, cancellationToken);
 
@@ -36,6 +37,6 @@ public class SystemRegisterService : ISystemRegisterService
             }
         }
 
-        return lista;
+        return visibleSystems.ToList();
     }
 }
