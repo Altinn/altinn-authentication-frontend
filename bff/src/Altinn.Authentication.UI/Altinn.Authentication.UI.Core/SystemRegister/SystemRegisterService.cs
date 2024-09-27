@@ -39,4 +39,9 @@ public class SystemRegisterService : ISystemRegisterService
 
         return visibleSystems.ToList();
     }
+
+    public async Task<List<ServiceResource>> GetSystemRights(string systemId, CancellationToken cancellationToken)
+    {
+        return await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
+    }
 }

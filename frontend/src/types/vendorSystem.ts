@@ -1,4 +1,3 @@
-import { ServiceResource } from './serviceResource';
 import { SystemRight } from './systemRight';
 
 export interface VendorSystem {
@@ -10,6 +9,10 @@ export interface VendorSystem {
     nn: string;
     en: string;
   };
+  description?: {
+    nb: string;
+    nn: string;
+    en: string;
+  };
   rights: SystemRight[];
-  resources: ServiceResource[];
 }

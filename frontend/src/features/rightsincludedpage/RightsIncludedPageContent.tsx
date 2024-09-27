@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
-import { useCreateSystemUserMutation, useGetVendorsQuery } from '@/rtk/features/systemUserApi';
+import { useCreateSystemUserMutation, useGetSystemRightsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
@@ -22,9 +22,11 @@ export const RightsIncludedPageContent = () => {
 
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
   const selectedSystemVendor = useAppSelector((state) => state.createSystemUser.selectedSystemType);
-  const { data: vendors } = useGetVendorsQuery();
-
-  const vendor = vendors?.find((x) => x.systemId === selectedSystemVendor);
+  const {
+    data: rights,
+    isLoading: isLoadingRights,
+    isError: isLoadRightsError,
+  } = useGetSystemRightsQuery(selectedSystemVendor);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -61,23 +63,32 @@ export const RightsIncludedPageContent = () => {
     navigateToOverview();
   };
 
+  if (isLoadingRights) {
+    return <Spinner title={t('authent_includedrightspage.loading_rights')} />;
+  }
+
   return (
     <div>
       <Heading level={2} size='small' spacing>
-        {vendor?.resources.length === 1
+        {rights?.length === 1
           ? t('authent_includedrightspage.sub_title_single')
           : t('authent_includedrightspage.sub_title')}
       </Heading>
       <Paragraph size='small' spacing>
-        {vendor?.resources.length === 1
+        {rights?.length === 1
           ? t('authent_includedrightspage.content_text_single')
           : t('authent_includedrightspage.content_text')}
       </Paragraph>
       <div>
-        <RightsList resources={vendor?.resources ?? []} />
+        <RightsList resources={rights ?? []} />
         {isCreateSystemUserError && (
           <Alert severity='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}
+          </Alert>
+        )}
+        {isLoadRightsError && (
+          <Alert severity='danger' role='alert'>
+            {t('authent_includedrightspage.load_rights_error')}
           </Alert>
         )}
         <div className={classes.buttonContainer}>
@@ -85,7 +96,7 @@ export const RightsIncludedPageContent = () => {
             size='small'
             variant='primary'
             onClick={handleConfirm}
-            disabled={isCreatingSystemUser}
+            disabled={isCreatingSystemUser || isLoadRightsError}
             className={classes.successButton}
           >
             {isCreatingSystemUser && (

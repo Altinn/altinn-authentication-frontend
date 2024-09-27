@@ -39,4 +39,19 @@ public class SystemRegisterController : ControllerBase
         return Ok(lista);
     }
 
+    /// <summary>
+    /// Get rights for a single system
+    /// </summary>
+    /// <param name="systemId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpGet("rights/{systemId}")]
+    public async Task<ActionResult> GetSystemRights(string systemId, CancellationToken cancellationToken)
+    {
+        List<ServiceResource> rights = await _systemRegisterService.GetSystemRights(systemId, cancellationToken);
+
+        return Ok(rights);
+    }
+
 }

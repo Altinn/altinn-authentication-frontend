@@ -1,6 +1,6 @@
 import { url } from '@/utils/urlUtils';
 import { api } from './api';
-import { SystemUser, SystemUserCreationRequest, VendorSystem } from '@/types';
+import { ServiceResource, SystemUser, SystemUserCreationRequest, VendorSystem } from '@/types';
 
 enum Tags {
   SystemUsers = 'Systemusers',
@@ -25,6 +25,9 @@ export const systemUserApi = apiWithTag.injectEndpoints({
     }),
     getVendors: builder.query<VendorSystem[], void>({
       query: () => `/systemregister`,
+    }),
+    getSystemRights: builder.query<ServiceResource[], string>({
+      query: (systemId) => url`systemregister/${systemId}/rights`,
     }),
     createSystemUser: builder.mutation<SystemUser, CreationRequest>({
       query: (systemUser) => ({
@@ -76,6 +79,7 @@ export const {
   useGetSystemUsersQuery,
   useUpdateSystemuserMutation,
   useGetVendorsQuery,
+  useGetSystemRightsQuery,
   useGetSystemUserRequestQuery,
   useApproveSystemUserRequestMutation,
   useRejectSystemUserRequestMutation,
