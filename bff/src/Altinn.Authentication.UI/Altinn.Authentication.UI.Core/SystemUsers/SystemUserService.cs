@@ -57,7 +57,7 @@ public class SystemUserService : ISystemUserService
 
         foreach (SystemUser systemUser in lista)
         {
-            await AddRightsAndVendorName(systemUser, cancellationToken);
+            await AddRights(systemUser, cancellationToken);
         }
 
         return lista;
@@ -66,7 +66,7 @@ public class SystemUserService : ISystemUserService
     public async Task<SystemUser?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         SystemUser systemUser = await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
-        await AddRightsAndVendorName(systemUser, cancellationToken);
+        await AddRights(systemUser, cancellationToken);
         return systemUser;
     }
 
@@ -130,7 +130,7 @@ public class SystemUserService : ISystemUserService
         return true;
     }
 
-    private async Task AddRightsAndVendorName(SystemUser systemUser, CancellationToken cancellationToken)
+    private async Task AddRights(SystemUser systemUser, CancellationToken cancellationToken)
     {
         // TODO: rights for a systemuser is not 1:1 with system rights, but we have no way to 
         // get rights for a specific systemuser yet, so return the rights for the system for now.
@@ -139,15 +139,5 @@ public class SystemUserService : ISystemUserService
         // add resources
         systemUser.Resources = await _resourceRegistryClient.GetResources(rights, cancellationToken);
         
-        // add system name
-        try
-        {
-            systemUser.SupplierName = (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
-        }
-        catch (Exception ex)
-        {
-            systemUser.SupplierName = "N/A"; // "N/A" stands for "Not Available
-            Console.Write(ex.ToString());
-        }
     }
 }

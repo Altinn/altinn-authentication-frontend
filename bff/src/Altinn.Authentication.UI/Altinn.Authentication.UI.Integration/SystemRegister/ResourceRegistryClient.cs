@@ -47,7 +47,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
         return resources;
     }
 
-    public async Task<ServiceResource?> GetResource(string resourceId, CancellationToken cancellationToken = default)
+    private async Task<ServiceResource?> GetResource(string resourceId, CancellationToken cancellationToken = default)
     {
         try
         {

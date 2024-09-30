@@ -54,11 +54,6 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         public List<Right> Rights { get; set; } = [];
 
         /// <summary>
-        /// The array of Resources (from Rights)
-        /// </summary>
-        public List<ServiceResource> Resources { get; set; } = [];
-
-        /// <summary>
         /// Registered systems can be set to false to hide it from the user interface.
         /// This is used when the vendor does not want the user to create system users for specific systems
         /// </summary>

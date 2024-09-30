@@ -34,6 +34,9 @@ public class VendorRequest
     [JsonPropertyName("systemId")]
     public string SystemId { get; set; }
 
+    /// <summary>
+    /// Full system object
+    /// </summary>
     [JsonPropertyName("system")]
     public RegisterSystemResponse? System { get; set; }
 

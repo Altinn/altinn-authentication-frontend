@@ -24,7 +24,7 @@ export const SystemUserActionBar = ({
   return (
     <ActionBar
       title={systemUser.integrationTitle}
-      subtitle={systemUser.system.systemVendorOrgName?.toUpperCase()}
+      subtitle={systemUser.supplierName?.toUpperCase()}
       color='light'
       size='large'
       defaultOpen={defaultOpen}

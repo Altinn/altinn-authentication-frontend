@@ -55,7 +55,7 @@ public class SystemRegisterClient : ISystemRegisterClient
     public async Task<RegisterSystemResponse?> GetSystem(string systemId, CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"systemregister/system/{systemId}";
+        string endpointUrl = $"systemregister/{systemId}";
         var accessToken = await _accessTokenProvider.GetAccessToken();
 
         HttpResponseMessage response = await _httpClient.GetAsync(token, endpointUrl, accessToken);
