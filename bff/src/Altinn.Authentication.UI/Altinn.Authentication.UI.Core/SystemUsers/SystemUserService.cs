@@ -15,20 +15,17 @@ public class SystemUserService : ISystemUserService
     private readonly ISystemUserClient _systemUserClient;
     private readonly IAccessManagementClient _accessManagementClient;
     private readonly ISystemRegisterClient _systemRegisterClient;
-    private readonly IRegisterClient _registerClient;
     private readonly IResourceRegistryClient _resourceRegistryClient;
 
     public SystemUserService(
         ISystemUserClient systemUserClient,
         IAccessManagementClient accessManagementClient,
         ISystemRegisterClient systemRegisterClient,
-        IRegisterClient registerClient,
         IResourceRegistryClient resourceRegistryClient)
     {
         _systemUserClient = systemUserClient;
         _accessManagementClient = accessManagementClient;
         _systemRegisterClient = systemRegisterClient;
-        _registerClient = registerClient;
         _resourceRegistryClient = resourceRegistryClient;
     }
 

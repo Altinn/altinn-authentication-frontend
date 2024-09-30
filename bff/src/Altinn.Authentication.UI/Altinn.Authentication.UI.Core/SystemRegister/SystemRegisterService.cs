@@ -5,16 +5,13 @@ namespace Altinn.Authentication.UI.Core.SystemRegister;
 public class SystemRegisterService : ISystemRegisterService
 {
     ISystemRegisterClient _systemRegisterClient;
-    IRegisterClient _registerClient;
     IResourceRegistryClient _resourceRegistryClient;
 
     public SystemRegisterService(
         ISystemRegisterClient systemRegisterClient,
-        IRegisterClient registerClient,
         IResourceRegistryClient resourceRegistryClient)
     {
         _systemRegisterClient = systemRegisterClient;
-        _registerClient = registerClient;
         _resourceRegistryClient = resourceRegistryClient;
     }
 
