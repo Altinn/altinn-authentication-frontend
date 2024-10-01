@@ -6,6 +6,7 @@ enum AuthenticationPath {
   RightsIncluded = 'rightsincluded',
   Details = 'details',
   VendorRequest = 'vendorrequest',
+  Redirect = 'redirect',
 }
 
 export enum AuthenticationRoute {
@@ -15,4 +16,5 @@ export enum AuthenticationRoute {
   Details = `/${AuthenticationPath.Auth}/${AuthenticationPath.Details}`,
   MaskinportenAdm = `/${AuthenticationPath.Auth}/${AuthenticationPath.MaskinportenAdm}`,
   VendorRequest = `/${AuthenticationPath.Auth}/${AuthenticationPath.VendorRequest}`,
+  Redirect = `/${AuthenticationPath.Auth}/${AuthenticationPath.Redirect}`,
 }
