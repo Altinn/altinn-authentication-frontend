@@ -1,4 +1,4 @@
-using Altinn.Platform.Register.Models;
+﻿using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Core.SystemRegister;
 
