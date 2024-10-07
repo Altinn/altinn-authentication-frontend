@@ -100,7 +100,7 @@ public class SystemUserService : ISystemUserService
 
     private async Task<DelegationCheckResult> UserDelegationCheckForReportee(int partyId, string systemId ,CancellationToken cancellationToken = default)
     {        
-        List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
+        List<Right> rights = await _systemRegisterClient.GetRightsFromSystem(systemId, cancellationToken);
         List<RightResponses> rightResponsesList = [];
                   
         foreach (Right right in rights)
@@ -139,7 +139,7 @@ public class SystemUserService : ISystemUserService
         
         // TODO: rights for a systemuser is not 1:1 with system rights, but we have no way to 
         // get rights for a specific systemuser yet, so return the rights for the system for now.
-        List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemUser.SystemId, cancellationToken);
+        List<Right> rights = await _systemRegisterClient.GetRightsFromSystem(systemUser.SystemId, cancellationToken);
         
         // add resources
         systemUser.Resources = await _resourceRegistryClient.GetResources(rights, cancellationToken);
@@ -148,7 +148,7 @@ public class SystemUserService : ISystemUserService
         try
         {
             systemUser.SupplierName =
-                (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
+                (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo, cancellationToken)).Organization.Name;
         }
         catch (Exception ex)
         {

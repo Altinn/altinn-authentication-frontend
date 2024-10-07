@@ -68,7 +68,7 @@ public class SystemRegisterClient : ISystemRegisterClient
     }
 
 
-    public async Task<List<Right>> GetRightFromSystem(string systemId, CancellationToken cancellationToken)
+    public async Task<List<Right>> GetRightsFromSystem(string systemId, CancellationToken cancellationToken = default)
     {
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemregister/system/{systemId}/rights";

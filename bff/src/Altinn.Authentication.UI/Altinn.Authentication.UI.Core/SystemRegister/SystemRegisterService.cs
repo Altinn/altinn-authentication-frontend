@@ -26,7 +26,7 @@ public class SystemRegisterService : ISystemRegisterService
             try
             {
                 response.SystemVendorOrgName =
-                    (await _registerClient.GetPartyForOrganization(response.SystemVendorOrgNumber)).Organization.Name;
+                    (await _registerClient.GetPartyForOrganization(response.SystemVendorOrgNumber, cancellationToken)).Organization.Name;
             }
             catch (Exception ex)
             {
@@ -40,7 +40,7 @@ public class SystemRegisterService : ISystemRegisterService
 
     public async Task<List<ServiceResource>> GetSystemRights(string systemId, CancellationToken cancellationToken)
     {
-        List<Right> right = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
+        List<Right> right = await _systemRegisterClient.GetRightsFromSystem(systemId, cancellationToken);
         return await _resourceRegistryClient.GetResources(right, cancellationToken); 
     }
 }
