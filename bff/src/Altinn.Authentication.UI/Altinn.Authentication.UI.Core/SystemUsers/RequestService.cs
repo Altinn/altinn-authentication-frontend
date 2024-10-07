@@ -10,7 +10,8 @@ namespace Altinn.Authentication.UI.Core.SystemUsers;
 public class RequestService(
     IRequestClient requestClient,
     IResourceRegistryClient resourceRegistryClient,
-    ISystemRegisterClient systemRegisterClient
+    ISystemRegisterClient systemRegisterClient,
+    IRegisterClient registerClient
     ) : IRequestService
 {
     public async Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
@@ -25,6 +26,18 @@ public class RequestService(
             // add system
             RegisterSystemResponse? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);
             request.Value.System = system;
+
+            // add system name
+            try
+            {
+                request.Value.System.SystemVendorOrgName =
+                    (await registerClient.GetPartyForOrganization(request.Value.System.SystemVendorOrgNumber)).Organization.Name;
+            }
+            catch (Exception ex)
+            {
+                request.Value.System.SystemVendorOrgName = "N/A"; // "N/A" stands for "Not Available
+                Console.Write(ex.ToString());
+            }
         }
         
 

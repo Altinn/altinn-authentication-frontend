@@ -15,17 +15,20 @@ public class SystemUserService : ISystemUserService
     private readonly ISystemUserClient _systemUserClient;
     private readonly IAccessManagementClient _accessManagementClient;
     private readonly ISystemRegisterClient _systemRegisterClient;
+    private readonly IRegisterClient _registerClient;
     private readonly IResourceRegistryClient _resourceRegistryClient;
 
     public SystemUserService(
         ISystemUserClient systemUserClient,
         IAccessManagementClient accessManagementClient,
         ISystemRegisterClient systemRegisterClient,
+        IRegisterClient registerClient,
         IResourceRegistryClient resourceRegistryClient)
     {
         _systemUserClient = systemUserClient;
         _accessManagementClient = accessManagementClient;
         _systemRegisterClient = systemRegisterClient;
+        _registerClient = registerClient;
         _resourceRegistryClient = resourceRegistryClient;
     }
 
@@ -129,6 +132,7 @@ public class SystemUserService : ISystemUserService
 
     private async Task AddRights(SystemUser systemUser, CancellationToken cancellationToken)
     {
+        
         // TODO: rights for a systemuser is not 1:1 with system rights, but we have no way to 
         // get rights for a specific systemuser yet, so return the rights for the system for now.
         List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemUser.SystemId, cancellationToken);
@@ -136,5 +140,16 @@ public class SystemUserService : ISystemUserService
         // add resources
         systemUser.Resources = await _resourceRegistryClient.GetResources(rights, cancellationToken);
         
+        // add system name
+        try
+        {
+            systemUser.SupplierName =
+                (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo)).Organization.Name;
+        }
+        catch (Exception ex)
+        {
+            systemUser.SupplierName = "N/A"; // "N/A" stands for "Not Available
+            Console.Write(ex.ToString());
+        }
     }
 }
