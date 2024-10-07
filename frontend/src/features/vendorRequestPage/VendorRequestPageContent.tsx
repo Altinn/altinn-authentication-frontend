@@ -139,7 +139,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         {request.status === 'Rejected' && (
           <Alert severity='info'>{t('vendor_request.request_rejected')}</Alert>
         )}
-        {request.status === 'Denied' && (
+        {request.status === 'Timedout' && (
           <Alert severity='info'>{t('vendor_request.request_expired')}</Alert>
         )}
         <Heading level={2} size='sm'>

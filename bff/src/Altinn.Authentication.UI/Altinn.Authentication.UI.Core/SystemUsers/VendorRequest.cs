@@ -51,7 +51,7 @@ public class VendorRequest
 
     /// <summary>
     /// Initially the request is "new", 
-    /// other values are "accepted", "rejected", "denied"
+    /// other values are "accepted", "rejected", "denied", "timedout"
     /// </summary>
     [Required]
     [JsonPropertyName("status")]
