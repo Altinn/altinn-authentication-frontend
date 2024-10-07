@@ -5,12 +5,19 @@ namespace Altinn.Authentication.UI.Mocks.SystemRegister;
 
 public class SystemRegisterClientMock : ISystemRegisterClient
 {
-  private static async Task<List<RegisterSystemResponse>> MockTestHelper()
+  private static async Task<List<RegisteredSystemDTO>> MockTestHelper()
         {
             await Task.Delay(250);
 
-        RegisterSystemResponse regsys1 = new()
+        RegisteredSystemDTO regsys1 = new()
         {
+            SystemVendorOrgNumber = "314048431",
+            Description = new Dictionary<string, string>
+            {
+                {"nb", "Kult system." },
+                {"en", "Cool system." },
+                {"nn", "Framifrå system." }
+            },
             SystemId = "4human_hr_system_2024_2",
             SystemVendorOrgName = "4Human",
             Name = new Dictionary<string, string>
@@ -25,8 +32,15 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             ]
         };
 
-        RegisterSystemResponse regsys2 = new()
+        RegisteredSystemDTO regsys2 = new()
         {
+            SystemVendorOrgNumber = "314048432",
+            Description = new Dictionary<string, string>
+            {
+                {"nb", "Kult system." },
+                {"en", "Cool system." },
+                {"nn", "Framifrå system." }
+            },
             SystemId = "din_lokale_regnskapspartner",
             SystemVendorOrgName = "Din Lokale Regnskapspartner AS",
             Name = new Dictionary<string, string>
@@ -41,8 +55,15 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             ]
         };
 
-        RegisterSystemResponse regsys3 = new()
+        RegisteredSystemDTO regsys3 = new()
         {
+            SystemVendorOrgNumber = "314048433",
+            Description = new Dictionary<string, string>
+            {
+                {"nb", "Kult system." },
+                {"en", "Cool system." },
+                {"nn", "Framifrå system." }
+            },
             SystemId = "fiken_smabedrift",
             SystemVendorOrgName = "Fiken",
             Name = new Dictionary<string, string>
@@ -57,8 +78,15 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             ]
         };
 
-        RegisterSystemResponse regsys4 = new()
+        RegisteredSystemDTO regsys4 = new()
         {
+            SystemVendorOrgNumber = "314048434",
+            Description = new Dictionary<string, string>
+            {
+                {"nb", "Kult system." },
+                {"en", "Cool system." },
+                {"nn", "Framifrå system." }
+            },
             SystemId = "visma_mva_pakke",
             SystemVendorOrgName = "Visma",
             Name = new Dictionary<string, string>
@@ -73,8 +101,15 @@ public class SystemRegisterClientMock : ISystemRegisterClient
 
         };
 
-        RegisterSystemResponse regsys5 = new()
+        RegisteredSystemDTO regsys5 = new()
         {
+            SystemVendorOrgNumber = "314048435",
+            Description = new Dictionary<string, string>
+            {
+                {"nb", "Kult system." },
+                {"en", "Cool system." },
+                {"nn", "Framifrå system." }
+            },
             SystemId = "visma_skatt_totalpakke",
             SystemVendorOrgName = "Visma",
             Name = new Dictionary<string, string>
@@ -89,7 +124,7 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             ]
         };
 
-        List<RegisterSystemResponse> theList = new()
+        List<RegisteredSystemDTO> theList = new()
         {
             regsys1,
             regsys2,
@@ -101,7 +136,7 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             return theList;
         }
 
-        public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
+        public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
     {
         return await MockTestHelper();
     }
@@ -111,7 +146,7 @@ public class SystemRegisterClientMock : ISystemRegisterClient
         throw new NotImplementedException();
     }
 
-    public Task<RegisterSystemResponse?> GetSystem(string systemId, CancellationToken cancellationToken = default)
+    public Task<RegisteredSystemDTO?> GetSystem(string systemId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException();
     }

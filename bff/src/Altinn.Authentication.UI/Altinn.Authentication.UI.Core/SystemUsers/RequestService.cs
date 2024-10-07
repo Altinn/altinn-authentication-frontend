@@ -24,7 +24,7 @@ public class RequestService(
             request.Value.Resources = await resourceRegistryClient.GetResources(request.Value.Rights, cancellationToken);
 
             // add system
-            RegisterSystemResponse? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);
+            RegisteredSystemDTO? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);
             request.Value.System = system;
 
             if (request.Value.System != null)

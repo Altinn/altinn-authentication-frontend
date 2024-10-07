@@ -18,10 +18,10 @@ public class SystemRegisterService : ISystemRegisterService
         _resourceRegistryClient = resourceRegistryClient;
     }
 
-    public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
+    public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
     {
-        List<RegisterSystemResponse> lista = await _systemRegisterClient.GetListRegSys(cancellationToken);
-        foreach (RegisterSystemResponse response in lista)
+        List<RegisteredSystemDTO> lista = await _systemRegisterClient.GetListRegSys(cancellationToken);
+        foreach (RegisteredSystemDTO response in lista)
         {
             try
             {

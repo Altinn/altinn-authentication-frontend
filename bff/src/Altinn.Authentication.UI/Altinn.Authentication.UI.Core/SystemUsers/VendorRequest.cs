@@ -38,7 +38,7 @@ public class VendorRequest
     /// Full system object
     /// </summary>
     [JsonPropertyName("system")]
-    public RegisterSystemResponse? System { get; set; }
+    public RegisteredSystemDTO? System { get; set; }
 
     /// <summary>
     /// The organisation number for the SystemUser's Party ( the customer that delegates rights to the systemuser).
