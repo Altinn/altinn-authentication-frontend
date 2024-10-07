@@ -27,20 +27,22 @@ public class RequestService(
             RegisterSystemResponse? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);
             request.Value.System = system;
 
-            // add system name
-            try
+            if (request.Value.System != null)
             {
-                request.Value.System.SystemVendorOrgName =
-                    (await registerClient.GetPartyForOrganization(request.Value.System.SystemVendorOrgNumber)).Organization.Name;
-            }
-            catch (Exception ex)
-            {
-                request.Value.System.SystemVendorOrgName = "N/A"; // "N/A" stands for "Not Available
-                Console.Write(ex.ToString());
+                 // add system name
+                try
+                {
+                    request.Value.System.SystemVendorOrgName =
+                        (await registerClient.GetPartyForOrganization(request.Value.System.SystemVendorOrgNumber)).Organization.Name;
+                }
+                catch (Exception ex)
+                {
+                    request.Value.System.SystemVendorOrgName = "N/A"; // "N/A" stands for "Not Available
+                    Console.Write(ex.ToString());
+                }
             }
         }
         
-
         return request;
     }
 

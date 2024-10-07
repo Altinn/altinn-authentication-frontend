@@ -65,8 +65,12 @@ public class SystemUserService : ISystemUserService
 
     public async Task<SystemUser?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        SystemUser systemUser = await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
-        await AddRights(systemUser, cancellationToken);
+        SystemUser? systemUser = await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
+        if (systemUser != null)
+        {
+            await AddRights(systemUser, cancellationToken);
+        }
+
         return systemUser;
     }
 
