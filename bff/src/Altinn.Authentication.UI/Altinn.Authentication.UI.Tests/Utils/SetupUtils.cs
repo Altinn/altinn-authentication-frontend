@@ -28,6 +28,7 @@ public static class SetupUtils
             builder.ConfigureTestServices(services =>
             {
                 services.AddTransient<IAuthenticationClient, AuthenticationClientMock>();
+                services.AddTransient<IRegisterClient, RegisterClientMock>();
                 services.AddTransient<ISystemRegisterClient, SystemRegisterClientMock>();
                 services.AddTransient<ISystemUserClient, SystemUserClientMock>();
                 services.AddTransient<IAccessManagementClient, PartyClientMock>();
