@@ -1,4 +1,4 @@
-using Altinn.Authentication.UI.Core.Authentication;
+﻿using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Integration.AccessToken;
 using Altinn.Authentication.UI.Integration.Configuration;
@@ -11,7 +11,10 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Extensions;
+
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
+
+
 public class RegisterClient : IRegisterClient
 {
     private readonly ILogger _logger;
@@ -20,6 +23,7 @@ public class RegisterClient : IRegisterClient
     private readonly PlatformSettings _platformSettings;
     private readonly IAccessTokenProvider _accessTokenProvider;
     private readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
+
     /// <summary>
     /// Initializes a new instance of the <see cref="RegisterClient"/> class
     /// </summary>
@@ -28,6 +32,7 @@ public class RegisterClient : IRegisterClient
     /// <param name="httpContextAccessor">the handler for httpcontextaccessor service</param>
     /// <param name="platformSettings"> platform settings configuration</param>
     /// <param name="accessTokenProvider">the handler for access token generator</param>
+
     public RegisterClient(
         HttpClient httpClient,
         ILogger<RegisterClient> logger,
@@ -45,6 +50,7 @@ public class RegisterClient : IRegisterClient
         _accessTokenProvider = accessTokenProvider;
         _jsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     }
+
     /// <inheritdoc/>
     public async Task<Party> GetPartyForOrganization(string organizationNumber)
     {
@@ -53,13 +59,17 @@ public class RegisterClient : IRegisterClient
             string endpointUrl = $"parties/lookup";
             string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
             var accessToken = await _accessTokenProvider.GetAccessToken();
+
             StringContent requestContent = new(JsonSerializer.Serialize(new PartyLookup { OrgNo = organizationNumber}, _jsonSerializerOptions), Encoding.UTF8, "application/json");
+
             HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, requestContent, accessToken);
             string responseContent = await response.Content.ReadAsStringAsync();
+
             if (response.IsSuccessStatusCode)
             {
                 return JsonSerializer.Deserialize<Party>(responseContent, _jsonSerializerOptions)!;
             }
+
             return null!;
         }
         catch (Exception ex)
