@@ -10,7 +10,7 @@ public class SystemRegisterService : ISystemRegisterService
 
     public SystemRegisterService(
         ISystemRegisterClient systemRegisterClient,
-         IRegisterClient registerClient,
+        IRegisterClient registerClient,
         IResourceRegistryClient resourceRegistryClient)
     {
         _systemRegisterClient = systemRegisterClient;
