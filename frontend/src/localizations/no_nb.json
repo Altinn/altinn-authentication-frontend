@@ -46,6 +46,8 @@
     "content_text_single": "Denne tjenesten er forhåndsvalgt av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikke opprette systemtilgang",
+    "loading_rights": "Laster forhåndsvalgte tjenester for fagsystemet",
+    "load_rights_error": "Kunne ikke laste forhåndsvalgte tjenester, eller du har ikke rettigheter til å delegere alle disse tjenestene.",
     "creating_systemuser": "Oppretter systemtilgang..."
   },
   "authent_detailpage": {

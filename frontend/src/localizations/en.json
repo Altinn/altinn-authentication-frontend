@@ -46,6 +46,8 @@
     "content_text_single": "This service is pre-selected by the vendor system.",
     "confirm_button": "Create system access",
     "create_systemuser_error": "Could not create system access",
+    "loading_rights": "Loading pre-selected services for vendor system",
+    "load_rights_error": "Could not load pre-selected services, or you do not have permission to delegate all these services.",
     "creating_systemuser": "Creating system access..."
   },
   "authent_detailpage": {

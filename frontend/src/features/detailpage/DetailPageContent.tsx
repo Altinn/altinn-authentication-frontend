@@ -7,7 +7,6 @@ import classes from './DetailPage.module.css';
 import { AuthenticationRoute } from '@/routes/paths';
 import {
   useDeleteSystemuserMutation,
-  useGetVendorsQuery,
   useUpdateSystemuserMutation,
 } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
@@ -27,9 +26,6 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
     useDeleteSystemuserMutation();
   const [updateSystemUser, { isError: isUpdateError, isLoading: isUpdatingSystemUser }] =
     useUpdateSystemuserMutation();
-  const { data: vendors } = useGetVendorsQuery();
-
-  const vendor = vendors?.find((x) => systemUser.systemId === x.systemId);
 
   const [name, setName] = useState<string>(systemUser.integrationTitle ?? '');
 
@@ -71,7 +67,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           {systemUser.integrationTitle || t('authent_detailpage.no_name')}
         </Heading>
         <Paragraph size='small' spacing>
-          {vendor?.systemVendorOrgName?.toUpperCase()}
+          {systemUser.supplierName?.toUpperCase()}
         </Paragraph>
       </div>
       {IS_EDIT_NAME_ENABLED && (

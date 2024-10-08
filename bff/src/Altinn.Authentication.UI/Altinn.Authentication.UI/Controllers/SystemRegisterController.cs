@@ -34,9 +34,24 @@ public class SystemRegisterController : ControllerBase
     [HttpGet]
     public async Task<ActionResult> GetListOfRegisteredSystems(CancellationToken cancellationToken = default)
     {
-        List<RegisterSystemResponse> lista = [.. await _systemRegisterService.GetListRegSys(cancellationToken)];
+        List<RegisteredSystemDTO> lista = [.. await _systemRegisterService.GetListRegSys(cancellationToken)];
 
         return Ok(lista);
+    }
+
+    /// <summary>
+    /// Get rights for a single system
+    /// </summary>
+    /// <param name="systemId"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [Authorize]
+    [HttpGet("rights/{systemId}")]
+    public async Task<ActionResult> GetSystemRights(string systemId, CancellationToken cancellationToken)
+    {
+        List<ServiceResource> rights = await _systemRegisterService.GetSystemRights(systemId, cancellationToken);
+
+        return Ok(rights);
     }
 
 }

@@ -1,3 +1,5 @@
+import { ServiceResource } from './serviceResource';
+
 export interface SystemUser {
   id: string;
   integrationTitle: string;
@@ -5,6 +7,6 @@ export interface SystemUser {
   systemId: string;
   supplierName: string;
   supplierOrgno: string;
-  ownedByPartyId: string;
   created: string;
+  resources: ServiceResource[];
 }

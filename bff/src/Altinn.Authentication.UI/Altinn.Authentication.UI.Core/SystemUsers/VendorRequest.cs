@@ -1,4 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Authentication.UI.Core.SystemRegister;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -34,6 +35,12 @@ public class VendorRequest
     public string SystemId { get; set; }
 
     /// <summary>
+    /// Full system object
+    /// </summary>
+    [JsonPropertyName("system")]
+    public RegisteredSystemDTO? System { get; set; }
+
+    /// <summary>
     /// The organisation number for the SystemUser's Party ( the customer that delegates rights to the systemuser).
     /// Is one of the three parts of the External Request Id.
     /// </summary>
@@ -47,7 +54,15 @@ public class VendorRequest
     /// </summary>
     [Required]
     [JsonPropertyName("rights")]
-    public List<Right> Rights { get; set; }
+    public List<Right> Rights { get; set; } = [];
+
+    /// <summary>
+    /// The list of resources calculated from Rights.
+    /// Must be a minimum of 1 selected Right.
+    /// </summary>
+    [Required]
+    [JsonPropertyName("resources")]
+    public List<ServiceResource> Resources { get; set; } = [];
 
     /// <summary>
     /// Initially the request is "new", 

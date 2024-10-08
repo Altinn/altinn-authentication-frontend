@@ -158,11 +158,11 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         </Paragraph>
         <div>
           <Heading level={3} size='xs'>
-            {request.rights.length === 1
+            {request.resources.length === 1
               ? t('vendor_request.rights_list_header_single')
               : t('vendor_request.rights_list_header')}
           </Heading>
-          <RightsList rights={request.rights} />
+          <RightsList resources={request.resources} />
         </div>
         <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
         <div>

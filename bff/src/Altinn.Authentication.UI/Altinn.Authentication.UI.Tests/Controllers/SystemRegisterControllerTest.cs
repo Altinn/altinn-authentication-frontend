@@ -32,7 +32,7 @@ public class SystemRegisterControllerTest : IClassFixture<CustomWebApplicationFa
         HttpResponseMessage response = await _client.SendAsync(request, HttpCompletionOption.ResponseContentRead);
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 
-        List<RegisterSystemResponse>? list = JsonSerializer.Deserialize<List<RegisterSystemResponse>>(await response.Content.ReadAsStringAsync(), jsonSerializerOptions);
+        List<RegisteredSystemDTO>? list = JsonSerializer.Deserialize<List<RegisteredSystemDTO>>(await response.Content.ReadAsStringAsync(), jsonSerializerOptions);
         
         Assert.True(list is not null && list.Count > 0);        
         Assert.True(list[0].SystemId is not null);

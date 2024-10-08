@@ -46,6 +46,8 @@
     "content_text_single": "Denne tenesten er førehandsvald av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikkje oppretta systemtilgang",
+    "loading_rights": "Laster førehandsvalde tenester for fagsystemet",
+    "load_rights_error": "Kunne ikkje laste førehandsvalde tenester, eller du har ikkje rettighetar til å delegere alle desse tenestane.",
     "creating_systemuser": "Opprettar systemtilgang..."
   },
   "authent_detailpage": {
