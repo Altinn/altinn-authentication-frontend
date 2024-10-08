@@ -146,7 +146,7 @@ public class AccessManagementClient : IAccessManagementClient
         {
             Right right = new()
             {
-                Action = inner.Action,
+                Action = "read",
                 Resource = inner.Resource,
             };
 
