@@ -106,9 +106,6 @@ public class HomeController : Controller
 
     private async Task<bool> ShouldShowAppView()
     {
-        if (Request.Path.StartsWithSegments("/authfront/ui/auth/redirect")) {
-            return true;
-        }
         if (User.Identity is null) return false;
         if (User.Identity.IsAuthenticated)
         {

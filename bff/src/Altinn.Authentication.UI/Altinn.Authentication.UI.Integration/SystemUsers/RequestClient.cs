@@ -70,4 +70,18 @@ public class RequestClient(
 
         return Problem.Generic_EndOfMethod;
     }
+
+    public async Task<Result<string>> GetRedirectUrl(Guid requestId, CancellationToken cancellationToken)
+    {
+        string endpoint = $"systemuser/request/{requestId}/redirect";
+        HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
+
+        if (res.IsSuccessStatusCode)
+        {
+            var val = JsonSerializer.Deserialize<string>(await res.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions);
+            return val;
+        }
+
+        return Problem.Generic_EndOfMethod;
+    }
 }

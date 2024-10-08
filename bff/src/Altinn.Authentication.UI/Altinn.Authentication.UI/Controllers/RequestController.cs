@@ -85,4 +85,20 @@ public class RequestController(
 
         return Ok(req.Value);
     }
+
+    /// <summary>
+    /// Redirect after logout
+    /// </summary>
+    /// <returns></returns>
+    [HttpPost("{requestId}/redirect")]
+    public async Task<ActionResult> RedirectToVendor(Guid requestId, CancellationToken cancellationToken = default)
+    {
+        Result<string> req = await _requestService.GetRedirectUrl(requestId, cancellationToken);
+        if (req.IsProblem)
+        {
+            return req.Problem.ToActionResult();
+        }
+
+        return Redirect(req.Value);
+    }
 }

@@ -24,4 +24,9 @@ public class RequestService(
     {
         return await requestClient.RejectRequest(partyId, requestId, cancellationToken);
     }
+
+    public async Task<Result<string>> GetRedirectUrl(Guid requestId, CancellationToken cancellationToken = default)
+    {
+        return await requestClient.GetRedirectUrl(requestId, cancellationToken);
+    }
 }
