@@ -90,10 +90,10 @@ public class RequestController(
     /// Redirect after logout
     /// </summary>
     /// <returns></returns>
-    [HttpPost("{requestId}/redirect")]
-    public async Task<ActionResult> RedirectToVendor(Guid requestId, CancellationToken cancellationToken = default)
+    [HttpGet("redirect")]
+    public async Task<ActionResult> RedirectToVendor([FromQuery] Guid id, CancellationToken cancellationToken = default)
     {
-        Result<string> req = await _requestService.GetRedirectUrl(requestId, cancellationToken);
+        Result<string> req = await _requestService.GetRedirectUrl(id, cancellationToken);
         if (req.IsProblem)
         {
             return req.Problem.ToActionResult();
