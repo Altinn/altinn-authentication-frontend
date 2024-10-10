@@ -4,10 +4,10 @@
   border-radius: 4px;
   border-style: solid;
   outline: none;
-  color: var(--fds-semantic-text-neutral-default);
+  color: var(--ds-semantic-text-neutral-default);
   border-color: var(--border-color);
   background-color: var(--background-color);
-  margin-top: var(--fds-spacing-2);
+  margin-top: var(--ds-spacing-2);
 }
 
 .actionBar.clickable {
@@ -15,15 +15,15 @@
 }
 
 .actionBar.small {
-  min-height: var(--fds-sizing-8);
+  min-height: var(--ds-sizing-8);
 }
 
 .actionBar.medium {
-  min-height: var(--fds-sizing-14);
+  min-height: var(--ds-sizing-14);
 }
 
 .actionBar.large {
-  min-height: var(--fds-sizing-22);
+  min-height: var(--ds-sizing-22);
 }
 
 .actionBar.open {
@@ -33,25 +33,25 @@
 }
 
 .actionBar.light {
-  --border-color: var(--fds-semantic-border-neutral-subtle);
+  --border-color: var(--ds-semantic-border-neutral-subtle);
   --background-color: #fff;
 }
 .actionBar.light.clickable:hover {
-  --background-color: var(--fds-semantic-surface-action-subtle-hover);
+  --background-color: var(--ds-semantic-surface-action-subtle-hover);
 }
 
 .actionBar.neutral {
-  --border-color: var(--fds-semantic-border-neutral-subtle);
-  --background-color: var(--fds-semantic-background-subtle);
+  --border-color: var(--ds-semantic-border-neutral-subtle);
+  --background-color: var(--ds-semantic-background-subtle);
 }
 .actionBar.neutral.clickable:hover {
-  --background-color: var(--fds-semantic-surface-neutral-subtle-hover);
+  --background-color: var(--ds-semantic-surface-neutral-subtle-hover);
 }
 
 .actionBarHeader {
   display: flex;
   align-items: center;
-  padding: 0 var(--fds-spacing-2);
+  padding: 0 var(--ds-spacing-2);
   flex: 1;
   border-style: none;
   text-align: var(--component-actionbar_header_title-text-align);
@@ -64,13 +64,13 @@
 }
 
 .actionBarHeader:focus-visible {
-  --fds-inner-focus-border-color: var(--fds-semantic-border-focus-boxshadow);
-  --fds-outer-focus-border-color: var(--fds-semantic-border-focus-outline);
-  --fds-focus-border-width: 3px;
+  --ds-inner-focus-border-color: var(--ds-semantic-border-focus-boxshadow);
+  --ds-outer-focus-border-color: var(--ds-semantic-border-focus-outline);
+  --ds-focus-border-width: 3px;
 
-  outline: var(--fds-focus-border-width) solid var(--fds-outer-focus-border-color);
-  outline-offset: var(--fds-focus-border-width);
-  box-shadow: 0 0 0 var(--fds-focus-border-width) var(--fds-inner-focus-border-color);
+  outline: var(--ds-focus-border-width) solid var(--ds-outer-focus-border-color);
+  outline-offset: var(--ds-focus-border-width);
+  box-shadow: 0 0 0 var(--ds-focus-border-width) var(--ds-inner-focus-border-color);
 }
 
 .actionBarHeader.clickable {
@@ -82,33 +82,33 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  column-gap: var(--fds-spacing-1);
+  column-gap: var(--ds-spacing-1);
   padding: 0;
   height: auto;
   cursor: pointer;
-  margin-right: var(--fds-spacing-2);
+  margin-right: var(--ds-spacing-2);
 }
 
 .actionBarSubtitle {
   font-weight: 400;
-  margin-top: var(--fds-spacing-1);
-  margin-bottom: var(--fds-spacing-1);
+  margin-top: var(--ds-spacing-1);
+  margin-bottom: var(--ds-spacing-1);
 }
 
 .actionBar.subtitle {
-  padding-top: var(--fds-spacing-1);
-  padding-bottom: var(--fds-spacing-1);
+  padding-top: var(--ds-spacing-1);
+  padding-bottom: var(--ds-spacing-1);
 }
 
 .actionBarIcon {
-  margin-right: var(--fds-spacing-2);
+  margin-right: var(--ds-spacing-2);
   display: flex;
   align-items: center;
 }
 
 .actionBarIcon.large {
-  margin-right: var(--fds-spacing-4);
-  margin-left: var(--fds-spacing-2);
+  margin-right: var(--ds-spacing-4);
+  margin-left: var(--ds-spacing-2);
 }
 
 .actionBarTexts {

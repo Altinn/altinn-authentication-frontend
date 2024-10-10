@@ -31,7 +31,7 @@ export const SystemUserActionBar = ({
     >
       <div>
         <div className={classes.rightsHeader}>
-          <Heading level={3} size='xxsmall' spacing>
+          <Heading level={3} size='2xs' spacing>
             {!systemUser?.resources.length
               ? t('authent_overviewpage.system_user_no_rights')
               : t('authent_overviewpage.system_rights_header')}

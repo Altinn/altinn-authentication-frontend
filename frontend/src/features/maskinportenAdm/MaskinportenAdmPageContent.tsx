@@ -48,7 +48,7 @@ export const MaskinportenAdmPageContent = () => {
   return (
     <div>
       <div className={classes.flexContainer}>
-        <Heading level={2} size='small'>
+        <Heading level={2} size='sm'>
           {t('authent_maskinporten.sub_title')}
         </Heading>
         <Textfield
@@ -74,15 +74,10 @@ export const MaskinportenAdmPageContent = () => {
               ref={inputRefSkjultKnapp}
               onChange={handleOnChangeFilOpplastet}
             />
-            <Button
-              id='synligKnapp'
-              variant='secondary'
-              size='small'
-              onClick={handleKlikkSynligKnapp}
-            >
+            <Button id='synligKnapp' variant='secondary' size='sm' onClick={handleKlikkSynligKnapp}>
               {t('authent_maskinporten.upload_jwk')}
             </Button>
-            <Paragraph size='small'>
+            <Paragraph size='sm'>
               {uploadedFile
                 ? t('authent_maskinporten.uploaded_file_info', {
                     filename: uploadedFile.name,
@@ -91,20 +86,20 @@ export const MaskinportenAdmPageContent = () => {
                 : t('authent_maskinporten.no_file_uploaded')}
             </Paragraph>
           </div>
-          <Paragraph size='xsmall'>{t('authent_maskinporten.upload_description')}</Paragraph>
+          <Paragraph size='sm'>{t('authent_maskinporten.upload_description')}</Paragraph>
         </div>
         {isUploadError && (
-          <Alert severity='danger'>{t('authent_maskinporten.create_integration_error')}</Alert>
+          <Alert color='danger'>{t('authent_maskinporten.create_integration_error')}</Alert>
         )}
         <div className={classes.buttonContainer}>
           <Button
-            size='small'
+            size='sm'
             onClick={handleConfirm}
             disabled={!name || !description || !uploadedFile}
           >
             {t('authent_maskinporten.create_integration')}
           </Button>
-          <Button variant='tertiary' size='small' onClick={handleCancel}>
+          <Button variant='tertiary' size='sm' onClick={handleCancel}>
             {t('common.cancel')}
           </Button>
         </div>

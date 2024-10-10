@@ -33,7 +33,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
 
   return (
     <div className={classes.detailPageContent}>
-      <Modal ref={deleteModalRef}>
+      <Modal.Dialog ref={deleteModalRef}>
         <Modal.Header>{t('authent_detailpage.delete_systemuser_header')}</Modal.Header>
         <Modal.Content>
           {t('authent_detailpage.delete_systemuser_body', {
@@ -41,7 +41,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           })}
         </Modal.Content>
         {isDeleteError && (
-          <Alert severity='danger' role='alert'>
+          <Alert color='danger' role='alert'>
             {t('authent_detailpage.delete_systemuser_error')}
           </Alert>
         )}
@@ -61,12 +61,12 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
             {t('common.cancel')}
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal.Dialog>
       <div>
-        <Heading level={2} size='medium'>
+        <Heading level={2} size='md'>
           {systemUser.integrationTitle || t('authent_detailpage.no_name')}
         </Heading>
-        <Paragraph size='small' spacing>
+        <Paragraph size='sm' spacing>
           {systemUser.supplierName?.toUpperCase()}
         </Paragraph>
       </div>
@@ -74,7 +74,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         <Textfield
           label={t('authent_detailpage.edit_systemuser_name')}
           className={classes.nameField}
-          size='small'
+          size='sm'
           value={name}
           onChange={(event) => setName(event.target.value)}
           error={
@@ -83,7 +83,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         />
       )}
       {isUpdateError && (
-        <Alert severity='danger' role='alert'>
+        <Alert color='danger' role='alert'>
           {t('authent_detailpage.update_systemuser_error')}
         </Alert>
       )}

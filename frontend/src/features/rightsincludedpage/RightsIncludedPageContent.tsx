@@ -69,12 +69,12 @@ export const RightsIncludedPageContent = () => {
 
   return (
     <div>
-      <Heading level={2} size='small' spacing>
+      <Heading level={2} size='sm' spacing>
         {rights?.length === 1
           ? t('authent_includedrightspage.sub_title_single')
           : t('authent_includedrightspage.sub_title')}
       </Heading>
-      <Paragraph size='small' spacing>
+      <Paragraph size='sm' spacing>
         {rights?.length === 1
           ? t('authent_includedrightspage.content_text_single')
           : t('authent_includedrightspage.content_text')}
@@ -82,29 +82,29 @@ export const RightsIncludedPageContent = () => {
       <div>
         <RightsList resources={rights ?? []} />
         {isCreateSystemUserError && (
-          <Alert severity='danger' role='alert'>
+          <Alert color='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}
           </Alert>
         )}
         {isLoadRightsError && (
-          <Alert severity='danger' role='alert'>
+          <Alert color='danger' role='alert'>
             {t('authent_includedrightspage.load_rights_error')}
           </Alert>
         )}
         <div className={classes.buttonContainer}>
           <Button
-            size='small'
+            size='sm'
             variant='primary'
             onClick={handleConfirm}
             disabled={isCreatingSystemUser || isLoadRightsError}
             className={classes.successButton}
           >
             {isCreatingSystemUser && (
-              <Spinner size='small' title={t('authent_includedrightspage.creating_systemuser')} />
+              <Spinner size='sm' title={t('authent_includedrightspage.creating_systemuser')} />
             )}
             {t('authent_includedrightspage.confirm_button')}
           </Button>
-          <Button variant='tertiary' size='small' onClick={handleReject}>
+          <Button variant='tertiary' size='sm' onClick={handleReject}>
             {t('common.cancel')}
           </Button>
         </div>

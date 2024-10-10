@@ -1,4 +1,4 @@
-import '@digdir/designsystemet-theme';
+import '@digdir/designsystemet-theme/altinn.css';
 import '@digdir/designsystemet-css';
 import '@/resources/css/Common.css';
 import React, { StrictMode } from 'react';

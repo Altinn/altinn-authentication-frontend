@@ -1,7 +1,7 @@
 .flexContainer {
   display: flex;
   flex-direction: column;
-  gap: var(--fds-spacing-8);
+  gap: var(--ds-spacing-8);
   align-items: flex-start;
 }
 
@@ -12,13 +12,13 @@
 .uploadButtonContainer {
   display: flex;
   flex-direction: row;
-  margin-bottom: var(--fds-spacing-4);
-  gap: var(--fds-spacing-4);
+  margin-bottom: var(--ds-spacing-4);
+  gap: var(--ds-spacing-4);
   align-items: center;
 }
 
 .buttonContainer {
   display: flex;
   flex-direction: row;
-  gap: var(--fds-spacing-4);
+  gap: var(--ds-spacing-4);
 }

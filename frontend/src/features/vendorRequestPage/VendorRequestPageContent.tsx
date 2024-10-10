@@ -134,13 +134,13 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       </div>
       <div className={classes.vendorRequestBlock}>
         {request.status === 'Accepted' && (
-          <Alert severity='info'>{t('vendor_request.request_accepted')}</Alert>
+          <Alert color='info'>{t('vendor_request.request_accepted')}</Alert>
         )}
         {request.status === 'Rejected' && (
-          <Alert severity='info'>{t('vendor_request.request_rejected')}</Alert>
+          <Alert color='info'>{t('vendor_request.request_rejected')}</Alert>
         )}
         {request.status === 'Timedout' && (
-          <Alert severity='info'>{t('vendor_request.request_expired')}</Alert>
+          <Alert color='info'>{t('vendor_request.request_expired')}</Alert>
         )}
         <Heading level={2} size='sm'>
           {t('vendor_request.creation_header', {
@@ -168,12 +168,12 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         <div>
           {!userInfo.canCreateSystemUser && <RightsError />}
           {isAcceptCreationRequestError && (
-            <Alert severity='danger' role='alert'>
+            <Alert color='danger' role='alert'>
               {t('vendor_request.accept_error')}
             </Alert>
           )}
           {isRejectCreationRequestError && (
-            <Alert severity='danger' role='alert'>
+            <Alert color='danger' role='alert'>
               {t('vendor_request.reject_error')}
             </Alert>
           )}
@@ -188,7 +188,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
               }}
             >
               {isAcceptingSystemUser && (
-                <Spinner size='small' title={t('vendor_request.accept_loading')} />
+                <Spinner size='sm' title={t('vendor_request.accept_loading')} />
               )}
               {t('vendor_request.accept')}
             </Button>
@@ -202,7 +202,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
               }}
             >
               {isRejectingSystemUser && (
-                <Spinner size='small' title={t('vendor_request.reject_loading')} />
+                <Spinner size='sm' title={t('vendor_request.reject_loading')} />
               )}
               {t('vendor_request.reject')}
             </Button>

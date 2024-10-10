@@ -23,7 +23,7 @@ export const DetailPage = (): React.ReactNode => {
       <Page color='dark' icon={<ApiIcon />} title={t('authent_detailpage.edit_systemuser')}>
         {isLoadingSystemUser && <Spinner title={t('authent_detailpage.loading_systemuser')} />}
         {isLoadSystemUserError && (
-          <Alert severity='danger'>{t('authent_detailpage.load_systemuser_error')}</Alert>
+          <Alert color='danger'>{t('authent_detailpage.load_systemuser_error')}</Alert>
         )}
         {systemUser && <DetailPageContent systemUser={systemUser} />}
       </Page>

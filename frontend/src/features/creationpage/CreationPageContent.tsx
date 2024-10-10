@@ -42,10 +42,10 @@ export const CreationPageContent = () => {
   return (
     <div className={classes.creationPageContainer}>
       <div>
-        <Heading level={2} size='small' spacing>
+        <Heading level={2} size='sm' spacing>
           {t('authent_creationpage.sub_title')}
         </Heading>
-        <Paragraph size='small' spacing>
+        <Paragraph size='sm' spacing>
           {t('authent_creationpage.content_text1')}
         </Paragraph>
       </div>
@@ -91,19 +91,19 @@ export const CreationPageContent = () => {
           })}
         </Combobox>
         {isLoadVendorError && (
-          <Alert severity='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>
+          <Alert color='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>
         )}
       </div>
       <div className={classes.buttonContainer}>
         <Button
           variant='primary'
-          size='small'
+          size='sm'
           onClick={handleConfirm}
           disabled={!integrationTitle.trim() || !selectedSystemType}
         >
           {t('authent_creationpage.confirm_button')}
         </Button>
-        <Button variant='tertiary' size='small' onClick={handleCancel}>
+        <Button variant='tertiary' size='sm' onClick={handleCancel}>
           {t('common.cancel')}
         </Button>
       </div>
