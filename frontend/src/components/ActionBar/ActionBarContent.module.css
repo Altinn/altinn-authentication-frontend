@@ -13,9 +13,9 @@
 }
 
 .actionBarContent.light {
-  --border-color: var(--ds-semantic-border-neutral-subtle);
+  --border-color: var(--ds-color-neutral-border-subtle);
 }
 
 .actionBarContent.neutral {
-  --border-color: var(--ds-semantic-border-neutral-subtle);
+  --border-color: var(--ds-color-neutral-border-subtle);
 }

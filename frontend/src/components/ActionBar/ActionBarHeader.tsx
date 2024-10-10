@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
 import cn from 'classnames';
-import { Paragraph } from '@digdir/designsystemet-react';
+import { Button, Paragraph } from '@digdir/designsystemet-react';
 
 import { useActionBarContext } from './Context';
 import classes from './ActionBarHeader.module.css';
@@ -14,16 +14,16 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
   ({ additionalText, subtitle, title, actions }, ref) => {
     const { open, toggleOpen, contentId, headerId, color, size } = useActionBarContext();
 
-    let headingSize: 'small' | 'medium' | 'large' | 'xsmall';
+    let headingSize: 'sm' | 'md' | 'lg' | 'xs';
     switch (size) {
       case 'large':
-        headingSize = 'large';
+        headingSize = 'lg';
         break;
       case 'medium':
-        headingSize = 'small';
+        headingSize = 'sm';
         break;
       case 'small':
-        headingSize = 'xsmall';
+        headingSize = 'xs';
         break;
     }
 
@@ -33,7 +33,7 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
           {title}
         </Paragraph>
         {subtitle && (
-          <Paragraph size='xsmall' className={classes.subtitle}>
+          <Paragraph size='xs' className={classes.subtitle}>
             {subtitle}
           </Paragraph>
         )}
@@ -45,14 +45,14 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
         className={cn(classes.actionBar, classes[color], classes[size], {
           [classes.subtitle]: subtitle,
           [classes.open]: open,
-          [classes.clickable]: toggleOpen,
         })}
         ref={ref}
       >
         {toggleOpen ? (
-          <button
-            className={cn(classes.actionBarHeader, classes.clickable, classes[color])}
+          <Button
+            className={cn(classes.actionBarHeader, classes[color])}
             type='button'
+            variant='tertiary'
             onClick={toggleOpen}
             id={headerId}
             data-testid='action-bar'
@@ -60,20 +60,16 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
             aria-controls={contentId}
           >
             <div className={classes.actionBarButtonContainer}>
-              <div className={cn(classes.actionBarIcon, classes[size])}>
-                <ActionBarIcon />
-              </div>
+              <ActionBarIcon />
               {actionBarContent}
             </div>
-          </button>
+          </Button>
         ) : (
           <div className={cn(classes.actionBarHeader)} id={headerId} data-testid='action-bar'>
             {actionBarContent}
           </div>
         )}
         {additionalText}
-
-        {actions && <div className={classes.actionBarActions}>{actions}</div>}
       </div>
     );
   },

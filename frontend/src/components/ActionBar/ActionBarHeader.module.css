@@ -10,10 +10,6 @@
   margin-top: var(--ds-spacing-2);
 }
 
-.actionBar.clickable {
-  cursor: pointer;
-}
-
 .actionBar.small {
   min-height: var(--ds-sizing-8);
 }
@@ -33,77 +29,18 @@
 }
 
 .actionBar.light {
-  --border-color: var(--ds-semantic-border-neutral-subtle);
+  --border-color: var(--ds-color-neutral-border-subtle);
   --background-color: #fff;
-}
-.actionBar.light.clickable:hover {
-  --background-color: var(--ds-semantic-surface-action-subtle-hover);
 }
 
 .actionBar.neutral {
-  --border-color: var(--ds-semantic-border-neutral-subtle);
-  --background-color: var(--ds-semantic-background-subtle);
-}
-.actionBar.neutral.clickable:hover {
-  --background-color: var(--ds-semantic-surface-neutral-subtle-hover);
+  --border-color: var(--ds-color-neutral-border-subtle);
+  --background-color: var(--ds-color-neutral-background-subtle);
 }
 
 .actionBarHeader {
-  display: flex;
-  align-items: center;
-  padding: 0 var(--ds-spacing-2);
-  flex: 1;
-  border-style: none;
-  text-align: var(--component-actionbar_header_title-text-align);
-  background-color: var(--background-color);
-  font-family: inherit;
-  font-size: var(--font_size-300);
   color: inherit;
-  word-break: break-word;
-  border-radius: inherit;
-}
-
-.actionBarHeader:focus-visible {
-  --ds-inner-focus-border-color: var(--ds-semantic-border-focus-boxshadow);
-  --ds-outer-focus-border-color: var(--ds-semantic-border-focus-outline);
-  --ds-focus-border-width: 3px;
-
-  outline: var(--ds-focus-border-width) solid var(--ds-outer-focus-border-color);
-  outline-offset: var(--ds-focus-border-width);
-  box-shadow: 0 0 0 var(--ds-focus-border-width) var(--ds-inner-focus-border-color);
-}
-
-.actionBarHeader.clickable {
-  cursor: pointer;
-}
-
-.actionBarActions {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  column-gap: var(--ds-spacing-1);
-  padding: 0;
-  height: auto;
-  cursor: pointer;
-  margin-right: var(--ds-spacing-2);
-}
-
-.actionBarSubtitle {
-  font-weight: 400;
-  margin-top: var(--ds-spacing-1);
-  margin-bottom: var(--ds-spacing-1);
-}
-
-.actionBar.subtitle {
-  padding-top: var(--ds-spacing-1);
-  padding-bottom: var(--ds-spacing-1);
-}
-
-.actionBarIcon {
-  margin-right: var(--ds-spacing-2);
-  display: flex;
-  align-items: center;
+  width: 100%;
 }
 
 .actionBarIcon.large {
@@ -117,16 +54,14 @@
   justify-content: center;
 }
 
-.title,
-.subtitle {
-  color: var(--text-color);
-}
-
 .title {
   font-weight: 500;
 }
 
 .actionBarButtonContainer {
   display: flex;
+  gap: var(--ds-spacing-4);
+  align-items: center;
   height: 100%;
+  width: 100%;
 }
