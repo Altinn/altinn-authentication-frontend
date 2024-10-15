@@ -36,6 +36,7 @@
     "eslint-plugin-react-hooks": "4.6.2",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "msw": "^2.4.11",
     "prettier": "^3.2.5",
     "typescript": "*",
     "typescript-eslint": "^8.0.0",
@@ -46,5 +47,10 @@
   "workspaces": [
     "playwright"
   ],
-  "packageManager": "yarn@4.5.0"
+  "packageManager": "yarn@4.5.0",
+  "msw": {
+    "workerDirectory": [
+      ""
+    ]
+  }
 }
