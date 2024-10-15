@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
-import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
+import { Alert, Button, Heading, Paragraph } from '@digdir/designsystemet-react';
 import classes from './VendorRequestPageContent.module.css';
 import { RightsList } from '@/components/RightsList';
 import { ProfileInfo, SystemUserCreationRequest } from '@/types';
@@ -186,11 +186,11 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
                   acceptSystemUser();
                 }
               }}
+              loading={isAcceptingSystemUser}
             >
-              {isAcceptingSystemUser && (
-                <Spinner size='sm' title={t('vendor_request.accept_loading')} />
-              )}
-              {t('vendor_request.accept')}
+              {isAcceptingSystemUser
+                ? t('vendor_request.accept_loading')
+                : t('vendor_request.accept')}
             </Button>
             <Button
               variant='tertiary'
@@ -200,11 +200,11 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
                   rejectSystemUser();
                 }
               }}
+              loading={isRejectingSystemUser}
             >
-              {isRejectingSystemUser && (
-                <Spinner size='sm' title={t('vendor_request.reject_loading')} />
-              )}
-              {t('vendor_request.reject')}
+              {isRejectingSystemUser
+                ? t('vendor_request.reject_loading')
+                : t('vendor_request.reject')}
             </Button>
           </div>
         </div>

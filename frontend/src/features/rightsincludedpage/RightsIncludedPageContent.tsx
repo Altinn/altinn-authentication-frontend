@@ -98,11 +98,11 @@ export const RightsIncludedPageContent = () => {
             onClick={handleConfirm}
             disabled={isCreatingSystemUser || isLoadRightsError}
             className={classes.successButton}
+            loading={isCreatingSystemUser}
           >
-            {isCreatingSystemUser && (
-              <Spinner size='sm' title={t('authent_includedrightspage.creating_systemuser')} />
-            )}
-            {t('authent_includedrightspage.confirm_button')}
+            {isCreatingSystemUser
+              ? t('authent_includedrightspage.creating_systemuser')
+              : t('authent_includedrightspage.confirm_button')}
           </Button>
           <Button variant='tertiary' size='sm' onClick={handleReject}>
             {t('common.cancel')}

@@ -6,5 +6,5 @@
 }
 
 .successButton {
-  background-color: var(--ds-semantic-surface-success-default);
+  background-color: var(--ds-color-success-base-default);
 }
