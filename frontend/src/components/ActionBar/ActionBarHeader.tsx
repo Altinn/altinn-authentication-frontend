@@ -8,10 +8,10 @@ import { ActionBarIcon } from './ActionBarIcon';
 import { type ActionBarProps } from './ActionBar';
 
 export interface ActionBarHeaderProps
-  extends Pick<ActionBarProps, 'title' | 'subtitle' | 'additionalText' | 'actions'> {}
+  extends Pick<ActionBarProps, 'title' | 'subtitle' | 'additionalText'> {}
 
 export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderProps>(
-  ({ additionalText, subtitle, title, actions }, ref) => {
+  ({ additionalText, subtitle, title }, ref) => {
     const { open, toggleOpen, contentId, headerId, color, size } = useActionBarContext();
 
     let headingSize: 'sm' | 'md' | 'lg' | 'xs';
@@ -28,7 +28,7 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
     }
 
     const actionBarContent: React.ReactNode = (
-      <div className={classes.actionBarTexts}>
+      <div>
         <Paragraph size={headingSize} className={classes.title}>
           {title}
         </Paragraph>
@@ -48,27 +48,21 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
         })}
         ref={ref}
       >
-        {toggleOpen ? (
-          <Button
-            className={cn(classes.actionBarHeader, classes[color])}
-            type='button'
-            variant='tertiary'
-            onClick={toggleOpen}
-            id={headerId}
-            data-testid='action-bar'
-            aria-expanded={open}
-            aria-controls={contentId}
-          >
-            <div className={classes.actionBarButtonContainer}>
-              <ActionBarIcon />
-              {actionBarContent}
-            </div>
-          </Button>
-        ) : (
-          <div className={cn(classes.actionBarHeader)} id={headerId} data-testid='action-bar'>
+        <Button
+          className={cn(classes.actionBarHeader, classes[color])}
+          type='button'
+          variant='tertiary'
+          onClick={toggleOpen}
+          id={headerId}
+          data-testid='action-bar'
+          aria-expanded={open}
+          aria-controls={contentId}
+        >
+          <div className={classes.actionBarButtonContainer}>
+            <ActionBarIcon />
             {actionBarContent}
           </div>
-        )}
+        </Button>
         {additionalText}
       </div>
     );

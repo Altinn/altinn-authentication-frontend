@@ -5,9 +5,6 @@ import { ActionBarContent } from './ActionBarContent';
 import { ActionBarHeader } from './ActionBarHeader';
 
 export interface ActionBarProps {
-  /** Additional actions to be displayed on the right side of the ActionBar. */
-  actions?: React.ReactNode;
-
   /** Additional text to be displayed on the right side of the header of the ActionBar. */
   additionalText?: React.ReactNode;
 
@@ -40,10 +37,6 @@ export interface ActionBarProps {
  * @component
  * @example
  * <ActionBar
- *    actions={
- *      <><button onClick={handleActionBarClick}>Action 1</button>
- *      <button onClick={handleActionBarClick}>Action 1</button></>
- *    }
  *    additionalText=<div>"Additional Text"</div>
  *    color="neutral"
  *    size="medium"
@@ -55,7 +48,6 @@ export interface ActionBarProps {
  *      <div>Content goes here</div>
  * </ActionBar>
  *
- * @property {React.ReactNode} [actions] - Additional actions to be displayed on the right side of the header of the ActionBar.
  * @property {React.ReactNode} [additionalText] - Additional text to be displayed in the header of the ActionBar.
  * @property {React.ReactNode} [children] - The content to be displayed as expandable content inside the ActionBar.
  * @property {'light' | 'neutral' | 'warning' | 'success' | 'danger'} [color='neutral'] - The color variant of the ActionBar.
@@ -71,7 +63,6 @@ export interface ActionBarProps {
 export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
   (
     {
-      actions,
       additionalText,
       children,
       color = 'neutral',
@@ -90,14 +81,13 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
     const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen);
     const isOpen = open ?? internalOpen;
 
-    let toggleOpen: ClickHandler | undefined;
-    if (!children) {
-      toggleOpen = undefined;
-    } else {
-      toggleOpen = () => {
-        onClick !== undefined ? onClick() : setInternalOpen((openState) => !openState);
-      };
-    }
+    const toggleOpen = () => {
+      if (onClick) {
+        onClick();
+      } else {
+        setInternalOpen((openState) => !openState);
+      }
+    };
 
     return (
       <div ref={ref}>
@@ -115,7 +105,6 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
             title={title}
             subtitle={subtitle}
             additionalText={additionalText}
-            actions={actions}
           ></ActionBarHeader>
           <ActionBarContent>{children}</ActionBarContent>
         </ActionBarContext.Provider>

@@ -1,11 +1,8 @@
 .actionBar {
   display: flex;
-  border-width: 1px;
+  border: 1px var(--border-color) solid;
   border-radius: 4px;
-  border-style: solid;
-  outline: none;
   color: var(--ds-semantic-text-neutral-default);
-  border-color: var(--border-color);
   background-color: var(--background-color);
   margin-top: var(--ds-spacing-2);
 }
@@ -41,17 +38,6 @@
 .actionBarHeader {
   color: inherit;
   width: 100%;
-}
-
-.actionBarIcon.large {
-  margin-right: var(--ds-spacing-4);
-  margin-left: var(--ds-spacing-2);
-}
-
-.actionBarTexts {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .title {
