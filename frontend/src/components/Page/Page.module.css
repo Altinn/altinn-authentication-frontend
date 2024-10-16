@@ -5,14 +5,14 @@
 }
 
 .pageContent {
-  background-color: var(--fds-semantic-background-default);
+  background-color: var(--ds-color-accent-background-default);
   box-sizing: inherit;
-  --component-page-content-padding: var(--fds-spacing-12);
+  --component-page-content-padding: var(--ds-spacing-12);
   padding: var(--component-page-content-padding);
 }
 
 @media only screen and (max-width: 769px) {
   .pageContent {
-    --component-page-content-padding: var(--fds-spacing-2);
+    --component-page-content-padding: var(--ds-spacing-2);
   }
 }

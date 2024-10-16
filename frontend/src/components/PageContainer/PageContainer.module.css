@@ -7,39 +7,39 @@
 }
 
 .buttonContainer {
-  margin-top: var(--fds-spacing-8);
+  margin-top: var(--ds-spacing-8);
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--fds-spacing-2);
+  margin-bottom: var(--ds-spacing-2);
 }
 
 .buttonContainerButton {
   border-radius: 50%;
-  background-color: var(--fds-semantic-background-default);
+  background-color: var(--ds-color-accent-background-default);
 }
 .buttonContainerButton:last-child {
   margin-left: auto;
 }
 
 .buttonContainerIcon {
-  height: var(--fds-sizing-7);
-  width: var(--fds-sizing-7);
+  height: var(--ds-sizing-6);
+  width: var(--ds-sizing-6);
 }
 
 @media only screen and (min-width: 375px) {
   .pageMargin {
-    margin: var(--fds-spacing-2);
+    margin: var(--ds-spacing-2);
   }
 }
 
 @media only screen and (min-width: 769px) {
   .pageMargin {
-    margin: var(--fds-spacing-4);
+    margin: var(--ds-spacing-4);
   }
 }
 
 @media only screen and (min-width: 992px) {
   .pageMargin {
-    margin: var(--fds-spacing-10);
+    margin: var(--ds-spacing-10);
   }
 }

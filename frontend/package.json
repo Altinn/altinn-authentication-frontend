@@ -8,9 +8,9 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@digdir/designsystemet-css": "^0.10.0",
-    "@digdir/designsystemet-react": "^0.63.0",
-    "@digdir/designsystemet-theme": "^0.15.0",
+    "@digdir/designsystemet-css": "1.0.0-next.34",
+    "@digdir/designsystemet-react": "1.0.0-next.34",
+    "@digdir/designsystemet-theme": "1.0.0-next.34",
     "@navikt/aksel-icons": "^7.0.0",
     "@reduxjs/toolkit": "^2.1.0",
     "classnames": "^2.5.1",
@@ -36,6 +36,7 @@
     "eslint-plugin-react-hooks": "4.6.2",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "msw": "^2.4.11",
     "prettier": "^3.2.5",
     "typescript": "*",
     "typescript-eslint": "^8.0.0",
@@ -46,5 +47,10 @@
   "workspaces": [
     "playwright"
   ],
-  "packageManager": "yarn@4.5.0"
+  "packageManager": "yarn@4.5.0",
+  "msw": {
+    "workerDirectory": [
+      ""
+    ]
+  }
 }

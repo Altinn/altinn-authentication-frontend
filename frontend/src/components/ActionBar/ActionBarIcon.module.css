@@ -8,11 +8,11 @@
 }
 
 .actionBarIcon.medium {
-  height: var(--fds-sizing-8);
-  width: var(--fds-sizing-8);
+  height: var(--ds-sizing-8);
+  width: var(--ds-sizing-8);
 }
 
 .actionBarIcon.large {
-  height: var(--fds-sizing-10);
-  width: var(--fds-sizing-10);
+  height: var(--ds-sizing-10);
+  width: var(--ds-sizing-10);
 }
