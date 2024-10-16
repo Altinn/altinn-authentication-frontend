@@ -40,13 +40,13 @@ export const VendorRequestPage = () => {
           )}
         </div>
         {!requestId && (
-          <Alert severity='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
+          <Alert color='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
         )}
         {(isLoadingCreationRequestError || (creationRequest && !creationRequest.system)) && (
-          <Alert severity='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
+          <Alert color='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
         )}
         {isLoadUserInfoError && (
-          <Alert severity='danger'>{t('vendor_request.load_user_info_error')}</Alert>
+          <Alert color='danger'>{t('vendor_request.load_user_info_error')}</Alert>
         )}
         {(isLoadingUserInfo || isLoadingCreationRequest) && (
           <Spinner title={t('vendor_request.loading')} />

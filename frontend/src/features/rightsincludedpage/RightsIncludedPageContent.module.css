@@ -1,10 +1,10 @@
 .buttonContainer {
   display: flex;
   flex-direction: row;
-  margin-top: var(--fds-spacing-22);
-  gap: var(--fds-spacing-4);
+  margin-top: var(--ds-spacing-22);
+  gap: var(--ds-spacing-4);
 }
 
 .successButton {
-  background-color: var(--fds-semantic-surface-success-default);
+  background-color: var(--ds-color-success-base-default);
 }

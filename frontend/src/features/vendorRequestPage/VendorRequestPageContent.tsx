@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
-import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
+import { Alert, Button, Heading, Paragraph } from '@digdir/designsystemet-react';
 import classes from './VendorRequestPageContent.module.css';
 import { RightsList } from '@/components/RightsList';
 import { ProfileInfo, SystemUserCreationRequest } from '@/types';
@@ -134,13 +134,13 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       </div>
       <div className={classes.vendorRequestBlock}>
         {request.status === 'Accepted' && (
-          <Alert severity='info'>{t('vendor_request.request_accepted')}</Alert>
+          <Alert color='info'>{t('vendor_request.request_accepted')}</Alert>
         )}
         {request.status === 'Rejected' && (
-          <Alert severity='info'>{t('vendor_request.request_rejected')}</Alert>
+          <Alert color='info'>{t('vendor_request.request_rejected')}</Alert>
         )}
         {request.status === 'Timedout' && (
-          <Alert severity='info'>{t('vendor_request.request_expired')}</Alert>
+          <Alert color='info'>{t('vendor_request.request_expired')}</Alert>
         )}
         <Heading level={2} size='sm'>
           {t('vendor_request.creation_header', {
@@ -168,12 +168,12 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         <div>
           {!userInfo.canCreateSystemUser && <RightsError />}
           {isAcceptCreationRequestError && (
-            <Alert severity='danger' role='alert'>
+            <Alert color='danger' role='alert'>
               {t('vendor_request.accept_error')}
             </Alert>
           )}
           {isRejectCreationRequestError && (
-            <Alert severity='danger' role='alert'>
+            <Alert color='danger' role='alert'>
               {t('vendor_request.reject_error')}
             </Alert>
           )}
@@ -186,11 +186,11 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
                   acceptSystemUser();
                 }
               }}
+              loading={isAcceptingSystemUser}
             >
-              {isAcceptingSystemUser && (
-                <Spinner size='small' title={t('vendor_request.accept_loading')} />
-              )}
-              {t('vendor_request.accept')}
+              {isAcceptingSystemUser
+                ? t('vendor_request.accept_loading')
+                : t('vendor_request.accept')}
             </Button>
             <Button
               variant='tertiary'
@@ -200,11 +200,11 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
                   rejectSystemUser();
                 }
               }}
+              loading={isRejectingSystemUser}
             >
-              {isRejectingSystemUser && (
-                <Spinner size='small' title={t('vendor_request.reject_loading')} />
-              )}
-              {t('vendor_request.reject')}
+              {isRejectingSystemUser
+                ? t('vendor_request.reject_loading')
+                : t('vendor_request.reject')}
             </Button>
           </div>
         </div>

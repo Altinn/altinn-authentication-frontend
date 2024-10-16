@@ -6,8 +6,8 @@
 .userInfoContent {
   display: flex;
   align-items: center;
-  gap: var(--fds-spacing-1);
-  margin-right: var(--fds-spacing-1);
+  gap: var(--ds-spacing-1);
+  margin-right: var(--ds-spacing-1);
 }
 
 .userInfoText {
@@ -17,6 +17,6 @@
 }
 
 .companyIcon {
-  width: var(--fds-sizing-7);
-  height: var(--fds-sizing-7);
+  width: var(--ds-sizing-7);
+  height: var(--ds-sizing-7);
 }
