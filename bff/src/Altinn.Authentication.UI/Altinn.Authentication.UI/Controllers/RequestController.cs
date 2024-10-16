@@ -94,11 +94,11 @@ public class RequestController(
     /// <returns></returns>
     [Authorize]
     [HttpGet("logout")]
-    public async Task<ActionResult> Logout([FromQuery] Guid requestId, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> Logout([FromQuery] Guid id, CancellationToken cancellationToken = default)
     {
         string redirectUrl = $"{_generalSettings.Value.FrontendBaseUrl}/authfront/api/v1/systemuser/request/redirect";
         // store cookie value for redirect
-        HttpContext.Response.Cookies.Append("AltinnRequestId", requestId.ToString());
+        HttpContext.Response.Cookies.Append("AltinnRequestId", id.ToString());
 
         // call logout service with redirectUrl as param
         // TODO
@@ -109,7 +109,7 @@ public class RequestController(
             return BadRequest("PartyId not provided in the context.");
         }
 
-        Result<VendorRequest> req = await _requestService.GetVendorRequest(partyId, requestId, cancellationToken);
+        Result<VendorRequest> req = await _requestService.GetVendorRequest(partyId, id, cancellationToken);
         HttpContext.Response.Cookies.Append("AltinnRedirectUrl", req.Value.RedirectUrl);
         
         // end test code
