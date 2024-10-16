@@ -94,15 +94,25 @@ public class RequestController(
     /// <returns></returns>
     [Authorize]
     [HttpGet("logout")]
-    public async Task<ActionResult> Logout([FromQuery] Guid id, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> Logout([FromQuery] Guid requestId, CancellationToken cancellationToken = default)
     {
         string redirectUrl = $"{_generalSettings.Value.FrontendBaseUrl}/authfront/api/v1/systemuser/request/redirect";
         // store cookie value for redirect
-        //HttpContext.Response.Cookies.Append("AltinnLogoutRedirect", redirectUrl);
-        HttpContext.Response.Cookies.Append("AltinnRequestId", id.ToString());
+        HttpContext.Response.Cookies.Append("AltinnRequestId", requestId.ToString());
 
         // call logout service with redirectUrl as param
         // TODO
+
+        int partyId = AuthenticationHelper.GetRepresentingPartyId(HttpContext);
+        if (partyId == 0)
+        {
+            return BadRequest("PartyId not provided in the context.");
+        }
+
+        Result<VendorRequest> req = await _requestService.GetVendorRequest(partyId, requestId, cancellationToken);
+        HttpContext.Response.Cookies.Append("AltinnRedirectUrl", req.Value.RedirectUrl);
+        
+        // end test code
 
         // redirect to url returned from logout service
         return Redirect(redirectUrl);
@@ -121,14 +131,17 @@ public class RequestController(
         {
             return BadRequest("AltinnRequestId not set in cookies.");
         }
+        /*
         Guid id = new(requestId);
         Result<string> req = await _requestService.GetRedirectUrl(id, cancellationToken);
         if (req.IsProblem)
         {
             return req.Problem.ToActionResult();
         }
+        */
+        string? url = HttpContext.Request.Cookies["AltinnRedirectUrl"];
 
         HttpContext.Response.Cookies.Delete("AltinnRequestId");
-        return Redirect(req.Value);
+        return Redirect(url);
     }
 }
