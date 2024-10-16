@@ -1,4 +1,6 @@
-﻿namespace Altinn.Authentication.UI.Core.SystemRegister;
+﻿using Altinn.Authentication.UI.Core.Common.Rights;
+
+namespace Altinn.Authentication.UI.Core.SystemRegister;
 
 public class SystemRegisterService : ISystemRegisterService
 {
@@ -16,28 +18,15 @@ public class SystemRegisterService : ISystemRegisterService
         _resourceRegistryClient = resourceRegistryClient;
     }
 
-    public async Task<List<RegisterSystemResponse>> GetListRegSys(CancellationToken cancellationToken)
+    public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
     {
-        List<RegisterSystemResponse> lista = [];
-
-        lista = await _systemRegisterClient.GetListRegSys(cancellationToken );
-
-        foreach (RegisterSystemResponse response in lista)
+        List<RegisteredSystemDTO> lista = await _systemRegisterClient.GetListRegSys(cancellationToken);
+        foreach (RegisteredSystemDTO response in lista)
         {
-            foreach (RightFrontEnd right in response.Rights)
-            {
-                string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
-                
-                if (resourceId != null) 
-                {
-                    right.ServiceResource = await _resourceRegistryClient.GetResource(resourceId, cancellationToken);
-                }
-            }
-
             try
             {
                 response.SystemVendorOrgName =
-                (await _registerClient.GetPartyForOrganization(response.SystemVendorOrgNumber)).Organization.Name;
+                    (await _registerClient.GetPartyForOrganization(response.SystemVendorOrgNumber, cancellationToken)).Organization.Name;
             }
             catch (Exception ex)
             {
@@ -47,5 +36,11 @@ public class SystemRegisterService : ISystemRegisterService
         }
 
         return lista;
+    }
+
+    public async Task<List<ServiceResource>> GetSystemRights(string systemId, CancellationToken cancellationToken)
+    {
+        List<Right> right = await _systemRegisterClient.GetRightsFromSystem(systemId, cancellationToken);
+        return await _resourceRegistryClient.GetResources(right, cancellationToken); 
     }
 }

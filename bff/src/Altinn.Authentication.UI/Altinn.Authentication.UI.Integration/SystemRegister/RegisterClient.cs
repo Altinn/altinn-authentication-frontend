@@ -52,7 +52,7 @@ public class RegisterClient : IRegisterClient
     }
 
     /// <inheritdoc/>
-    public async Task<Party> GetPartyForOrganization(string organizationNumber)
+    public async Task<Party> GetPartyForOrganization(string organizationNumber, CancellationToken cancellationToken = default)
     {
         try
         {
@@ -63,7 +63,7 @@ public class RegisterClient : IRegisterClient
             StringContent requestContent = new(JsonSerializer.Serialize(new PartyLookup { OrgNo = organizationNumber}, _jsonSerializerOptions), Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, requestContent, accessToken);
-            string responseContent = await response.Content.ReadAsStringAsync();
+            string responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {

@@ -1,4 +1,5 @@
-﻿using Altinn.Authorization.ProblemDetails;
+﻿using Altinn.Authentication.UI.Core.SystemRegister;
+using Altinn.Authorization.ProblemDetails;
 
 namespace Altinn.Authentication.UI.Core.SystemUsers;
 
@@ -7,12 +8,42 @@ namespace Altinn.Authentication.UI.Core.SystemUsers;
 /// </summary>
 /// <param name="requestClient">The client</param>
 public class RequestService(
-    IRequestClient requestClient
+    IRequestClient requestClient,
+    IResourceRegistryClient resourceRegistryClient,
+    ISystemRegisterClient systemRegisterClient,
+    IRegisterClient registerClient
     ) : IRequestService
 {
     public async Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)
     {
-        return await requestClient.GetVendorRequest(partyId, requestId, cancellationToken);
+        Result<VendorRequest> request = await requestClient.GetVendorRequest(partyId, requestId, cancellationToken);
+        
+        if (request.Value != null) 
+        {
+            // add resources
+            request.Value.Resources = await resourceRegistryClient.GetResources(request.Value.Rights, cancellationToken);
+
+            // add system
+            RegisteredSystemDTO? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);
+            request.Value.System = system;
+
+            if (request.Value.System != null)
+            {
+                 // add system name
+                try
+                {
+                    request.Value.System.SystemVendorOrgName =
+                        (await registerClient.GetPartyForOrganization(request.Value.System.SystemVendorOrgNumber, cancellationToken)).Organization.Name;
+                }
+                catch (Exception ex)
+                {
+                    request.Value.System.SystemVendorOrgName = "N/A"; // "N/A" stands for "Not Available
+                    Console.Write(ex.ToString());
+                }
+            }
+        }
+        
+        return request;
     }
 
     public async Task<Result<bool>> ApproveRequest(int partyId, Guid requestId, CancellationToken cancellationToken = default)

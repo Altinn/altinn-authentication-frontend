@@ -5,7 +5,6 @@ import { Heading, Link } from '@digdir/designsystemet-react';
 import { ActionBar } from '../ActionBar';
 import classes from './SystemUserActionBar.module.css';
 import { PencilIcon } from '@navikt/aksel-icons';
-import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
 import { AuthenticationRoute } from '@/routes/paths';
 import { url } from '@/utils/urlUtils';
@@ -22,14 +21,10 @@ export const SystemUserActionBar = ({
 }: SystemUserActionBarProps): React.JSX.Element => {
   const { t } = useTranslation();
 
-  const { data: vendors } = useGetVendorsQuery();
-
-  const vendor = vendors?.find((vendor) => vendor.systemId === systemUser.systemId);
-
   return (
     <ActionBar
       title={systemUser.integrationTitle}
-      subtitle={vendor?.systemVendorOrgName?.toUpperCase()}
+      subtitle={systemUser.supplierName?.toUpperCase()}
       color='light'
       size='large'
       defaultOpen={defaultOpen}
@@ -37,7 +32,7 @@ export const SystemUserActionBar = ({
       <div>
         <div className={classes.rightsHeader}>
           <Heading level={3} size='xxsmall' spacing>
-            {!vendor?.rights.length
+            {!systemUser?.resources.length
               ? t('authent_overviewpage.system_user_no_rights')
               : t('authent_overviewpage.system_rights_header')}
           </Heading>
@@ -48,7 +43,7 @@ export const SystemUserActionBar = ({
             </RouterLink>
           </Link>
         </div>
-        <RightsList rights={vendor?.rights ?? []} />
+        <RightsList resources={systemUser?.resources ?? []} />
       </div>
     </ActionBar>
   );

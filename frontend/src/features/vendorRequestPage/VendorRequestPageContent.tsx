@@ -73,7 +73,10 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   };
 
   const isActionButtonDisabled =
-    !userInfo.canCreateSystemUser || isAcceptingSystemUser || isRejectingSystemUser;
+    !userInfo.canCreateSystemUser ||
+    isAcceptingSystemUser ||
+    isRejectingSystemUser ||
+    request.status !== 'New';
 
   const renderFooter = (): React.ReactNode => {
     return (
@@ -130,6 +133,15 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         </Heading>
       </div>
       <div className={classes.vendorRequestBlock}>
+        {request.status === 'Accepted' && (
+          <Alert severity='info'>{t('vendor_request.request_accepted')}</Alert>
+        )}
+        {request.status === 'Rejected' && (
+          <Alert severity='info'>{t('vendor_request.request_rejected')}</Alert>
+        )}
+        {request.status === 'Timedout' && (
+          <Alert severity='info'>{t('vendor_request.request_expired')}</Alert>
+        )}
         <Heading level={2} size='sm'>
           {t('vendor_request.creation_header', {
             vendorName: request.system.name[currentLanguage],
@@ -146,11 +158,11 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         </Paragraph>
         <div>
           <Heading level={3} size='xs'>
-            {request.rights.length === 1
+            {request.resources.length === 1
               ? t('vendor_request.rights_list_header_single')
               : t('vendor_request.rights_list_header')}
           </Heading>
-          <RightsList rights={request.rights} />
+          <RightsList resources={request.resources} />
         </div>
         <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
         <div>

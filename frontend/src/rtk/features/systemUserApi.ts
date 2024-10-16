@@ -1,9 +1,10 @@
 import { url } from '@/utils/urlUtils';
 import { api } from './api';
-import { SystemUser, SystemUserCreationRequest, VendorSystem } from '@/types';
+import { ServiceResource, SystemUser, SystemUserCreationRequest, VendorSystem } from '@/types';
 
 enum Tags {
   SystemUsers = 'Systemusers',
+  VendorSystems = 'VendorSystems',
 }
 
 interface CreationRequest {
@@ -11,7 +12,7 @@ interface CreationRequest {
   selectedSystemType: string;
 }
 
-const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers] });
+const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers, Tags.VendorSystems] });
 
 export const systemUserApi = apiWithTag.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,10 +22,13 @@ export const systemUserApi = apiWithTag.injectEndpoints({
     }),
     getSystemUser: builder.query<SystemUser, string>({
       query: (id) => url`systemuser/${id}`,
-      providesTags: [Tags.SystemUsers],
     }),
     getVendors: builder.query<VendorSystem[], void>({
       query: () => `/systemregister`,
+      providesTags: [Tags.VendorSystems],
+    }),
+    getSystemRights: builder.query<ServiceResource[], string>({
+      query: (systemId) => url`systemregister/rights/${systemId}`,
     }),
     createSystemUser: builder.mutation<SystemUser, CreationRequest>({
       query: (systemUser) => ({
@@ -76,6 +80,7 @@ export const {
   useGetSystemUsersQuery,
   useUpdateSystemuserMutation,
   useGetVendorsQuery,
+  useGetSystemRightsQuery,
   useGetSystemUserRequestQuery,
   useApproveSystemUserRequestMutation,
   useRejectSystemUserRequestMutation,

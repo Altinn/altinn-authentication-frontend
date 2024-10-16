@@ -5,9 +5,8 @@ import { VendorRequestPageContent } from './VendorRequestPageContent';
 import AltinnLogo from '@/assets/AltinnLogoDefault.svg?react';
 import classes from './VendorRequestPageContent.module.css';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
-import { useGetSystemUserRequestQuery, useGetVendorsQuery } from '@/rtk/features/systemUserApi';
+import { useGetSystemUserRequestQuery } from '@/rtk/features/systemUserApi';
 import { useSearchParams } from 'react-router-dom';
-import { SystemRight } from '@/types';
 
 export const VendorRequestPage = () => {
   const { t } = useTranslation();
@@ -28,16 +27,6 @@ export const VendorRequestPage = () => {
     skip: !requestId,
   });
 
-  const { data: vendors } = useGetVendorsQuery();
-  const system = vendors?.find((x) => x.systemId === creationRequest?.systemId);
-  const rightIds =
-    creationRequest?.rights.reduce((acc: string[], curr: SystemRight) => {
-      const resourceIds = curr.resource
-        .filter((x) => x.id === 'urn:altinn:resource')
-        .map((x) => x.value);
-      return [...acc, ...resourceIds];
-    }, []) ?? [];
-
   return (
     <div className={classes.vendorRequestPage}>
       <div className={classes.vendorRequestWrapper}>
@@ -53,7 +42,7 @@ export const VendorRequestPage = () => {
         {!requestId && (
           <Alert severity='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
         )}
-        {isLoadingCreationRequestError && (
+        {(isLoadingCreationRequestError || (creationRequest && !creationRequest.system)) && (
           <Alert severity='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
         )}
         {isLoadUserInfoError && (
@@ -62,17 +51,8 @@ export const VendorRequestPage = () => {
         {(isLoadingUserInfo || isLoadingCreationRequest) && (
           <Spinner title={t('vendor_request.loading')} />
         )}
-        {creationRequest && userInfo && system && (
-          <VendorRequestPageContent
-            request={{
-              ...creationRequest,
-              system: { ...system, systemVendorOrgName: 'SmartCloud AS' },
-              rights: system.rights.filter(
-                (x) => rightIds.indexOf(x.serviceResource?.identifier) > -1,
-              ),
-            }}
-            userInfo={userInfo}
-          />
+        {creationRequest && creationRequest.system && userInfo && (
+          <VendorRequestPageContent request={creationRequest} userInfo={userInfo} />
         )}
       </div>
     </div>

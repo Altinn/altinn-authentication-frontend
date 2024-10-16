@@ -14,5 +14,5 @@ public interface IRegisterClient
     /// <returns>
     /// Party information
     /// </returns>
-    Task<Party> GetPartyForOrganization(string organizationNumber);
+    Task<Party> GetPartyForOrganization(string organizationNumber, CancellationToken cancellationToken = default);
 }

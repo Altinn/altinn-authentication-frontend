@@ -15,15 +15,21 @@ public class SystemUserService : ISystemUserService
     private readonly ISystemUserClient _systemUserClient;
     private readonly IAccessManagementClient _accessManagementClient;
     private readonly ISystemRegisterClient _systemRegisterClient;
+    private readonly IRegisterClient _registerClient;
+    private readonly IResourceRegistryClient _resourceRegistryClient;
 
     public SystemUserService(
         ISystemUserClient systemUserClient,
         IAccessManagementClient accessManagementClient,
-        ISystemRegisterClient systemRegisterClient)
+        ISystemRegisterClient systemRegisterClient,
+        IRegisterClient registerClient,
+        IResourceRegistryClient resourceRegistryClient)
     {
         _systemUserClient = systemUserClient;
         _accessManagementClient = accessManagementClient;
         _systemRegisterClient = systemRegisterClient;
+        _registerClient = registerClient;
+        _resourceRegistryClient = resourceRegistryClient;
     }
 
     public async Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
@@ -48,12 +54,24 @@ public class SystemUserService : ISystemUserService
         int reporteePartyId = reportee.PartyId;
         
         var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(reporteePartyId, cancellationToken);
+
+        foreach (SystemUser systemUser in lista)
+        {
+            await AddRights(systemUser, cancellationToken);
+        }
+
         return lista;
     }
 
     public async Task<SystemUser?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
-        return await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
+        SystemUser? systemUser = await _systemUserClient.GetSpecificSystemUserReal(partyId, id, cancellationToken);
+        if (systemUser != null)
+        {
+            await AddRights(systemUser, cancellationToken);
+        }
+
+        return systemUser;
     }
 
     public async Task<Result<SystemUser>> CreateSystemUser(int partyId, CreateSystemUserRequestToAuthComp newSystemUserDescriptor, CancellationToken cancellation = default)
@@ -82,7 +100,7 @@ public class SystemUserService : ISystemUserService
 
     private async Task<DelegationCheckResult> UserDelegationCheckForReportee(int partyId, string systemId ,CancellationToken cancellationToken = default)
     {        
-        List<Right> rights = await _systemRegisterClient.GetRightFromSystem(systemId, cancellationToken);
+        List<Right> rights = await _systemRegisterClient.GetRightsFromSystem(systemId, cancellationToken);
         List<RightResponses> rightResponsesList = [];
                   
         foreach (Right right in rights)
@@ -114,5 +132,28 @@ public class SystemUserService : ISystemUserService
         }
 
         return true;
+    }
+
+    private async Task AddRights(SystemUser systemUser, CancellationToken cancellationToken)
+    {
+        
+        // TODO: rights for a systemuser is not 1:1 with system rights, but we have no way to 
+        // get rights for a specific systemuser yet, so return the rights for the system for now.
+        List<Right> rights = await _systemRegisterClient.GetRightsFromSystem(systemUser.SystemId, cancellationToken);
+        
+        // add resources
+        systemUser.Resources = await _resourceRegistryClient.GetResources(rights, cancellationToken);
+        
+        // add system name
+        try
+        {
+            systemUser.SupplierName =
+                (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo, cancellationToken)).Organization.Name;
+        }
+        catch (Exception ex)
+        {
+            systemUser.SupplierName = "N/A"; // "N/A" stands for "Not Available
+            Console.Write(ex.ToString());
+        }
     }
 }

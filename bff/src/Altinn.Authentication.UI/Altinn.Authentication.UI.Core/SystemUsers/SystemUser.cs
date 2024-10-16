@@ -1,6 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
+using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Authentication.UI.Core.SystemRegister;
 
 namespace Altinn.Authentication.UI.Core.SystemUsers;
 
@@ -81,4 +83,16 @@ public class SystemUser
     /// </summary>
     [JsonPropertyName("supplierOrgno")]
     public string SupplierOrgNo { get; set; } = string.Empty;
+
+    /// <summary>
+    /// List of rights for this systemuser
+    /// </summary>
+    [JsonPropertyName("rights")]
+    public List<Right> Rights { get; set; } = [];
+
+    /// <summary>
+    /// List of resources information
+    /// </summary>
+    [JsonPropertyName("resources")]
+    public List<ServiceResource> Resources { get; set; } = [];
 }

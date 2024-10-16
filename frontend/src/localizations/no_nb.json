@@ -46,6 +46,8 @@
     "content_text_single": "Denne tjenesten er forhåndsvalgt av fagsystemet.",
     "confirm_button": "Opprett systemtilgang",
     "create_systemuser_error": "Kunne ikke opprette systemtilgang",
+    "loading_rights": "Laster forhåndsvalgte tjenester for fagsystemet",
+    "load_rights_error": "Kunne ikke laste forhåndsvalgte tjenester, eller du har ikke rettigheter til å delegere alle disse tjenestene.",
     "creating_systemuser": "Oppretter systemtilgang..."
   },
   "authent_detailpage": {
@@ -103,6 +105,9 @@
     "reject_error": "Kunne ikke avvise forespørsel",
     "accept_loading": "Oppretter systemtilgang...",
     "reject_loading": "Avviser forespørsel...",
+    "request_accepted": "Denne forespørselen er allerede akseptert",
+    "request_rejected": "Denne forespørselen er allerede avvist",
+    "request_expired": "Denne forespørselen har utløpt",
     "receipt_header": "Systemtilgangen er klar",
     "receipt_ingress": " Du kan nå ta i bruk {{systemName}}",
     "receipt_body": "På altinn.no finner du en oversikt over systemtilgangene dine. Der kan du også endre navn på systemtilgangen, og når som helst trekke tilbake godkjenningen.",

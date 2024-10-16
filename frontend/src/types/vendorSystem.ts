@@ -9,7 +9,10 @@ export interface VendorSystem {
     nn: string;
     en: string;
   };
+  description?: {
+    nb: string;
+    nn: string;
+    en: string;
+  };
   rights: SystemRight[];
-  softDeleted: boolean;
-  isVisible: boolean;
 }
