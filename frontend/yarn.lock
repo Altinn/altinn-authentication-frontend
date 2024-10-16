@@ -512,10 +512,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:1.0.0-next.34":
-  version: 1.0.0-next.34
-  resolution: "@digdir/designsystemet-css@npm:1.0.0-next.34"
-  checksum: 10c0/0516d38fb847794c3de53f6e5976d97116edbe7c118eeab107c77afb776370b1de2cdf409d40de236d6d9f38004d47df225e5c30601be1bd3b62d896dae5fa78
+"@digdir/designsystemet-css@npm:1.0.0-next.35":
+  version: 1.0.0-next.35
+  resolution: "@digdir/designsystemet-css@npm:1.0.0-next.35"
+  checksum: 10c0/62a620258536cf67c1e335fccb1d172a8699d3c03d0fc75b5a01c63523ebe6bee641ee394b10fa07ff199d735b139c41c2023f84d66930dc6802e732887879d5
   languageName: node
   linkType: hard
 
@@ -2049,7 +2049,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:1.0.0-next.34"
+    "@digdir/designsystemet-css": "npm:1.0.0-next.35"
     "@digdir/designsystemet-react": "npm:1.0.0-next.34"
     "@digdir/designsystemet-theme": "npm:1.0.0-next.34"
     "@eslint/compat": "npm:^1.1.1"
