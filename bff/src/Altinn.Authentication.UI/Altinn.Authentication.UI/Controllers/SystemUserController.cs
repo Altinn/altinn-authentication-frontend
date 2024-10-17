@@ -68,51 +68,6 @@ public class SystemUserController : ControllerBase
     }
     
     /// <summary>
-    /// Used to upload a certificate for the System User
-    /// </summary>
-    /// <returns></returns>
-    [Authorize]
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpPost("uploaddisk")]
-    public async Task<ActionResult> UploadFileToDisk(IFormFile file, CancellationToken cancellationToken = default)
-    {        
-
-        var fileName = file.FileName;
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", fileName);
-        var stream = new FileStream(filePath, FileMode.Create);
-        await file.CopyToAsync(stream, cancellationToken);
-
-        stream.Close();
-        stream.Dispose();
-        
-        return Ok();
-    }
-
-    /// <summary>
-    /// Endpoint for uploading a certificate for the System User
-    /// </summary>
-    /// <param name = "cancellationToken" ></param >
-    [Authorize]
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpPost("uploadjwk")]
-    public async Task<ActionResult> UploadCertificate(IFormFile file, [FromForm] string navn, [FromForm] string beskrivelse , CancellationToken cancellationToken = default)
-    {
-        using var form = new MultipartFormDataContent();
-        using var streamContent = new StreamContent(file.OpenReadStream());
-        using var fileContent = new ByteArrayContent(await streamContent.ReadAsByteArrayAsync(cancellationToken));
-        fileContent.Headers.ContentType = MediaTypeHeaderValue.Parse(file.ContentType);
-        form.Add(fileContent, "file", file.FileName);
-
-        using var client = new HttpClient();
-        var response = await client.PostAsync("http://localhost:5006/authfront/api/v1/systemuser/uploaddisk", form, cancellationToken);
-        response.EnsureSuccessStatusCode();
-        var responseString = await response.Content.ReadAsStringAsync(cancellationToken);
-        response.Dispose();
-
-        return Ok();
-    }
-    
-    /// <summary>
     /// Endpoint for creating a new System User for the choosen reportee.The reportee is taken from the AltinnPartyId cookie 
     /// 
     /// Expects backend in Authenticaiton and in Access Management to perform authorization ch
