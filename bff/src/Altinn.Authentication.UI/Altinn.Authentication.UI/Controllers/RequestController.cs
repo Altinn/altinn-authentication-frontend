@@ -103,17 +103,6 @@ public class RequestController(
         // call logout service with redirectUrl as param
         // TODO
 
-        int partyId = AuthenticationHelper.GetRepresentingPartyId(HttpContext);
-        if (partyId == 0)
-        {
-            return BadRequest("PartyId not provided in the context.");
-        }
-
-        Result<VendorRequest> req = await _requestService.GetVendorRequest(partyId, id, cancellationToken);
-        HttpContext.Response.Cookies.Append("AltinnRedirectUrl", req.Value.RedirectUrl);
-        
-        // end test code
-
         // redirect to url returned from logout service
         return Redirect(redirectUrl);
     }
@@ -131,17 +120,15 @@ public class RequestController(
         {
             return BadRequest("AltinnRequestId not set in cookies.");
         }
-        /*
+        
         Guid id = new(requestId);
-        Result<string> req = await _requestService.GetRedirectUrl(id, cancellationToken);
+        Result<RedirectUrl> req = await _requestService.GetRedirectUrl(id, cancellationToken);
         if (req.IsProblem)
         {
             return req.Problem.ToActionResult();
         }
-        */
-        string? url = HttpContext.Request.Cookies["AltinnRedirectUrl"];
-
+        
         HttpContext.Response.Cookies.Delete("AltinnRequestId");
-        return Redirect(url);
+        return Redirect(req.Value.Url);
     }
 }
