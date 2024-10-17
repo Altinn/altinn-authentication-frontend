@@ -8,14 +8,14 @@ RUN yarn build
 
 #Building the Authentication BFF Backend
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine AS generate-authentication-backend
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS generate-authentication-backend
 
 COPY bff/src .
 RUN dotnet publish Altinn.Authentication.UI/Altinn.Authentication.UI/Altinn.Authentication.UI.csproj -c Release -r linux-x64 -o /app_output --no-self-contained 
 
 #Building the final image
 
-FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
 
 EXPOSE 8080/tcp
 #EXPOSE 443
