@@ -74,7 +74,7 @@ public class RequestClient(
 
     public async Task<Result<RedirectUrl>> GetRedirectUrl(Guid requestId, CancellationToken cancellationToken)
     {
-        string endpoint = $"systemuser/request/{requestId}/redirect";
+        string endpoint = $"systemuser/request/redirect/{requestId}";
         HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
 
         if (res.IsSuccessStatusCode)
