@@ -60,24 +60,9 @@
     "delete_systemuser_header": "Delete system access",
     "delete_systemuser_body": "Are you sure you want to delete the system access \"{{title}}\"?",
     "delete_systemuser_error": "Could not delete system access",
-    "included_rights": "Included rights:",
-    "no_rights": "The system access has no rights",
     "update_systemuser_error": "Failed to update system access",
     "save_systemuser": "Save changes",
     "name_too_long": "Name of system access cannot be longer than 255 characters, you have entered {{ nameLength }} characters."
-  },
-  "authent_maskinporten": {
-    "banner_title": "TODO: Administrere maskinporten integrasjoner",
-    "sub_title": "TODO: Opprett og administrer maskinporten integrasjon",
-    "name": "TODO: Navn",
-    "description": "TODO:  Beskrivelse",
-    "upload_jwk_format": "TODO:  Last opp i jwk i format",
-    "upload_jwk": "TODO:  Last opp fil.jwk",
-    "upload_description": "TODO: Maskinporten krever at du oppdaterer JWK hver 12. måned. Hvis JWK ikke oppdateres vil integrasjonen slutte å virke.",
-    "create_integration": "TODO: Opprett integrasjon",
-    "create_integration_error": "TODO: Kunne ikke opprette integrasjon",
-    "no_file_uploaded": "TODO: Ingen fil opplastet ennå (maks er 64 kB).",
-    "uploaded_file_info": "TODO: Fil opplastet er {{filename}}, størrelse er {{filesize}} bytes."
   },
   "error_page": {
     "go_to_inbox": "Go to inbox",

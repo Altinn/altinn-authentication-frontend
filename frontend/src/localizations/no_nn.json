@@ -60,24 +60,9 @@
     "delete_systemuser_header": "Slette systemtilgang",
     "delete_systemuser_body": "Er du sikker på at du vil slette systemtilgangen \"{{title}}\"?",
     "delete_systemuser_error": "Kunne ikkje slette systemtilgang",
-    "included_rights": "Inkluderte rettar:",
-    "no_rights": "Systemtilgangen har ingen rettar",
     "update_systemuser_error": "Kunne ikkje oppdatere systemtilgang",
     "save_systemuser": "Lagre endringar",
     "name_too_long": "Namn på systemtilgang kan berre vere 255 teikn, du har skrive inn {{ nameLength }} teikn."
-  },
-  "authent_maskinporten": {
-    "banner_title": "TODO: Administrere Maskinporten-integrasjonar",
-    "sub_title": "TODO: Opprett og administrer Maskinporten-integrasjon",
-    "name": "TODO: Namn",
-    "description": "TODO: Beskrivelse",
-    "upload_jwk_format": "TODO: Last opp i jwk i format",
-    "upload_jwk": "TODO: Last opp fil.jwk",
-    "upload_description": "TODO: Maskinporten krev at du oppdaterer JWK kvar 12. månad. Dersom JWK ikkje blir oppdatert vil integrasjonen slutte å virke.",
-    "create_integration": "TODO: Opprett integrasjon",
-    "create_integration_error": "TODO: Kunne ikkje opprette integrasjon",
-    "no_file_uploaded": "TODO: fil opplasta enno (maks er 64 kB).",
-    "uploaded_file_info": "TODO: Fil opplasta er {{filename}}, størrelse er {{filesize}} bytes."
   },
   "error_page": {
     "go_to_inbox": "Gå til innboks",
