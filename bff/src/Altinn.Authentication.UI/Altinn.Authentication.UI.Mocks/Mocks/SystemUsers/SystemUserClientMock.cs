@@ -132,7 +132,7 @@ public class SystemUserClientMock : ISystemUserClient
         return _systemUserList;
     }
 
-    public async Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
+    public async Task<bool> ChangeSystemUserRealProductNew(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
         throw new NotImplementedException();
