@@ -4,13 +4,13 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths:
-      - bff/**
+    paths-ignore:
+      - frontend/**
 
   pull_request:
     types: [opened, synchronize, reopened]
-    paths:
-      - bff/**
+    paths-ignore:
+      - frontend/**
 
 env:
   dotnet_version: 8.0.x
