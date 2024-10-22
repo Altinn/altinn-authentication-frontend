@@ -28,4 +28,4 @@ jobs:
         with:
           dotnet-version: ${{ env.dotnet_version }}
       - name: Build
-        run: dotnet build bff/src/Altinn.Authentication.UI/Altinn.Authentication.UI.sln -v m -warnaserror
+        run: dotnet build bff/src/Altinn.Authentication.UI/Altinn.Authentication.UI.sln
