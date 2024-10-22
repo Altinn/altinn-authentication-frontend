@@ -7,8 +7,7 @@ import classes from './ActionBarHeader.module.css';
 import { ActionBarIcon } from './ActionBarIcon';
 import { type ActionBarProps } from './ActionBar';
 
-export interface ActionBarHeaderProps
-  extends Pick<ActionBarProps, 'title' | 'subtitle' | 'additionalText'> {}
+export type ActionBarHeaderProps = Pick<ActionBarProps, 'title' | 'subtitle' | 'additionalText'>;
 
 export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderProps>(
   ({ additionalText, subtitle, title }, ref) => {

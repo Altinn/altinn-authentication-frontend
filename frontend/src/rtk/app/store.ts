@@ -21,7 +21,7 @@ const store = configureStore({
 });
 
 export default store;
-export type RootState = {
+export interface RootState {
   createSystemUser: CreateSystemUserState;
-};
+}
 export type AppDispatch = typeof store.dispatch;
