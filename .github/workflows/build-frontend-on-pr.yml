@@ -1,0 +1,40 @@
+name: build-frontend-on-pr.yml
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - bff/**
+
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - bff/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Test & Build
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      - name: install dependencies
+        working-directory: ./frontend
+        run: yarn --immutable
+
+      - name: install node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: run eslint
+        working-directory: ./frontend
+        run: yarn lint
+
+      - name: run build
+        working-directory: ./frontend
+        run: yarn build

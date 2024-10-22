@@ -1,0 +1,31 @@
+name: "build-backend-on-pr"
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - bff/**
+
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - bff/**
+
+env:
+  dotnet_version: 8.0.x
+
+jobs:
+  build:
+    name: Build
+    if: ((github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == false) || github.event_name == 'push') && github.repository_owner == 'Altinn' && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        name: "Checkout Repository"
+      - uses: actions/setup-dotnet@v4
+        name: Install .NET ${{ env.dotnet_version }}
+        with:
+          dotnet-version: ${{ env.dotnet_version }}
+      - name: Build
+        run: dotnet build bff/src/Altinn.Authentication.UI/Altinn.Authentication.UI.sln -v m -warnaserror
