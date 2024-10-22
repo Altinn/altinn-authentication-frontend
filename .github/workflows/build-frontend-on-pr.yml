@@ -1,4 +1,4 @@
-name: build-frontend-on-pr.yml
+name: Build and lint frontend
 
 on:
   workflow_dispatch:

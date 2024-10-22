@@ -1,4 +1,4 @@
-name: "build-backend-on-pr"
+name: Build backend
 
 on:
   workflow_dispatch:
