@@ -21,6 +21,7 @@ export interface ServiceResource {
     orgcode?: string;
     name?: SupportedLanguage;
   };
+  logoUrl?: string;
 }
 
 export type ValidLanguage = 'nb' | 'nn' | 'en';

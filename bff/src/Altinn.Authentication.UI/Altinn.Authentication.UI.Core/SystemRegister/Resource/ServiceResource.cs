@@ -131,6 +131,8 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// </summary>
         public List<AttributePair>? AuthorizationReference { get; set; }
 
+        public string? LogoUrl { get; set; }
+
         /// <summary>
         /// Writes key information when this object is written to Log.
         /// </summary>

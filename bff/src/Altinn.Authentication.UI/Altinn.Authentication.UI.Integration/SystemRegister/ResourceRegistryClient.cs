@@ -56,7 +56,13 @@ public class ResourceRegistryClient : IResourceRegistryClient
             HttpResponseMessage response = await _httpClient.GetAsync(endpointUrl, cancellationToken);
             if (response.StatusCode == System.Net.HttpStatusCode.OK) 
             {
-                return await response.Content.ReadFromJsonAsync<ServiceResource>(_jsonSerializerOptions, cancellationToken);
+                ServiceResource? resource = await response.Content.ReadFromJsonAsync<ServiceResource>(_jsonSerializerOptions, cancellationToken);
+                if (resource?.HasCompetentAuthority?.Orgcode != null) 
+                {
+                    string? logoUrl = await GetOrgIconUrl(resource.HasCompetentAuthority.Orgcode, cancellationToken);
+                    resource.LogoUrl = logoUrl;
+                }
+                return resource;
             }
             else 
             {
@@ -68,5 +74,21 @@ public class ResourceRegistryClient : IResourceRegistryClient
             _logger.LogError(ex, $"Authentication.UI // ResourceRegistry // GetResource ({resourceId}) // Exception");
             throw;
         }
+    }
+
+    private async Task<string?> GetOrgIconUrl(string org, CancellationToken cancellationToken)
+    {
+        // TODO: cache org list
+        HttpResponseMessage response = await _httpClient.GetAsync("https://altinncdn.no/orgs/altinn-orgs.json", cancellationToken);
+        OrgList? orgList = await response.Content.ReadFromJsonAsync<OrgList>(_jsonSerializerOptions, cancellationToken);
+        if (orgList != null)
+        {
+            if (orgList.Orgs.TryGetValue(org, out Org? organization))
+            {
+                return organization.Logo;
+            }
+        }
+        
+        return null;
     }
 }
