@@ -9,11 +9,11 @@ import { type ActionBarProps } from './ActionBar';
 
 export type ActionBarHeaderProps = Pick<
   ActionBarProps,
-  'title' | 'subtitle' | 'logoUrl' | 'additionalText'
+  'title' | 'subtitle' | 'icon' | 'additionalText'
 >;
 
 export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderProps>(
-  ({ additionalText, subtitle, title, logoUrl }, ref) => {
+  ({ additionalText, subtitle, title, icon }, ref) => {
     const { open, toggleOpen, contentId, headerId, color, size } = useActionBarContext();
 
     let headingSize: 'sm' | 'md' | 'lg' | 'xs';
@@ -31,11 +31,7 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
 
     const actionBarContent: React.ReactNode = (
       <div className={classes.titleWrapper}>
-        {logoUrl && (
-          <div className={classes.logoWrapper}>
-            <img className={classes.logoImg} src={logoUrl} />
-          </div>
-        )}
+        {icon}
         <div>
           <Paragraph size={headingSize} className={classes.title}>
             {title}

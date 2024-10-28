@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { ServiceResource } from '@/types';
 import { ActionBar } from '../ActionBar';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
+import { RightsListLogo } from './RightsListLogo';
 
 interface RightsListProps {
   resources: ServiceResource[];
@@ -16,7 +17,7 @@ export const RightsList = ({ resources }: RightsListProps): React.ReactNode => {
       <ActionBar
         key={resource.identifier}
         title={resource.title?.[currentLanguage]}
-        logoUrl={resource.logoUrl}
+        icon={resource.logoUrl && <RightsListLogo logoUrl={resource.logoUrl} />}
         subtitle={resource?.hasCompetentAuthority?.name?.[currentLanguage]}
         color='neutral'
       >
