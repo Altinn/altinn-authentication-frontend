@@ -103,7 +103,7 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// <summary>
         /// Defines if the resource is limited by Resource Rights Registry
         /// </summary>
-        public bool LimitedByRRR { get; set; }
+        public string AccessListMode { get; set; } = "Disabled";
 
         /// <summary>
         /// The user acting on behalf of party can be a selfidentifed users

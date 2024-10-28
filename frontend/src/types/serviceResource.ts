@@ -15,7 +15,7 @@ export interface ServiceResource {
   enterpriseUserEnabled?: boolean;
   availableForType?: ResourceAvailableForTypeOption[];
   contactPoints?: ResourceContactPoint[];
-  limitedByRRR?: boolean;
+  accessListMode?: string;
   hasCompetentAuthority?: {
     organization?: string;
     orgcode?: string;
