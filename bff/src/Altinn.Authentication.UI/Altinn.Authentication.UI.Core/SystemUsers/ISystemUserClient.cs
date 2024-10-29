@@ -8,6 +8,5 @@ public interface ISystemUserClient
     Task<Result<CreateSystemUserResponse>> CreateSystemUser(int partyId, SystemUserRequestDto newSystemUser, CancellationToken cancellation = default);
     Task<Result<bool>> DeleteSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default);
     Task<bool> ChangeSystemUserRealTitle(string newTitle, Guid id, CancellationToken cancellationToken = default);
-    Task<bool> ChangeSystemUserRealDescription(string newDescr, Guid id, CancellationToken cancellationToken = default);
     Task<List<SystemUser>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default);
 }

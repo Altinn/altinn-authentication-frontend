@@ -98,12 +98,6 @@ public class SystemUserClientMock : ISystemUserClient
         throw new NotImplementedException();
     }
 
-    public async Task<bool> ChangeSystemUserRealDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
-    {
-        await Task.Delay(50);
-        throw new NotImplementedException();
-    }
-
     public async Task<List<SystemUser>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);

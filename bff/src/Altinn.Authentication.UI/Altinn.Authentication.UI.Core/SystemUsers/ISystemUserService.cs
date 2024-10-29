@@ -24,9 +24,4 @@ public interface ISystemUserService
     /// Change system user title
     /// </summary>
     Task<bool> ChangeSystemUserTitle(string newTitle, Guid id, CancellationToken cancellationToken = default);
-    
-    /// <summary>
-    /// Change system user description
-    /// </summary>
-    Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default);
 }

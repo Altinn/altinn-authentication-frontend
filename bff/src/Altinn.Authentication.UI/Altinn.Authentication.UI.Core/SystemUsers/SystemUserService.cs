@@ -32,11 +32,6 @@ public class SystemUserService : ISystemUserService
         _resourceRegistryClient = resourceRegistryClient;
     }
 
-    public async Task<bool> ChangeSystemUserDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
-    {
-        return await _systemUserClient.ChangeSystemUserRealDescription(newDescr, id, cancellationToken);
-    }
-
     public async  Task<bool> ChangeSystemUserTitle(string newTitle, Guid id, CancellationToken cancellationToken = default)
     {
         return await _systemUserClient.ChangeSystemUserRealTitle(newTitle, id, cancellationToken);
