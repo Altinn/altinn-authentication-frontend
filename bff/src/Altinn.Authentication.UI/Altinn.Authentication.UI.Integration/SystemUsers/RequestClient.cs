@@ -57,8 +57,8 @@ public class RequestClient(
         
         try
         {
-            AltinnProblemDetails problemDetails = await res.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellationToken);
-            return ProblemMapper.MapToAuthUiError(problemDetails.ErrorCode.ToString());
+            AltinnProblemDetails? problemDetails = await res.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellationToken);
+            return ProblemMapper.MapToAuthUiError(problemDetails?.ErrorCode.ToString());
         }
         catch 
         {
@@ -79,8 +79,8 @@ public class RequestClient(
 
         try
         {
-            AltinnProblemDetails problemDetails = await res.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellationToken);
-            return ProblemMapper.MapToAuthUiError(problemDetails.ErrorCode.ToString());
+            AltinnProblemDetails? problemDetails = await res.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellationToken);
+            return ProblemMapper.MapToAuthUiError(problemDetails?.ErrorCode.ToString());
         }
         catch 
         {

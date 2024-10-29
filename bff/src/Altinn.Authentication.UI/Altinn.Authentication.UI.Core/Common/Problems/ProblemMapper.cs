@@ -6,7 +6,7 @@ namespace Altinn.Authentication.UI.Core.Common.Problems;
 /// </summary>
 public static class ProblemMapper
 {
-    public static ProblemDescriptor MapToAuthUiError(string authErrorCode)
+    public static ProblemDescriptor MapToAuthUiError(string? authErrorCode)
     {
         return authErrorCode switch
         {

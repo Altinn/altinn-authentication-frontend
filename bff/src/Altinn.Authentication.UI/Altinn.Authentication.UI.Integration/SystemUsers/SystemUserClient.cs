@@ -73,34 +73,12 @@ public class SystemUserClient : ISystemUserClient
         
         try
         {
-            AltinnProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellation);
-            return ProblemMapper.MapToAuthUiError(problemDetails.ErrorCode.ToString());
+            AltinnProblemDetails? problemDetails = await response.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellation);
+            return ProblemMapper.MapToAuthUiError(problemDetails?.ErrorCode.ToString());
         }
         catch 
         {
             return Problem.Generic_EndOfMethod;
-        }
-        
-        if (false) 
-        {
-            AltinnProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellation);
-           
-            if (problemDetails?.ErrorCode.ToString() is "AUTH-00001")
-            {
-                return Problem.Rights_NotFound_Or_NotDelegable;
-            }
-            else if (problemDetails?.ErrorCode.ToString() is "AUTH-00002")
-            {
-                return Problem.Rights_FailedToDelegate;
-            }
-            else if (problemDetails?.ErrorCode.ToString() is "AUTH-00003")
-            {
-                return Problem.SystemUser_FailedToCreate;
-            }
-            else
-            {
-                return Problem.Rights_FailedToDelegate;
-            }
         }
     }
 
