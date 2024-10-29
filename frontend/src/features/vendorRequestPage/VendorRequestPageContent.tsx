@@ -14,6 +14,8 @@ import { AuthenticationRoute } from '@/routes/paths';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
+import { DelegationCheckError } from '@/components/DelegationCheckError';
+import { ProblemDetail } from '@/types/problemDetail';
 
 interface VendorRequestPageContentProps {
   request: SystemUserCreationRequest;
@@ -30,7 +32,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
 
   const [
     postAcceptCreationRequest,
-    { isError: isAcceptCreationRequestError, isLoading: isAcceptingSystemUser },
+    { error: acceptCreationRequestError, isLoading: isAcceptingSystemUser },
   ] = useApproveSystemUserRequestMutation();
 
   const [
@@ -167,10 +169,8 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
         <div>
           {!userInfo.canCreateSystemUser && <RightsError />}
-          {isAcceptCreationRequestError && (
-            <Alert color='danger' role='alert'>
-              {t('vendor_request.accept_error')}
-            </Alert>
+          {acceptCreationRequestError && (
+            <DelegationCheckError error={acceptCreationRequestError as { data: ProblemDetail }} />
           )}
           {isRejectCreationRequestError && (
             <Alert color='danger' role='alert'>

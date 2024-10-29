@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { RightsList } from '@/components/RightsList';
+import { DelegationCheckError } from '@/components/DelegationCheckError';
+import { ProblemDetail } from '@/types/problemDetail';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -17,23 +19,23 @@ export const RightsIncludedPageContent = () => {
   // og ikke CreationPageContent som tidligere (men den kjører foreløpig fortsatt POST)
 
   const { t } = useTranslation();
-  const [postNewSystemUser, { isError: isCreateSystemUserError, isLoading: isCreatingSystemUser }] =
+  const [postNewSystemUser, { error: createSystemUserError, isLoading: isCreatingSystemUser }] =
     useCreateSystemUserMutation();
 
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
-  const selectedSystemVendor = useAppSelector((state) => state.createSystemUser.selectedSystemType);
+  const selectedSystemId = useAppSelector((state) => state.createSystemUser.selectedSystemId);
   const {
     data: rights,
     isLoading: isLoadingRights,
     isError: isLoadRightsError,
-  } = useGetSystemRightsQuery(selectedSystemVendor);
+  } = useGetSystemRightsQuery(selectedSystemId);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useFirstRenderEffect(() => {
     // if integrationTitle or selectedSystemVendor is not set (if user goes directly to /rightsincluded url), navigate back to creation
-    if (!integrationTitle || !selectedSystemVendor) {
+    if (!integrationTitle || !selectedSystemId) {
       navigate(AuthenticationRoute.Creation);
     }
   });
@@ -48,7 +50,7 @@ export const RightsIncludedPageContent = () => {
     // key:value pairs are needed
     const postObjekt = {
       integrationTitle: integrationTitle,
-      selectedSystemType: selectedSystemVendor,
+      systemId: selectedSystemId,
     };
 
     postNewSystemUser(postObjekt)
@@ -81,10 +83,8 @@ export const RightsIncludedPageContent = () => {
       </Paragraph>
       <div>
         <RightsList resources={rights ?? []} />
-        {isCreateSystemUserError && (
-          <Alert color='danger' role='alert'>
-            {t('authent_includedrightspage.create_systemuser_error')}
-          </Alert>
+        {createSystemUserError && (
+          <DelegationCheckError error={createSystemUserError as { data: ProblemDetail }} />
         )}
         {isLoadRightsError && (
           <Alert color='danger' role='alert'>

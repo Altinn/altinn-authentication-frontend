@@ -9,7 +9,7 @@ enum Tags {
 
 interface CreationRequest {
   integrationTitle: string;
-  selectedSystemType: string;
+  systemId: string;
 }
 
 const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers, Tags.VendorSystems] });
@@ -26,6 +26,7 @@ export const systemUserApi = apiWithTag.injectEndpoints({
     getVendors: builder.query<VendorSystem[], void>({
       query: () => `/systemregister`,
       providesTags: [Tags.VendorSystems],
+      keepUnusedDataFor: Infinity,
     }),
     getSystemRights: builder.query<ServiceResource[], string>({
       query: (systemId) => url`systemregister/rights/${systemId}`,

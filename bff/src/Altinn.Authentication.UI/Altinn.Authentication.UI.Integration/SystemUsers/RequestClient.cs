@@ -1,6 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Authentication.UI.Integration.AccessToken;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authorization.ProblemDetails;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
 using Altinn.Authentication.UI.Core.Common.Problems;
+using System.Net.Http.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
@@ -54,8 +54,16 @@ public class RequestClient(
         {
             return true;
         }
-
-        return Problem.Generic_EndOfMethod;
+        
+        try
+        {
+            return await res.Content.ReadFromJsonAsync<ProblemDescriptor>(cancellationToken);
+        }
+        catch 
+        {
+            return Problem.Generic_EndOfMethod;
+        }
+        
     }
 
     public async Task<Result<bool>> RejectRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
@@ -68,6 +76,13 @@ public class RequestClient(
             return true;
         }
 
-        return Problem.Generic_EndOfMethod;
+        try
+        {
+            return await res.Content.ReadFromJsonAsync<ProblemDescriptor>(cancellationToken);
+        }
+        catch 
+        {
+            return Problem.Generic_EndOfMethod;
+        }
     }
 }

@@ -51,6 +51,11 @@ public class SystemUserController : ControllerBase
 
         var list = await _systemUserService.GetAllSystemUsersForParty(partyId, cancellationToken);
 
+        if (list.IsProblem)
+        {
+            return list.Problem.ToActionResult();
+        }
+
         return Ok(list);
     }
 
@@ -72,38 +77,25 @@ public class SystemUserController : ControllerBase
     /// 
     /// Expects backend in Authenticaiton and in Access Management to perform authorization ch
     /// </summary>
-    /// <param name="newSystemUserDescriptor">The required params for a system to be created</param>
+    /// <param name="newSystemUser">The required params for a system to be created</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     //[Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
-    public async Task<ActionResult> Post([FromBody] CreateSystemUserRequestGUI newSystemUserDescriptor, CancellationToken cancellationToken = default)
+    public async Task<ActionResult> Post([FromBody] SystemUserRequestDto newSystemUser, CancellationToken cancellationToken = default)
     {
         // Get the partyId from the context (Altinn Part Coook)
         int partyId = AuthenticationHelper.GetRepresentingPartyId( HttpContext);        
 
-        CreateSystemUserRequestToAuthComp newSystemUser = new() 
+        Result<CreateSystemUserResponse> systemUserv2 = await _systemUserService.CreateSystemUserV2(partyId, newSystemUser, cancellationToken);
+
+        if (systemUserv2.IsProblem)
         {
-            IntegrationTitle = newSystemUserDescriptor.IntegrationTitle,
-            SelectedSystemType = newSystemUserDescriptor.SelectedSystemType,
-            OwnedByPartyId = partyId,            
-        };    
+            return systemUserv2.Problem.ToActionResult(); 
+        }
 
-        Result<SystemUser> systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUser, cancellationToken);
-        
-        if (systemUser.IsProblem){return systemUser.Problem.ToActionResult();}
-
-        return Ok(systemUser.Value);
-    }
-
-    [Authorize]
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    [HttpPut("{id}")]
-    public async void Put(Guid id, [FromBody] CreateSystemUserRequestGUI modifiedSystemUser, CancellationToken cancellationToken = default)
-    {
-        if (modifiedSystemUser.IntegrationTitle is not null) await _systemUserService.ChangeSystemUserTitle(modifiedSystemUser.IntegrationTitle, id, cancellationToken);      
-        if (modifiedSystemUser.SelectedSystemType is not null) await _systemUserService.ChangeSystemUserProduct(modifiedSystemUser.SelectedSystemType, id, cancellationToken);
+        return Ok(systemUserv2.Value);
     }
 
     [Authorize]

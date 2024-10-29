@@ -52,27 +52,43 @@ public class SystemUserClient : ISystemUserClient
         return null;
     }
 
-    public async Task<SystemUser?> PostNewSystemUserReal(
+    public async Task<Result<CreateSystemUserResponse>> CreateSystemUser(
         int partyId,
-        CreateSystemUserRequestToAuthComp newSystemUserDescriptor, 
+        SystemUserRequestDto newSystemUser,
         CancellationToken cancellation = default)
-    {      
+    {
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"systemuser/{partyId}";
-        var accessToken = await _accessTokenProvider.GetAccessToken();
+        string endpointUrl = $"systemuser/{partyId}/bff";
 
-        _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUserDescriptor} ");
+        _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUser} ");
 
-        var content = JsonContent.Create(newSystemUserDescriptor);
+        var content = JsonContent.Create(newSystemUser);
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
-
-        if (response.IsSuccessStatusCode)
+       
+        return await response.Content.ReadFromJsonAsync<CreateSystemUserResponse>(cancellation);
+        
+        if (false) 
         {
-            return await response.Content.ReadFromJsonAsync<SystemUser>(cancellation);            
+            AltinnProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellation);
+           
+            if (problemDetails?.ErrorCode.ToString() is "AUTH-00001")
+            {
+                return Problem.Rights_NotFound_Or_NotDelegable;
+            }
+            else if (problemDetails?.ErrorCode.ToString() is "AUTH-00002")
+            {
+                return Problem.Rights_FailedToDelegate;
+            }
+            else if (problemDetails?.ErrorCode.ToString() is "AUTH-00003")
+            {
+                return Problem.SystemUser_FailedToCreate;
+            }
+            else
+            {
+                return Problem.Rights_FailedToDelegate;
+            }
         }
-
-        return null;
     }
 
     public async Task<Result<bool>> DeleteSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
@@ -112,10 +128,5 @@ public class SystemUserClient : ISystemUserClient
         }
 
         return list;
-    }
-
-    public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
     }
 }
