@@ -47,4 +47,34 @@ public static class Problem
     public static ProblemDescriptor Generic_EndOfMethod { get; }
         = _factory.Create(5, HttpStatusCode.BadRequest, "Default error at the end of logic chain. Not supposed to appear.");
 
+    /// <summary>
+    /// Gets a <see cref="ProblemDescriptor"/>.
+    /// </summary>
+    public static ProblemDescriptor UnableToDoDelegationCheck { get; }
+        = _factory.Create(14, HttpStatusCode.InternalServerError, "DelegationCheck failed with unknown error.");
+
+    /// <summary>
+    /// Gets a <see cref="ProblemDescriptor"/>.
+    /// </summary>
+    public static ProblemDescriptor DelegationRightMissingRoleAccess { get; }
+        = _factory.Create(15, HttpStatusCode.Forbidden, "DelegationCheck failed with error: Has not access by a delegation of role in ER or Altinn.");
+
+    /// <summary>
+    /// Gets a <see cref="ProblemDescriptor"/>.
+    /// </summary>
+    public static ProblemDescriptor DelegationRightMissingDelegationAccess { get; }
+        = _factory.Create(16, HttpStatusCode.Forbidden, "DelegationCheck failed with error: Has not access by direct delegation.");
+
+    /// <summary>
+    /// Gets a <see cref="ProblemDescriptor"/>.
+    /// </summary>
+    public static ProblemDescriptor DelegationRightMissingSrrRightAccess { get; }
+        = _factory.Create(17, HttpStatusCode.Forbidden, "DelegationCheck failed with error: The service requires explicit access in SRR and the reportee is missing this.");
+
+    /// <summary>
+    /// Gets a <see cref="ProblemDescriptor"/>.
+    /// </summary>
+    public static ProblemDescriptor DelegationRightInsufficientAuthenticationLevel { get; }
+        = _factory.Create(18, HttpStatusCode.Forbidden, "DelegationCheck failed with error: The service requires explicit authentication level and the reportee is missing this.");
+
 }

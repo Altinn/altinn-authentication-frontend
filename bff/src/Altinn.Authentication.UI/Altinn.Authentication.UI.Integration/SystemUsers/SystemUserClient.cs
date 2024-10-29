@@ -66,7 +66,20 @@ public class SystemUserClient : ISystemUserClient
         var content = JsonContent.Create(newSystemUser);
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
        
-        return await response.Content.ReadFromJsonAsync<CreateSystemUserResponse>(cancellation);
+        if (response.IsSuccessStatusCode) 
+        {
+            return await response.Content.ReadFromJsonAsync<CreateSystemUserResponse>(cancellation);
+        }
+        
+        try
+        {
+            AltinnProblemDetails problemDetails = await response.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellation);
+            return ProblemMapper.MapToAuthUiError(problemDetails.ErrorCode.ToString());
+        }
+        catch 
+        {
+            return Problem.Generic_EndOfMethod;
+        }
         
         if (false) 
         {
