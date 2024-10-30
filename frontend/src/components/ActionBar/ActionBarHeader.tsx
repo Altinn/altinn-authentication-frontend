@@ -7,10 +7,13 @@ import classes from './ActionBarHeader.module.css';
 import { ActionBarIcon } from './ActionBarIcon';
 import { type ActionBarProps } from './ActionBar';
 
-export type ActionBarHeaderProps = Pick<ActionBarProps, 'title' | 'subtitle' | 'additionalText'>;
+export type ActionBarHeaderProps = Pick<
+  ActionBarProps,
+  'title' | 'subtitle' | 'icon' | 'additionalText'
+>;
 
 export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderProps>(
-  ({ additionalText, subtitle, title }, ref) => {
+  ({ additionalText, subtitle, title, icon }, ref) => {
     const { open, toggleOpen, contentId, headerId, color, size } = useActionBarContext();
 
     let headingSize: 'sm' | 'md' | 'lg' | 'xs';
@@ -27,15 +30,18 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
     }
 
     const actionBarContent: React.ReactNode = (
-      <div>
-        <Paragraph size={headingSize} className={classes.title}>
-          {title}
-        </Paragraph>
-        {subtitle && (
-          <Paragraph size='xs' className={classes.subtitle}>
-            {subtitle}
+      <div className={classes.titleWrapper}>
+        {icon}
+        <div>
+          <Paragraph size={headingSize} className={classes.title}>
+            {title}
           </Paragraph>
-        )}
+          {subtitle && (
+            <Paragraph size='xs' className={classes.subtitle}>
+              {subtitle}
+            </Paragraph>
+          )}
+        </div>
       </div>
     );
 
@@ -58,8 +64,8 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
           aria-controls={contentId}
         >
           <div className={classes.actionBarButtonContainer}>
-            <ActionBarIcon />
             {actionBarContent}
+            <ActionBarIcon />
           </div>
         </Button>
         {additionalText}

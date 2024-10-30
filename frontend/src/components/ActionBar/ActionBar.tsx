@@ -31,6 +31,9 @@ export interface ActionBarProps {
 
   /** The title to be displayed in the header of the ActionBar. */
   title?: React.ReactNode;
+
+  /** The logo image to be displayed in the header of the ActionBar. */
+  icon?: React.ReactNode;
 }
 
 /**
@@ -57,6 +60,7 @@ export interface ActionBarProps {
  * @property {boolean} [defaultOpen=false] - Defaults the ActionBar to open if not controlled.
  * @property {React.ReactNode} [subtitle] - The subtitle to be displayed in the header of the ActionBar.
  * @property {React.ReactNode} [title] - The title to be displayed in the header of the ActionBar.
+ * @property {React.ReactNode} [icon] - The logo image to be displayed in the header of the ActionBar.
  * @returns {React.ReactNode} The rendered ActionBar component.
  */
 
@@ -72,6 +76,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
       defaultOpen = false,
       subtitle,
       title,
+      icon,
     },
     ref,
   ) => {
@@ -104,6 +109,7 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
           <ActionBarHeader
             title={title}
             subtitle={subtitle}
+            icon={icon}
             additionalText={additionalText}
           ></ActionBarHeader>
           <ActionBarContent>{children}</ActionBarContent>

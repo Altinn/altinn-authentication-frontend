@@ -7,5 +7,8 @@ public class CacheConfig
     /// </summary>
     public int PartyCacheTimeout { get; set; }
 
-    
+    /// <summary>
+    /// Gets or sets the cache timeout (in minutes) for lookup of resource owners
+    /// </summary>
+    public int ResourceOwnerCacheTimeout { get; set; }     
 }
