@@ -1,4 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Core.SystemRegister;
 
@@ -21,12 +22,14 @@ public class SystemRegisterService : ISystemRegisterService
     public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
     {
         List<RegisteredSystemDTO> lista = await _systemRegisterClient.GetListRegSys(cancellationToken);
+        
+        IEnumerable<string> orgNrs = lista.Select(x => x.SystemVendorOrgNumber);
+        var orgNames = await _registerClient.GetPartyNamesForOrganization(orgNrs, cancellationToken);
         foreach (RegisteredSystemDTO response in lista)
         {
             try
             {
-                response.SystemVendorOrgName =
-                    (await _registerClient.GetPartyForOrganization(response.SystemVendorOrgNumber, cancellationToken)).Organization.Name;
+                response.SystemVendorOrgName = orgNames.Find(x => x.OrgNo == response.SystemVendorOrgNumber)?.Name ?? "";
             }
             catch (Exception ex)
             {

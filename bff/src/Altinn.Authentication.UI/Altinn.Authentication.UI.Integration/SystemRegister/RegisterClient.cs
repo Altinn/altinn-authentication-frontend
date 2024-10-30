@@ -52,25 +52,29 @@ public class RegisterClient : IRegisterClient
     }
 
     /// <inheritdoc/>
-    public async Task<Party> GetPartyForOrganization(string organizationNumber, CancellationToken cancellationToken = default)
+    public async Task<List<PartyName>> GetPartyNamesForOrganization(IEnumerable<string> orgNrs, CancellationToken cancellationToken = default)
     {
         try
         {
-            string endpointUrl = $"parties/lookup";
+            string endpointUrl = $"parties/nameslookup";
             string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
             var accessToken = await _accessTokenProvider.GetAccessToken();
 
-            StringContent requestContent = new(JsonSerializer.Serialize(new PartyLookup { OrgNo = organizationNumber}, _jsonSerializerOptions), Encoding.UTF8, "application/json");
+            PartyNamesLookup lookupNames = new()
+            {
+                Parties = orgNrs.Select(x => new PartyLookup() { OrgNo = x }).ToList()
+            };
+            StringContent requestContent = new(JsonSerializer.Serialize(lookupNames, _jsonSerializerOptions), Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, requestContent, accessToken);
             string responseContent = await response.Content.ReadAsStringAsync(cancellationToken);
 
             if (response.IsSuccessStatusCode)
             {
-                return JsonSerializer.Deserialize<Party>(responseContent, _jsonSerializerOptions)!;
+                return JsonSerializer.Deserialize<PartyNamesLookupResult>(responseContent, _jsonSerializerOptions)?.PartyNames ?? [];
             }
 
-            return null!;
+            return [];
         }
         catch (Exception ex)
         {
