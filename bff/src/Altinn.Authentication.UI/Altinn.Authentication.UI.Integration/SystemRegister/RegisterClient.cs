@@ -62,7 +62,7 @@ public class RegisterClient : IRegisterClient
 
             PartyNamesLookup lookupNames = new()
             {
-                Parties = orgNrs.Select(x => new PartyLookup() { OrgNo = x }).ToList()
+                Parties = orgNrs.Where(x => x.Length == 9).Select(x => new PartyLookup() { OrgNo = x }).ToList()
             };
             StringContent requestContent = new(JsonSerializer.Serialize(lookupNames, _jsonSerializerOptions), Encoding.UTF8, "application/json");
 

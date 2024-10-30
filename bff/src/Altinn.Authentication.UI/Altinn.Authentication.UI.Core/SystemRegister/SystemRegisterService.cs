@@ -29,7 +29,7 @@ public class SystemRegisterService : ISystemRegisterService
         {
             try
             {
-                response.SystemVendorOrgName = orgNames.Find(x => x.OrgNo == response.SystemVendorOrgNumber)?.Name ?? "";
+                response.SystemVendorOrgName = orgNames.Find(x => x.OrgNo == response.SystemVendorOrgNumber)?.Name ?? "N/A";
             }
             catch (Exception ex)
             {
