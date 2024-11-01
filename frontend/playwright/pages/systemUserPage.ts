@@ -1,6 +1,4 @@
-/* eslint-disable import/no-unresolved */
-import type { Page } from '@playwright/test';
-import { expect } from '@playwright/test';
+import { type Page, expect } from '@playwright/test';
 
 export class SystemUserPage {
   constructor(public page: Page) {}

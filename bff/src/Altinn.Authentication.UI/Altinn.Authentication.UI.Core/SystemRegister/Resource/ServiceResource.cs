@@ -103,7 +103,7 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// <summary>
         /// Defines if the resource is limited by Resource Rights Registry
         /// </summary>
-        public bool LimitedByRRR { get; set; }
+        public string AccessListMode { get; set; } = "Disabled";
 
         /// <summary>
         /// The user acting on behalf of party can be a selfidentifed users
@@ -130,6 +130,8 @@ namespace Altinn.Authentication.UI.Core.SystemRegister
         /// List of autorizationReference attributes to reference this resource in authorization API
         /// </summary>
         public List<AttributePair>? AuthorizationReference { get; set; }
+
+        public string? LogoUrl { get; set; }
 
         /// <summary>
         /// Writes key information when this object is written to Log.

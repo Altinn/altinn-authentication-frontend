@@ -50,6 +50,7 @@ namespace Altinn.Authentication.UI.Extensions
             services.Configure<Integration.Configuration.PlatformSettings>(configuration.GetSection("PlatformSettings"));
             Integration.Configuration.PlatformSettings? platformSettings = configuration.GetSection("PlatformSettings").Get<Integration.Configuration.PlatformSettings>();
 
+            services.Configure<CacheConfig>(configuration.GetSection("CacheConfig"));
             services.Configure<GeneralSettings>(configuration.GetSection("GeneralSettings"));
             services.Configure<KeyVaultSettings>(configuration.GetSection("KeyVaultSettings"));
             services.Configure<ClientSettings>(configuration.GetSection("ClientSettings"));

@@ -33,7 +33,7 @@ public class RequestService(
                 try
                 {
                     request.Value.System.SystemVendorOrgName =
-                        (await registerClient.GetPartyForOrganization(request.Value.System.SystemVendorOrgNumber, cancellationToken)).Organization.Name;
+                        (await registerClient.GetPartyNamesForOrganization([request.Value.System.SystemVendorOrgNumber], cancellationToken))[0].Name;
                 }
                 catch (Exception ex)
                 {

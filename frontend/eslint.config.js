@@ -38,6 +38,7 @@ export default tseslint.config(
       'prefer-const': 'error',
       'object-curly-spacing': ['error', 'always'],
       'no-duplicate-imports': 'error',
+      eqeqeq: 'error',
       '@typescript-eslint/no-use-before-define': 'off',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': 'warn',
