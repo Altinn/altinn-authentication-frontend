@@ -8,11 +8,11 @@ namespace Altinn.Authentication.UI.Core.SystemRegister;
 public interface IRegisterClient
 {
     /// <summary>
-    /// Looks up party information for an organization based on the organization number
+    /// Looks up party names of organizations based on organization numbers
     /// </summary>
-    /// <param name="organizationNumber">The organization number</param>
+    /// <param name="orgNrs">List of organization numbers</param>
     /// <returns>
     /// Party information
     /// </returns>
-    Task<Party> GetPartyForOrganization(string organizationNumber, CancellationToken cancellationToken = default);
+    Task<List<PartyName>> GetPartyNamesForOrganization(IEnumerable<string> orgNrs, CancellationToken cancellationToken = default);
 }

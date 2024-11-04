@@ -51,10 +51,12 @@ public class SystemUserService : ISystemUserService
         }
         
         var lista = await _systemUserClient.GetSystemUserRealsForChosenUser(partyId, cancellationToken);
+        List<PartyName> partyNames = await _registerClient.GetPartyNamesForOrganization(lista.Select(x => x.SupplierOrgNo), cancellationToken);
 
         foreach (SystemUser systemUser in lista)
         {
             await AddRights(systemUser, cancellationToken);
+            systemUser.SupplierName = partyNames.Find(x => x.OrgNo == systemUser.SupplierOrgNo)?.Name ?? "N/A";
         }
 
         return lista;
@@ -66,6 +68,8 @@ public class SystemUserService : ISystemUserService
         if (systemUser != null)
         {
             await AddRights(systemUser, cancellationToken);
+            List<PartyName> partyNames = await _registerClient.GetPartyNamesForOrganization([systemUser.SupplierOrgNo], cancellationToken);
+            systemUser.SupplierName = partyNames[0]?.Name ?? "N/A";
         }
 
         return systemUser;
@@ -91,17 +95,5 @@ public class SystemUserService : ISystemUserService
         
         // add resources
         systemUser.Resources = await _resourceRegistryClient.GetResources(rights, cancellationToken);
-        
-        // add system name
-        try
-        {
-            systemUser.SupplierName =
-                (await _registerClient.GetPartyForOrganization(systemUser.SupplierOrgNo, cancellationToken)).Organization.Name;
-        }
-        catch (Exception ex)
-        {
-            systemUser.SupplierName = "N/A"; // "N/A" stands for "Not Available
-            Console.Write(ex.ToString());
-        }
     }
 }

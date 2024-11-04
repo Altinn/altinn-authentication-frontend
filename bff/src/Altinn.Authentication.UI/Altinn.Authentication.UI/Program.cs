@@ -32,6 +32,8 @@ builder.Configuration.AddJsonFile(frontendProdFolder + "manifest.json", true, tr
 builder.Services.ConfigureServiceDefaults();
 builder.Services.ConfigureAppSettings(builder.Configuration);
 
+// add memory cache
+builder.Services.AddMemoryCache();
 
 //Authentication and security
 builder.Services.ConfigureAuthenticationAndSecurity(builder);
