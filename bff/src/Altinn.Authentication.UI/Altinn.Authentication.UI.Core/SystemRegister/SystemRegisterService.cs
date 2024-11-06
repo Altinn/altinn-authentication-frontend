@@ -43,9 +43,8 @@ public class SystemRegisterService : ISystemRegisterService
     public async Task<FullRights> GetSystemRights(string systemId, CancellationToken cancellationToken)
     {
         List<Right> rights = await _systemRegisterClient.GetRightsFromSystem(systemId, cancellationToken);
-        List<ServiceResource> resources = await _resourceRegistryClient.GetResources(RightsHelper.GetResourceIdsFromRights(rights), cancellationToken); 
         
-        List<AccessPackage> packagesForRequest =
+        List<AccessPackage> accessPackages =
         [
             new()
             {
@@ -54,11 +53,7 @@ public class SystemRegisterService : ISystemRegisterService
                 Name = "skatt"
             }
         ];
-        List<AccessPackage> accessPackages = await _resourceRegistryClient.GetAccessPackageResources(packagesForRequest, cancellationToken);
-        return new FullRights()
-        {
-            Resources = resources,
-            AccessPackages = accessPackages
-        };
+
+        return await _resourceRegistryClient.GetResourcesForRights(rights, accessPackages, cancellationToken);
     }
 }

@@ -17,17 +17,7 @@ public class ResourceRegistryClientMock : IResourceRegistryClient
         return resource1;
     }
 
-    public Task<List<AccessPackage>> GetAccessPackageResources(List<AccessPackage> accessPackages, CancellationToken cancellationToken)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<ServiceResource> GetResource(string resourceId, CancellationToken cancellationToken = default)
-    {
-        return await MockTestHelper();
-    }
-
-    public Task<List<ServiceResource>> GetResources(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default)
+    public Task<FullRights> GetResourcesForRights(List<Right> rights, List<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

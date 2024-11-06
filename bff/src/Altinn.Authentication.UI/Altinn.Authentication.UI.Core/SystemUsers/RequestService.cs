@@ -21,9 +21,6 @@ public class RequestService(
         
         if (request.Value != null) 
         {
-            // add resources
-            request.Value.Resources = await resourceRegistryClient.GetResources(RightsHelper.GetResourceIdsFromRights(request.Value.Rights), cancellationToken);
-
             // add access packages for this request.
             // 1. GET accesspackages based on urns (or look them up from cache)
             // 2. 
@@ -38,7 +35,10 @@ public class RequestService(
                 }
             ];
 
-            request.Value.AccessPackages = await resourceRegistryClient.GetAccessPackageResources(packagesForRequest, cancellationToken);
+            FullRights fullRights = await resourceRegistryClient.GetResourcesForRights(request.Value.Rights, packagesForRequest, cancellationToken);
+            // add resources
+            request.Value.Resources = fullRights.Resources;
+            request.Value.AccessPackages = fullRights.AccessPackages;
 
             // add system
             RegisteredSystemDTO? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);

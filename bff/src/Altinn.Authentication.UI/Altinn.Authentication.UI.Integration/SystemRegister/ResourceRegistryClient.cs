@@ -7,6 +7,7 @@ using System.Net.Http.Json;
 using Microsoft.Extensions.Caching.Memory;
 using Altinn.Authentication.UI.Core.AppConfiguration;
 using System.Text;
+using Altinn.Authentication.UI.Core.Common.Rights;
 
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
 
@@ -34,23 +35,21 @@ public class ResourceRegistryClient : IResourceRegistryClient
         _cacheConfig = cacheConfig.Value;
     }
 
-    public async Task<List<ServiceResource>> GetResources(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default)
+    public async Task<FullRights> GetResourcesForRights(List<Right> rights, List<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
-        List<ServiceResource> resources = [];
+        IEnumerable<string> resourceIds = rights.SelectMany(x => x.Resource.Where(z => z.Id == "urn:altinn:resource").Select(y => y.Value));
+        List<ServiceResource> resources = await GetResources(resourceIds, cancellationToken);
 
-        foreach (string resourceId in resourceIds)
+        List<AccessPackage> accessPackagesWithResources = await GetAccessPackageResources(accessPackages, cancellationToken);
+
+        return new FullRights()
         {
-            ServiceResource? serviceResource = await GetResource(resourceId, cancellationToken);
-            if (serviceResource != null) 
-            {
-                resources.Add(serviceResource);
-            }
-        }
-
-        return resources;
+            Resources = resources,
+            AccessPackages = accessPackagesWithResources
+        };
     }
 
-    public async Task<List<AccessPackage>> GetAccessPackageResources(List<AccessPackage> accessPackages, CancellationToken cancellationToken)
+    private async Task<List<AccessPackage>> GetAccessPackageResources(List<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
         List<AccessPackage> accessPackagesWithResources = [];
         
@@ -67,11 +66,29 @@ public class ResourceRegistryClient : IResourceRegistryClient
             // get all resources for access package (this also included LogoUrl):
             List<ServiceResource> resources = await GetResources(resourceIds, cancellationToken);
             accessPackage.Resources = resources;
+            accessPackagesWithResources.Add(accessPackage);
         });
 
         return accessPackagesWithResources;
     }
 
+    private async Task<List<ServiceResource>> GetResources(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default)
+    {
+        List<ServiceResource> resources = [];
+
+        foreach (string resourceId in resourceIds)
+        {
+            ServiceResource? serviceResource = await GetResource(resourceId, cancellationToken);
+            if (serviceResource != null) 
+            {
+                resources.Add(serviceResource);
+            }
+        }
+
+        return resources;
+    }
+
+    // TODO: load full list of resources instead and lookup by id? Will it be faster? 
     private async Task<ServiceResource?> GetResource(string resourceId, CancellationToken cancellationToken = default)
     {
         try

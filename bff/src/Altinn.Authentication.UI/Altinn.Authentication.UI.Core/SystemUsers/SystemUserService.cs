@@ -143,9 +143,6 @@ public class SystemUserService : ISystemUserService
         // TODO: rights for a systemuser is not 1:1 with system rights, but we have no way to 
         // get rights for a specific systemuser yet, so return the rights for the system for now.
         List<Right> rights = await _systemRegisterClient.GetRightsFromSystem(systemUser.SystemId, cancellationToken);
-        
-        // add resources
-        systemUser.Resources = await _resourceRegistryClient.GetResources(RightsHelper.GetResourceIdsFromRights(rights), cancellationToken);
 
         // TODO: use service to get real access packages
         // get all accessPackages
@@ -158,7 +155,8 @@ public class SystemUserService : ISystemUserService
                 Name = "skatt"
             }
         ];
-
-        systemUser.AccessPackages = await _resourceRegistryClient.GetAccessPackageResources(packagesForSystemUser, cancellationToken);
+        FullRights fullRights = await _resourceRegistryClient.GetResourcesForRights(rights, packagesForSystemUser, cancellationToken);
+        systemUser.Resources = fullRights.Resources;
+        systemUser.AccessPackages = fullRights.AccessPackages;
     }
 }
