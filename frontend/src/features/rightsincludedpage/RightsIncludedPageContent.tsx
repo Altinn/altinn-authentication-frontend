@@ -67,15 +67,18 @@ export const RightsIncludedPageContent = () => {
     return <Spinner title={t('authent_includedrightspage.loading_rights')} />;
   }
 
+  const totalNumberOfRights =
+    (rights?.resources?.length ?? 0) + (rights?.accessPackages?.length ?? 0);
+
   return (
     <div>
       <Heading level={2} size='sm' spacing>
-        {rights?.resources?.length === 1
+        {totalNumberOfRights === 1
           ? t('authent_includedrightspage.sub_title_single')
           : t('authent_includedrightspage.sub_title')}
       </Heading>
       <Paragraph size='sm' spacing>
-        {rights?.resources?.length === 1
+        {totalNumberOfRights === 1
           ? t('authent_includedrightspage.content_text_single')
           : t('authent_includedrightspage.content_text')}
       </Paragraph>

@@ -125,6 +125,9 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
     );
   }
 
+  const totalNumberOfRights =
+    (request.resources.length ?? 0) + (request.accessPackages.length ?? 0);
+
   return (
     <>
       <div className={classes.vendorRequestBlock}>
@@ -158,7 +161,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         </Paragraph>
         <div>
           <Heading level={3} size='xs'>
-            {request.resources.length === 1
+            {totalNumberOfRights === 1
               ? t('vendor_request.rights_list_header_single')
               : t('vendor_request.rights_list_header')}
           </Heading>

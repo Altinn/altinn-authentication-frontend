@@ -13,13 +13,13 @@ interface RightsListProps {
 }
 
 export const RightsList = ({ resources, accessPackages }: RightsListProps): React.ReactNode => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
   return (
     <>
       {!!resources.length && (
         <Heading size='xs' level={3} className={classes.rightsListHeader}>
-          Enkelttilganger
+          {t('authent_overviewpage.single_rights')}
         </Heading>
       )}
       {resources.map((resource) => {
@@ -37,7 +37,7 @@ export const RightsList = ({ resources, accessPackages }: RightsListProps): Reac
       })}
       {!!accessPackages?.length && (
         <Heading size='xs' level={3} className={classes.rightsListHeader}>
-          Tilgangspakker
+          {t('authent_overviewpage.access_packages')}
         </Heading>
       )}
       {accessPackages?.map((accessPackage) => {
@@ -51,7 +51,7 @@ export const RightsList = ({ resources, accessPackages }: RightsListProps): Reac
             <Paragraph size='sm' spacing>
               {accessPackage.description?.[currentLanguage]}
             </Paragraph>
-            <Label size='sm'>Tjenester i tilgangspakken:</Label>
+            <Label size='sm'>{t('authent_overviewpage.access_package_resources')}</Label>
             <div>
               {accessPackage.resources.map((resource) => {
                 return (

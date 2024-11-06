@@ -12,6 +12,6 @@ export interface SystemUserCreationRequest {
   status: RequestStatus;
   rights: SystemRight[];
   resources: ServiceResource[];
-  accessPackages?: AccessPackage[];
+  accessPackages: AccessPackage[];
   redirectUrl?: string;
 }

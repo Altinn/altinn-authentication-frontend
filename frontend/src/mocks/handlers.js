@@ -755,6 +755,7 @@ export const handlers = [
       supplierOrgno: '910419560',
       rights: [],
       resources: [],
+      accessPackages: [],
     };
     systemUsers.push(newSystemUser);
     return HttpResponse.json(newSystemUser);

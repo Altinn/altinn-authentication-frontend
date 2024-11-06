@@ -21,6 +21,9 @@ export const SystemUserActionBar = ({
 }: SystemUserActionBarProps): React.JSX.Element => {
   const { t } = useTranslation();
 
+  const totalNumberOfRights =
+    (systemUser.resources.length ?? 0) + (systemUser.accessPackages.length ?? 0);
+
   return (
     <ActionBar
       title={systemUser.integrationTitle}
@@ -37,9 +40,9 @@ export const SystemUserActionBar = ({
       <div>
         <div className={classes.rightsHeader}>
           <Heading level={3} size='2xs' spacing>
-            {!systemUser?.resources.length
-              ? t('authent_overviewpage.system_user_no_rights')
-              : t('authent_overviewpage.system_rights_header')}
+            {totalNumberOfRights === 0 && t('authent_overviewpage.system_user_no_rights')}
+            {totalNumberOfRights === 1 && t('authent_overviewpage.system_single_right_header')}
+            {totalNumberOfRights > 1 && t('authent_overviewpage.system_rights_header')}
           </Heading>
           <Link asChild>
             <RouterLink to={`${AuthenticationRoute.Details}/${url`${systemUser.id}`}`}>
@@ -49,8 +52,8 @@ export const SystemUserActionBar = ({
           </Link>
         </div>
         <RightsList
-          resources={systemUser?.resources ?? []}
-          accessPackages={systemUser?.accessPackages}
+          resources={systemUser.resources ?? []}
+          accessPackages={systemUser.accessPackages}
         />
       </div>
     </ActionBar>
