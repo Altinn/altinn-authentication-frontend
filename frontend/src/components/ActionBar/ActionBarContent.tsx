@@ -15,7 +15,6 @@ export const ActionBarContent = forwardRef<HTMLDivElement, ActionBarContentProps
       <>
         {open && (
           <div
-            aria-expanded={open}
             id={contentId}
             aria-labelledby={headerId}
             className={cn(classes.actionBarContent, classes[color], classes[size])}

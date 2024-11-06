@@ -8,7 +8,7 @@ interface RightsListLogoProps {
 export const RightsListLogo = ({ logoUrl }: RightsListLogoProps): React.ReactNode => {
   return (
     <div className={classes.logoWrapper}>
-      <img className={classes.logoImg} src={logoUrl} />
+      <img className={classes.logoImg} src={logoUrl} aria-hidden />
     </div>
   );
 };

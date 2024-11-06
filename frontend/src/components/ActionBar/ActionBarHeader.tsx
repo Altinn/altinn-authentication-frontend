@@ -62,8 +62,8 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
           onClick={toggleOpen}
           id={headerId}
           data-testid='action-bar'
-          aria-expanded={open}
-          aria-controls={contentId}
+          aria-expanded={toggleOpen ? open : undefined}
+          aria-controls={toggleOpen ? contentId : undefined}
         >
           <div className={classes.actionBarButtonContainer}>
             {actionBarContent}
