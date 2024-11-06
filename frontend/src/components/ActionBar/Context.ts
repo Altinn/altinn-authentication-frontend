@@ -8,7 +8,7 @@ export const ActionBarContext = createContext<
       toggleOpen: ClickHandler | undefined;
       headerId: string;
       contentId: string;
-      color: 'light' | 'dark' | 'neutral' | 'warning' | 'success' | 'danger';
+      color: 'light' | 'neutral' | 'transparent';
       size: 'small' | 'medium' | 'large';
     }
   | undefined

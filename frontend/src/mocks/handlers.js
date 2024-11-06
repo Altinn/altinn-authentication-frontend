@@ -69,6 +69,85 @@ const systemUsers = [
         logoUrl: 'https://altinncdn.no/orgs/nav/nav.png',
       },
     ],
+    accessPackages: [
+      {
+        id: 'urn:altinn:accesspackage:skattegrunnlag',
+        urn: 'urn:altinn:accesspackage:skattegrunnlag',
+        name: {
+          en: '',
+          nb: 'Skattegrunnlag',
+          nn: '',
+        },
+        description: {
+          en: '',
+          nb: 'Denne tilgangspakken gir fullmakter til tjenester knyttet til innhenting av skattegrunnlag. Ved regelverksendringer eller innføring av nye digitale tjenester kan det bli endringer i tilganger som fullmakten gir.',
+          nn: '',
+        },
+        area: {
+          name: 'Skatt, avgift, regnskap og toll',
+          description: '',
+          iconName: '',
+          id: 'skatt_area',
+          shortDescription: '',
+        },
+        resources: [
+          {
+            identifier: 'ske-krav-og-betalinger',
+            title: {
+              en: '',
+              nb: 'Krav og betaling',
+              nn: '',
+            },
+            hasCompetentAuthority: {
+              name: {
+                en: '',
+                nb: 'Skatteetaten',
+                nn: '',
+              },
+              organization: 'skd',
+              orgcode: '123456789',
+            },
+            logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
+          },
+          {
+            identifier: 'nav-og-betalinger',
+            title: {
+              en: '',
+              nb: 'Nav og betaling',
+              nn: '',
+            },
+            hasCompetentAuthority: {
+              name: {
+                en: '',
+                nb: 'Arbeids- og velferdsetaten (NAV)',
+                nn: '',
+              },
+              organization: 'skd',
+              orgcode: '123456789',
+            },
+            logoUrl: 'https://altinncdn.no/orgs/nav/nav.png',
+          },
+          {
+            identifier: 'lakselus',
+            title: {
+              en: '',
+              nb: 'Registrering av lakselus',
+              nn: '',
+            },
+            hasCompetentAuthority: {
+              name: {
+                en: '',
+                nb: 'Fiskeridirektoratet',
+                nn: '',
+              },
+              organization: 'fd',
+              orgcode: '123456789',
+            },
+            logoUrl: 'https://altinncdn.no/orgs/fd/fiskeridirektoratet.png',
+          },
+        ],
+      },
+    ],
   },
 ];
 export const handlers = [
@@ -523,61 +602,142 @@ export const handlers = [
 
   // GET rights of system
   http.get('/authfront/api/v1/systemregister/rights/:systemId', () => {
-    return HttpResponse.json([
-      {
-        identifier: 'ske-krav-og-betalinger',
-        version: '1',
-        title: {
-          en: 'Krav og betalinger',
-          nb: 'Krav og betalinger',
-          nn: 'Krav og betalinger',
-        },
-        description: {
-          en: 'Ressurs for å styre tilgang til Krav og betalinger',
-          nb: 'Ressurs for å styre tilgang til Krav og betalinger',
-          nn: 'Ressurs for å styre tilgang til Krav og betalinger',
-        },
-        rightDescription: {
-          en: 'Gir tilgang til Krav og betalinger',
-          nb: 'Gir tilgang til Krav og betalinger',
-          nn: 'Gir tilgang til Krav og betalinger',
-        },
-        homepage: 'https://skatteetaten.github.io/api-dokumentasjon/api/kravogbetalinger',
-        status: 'UnderDevelopment',
-        spatial: null,
-        contactPoints: [
-          {
-            category: 'Brukerstøtte',
-            email: '',
-            telephone: '',
-            contactPage: 'https://skatteetaten.github.io/api-dokumentasjon/kontaktoss',
+    return HttpResponse.json({
+      resources: [
+        {
+          identifier: 'ske-krav-og-betalinger',
+          version: '1',
+          title: {
+            en: 'Krav og betalinger',
+            nb: 'Krav og betalinger',
+            nn: 'Krav og betalinger',
           },
-        ],
-        produces: null,
-        isPartOf: null,
-        thematicAreas: null,
-        resourceReferences: null,
-        delegable: true,
-        visible: true,
-        hasCompetentAuthority: {
-          organization: '974761076',
-          orgcode: 'skd',
+          description: {
+            en: 'Ressurs for å styre tilgang til Krav og betalinger',
+            nb: 'Ressurs for å styre tilgang til Krav og betalinger',
+            nn: 'Ressurs for å styre tilgang til Krav og betalinger',
+          },
+          rightDescription: {
+            en: 'Gir tilgang til Krav og betalinger',
+            nb: 'Gir tilgang til Krav og betalinger',
+            nn: 'Gir tilgang til Krav og betalinger',
+          },
+          homepage: 'https://skatteetaten.github.io/api-dokumentasjon/api/kravogbetalinger',
+          status: 'UnderDevelopment',
+          spatial: null,
+          contactPoints: [
+            {
+              category: 'Brukerstøtte',
+              email: '',
+              telephone: '',
+              contactPage: 'https://skatteetaten.github.io/api-dokumentasjon/kontaktoss',
+            },
+          ],
+          produces: null,
+          isPartOf: null,
+          thematicAreas: null,
+          resourceReferences: null,
+          delegable: true,
+          visible: true,
+          hasCompetentAuthority: {
+            organization: '974761076',
+            orgcode: 'skd',
+            name: {
+              en: 'Norwegian Tax Administration',
+              nb: 'Skatteetaten',
+              nn: 'Skatteetaten',
+            },
+          },
+          keywords: [],
+          accessListMode: 'Disabled',
+          selfIdentifiedUserEnabled: false,
+          enterpriseUserEnabled: true,
+          resourceType: 'GenericAccessResource',
+          availableForType: ['LegalEntityEnterprise'],
+          authorizationReference: null,
+          logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
+        },
+      ],
+      accessPackages: [
+        {
+          id: 'urn:altinn:accesspackage:skattegrunnlag',
+          urn: 'urn:altinn:accesspackage:skattegrunnlag',
           name: {
-            en: 'Norwegian Tax Administration',
-            nb: 'Skatteetaten',
-            nn: 'Skatteetaten',
+            en: '',
+            nb: 'Skattegrunnlag',
+            nn: '',
           },
+          description: {
+            en: '',
+            nb: 'Denne tilgangspakken gir fullmakter til tjenester knyttet til innhenting av skattegrunnlag. Ved regelverksendringer eller innføring av nye digitale tjenester kan det bli endringer i tilganger som fullmakten gir.',
+            nn: '',
+          },
+          area: {
+            name: 'Skatt, avgift, regnskap og toll',
+            description: '',
+            iconName: '',
+            id: 'skatt_area',
+            shortDescription: '',
+          },
+          resources: [
+            {
+              identifier: 'ske-krav-og-betalinger',
+              title: {
+                en: '',
+                nb: 'Krav og betaling',
+                nn: '',
+              },
+              hasCompetentAuthority: {
+                name: {
+                  en: '',
+                  nb: 'Skatteetaten',
+                  nn: '',
+                },
+                organization: 'skd',
+                orgcode: '123456789',
+              },
+              logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
+            },
+            {
+              identifier: 'nav-og-betalinger',
+              title: {
+                en: '',
+                nb: 'Nav og betaling',
+                nn: '',
+              },
+              hasCompetentAuthority: {
+                name: {
+                  en: '',
+                  nb: 'Arbeids- og velferdsetaten (NAV)',
+                  nn: '',
+                },
+                organization: 'skd',
+                orgcode: '123456789',
+              },
+              logoUrl: 'https://altinncdn.no/orgs/nav/nav.png',
+            },
+            {
+              identifier: 'lakselus',
+              title: {
+                en: '',
+                nb: 'Registrering av lakselus',
+                nn: '',
+              },
+              hasCompetentAuthority: {
+                name: {
+                  en: '',
+                  nb: 'Fiskeridirektoratet',
+                  nn: '',
+                },
+                organization: 'fd',
+                orgcode: '123456789',
+              },
+              logoUrl: 'https://altinncdn.no/orgs/fd/fiskeridirektoratet.png',
+            },
+          ],
         },
-        keywords: [],
-        accessListMode: 'Disabled',
-        selfIdentifiedUserEnabled: false,
-        enterpriseUserEnabled: true,
-        resourceType: 'GenericAccessResource',
-        availableForType: ['LegalEntityEnterprise'],
-        authorizationReference: null,
-        logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
-      },
-    ]);
+      ],
+    });
   }),
 
   // POST new systemuser
@@ -697,6 +857,85 @@ export const handlers = [
           availableForType: ['LegalEntityEnterprise'],
           authorizationReference: null,
           logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
+        },
+      ],
+      accessPackages: [
+        {
+          id: 'urn:altinn:accesspackage:skattegrunnlag',
+          urn: 'urn:altinn:accesspackage:skattegrunnlag',
+          name: {
+            en: '',
+            nb: 'Skattegrunnlag',
+            nn: '',
+          },
+          description: {
+            en: '',
+            nb: 'Denne tilgangspakken gir fullmakter til tjenester knyttet til innhenting av skattegrunnlag. Ved regelverksendringer eller innføring av nye digitale tjenester kan det bli endringer i tilganger som fullmakten gir.',
+            nn: '',
+          },
+          area: {
+            name: 'Skatt, avgift, regnskap og toll',
+            description: '',
+            iconName: '',
+            id: 'skatt_area',
+            shortDescription: '',
+          },
+          resources: [
+            {
+              identifier: 'ske-krav-og-betalinger',
+              title: {
+                en: '',
+                nb: 'Krav og betaling',
+                nn: '',
+              },
+              hasCompetentAuthority: {
+                name: {
+                  en: '',
+                  nb: 'Skatteetaten',
+                  nn: '',
+                },
+                organization: 'skd',
+                orgcode: '123456789',
+              },
+              logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
+            },
+            {
+              identifier: 'nav-og-betalinger',
+              title: {
+                en: '',
+                nb: 'Nav og betaling',
+                nn: '',
+              },
+              hasCompetentAuthority: {
+                name: {
+                  en: '',
+                  nb: 'Arbeids- og velferdsetaten (NAV)',
+                  nn: '',
+                },
+                organization: 'skd',
+                orgcode: '123456789',
+              },
+              logoUrl: 'https://altinncdn.no/orgs/nav/nav.png',
+            },
+            {
+              identifier: 'lakselus',
+              title: {
+                en: '',
+                nb: 'Registrering av lakselus',
+                nn: '',
+              },
+              hasCompetentAuthority: {
+                name: {
+                  en: '',
+                  nb: 'Fiskeridirektoratet',
+                  nn: '',
+                },
+                organization: 'fd',
+                orgcode: '123456789',
+              },
+              logoUrl: 'https://altinncdn.no/orgs/fd/fiskeridirektoratet.png',
+            },
+          ],
         },
       ],
       status: 'New',

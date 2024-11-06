@@ -1,5 +1,4 @@
 ﻿using Altinn.Authentication.UI.Core.Common.Rights;
-using Altinn.Platform.Register.Models;
 
 namespace Altinn.Authentication.UI.Core.SystemRegister;
 
@@ -41,9 +40,25 @@ public class SystemRegisterService : ISystemRegisterService
         return lista;
     }
 
-    public async Task<List<ServiceResource>> GetSystemRights(string systemId, CancellationToken cancellationToken)
+    public async Task<FullRights> GetSystemRights(string systemId, CancellationToken cancellationToken)
     {
-        List<Right> right = await _systemRegisterClient.GetRightsFromSystem(systemId, cancellationToken);
-        return await _resourceRegistryClient.GetResources(right, cancellationToken); 
+        List<Right> rights = await _systemRegisterClient.GetRightsFromSystem(systemId, cancellationToken);
+        List<ServiceResource> resources = await _resourceRegistryClient.GetResources(RightsHelper.GetResourceIdsFromRights(rights), cancellationToken); 
+        
+        List<AccessPackage> packagesForRequest =
+        [
+            new()
+            {
+                Id = "urn:altinn:accesspackage:foretaksskatt",
+                Urn = "urn:altinn:accesspackage:foretaksskatt",
+                Name = "skatt"
+            }
+        ];
+        List<AccessPackage> accessPackages = await _resourceRegistryClient.GetAccessPackageResources(packagesForRequest, cancellationToken);
+        return new FullRights()
+        {
+            Resources = resources,
+            AccessPackages = accessPackages
+        };
     }
 }

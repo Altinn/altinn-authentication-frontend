@@ -1,3 +1,4 @@
+import { AccessPackage } from './accessPackage';
 import { ServiceResource } from './serviceResource';
 import { SystemRight } from './systemRight';
 import { VendorSystem } from './vendorSystem';
@@ -11,5 +12,6 @@ export interface SystemUserCreationRequest {
   status: RequestStatus;
   rights: SystemRight[];
   resources: ServiceResource[];
+  accessPackages?: AccessPackage[];
   redirectUrl?: string;
 }

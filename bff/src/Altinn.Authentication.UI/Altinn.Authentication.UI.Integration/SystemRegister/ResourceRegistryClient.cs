@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using System.Net.Http.Json;
-using Altinn.Authentication.UI.Core.Common.Rights;
 using Microsoft.Extensions.Caching.Memory;
 using Altinn.Authentication.UI.Core.AppConfiguration;
+using System.Text;
 
 namespace Altinn.Authentication.UI.Integration.SystemRegister;
 
@@ -34,25 +34,42 @@ public class ResourceRegistryClient : IResourceRegistryClient
         _cacheConfig = cacheConfig.Value;
     }
 
-    public async Task<List<ServiceResource>> GetResources(List<Right> rights, CancellationToken cancellationToken = default)
+    public async Task<List<ServiceResource>> GetResources(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default)
     {
         List<ServiceResource> resources = [];
 
-        foreach (Right right in rights)
+        foreach (string resourceId in resourceIds)
         {
-            string? resourceId = right.Resource.Find(x => x.Id == "urn:altinn:resource")?.Value;
-            
-            if (resourceId != null)
+            ServiceResource? serviceResource = await GetResource(resourceId, cancellationToken);
+            if (serviceResource != null) 
             {
-                ServiceResource? serviceResource = await GetResource(resourceId, cancellationToken);
-                if (serviceResource != null) 
-                {
-                    resources.Add(serviceResource);
-                }
+                resources.Add(serviceResource);
             }
         }
 
         return resources;
+    }
+
+    public async Task<List<AccessPackage>> GetAccessPackageResources(List<AccessPackage> accessPackages, CancellationToken cancellationToken)
+    {
+        List<AccessPackage> accessPackagesWithResources = [];
+        
+        // get AccessPackage <-> resource connection
+        IEnumerable<string> subjects = accessPackages.Select(accessPackage => accessPackage.Urn);
+        List<SubjectResources> subjectResources = await GetSubjectResources(subjects.ToList(), cancellationToken);
+
+        // map resources for each access package
+        accessPackages.ForEach(async (accessPackage) => 
+        {
+            List<AttributeMatchV2>? resourceMatches = subjectResources.Find(x => x.Subject.Urn == accessPackage.Urn)?.Resources;
+            IEnumerable<string> resourceIds = resourceMatches?.Select(x => x.Value) ?? [];
+            
+            // get all resources for access package (this also included LogoUrl):
+            List<ServiceResource> resources = await GetResources(resourceIds, cancellationToken);
+            accessPackage.Resources = resources;
+        });
+
+        return accessPackagesWithResources;
     }
 
     private async Task<ServiceResource?> GetResource(string resourceId, CancellationToken cancellationToken = default)
@@ -123,5 +140,23 @@ public class ResourceRegistryClient : IResourceRegistryClient
         }
 
         return resourceOwners;
+    }
+
+    private async Task<List<SubjectResources>> GetSubjectResources(List<string> subjects, CancellationToken cancellationToken)
+    {
+        string url = $"resource/bysubjects";
+
+        string serializedContent = JsonSerializer.Serialize(subjects, _jsonSerializerOptions);
+        using HttpRequestMessage getSubjectResourcesRequest = new HttpRequestMessage()
+        {
+            RequestUri = new Uri(url),
+            Method = HttpMethod.Post,
+            Content = new StringContent(serializedContent, Encoding.UTF8, "application/json"),
+        };
+        using HttpResponseMessage response = await _httpClient.SendAsync(getSubjectResourcesRequest, cancellationToken);
+        response.EnsureSuccessStatusCode();
+
+        SubjectResourcesDto? responseContent = await response.Content.ReadFromJsonAsync<SubjectResourcesDto>(_jsonSerializerOptions, cancellationToken);
+        return responseContent?.Data ?? [];
     }
 }

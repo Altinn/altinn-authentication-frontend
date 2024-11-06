@@ -49,7 +49,7 @@ public class SystemRegisterController : ControllerBase
     [HttpGet("rights/{systemId}")]
     public async Task<ActionResult> GetSystemRights(string systemId, CancellationToken cancellationToken)
     {
-        List<ServiceResource> rights = await _systemRegisterService.GetSystemRights(systemId, cancellationToken);
+        FullRights rights = await _systemRegisterService.GetSystemRights(systemId, cancellationToken);
 
         return Ok(rights);
     }

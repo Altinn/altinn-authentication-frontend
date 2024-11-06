@@ -95,4 +95,10 @@ public class SystemUser
     /// </summary>
     [JsonPropertyName("resources")]
     public List<ServiceResource> Resources { get; set; } = [];
+
+    /// <summary>
+    /// List of access packages information
+    /// </summary>
+    [JsonPropertyName("resources")]
+    public List<AccessPackage> AccessPackages { get; set; } = [];
 }

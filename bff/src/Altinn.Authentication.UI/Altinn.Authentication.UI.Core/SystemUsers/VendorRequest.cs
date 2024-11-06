@@ -64,6 +64,8 @@ public class VendorRequest
     [JsonPropertyName("resources")]
     public List<ServiceResource> Resources { get; set; } = [];
 
+    public List<AccessPackage> AccessPackages { get; set; } = [];
+
     /// <summary>
     /// Initially the request is "new", 
     /// other values are "accepted", "rejected", "denied", "timedout"

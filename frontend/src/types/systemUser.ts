@@ -1,3 +1,4 @@
+import { AccessPackage } from './accessPackage';
 import { ServiceResource } from './serviceResource';
 
 export interface SystemUser {
@@ -9,4 +10,5 @@ export interface SystemUser {
   supplierOrgno: string;
   created: string;
   resources: ServiceResource[];
+  accessPackages: AccessPackage[];
 }

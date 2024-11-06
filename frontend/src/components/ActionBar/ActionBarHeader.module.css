@@ -2,7 +2,6 @@
   display: flex;
   border: 1px var(--border-color) solid;
   border-radius: 4px;
-  color: var(--ds-semantic-text-neutral-default);
   background-color: var(--background-color);
   margin-top: var(--ds-spacing-2);
 }
@@ -33,6 +32,11 @@
 .actionBar.neutral {
   --border-color: var(--ds-color-neutral-border-subtle);
   --background-color: var(--ds-color-neutral-background-subtle);
+}
+
+.actionBar.transparent {
+  --border-color: transparent;
+  --background-color: #fff;
 }
 
 .actionBarHeader {

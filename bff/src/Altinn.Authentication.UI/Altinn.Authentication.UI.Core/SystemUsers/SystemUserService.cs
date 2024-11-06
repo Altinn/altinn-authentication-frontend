@@ -140,12 +140,25 @@ public class SystemUserService : ISystemUserService
 
     private async Task AddRights(SystemUser systemUser, CancellationToken cancellationToken)
     {
-        
         // TODO: rights for a systemuser is not 1:1 with system rights, but we have no way to 
         // get rights for a specific systemuser yet, so return the rights for the system for now.
         List<Right> rights = await _systemRegisterClient.GetRightsFromSystem(systemUser.SystemId, cancellationToken);
         
         // add resources
-        systemUser.Resources = await _resourceRegistryClient.GetResources(rights, cancellationToken);
+        systemUser.Resources = await _resourceRegistryClient.GetResources(RightsHelper.GetResourceIdsFromRights(rights), cancellationToken);
+
+        // TODO: use service to get real access packages
+        // get all accessPackages
+        List<AccessPackage> packagesForSystemUser =
+        [
+            new()
+            {
+                Id = "urn:altinn:accesspackage:foretaksskatt",
+                Urn = "urn:altinn:accesspackage:foretaksskatt",
+                Name = "skatt"
+            }
+        ];
+
+        systemUser.AccessPackages = await _resourceRegistryClient.GetAccessPackageResources(packagesForSystemUser, cancellationToken);
     }
 }

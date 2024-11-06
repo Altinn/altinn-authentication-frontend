@@ -12,7 +12,7 @@ export interface ActionBarProps {
   children?: React.ReactNode;
 
   /** The color variant of the ActionBar. */
-  color?: 'light' | 'neutral';
+  color?: 'light' | 'neutral' | 'transparent';
 
   /** The size variant of the ActionBar. */
   size?: 'small' | 'medium' | 'large';
@@ -53,7 +53,7 @@ export interface ActionBarProps {
  *
  * @property {React.ReactNode} [additionalText] - Additional text to be displayed in the header of the ActionBar.
  * @property {React.ReactNode} [children] - The content to be displayed as expandable content inside the ActionBar.
- * @property {'light' | 'neutral' | 'warning' | 'success' | 'danger'} [color='neutral'] - The color variant of the ActionBar.
+ * @property {'light' | 'neutral' | 'transparent'} [color='neutral'] - The color variant of the ActionBar.
  * @property {'small' | 'medium' | 'large'} [size='medium'] - The size variant of the ActionBar.
  * @property {boolean} [open] - Specifies whether the ActionBar is open or closed.
  * @property {ClickHandler} [onClick] - The click event handler for the ActionBar header.
@@ -86,13 +86,15 @@ export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
     const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen);
     const isOpen = open ?? internalOpen;
 
-    const toggleOpen = () => {
-      if (onClick) {
-        onClick();
-      } else {
-        setInternalOpen((openState) => !openState);
-      }
-    };
+    const toggleOpen = children
+      ? () => {
+          if (onClick) {
+            onClick();
+          } else {
+            setInternalOpen((openState) => !openState);
+          }
+        }
+      : undefined;
 
     return (
       <div ref={ref}>

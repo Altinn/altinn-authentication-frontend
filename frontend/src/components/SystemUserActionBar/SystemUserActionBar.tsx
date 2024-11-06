@@ -48,7 +48,10 @@ export const SystemUserActionBar = ({
             </RouterLink>
           </Link>
         </div>
-        <RightsList resources={systemUser?.resources ?? []} />
+        <RightsList
+          resources={systemUser?.resources ?? []}
+          accessPackages={systemUser?.accessPackages}
+        />
       </div>
     </ActionBar>
   );

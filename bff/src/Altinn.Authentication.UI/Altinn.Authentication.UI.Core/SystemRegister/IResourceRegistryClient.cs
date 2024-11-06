@@ -4,5 +4,7 @@ namespace Altinn.Authentication.UI.Core.SystemRegister;
 
 public interface IResourceRegistryClient
 {
-    Task<List<ServiceResource>> GetResources(List<Right> rights, CancellationToken cancellationToken = default);
+    Task<List<ServiceResource>> GetResources(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default);
+
+    Task<List<AccessPackage>> GetAccessPackageResources(List<AccessPackage> accessPackages, CancellationToken cancellationToken);
 }

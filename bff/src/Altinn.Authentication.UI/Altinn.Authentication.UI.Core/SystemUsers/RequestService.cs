@@ -1,4 +1,5 @@
-﻿using Altinn.Authentication.UI.Core.SystemRegister;
+﻿using Altinn.Authentication.UI.Core.Common.Rights;
+using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authorization.ProblemDetails;
 
 namespace Altinn.Authentication.UI.Core.SystemUsers;
@@ -21,7 +22,23 @@ public class RequestService(
         if (request.Value != null) 
         {
             // add resources
-            request.Value.Resources = await resourceRegistryClient.GetResources(request.Value.Rights, cancellationToken);
+            request.Value.Resources = await resourceRegistryClient.GetResources(RightsHelper.GetResourceIdsFromRights(request.Value.Rights), cancellationToken);
+
+            // add access packages for this request.
+            // 1. GET accesspackages based on urns (or look them up from cache)
+            // 2. 
+            // TODO: use service to get real access packages
+            List<AccessPackage> packagesForRequest =
+            [
+                new()
+                {
+                    Id = "urn:altinn:accesspackage:foretaksskatt",
+                    Urn = "urn:altinn:accesspackage:foretaksskatt",
+                    Name = "skatt"
+                }
+            ];
+
+            request.Value.AccessPackages = await resourceRegistryClient.GetAccessPackageResources(packagesForRequest, cancellationToken);
 
             // add system
             RegisteredSystemDTO? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);

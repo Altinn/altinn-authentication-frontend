@@ -70,17 +70,17 @@ export const RightsIncludedPageContent = () => {
   return (
     <div>
       <Heading level={2} size='sm' spacing>
-        {rights?.length === 1
+        {rights?.resources?.length === 1
           ? t('authent_includedrightspage.sub_title_single')
           : t('authent_includedrightspage.sub_title')}
       </Heading>
       <Paragraph size='sm' spacing>
-        {rights?.length === 1
+        {rights?.resources?.length === 1
           ? t('authent_includedrightspage.content_text_single')
           : t('authent_includedrightspage.content_text')}
       </Paragraph>
       <div>
-        <RightsList resources={rights ?? []} />
+        <RightsList resources={rights?.resources ?? []} accessPackages={rights?.accessPackages} />
         {isCreateSystemUserError && (
           <Alert color='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}

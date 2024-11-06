@@ -45,6 +45,8 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
       </div>
     );
 
+    const Component = toggleOpen ? Button : 'div';
+
     return (
       <div
         className={cn(classes.actionBar, classes[color], classes[size], {
@@ -53,10 +55,10 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
         })}
         ref={ref}
       >
-        <Button
+        <Component
           className={cn(classes.actionBarHeader, classes[color])}
           type='button'
-          variant='tertiary'
+          variant={'tertiary' as never}
           onClick={toggleOpen}
           id={headerId}
           data-testid='action-bar'
@@ -65,9 +67,9 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
         >
           <div className={classes.actionBarButtonContainer}>
             {actionBarContent}
-            <ActionBarIcon />
+            {toggleOpen && <ActionBarIcon />}
           </div>
-        </Button>
+        </Component>
         {additionalText}
       </div>
     );

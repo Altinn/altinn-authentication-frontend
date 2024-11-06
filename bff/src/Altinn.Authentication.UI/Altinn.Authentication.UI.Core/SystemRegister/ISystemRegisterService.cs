@@ -3,5 +3,5 @@
 public interface ISystemRegisterService
 {
     Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellation = default);
-    Task<List<ServiceResource>> GetSystemRights(string systemId, CancellationToken cancellationToken);
+    Task<FullRights> GetSystemRights(string systemId, CancellationToken cancellationToken);
 }

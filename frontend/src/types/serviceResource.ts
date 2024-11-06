@@ -1,3 +1,5 @@
+import { SupportedLanguage, ValidLanguage } from './language';
+
 export interface ServiceResource {
   identifier: string;
   resourceType?: ResourceTypeOption;
@@ -23,10 +25,6 @@ export interface ServiceResource {
   };
   logoUrl?: string;
 }
-
-export type ValidLanguage = 'nb' | 'nn' | 'en';
-
-type SupportedLanguage = Record<ValidLanguage, string>;
 
 interface ResourceContactPoint {
   category: string;
