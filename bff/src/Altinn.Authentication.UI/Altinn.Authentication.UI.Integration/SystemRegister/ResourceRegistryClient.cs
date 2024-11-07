@@ -35,7 +35,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
         _cacheConfig = cacheConfig.Value;
     }
 
-    public async Task<FullRights> GetResourcesForRights(List<Right> rights, List<AccessPackage> accessPackages, CancellationToken cancellationToken)
+    public async Task<FullRights> GetResourcesForRights(IEnumerable<Right> rights, IEnumerable<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
         IEnumerable<string> resourceIds = rights.SelectMany(x => x.Resource.Where(z => z.Id == "urn:altinn:resource").Select(y => y.Value));
         List<ServiceResource> resources = await GetResources(resourceIds, cancellationToken);
@@ -49,25 +49,25 @@ public class ResourceRegistryClient : IResourceRegistryClient
         };
     }
 
-    private async Task<List<AccessPackage>> GetAccessPackageResources(List<AccessPackage> accessPackages, CancellationToken cancellationToken)
+    private async Task<List<AccessPackage>> GetAccessPackageResources(IEnumerable<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
         List<AccessPackage> accessPackagesWithResources = [];
         
         // get AccessPackage <-> resource connection
         IEnumerable<string> subjects = accessPackages.Select(accessPackage => accessPackage.Urn);
-        List<SubjectResources> subjectResources = await GetSubjectResources(subjects.ToList(), cancellationToken);
+        IEnumerable<SubjectResources> subjectResources = await GetSubjectResources(subjects.ToList(), cancellationToken);
 
         // map resources for each access package
-        accessPackages.ForEach(async (accessPackage) => 
+        foreach (AccessPackage accessPackage in accessPackages)
         {
-            List<AttributeMatchV2>? resourceMatches = subjectResources.Find(x => x.Subject.Urn == accessPackage.Urn)?.Resources;
+            IEnumerable<AttributeMatchV2>? resourceMatches = subjectResources.First(x => x.Subject.Urn == accessPackage.Urn)?.Resources;
             IEnumerable<string> resourceIds = resourceMatches?.Select(x => x.Value) ?? [];
             
             // get all resources for access package (this also included LogoUrl):
             List<ServiceResource> resources = await GetResources(resourceIds, cancellationToken);
             accessPackage.Resources = resources;
             accessPackagesWithResources.Add(accessPackage);
-        });
+        }
 
         return accessPackagesWithResources;
     }
@@ -159,7 +159,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
         return resourceOwners;
     }
 
-    private async Task<List<SubjectResources>> GetSubjectResources(List<string> subjects, CancellationToken cancellationToken)
+    private async Task<IEnumerable<SubjectResources>> GetSubjectResources(IEnumerable<string> subjects, CancellationToken cancellationToken)
     {
         string url = $"resource/bysubjects";
 

@@ -17,7 +17,7 @@ public class ResourceRegistryClientMock : IResourceRegistryClient
         return resource1;
     }
 
-    public Task<FullRights> GetResourcesForRights(List<Right> rights, List<AccessPackage> accessPackages, CancellationToken cancellationToken)
+    public Task<FullRights> GetResourcesForRights(IEnumerable<Right> rights, IEnumerable<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }
