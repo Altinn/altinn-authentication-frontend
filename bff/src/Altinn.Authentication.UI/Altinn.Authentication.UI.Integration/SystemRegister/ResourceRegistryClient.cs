@@ -38,7 +38,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
     public async Task<FullRights> GetResourcesForRights(IEnumerable<Right> rights, IEnumerable<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
         IEnumerable<string> resourceIds = rights.SelectMany(x => x.Resource.Where(z => z.Id == "urn:altinn:resource").Select(y => y.Value));
-        List<ServiceResource> resources = await GetResources(resourceIds, cancellationToken);
+        List<ServiceResource> resources = await GetResourcesByIds(resourceIds, cancellationToken);
 
         List<AccessPackage> accessPackagesWithResources = await GetAccessPackageResources(accessPackages, cancellationToken);
 
@@ -64,7 +64,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
             IEnumerable<string> resourceIds = resourceMatches?.Select(x => x.Value) ?? [];
             
             // get all resources for access package (this also included LogoUrl):
-            List<ServiceResource> resources = await GetResources(resourceIds, cancellationToken);
+            List<ServiceResource> resources = await GetResourcesByIds(resourceIds, cancellationToken);
             accessPackage.Resources = resources;
             accessPackagesWithResources.Add(accessPackage);
         }
@@ -72,7 +72,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
         return accessPackagesWithResources;
     }
 
-    private async Task<List<ServiceResource>> GetResources(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default)
+    private async Task<List<ServiceResource>> GetResourcesByIds(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default)
     {
         List<ServiceResource> resources = [];
 
@@ -101,8 +101,7 @@ public class ResourceRegistryClient : IResourceRegistryClient
                 ServiceResource? resource = await response.Content.ReadFromJsonAsync<ServiceResource>(_jsonSerializerOptions, cancellationToken);
                 if (resource?.HasCompetentAuthority?.Orgcode != null) 
                 {
-                    string? logoUrl = await GetOrgIconUrl(resource.HasCompetentAuthority.Orgcode, cancellationToken);
-                    resource.LogoUrl = logoUrl;
+                    resource.LogoUrl = await GetOrgIconUrl(resource.HasCompetentAuthority.Orgcode, cancellationToken);
                 }
                 return resource;
             }
