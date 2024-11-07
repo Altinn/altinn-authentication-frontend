@@ -38,54 +38,41 @@ public class ResourceRegistryClient : IResourceRegistryClient
     public async Task<FullRights> GetResourcesForRights(IEnumerable<Right> rights, IEnumerable<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
         IEnumerable<string> resourceIds = rights.SelectMany(x => x.Resource.Where(z => z.Id == "urn:altinn:resource").Select(y => y.Value));
-        List<ServiceResource> resources = await GetResourcesByIds(resourceIds, cancellationToken);
+        IEnumerable<ServiceResource> resources = await GetResourcesByIds(resourceIds, cancellationToken);
 
-        List<AccessPackage> accessPackagesWithResources = await GetAccessPackageResources(accessPackages, cancellationToken);
+        IEnumerable<AccessPackage> accessPackagesWithResources = await GetAccessPackageResources(accessPackages, cancellationToken);
 
         return new FullRights()
         {
-            Resources = resources,
-            AccessPackages = accessPackagesWithResources
+            Resources = resources.ToList(),
+            AccessPackages = accessPackagesWithResources.ToList()
         };
     }
 
-    private async Task<List<AccessPackage>> GetAccessPackageResources(IEnumerable<AccessPackage> accessPackages, CancellationToken cancellationToken)
+    private async Task<IEnumerable<AccessPackage>> GetAccessPackageResources(IEnumerable<AccessPackage> accessPackages, CancellationToken cancellationToken)
     {
-        List<AccessPackage> accessPackagesWithResources = [];
-        
         // get AccessPackage <-> resource connection
         IEnumerable<string> subjects = accessPackages.Select(accessPackage => accessPackage.Urn);
         IEnumerable<SubjectResources> subjectResources = await GetSubjectResources(subjects.ToList(), cancellationToken);
 
-        // map resources for each access package
-        foreach (AccessPackage accessPackage in accessPackages)
+        var tasks = accessPackages.Select(async (accessPackage) =>
         {
             IEnumerable<AttributeMatchV2>? resourceMatches = subjectResources.First(x => x.Subject.Urn == accessPackage.Urn)?.Resources;
             IEnumerable<string> resourceIds = resourceMatches?.Select(x => x.Value) ?? [];
             
             // get all resources for access package (this also included LogoUrl):
-            List<ServiceResource> resources = await GetResourcesByIds(resourceIds, cancellationToken);
-            accessPackage.Resources = resources;
-            accessPackagesWithResources.Add(accessPackage);
-        }
-
-        return accessPackagesWithResources;
+            IEnumerable<ServiceResource> resources = await GetResourcesByIds(resourceIds, cancellationToken);
+            accessPackage.Resources = resources.ToList();
+            return accessPackage;
+        });
+        return await Task.WhenAll(tasks);
     }
 
-    private async Task<List<ServiceResource>> GetResourcesByIds(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default)
+    private async Task<IEnumerable<ServiceResource>> GetResourcesByIds(IEnumerable<string> resourceIds, CancellationToken cancellationToken = default)
     {
-        List<ServiceResource> resources = [];
-
-        foreach (string resourceId in resourceIds)
-        {
-            ServiceResource? serviceResource = await GetResource(resourceId, cancellationToken);
-            if (serviceResource != null) 
-            {
-                resources.Add(serviceResource);
-            }
-        }
-
-        return resources;
+        var tasks = resourceIds.Select(async (resourceId) => await GetResource(resourceId, cancellationToken));
+        var resources = await Task.WhenAll(tasks) ?? [];
+        return resources.OfType<ServiceResource>();
     }
 
     // TODO: load full list of resources instead and lookup by id? Will it be faster? 
