@@ -94,7 +94,7 @@ public class RequestController(
     /// <returns></returns>
     [Authorize]
     [HttpGet("logout")]
-    public IActionResult Logout([FromQuery] Guid requestGuid)
+    public IActionResult Logout([FromQuery] Guid id)
     {
         string redirectUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}logout";
 
@@ -108,7 +108,7 @@ public class RequestController(
         };
 
         // store cookie value for redirect
-        HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={requestGuid}", cookieOptions);
+        HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={id}", cookieOptions);
 
         // redirect to url returned from logout service
         return Redirect(redirectUrl);
