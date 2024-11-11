@@ -1,4 +1,5 @@
-﻿using Altinn.Authentication.UI.Core.Authentication;
+﻿using Altinn.Authentication.UI.Core.AppConfiguration;
+using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
 using Altinn.Authentication.UI.Integration.Configuration;
@@ -16,7 +17,7 @@ using Microsoft.Extensions.Options;
 [ApiController]
 [AutoValidateAntiforgeryTokenIfAuthCookie]
 public class RequestController(
-    IRequestService _requestService, IOptions<PlatformSettings> _platformSettings) : ControllerBase
+    IRequestService _requestService, IOptions<PlatformSettings> _platformSettings, IOptions<GeneralSettings> _generalSettings) : ControllerBase
 {       
     /// <summary>
     /// Gets a VendorRequest by Id
@@ -96,9 +97,18 @@ public class RequestController(
     public IActionResult Logout([FromQuery] Guid requestGuid)
     {
         string redirectUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}logout";
-        
+
+        CookieOptions cookieOptions = new()
+        {
+            Domain = _generalSettings.Value.HostName,
+            HttpOnly = true,
+            Secure = true,
+            IsEssential = true,
+            SameSite = SameSiteMode.Lax
+        };
+
         // store cookie value for redirect
-        HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={requestGuid}");
+        HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={requestGuid}", cookieOptions);
 
         // redirect to url returned from logout service
         return Redirect(redirectUrl);
