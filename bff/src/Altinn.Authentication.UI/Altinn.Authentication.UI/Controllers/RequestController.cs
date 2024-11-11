@@ -122,6 +122,9 @@ public class RequestController(
     public async Task<ActionResult> RedirectToVendor(CancellationToken cancellationToken = default)
     {
         string? logoutInfoCookie = HttpContext.Request.Cookies["AltinnLogoutInfo"];
+        
+        // clean up cookie after reading value
+        HttpContext.Response.Cookies.Delete("AltinnLogoutInfo");
         if (string.IsNullOrWhiteSpace(logoutInfoCookie))
         {
             return BadRequest("AltinnLogoutInfo not set in cookies.");
@@ -139,9 +142,7 @@ public class RequestController(
         {
             return req.Problem.ToActionResult();
         }
-        
-        // clean up cookie before redirecting to vendor
-        HttpContext.Response.Cookies.Delete("AltinnLogoutInfo");
+
         return Redirect(req.Value.Url);
     }
 }
