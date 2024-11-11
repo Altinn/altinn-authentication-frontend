@@ -95,7 +95,7 @@ public class RequestController(
     [HttpGet("logout")]
     public IActionResult Logout([FromQuery] Guid requestGuid)
     {
-        string redirectUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}/logout";
+        string redirectUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}logout";
         
         // store cookie value for redirect
         HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={requestGuid}");
