@@ -1,16 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Spinner } from '@digdir/designsystemet-react';
-import { VendorRequestPageContent } from './VendorRequestPageContent';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
-import { useGetSystemUserRequestQuery } from '@/rtk/features/systemUserApi';
+import { useGetChangeRequestQuery } from '@/rtk/features/systemUserApi';
 import { useSearchParams } from 'react-router-dom';
 import { RequestPage } from '@/components/RequestPage';
+import { ChangeRequestPageContent } from './ChangeRequestPageContent';
 
-export const VendorRequestPage = () => {
+export const ChangeRequestPage = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
-  const requestId = searchParams.get('id');
+  const changeRequestId = searchParams.get('id');
 
   const {
     data: userInfo,
@@ -19,29 +19,29 @@ export const VendorRequestPage = () => {
   } = useGetLoggedInUserQuery();
 
   const {
-    data: creationRequest,
-    isLoading: isLoadingCreationRequest,
-    isError: isLoadingCreationRequestError,
-  } = useGetSystemUserRequestQuery(requestId ?? '', {
-    skip: !requestId,
+    data: changeRequest,
+    isLoading: isLoadingChangeRequest,
+    isError: isLoadingChangeRequestError,
+  } = useGetChangeRequestQuery(changeRequestId ?? '', {
+    skip: !changeRequestId,
   });
 
   return (
-    <RequestPage userInfo={userInfo} system={creationRequest?.system}>
-      {!requestId && (
+    <RequestPage userInfo={userInfo} system={changeRequest?.system}>
+      {!changeRequestId && (
         <Alert color='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
       )}
-      {(isLoadingCreationRequestError || (creationRequest && !creationRequest.system)) && (
+      {(isLoadingChangeRequestError || (changeRequest && !changeRequest.system)) && (
         <Alert color='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
       )}
       {isLoadUserInfoError && (
         <Alert color='danger'>{t('vendor_request.load_user_info_error')}</Alert>
       )}
-      {(isLoadingUserInfo || isLoadingCreationRequest) && (
+      {(isLoadingUserInfo || isLoadingChangeRequest) && (
         <Spinner title={t('vendor_request.loading')} />
       )}
-      {creationRequest && creationRequest.system && userInfo && (
-        <VendorRequestPageContent request={creationRequest} userInfo={userInfo} />
+      {changeRequest && changeRequest.system && userInfo && (
+        <ChangeRequestPageContent changeRequest={changeRequest} userInfo={userInfo} />
       )}
     </RequestPage>
   );

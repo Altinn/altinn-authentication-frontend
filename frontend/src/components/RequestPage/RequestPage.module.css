@@ -1,0 +1,28 @@
+.requestPage {
+  min-height: 100vh;
+  background-color: var(--ds-color-neutral-background-subtle);
+}
+
+.requestWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 280px;
+  max-width: 1056px;
+}
+
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: right;
+  padding: var(--vendor-container-padding);
+}
+
+.vendorInfo {
+  padding-top: var(--ds-spacing-4);
+  padding-right: var(--vendor-container-padding);
+  padding-bottom: var(--vendor-container-padding);
+  text-align: right;
+  font-style: italic;
+}

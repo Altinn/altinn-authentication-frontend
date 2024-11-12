@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph } from '@digdir/designsystemet-react';
-import classes from './VendorRequestPageContent.module.css';
+import classes from './ChangeRequestPageContent.module.css';
 import { RightsList } from '@/components/RightsList';
-import { ProfileInfo, SystemUserCreationRequest } from '@/types';
+import { ChangeRequest, ProfileInfo } from '@/types';
 import { RightsError } from '@/components/RightsError';
 import {
   useApproveSystemUserRequestMutation,
@@ -15,12 +15,15 @@ import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 
-interface VendorRequestPageContentProps {
-  request: SystemUserCreationRequest;
+interface ChangeRequestPageContentProps {
+  changeRequest: ChangeRequest;
   userInfo: ProfileInfo;
 }
 
-export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPageContentProps) => {
+export const ChangeRequestPageContent = ({
+  changeRequest,
+  userInfo,
+}: ChangeRequestPageContentProps) => {
   const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
   const [isReceiptVisible, setIsReceiptVisible] = useState<boolean>(false);
@@ -39,11 +42,11 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   ] = useRejectSystemUserRequestMutation();
 
   const acceptSystemUser = (): void => {
-    postAcceptCreationRequest(request.id)
+    postAcceptCreationRequest(changeRequest.id)
       .unwrap()
       .then(() => {
-        if (request.redirectUrl) {
-          redirectToVendor(request.redirectUrl);
+        if (changeRequest.redirectUrl) {
+          redirectToVendor(changeRequest.redirectUrl);
         } else {
           setIsReceiptVisible(true);
         }
@@ -51,11 +54,11 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   };
 
   const rejectSystemUser = (): void => {
-    postRejectCreationRequest(request.id)
+    postRejectCreationRequest(changeRequest.id)
       .unwrap()
       .then(() => {
-        if (request.redirectUrl) {
-          redirectToVendor(request.redirectUrl);
+        if (changeRequest.redirectUrl) {
+          redirectToVendor(changeRequest.redirectUrl);
         } else {
           logoutUser();
         }
@@ -64,7 +67,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
 
   const redirectToVendor = (requestUrl: string): void => {
     const url = new URL(requestUrl);
-    url.searchParams.append('id', request.id);
+    url.searchParams.append('id', changeRequest.id);
     window.location.assign(url.toString());
   };
 
@@ -76,7 +79,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
     !userInfo.canCreateSystemUser ||
     isAcceptingSystemUser ||
     isRejectingSystemUser ||
-    request.status !== 'New';
+    changeRequest.status !== 'New';
 
   if (isReceiptVisible) {
     return (
@@ -89,7 +92,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         <div className={classes.vendorRequestBlock}>
           <Heading level={2} size='sm'>
             {t('vendor_request.receipt_ingress', {
-              systemName: request.system.name[currentLanguage],
+              systemName: changeRequest.system.name[currentLanguage],
             })}
           </Heading>
           <Paragraph>{t('vendor_request.receipt_body')}</Paragraph>
@@ -100,7 +103,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
             <Button
               variant='tertiary'
               onClick={() => {
-                dispatch(setCreatedId(request.id));
+                dispatch(setCreatedId(changeRequest.id));
                 navigate(AuthenticationRoute.Overview);
               }}
             >
@@ -120,36 +123,40 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         </Heading>
       </div>
       <div className={classes.vendorRequestBlock}>
-        {request.status === 'Accepted' && (
+        {changeRequest.status === 'Accepted' && (
           <Alert color='info'>{t('vendor_request.request_accepted')}</Alert>
         )}
-        {request.status === 'Rejected' && (
+        {changeRequest.status === 'Rejected' && (
           <Alert color='info'>{t('vendor_request.request_rejected')}</Alert>
         )}
-        {request.status === 'Timedout' && (
+        {changeRequest.status === 'Timedout' && (
           <Alert color='info'>{t('vendor_request.request_expired')}</Alert>
         )}
         <Heading level={2} size='sm'>
           {t('vendor_request.creation_header', {
-            vendorName: request.system.name[currentLanguage],
+            vendorName: changeRequest.system.name[currentLanguage],
           })}
         </Heading>
         <Paragraph spacing>
           <Trans
             i18nKey={'vendor_request.system_description'}
             values={{
-              systemName: request.system.name[currentLanguage],
+              systemName: changeRequest.system.name[currentLanguage],
               partyName: userInfo.representingPartyName,
             }}
           ></Trans>
         </Paragraph>
         <div>
           <Heading level={3} size='xs'>
-            {request.resources.length === 1
-              ? t('vendor_request.rights_list_header_single')
-              : t('vendor_request.rights_list_header')}
+            Disse rettighetene legges til
           </Heading>
-          <RightsList resources={request.resources} />
+          <RightsList resources={changeRequest.requiredResources} />
+        </div>
+        <div>
+          <Heading level={3} size='xs'>
+            Disse rettighetene fjernes
+          </Heading>
+          <RightsList resources={changeRequest.unwantedResources} />
         </div>
         <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
         <div>

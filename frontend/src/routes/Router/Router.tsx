@@ -7,6 +7,7 @@ import { RightsIncludedPage } from '@/features/rightsincludedpage';
 import { DetailPage } from '@/features/detailpage/DetailPage';
 import { AuthenticationRoute } from '../paths';
 import { VendorRequestPage } from '@/features/vendorRequestPage';
+import { ChangeRequestPage } from '@/features/changeRequestPage';
 
 export const Router = createBrowserRouter(
   createRoutesFromElements(
@@ -34,6 +35,11 @@ export const Router = createBrowserRouter(
       <Route
         path={`${AuthenticationRoute.VendorRequest}`}
         element={<VendorRequestPage />}
+        errorElement={<NotFoundSite />}
+      />
+      <Route
+        path={`${AuthenticationRoute.ChangeRequest}`}
+        element={<ChangeRequestPage />}
         errorElement={<NotFoundSite />}
       />
     </Route>,
