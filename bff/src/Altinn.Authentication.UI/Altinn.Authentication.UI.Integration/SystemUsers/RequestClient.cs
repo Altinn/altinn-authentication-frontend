@@ -8,7 +8,6 @@ using Microsoft.Extensions.Options;
 using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
 using Altinn.Authentication.UI.Core.Common.Problems;
-using System.Net.Http.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
@@ -70,28 +69,5 @@ public class RequestClient(
         }
 
         return Problem.Generic_EndOfMethod;
-    }
-
-    public async Task<Result<RedirectUrl>> GetRedirectUrl(Guid requestId, CancellationToken cancellationToken)
-    {
-        string endpoint = $"systemuser/request/redirect/{requestId}";
-        HttpResponseMessage res = await client.GetAsync(InitClient(), endpoint);
-
-        if (res.IsSuccessStatusCode)
-        {
-            return JsonSerializer.Deserialize<RedirectUrl>(await res.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions);
-        } 
-        else 
-        {
-            AltinnProblemDetails? problemDetails = await res.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellationToken);
-            if (problemDetails?.ErrorCode.ToString() is "AUTH-00010") 
-            {
-                return Problem.RequestNotFound;
-            } 
-            else 
-            {
-                return Problem.Generic_EndOfMethod;
-            }
-        }
     }
 }

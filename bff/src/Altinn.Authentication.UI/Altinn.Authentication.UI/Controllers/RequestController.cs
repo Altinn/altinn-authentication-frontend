@@ -96,8 +96,6 @@ public class RequestController(
     [HttpGet("logout")]
     public IActionResult Logout([FromQuery] Guid id)
     {
-        string redirectUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}logout";
-
         CookieOptions cookieOptions = new()
         {
             Domain = _generalSettings.Value.HostName,
@@ -109,40 +107,8 @@ public class RequestController(
 
         // store cookie value for redirect
         HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={id}", cookieOptions);
-
-        // redirect to url returned from logout service
-        return Redirect(redirectUrl);
-    }
-
-    /// <summary>
-    /// Redirect after logout
-    /// </summary>
-    /// <returns></returns>
-    [HttpGet("redirect")]
-    public async Task<ActionResult> RedirectToVendor(CancellationToken cancellationToken = default)
-    {
-        string? logoutInfoCookie = HttpContext.Request.Cookies["AltinnLogoutInfo"];
         
-        // clean up cookie after reading value
-        HttpContext.Response.Cookies.Delete("AltinnLogoutInfo");
-        if (string.IsNullOrWhiteSpace(logoutInfoCookie))
-        {
-            return BadRequest("AltinnLogoutInfo not set in cookies.");
-        }
-
-        string? requestId = logoutInfoCookie?.Split("SystemuserRequestId=").LastOrDefault();
-        bool isValidGuid = Guid.TryParse(requestId, out Guid requestGuid);
-        if (isValidGuid == false)
-        {
-            return BadRequest("Invalid SystemuserRequestId set in AltinnLogoutInfo");
-        }
-
-        Result<RedirectUrl> req = await _requestService.GetRedirectUrl(requestGuid, cancellationToken);
-        if (req.IsProblem)
-        {
-            return req.Problem.ToActionResult();
-        }
-
-        return Redirect(req.Value.Url);
+        string logoutUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}logout";
+        return Redirect(logoutUrl);
     }
 }

@@ -47,9 +47,4 @@ public static class Problem
     public static ProblemDescriptor Generic_EndOfMethod { get; }
         = _factory.Create(5, HttpStatusCode.BadRequest, "Default error at the end of logic chain. Not supposed to appear.");
 
-    /// <summary>
-    /// Gets a <see cref="ProblemDescriptor"/>.
-    /// </summary>
-    public static ProblemDescriptor RequestNotFound { get; }
-        = _factory.Create(10, HttpStatusCode.NotFound, "The Id does not refer to a Request in our system.");
 }
