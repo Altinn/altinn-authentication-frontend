@@ -27,7 +27,11 @@ export const VendorRequestPage = () => {
   });
 
   return (
-    <RequestPage userInfo={userInfo} system={creationRequest?.system}>
+    <RequestPage
+      userInfo={userInfo}
+      system={creationRequest?.system}
+      heading={t('vendor_request.banner_title')}
+    >
       {!requestId && (
         <Alert color='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
       )}

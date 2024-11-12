@@ -27,7 +27,11 @@ export const ChangeRequestPage = () => {
   });
 
   return (
-    <RequestPage userInfo={userInfo} system={changeRequest?.system}>
+    <RequestPage
+      userInfo={userInfo}
+      system={changeRequest?.system}
+      heading={t('vendor_request.banner_title')}
+    >
       {!changeRequestId && (
         <Alert color='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
       )}

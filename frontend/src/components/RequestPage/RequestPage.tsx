@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Paragraph } from '@digdir/designsystemet-react';
+import { Heading, Paragraph } from '@digdir/designsystemet-react';
 import classes from './RequestPage.module.css';
 import { ProfileInfo, VendorSystem } from '@/types';
 import AltinnLogo from '@/assets/AltinnTextLogo.svg?react';
@@ -9,10 +9,16 @@ import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 interface RequestPageProps {
   userInfo?: ProfileInfo;
   system?: VendorSystem;
+  heading: string;
   children: React.ReactNode | React.ReactNode[];
 }
 
-export const RequestPage = ({ userInfo, system, children }: RequestPageProps): React.ReactNode => {
+export const RequestPage = ({
+  userInfo,
+  system,
+  heading,
+  children,
+}: RequestPageProps): React.ReactNode => {
   const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
 
@@ -28,7 +34,12 @@ export const RequestPage = ({ userInfo, system, children }: RequestPageProps): R
             </div>
           )}
         </div>
-        {children}
+        <div className={classes.vendorRequestBlock}>
+          <Heading level={1} size='lg'>
+            {heading}
+          </Heading>
+        </div>
+        <div className={classes.vendorRequestBlock}>{children}</div>
         {system && (
           <Paragraph size='sm' className={classes.vendorInfo}>
             {t('vendor_request.org_nr', {

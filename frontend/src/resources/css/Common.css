@@ -4,7 +4,6 @@ body {
 
 :root {
   font-family: 'Inter', sans-serif;
-  --vendor-container-padding: var(--ds-spacing-12);
 }
 
 @supports (font-variation-settings: normal) {

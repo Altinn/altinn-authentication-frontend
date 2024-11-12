@@ -1,3 +1,7 @@
+:root {
+  --vendor-container-padding: var(--ds-spacing-12);
+}
+
 .requestPage {
   min-height: 100vh;
   background-color: var(--ds-color-neutral-background-subtle);
@@ -25,4 +29,13 @@
   padding-bottom: var(--vendor-container-padding);
   text-align: right;
   font-style: italic;
+}
+
+.vendorRequestBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-spacing-8);
+  background-color: var(--ds-color-accent-background-default);
+  padding: var(--vendor-container-padding);
+  margin-bottom: 3px;
 }
