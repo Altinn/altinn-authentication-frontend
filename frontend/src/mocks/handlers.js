@@ -887,4 +887,18 @@ export const handlers = [
       redirectUrl: 'https://smartcloudaltinn.azurewebsites.net/receipt',
     });
   }),
+
+  // POST approve change request
+  http.post('/authfront/api/v1/systemuser/changerequest/:requestId/approve', () => {
+    return new HttpResponse(null, {
+      status: 204,
+    });
+  }),
+
+  // POST reject change request
+  http.post('/authfront/api/v1/systemuser/changerequest/:requestId/reject', () => {
+    return new HttpResponse(null, {
+      status: 204,
+    });
+  }),
 ];

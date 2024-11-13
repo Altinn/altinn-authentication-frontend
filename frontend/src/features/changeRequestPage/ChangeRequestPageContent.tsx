@@ -81,7 +81,7 @@ export const ChangeRequestPageContent = ({
   };
 
   const logoutAndRedirectToVendor = (): void => {
-    const url = new URL('/authfront/api/v1/logout');
+    const url = new URL('/authfront/api/v1/systemuser/request/logout', window.location.href);
     url.searchParams.append('id', changeRequest.id);
     window.location.assign(url.toString());
   };
