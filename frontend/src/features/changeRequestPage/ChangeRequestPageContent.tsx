@@ -7,8 +7,8 @@ import { RightsList } from '@/components/RightsList';
 import { ChangeRequest, ProfileInfo } from '@/types';
 import { RightsError } from '@/components/RightsError';
 import {
-  useApproveSystemUserRequestMutation,
-  useRejectSystemUserRequestMutation,
+  useApproveChangeRequestMutation,
+  useRejectChangeRequestMutation,
 } from '@/rtk/features/systemUserApi';
 import { AuthenticationRoute } from '@/routes/paths';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
@@ -32,17 +32,17 @@ export const ChangeRequestPageContent = ({
   const dispatch = useAppDispatch();
 
   const [
-    postAcceptCreationRequest,
-    { isError: isAcceptCreationRequestError, isLoading: isAcceptingSystemUser },
-  ] = useApproveSystemUserRequestMutation();
+    postAcceptChangeRequest,
+    { isError: isAcceptChangeRequestError, isLoading: isAcceptingChangeRequest },
+  ] = useApproveChangeRequestMutation();
 
   const [
-    postRejectCreationRequest,
-    { isError: isRejectCreationRequestError, isLoading: isRejectingSystemUser },
-  ] = useRejectSystemUserRequestMutation();
+    postRejectChangeRequest,
+    { isError: isRejectChangeRequestError, isLoading: isRejectingChangeRequest },
+  ] = useRejectChangeRequestMutation();
 
-  const acceptSystemUser = (): void => {
-    postAcceptCreationRequest(changeRequest.id)
+  const acceptChangeRequest = (): void => {
+    postAcceptChangeRequest(changeRequest.id)
       .unwrap()
       .then(() => {
         if (changeRequest.redirectUrl) {
@@ -53,8 +53,8 @@ export const ChangeRequestPageContent = ({
       });
   };
 
-  const rejectSystemUser = (): void => {
-    postRejectCreationRequest(changeRequest.id)
+  const rejectChangeRequest = (): void => {
+    postRejectChangeRequest(changeRequest.id)
       .unwrap()
       .then(() => {
         if (changeRequest.redirectUrl) {
@@ -77,8 +77,8 @@ export const ChangeRequestPageContent = ({
 
   const isActionButtonDisabled =
     !userInfo.canCreateSystemUser ||
-    isAcceptingSystemUser ||
-    isRejectingSystemUser ||
+    isAcceptingChangeRequest ||
+    isRejectingChangeRequest ||
     changeRequest.status !== 'New';
 
   if (isReceiptVisible) {
@@ -133,27 +133,35 @@ export const ChangeRequestPageContent = ({
           }}
         ></Trans>
       </Paragraph>
-      <div>
-        <Heading level={3} size='xs'>
-          Disse rettighetene legges til
-        </Heading>
-        <RightsList resources={changeRequest.requiredResources} />
-      </div>
-      <div>
-        <Heading level={3} size='xs'>
-          Disse rettighetene fjernes
-        </Heading>
-        <RightsList resources={changeRequest.unwantedResources} />
-      </div>
+      {changeRequest.requiredResources.length > 0 && (
+        <div>
+          <Heading level={3} size='xs'>
+            {changeRequest.requiredResources.length === 1
+              ? 'Denne rettigheten legges til'
+              : 'Disse rettighetene legges til'}
+          </Heading>
+          <RightsList resources={changeRequest.requiredResources} />
+        </div>
+      )}
+      {changeRequest.unwantedResources.length > 0 && (
+        <div>
+          <Heading level={3} size='xs'>
+            {changeRequest.requiredResources.length === 1
+              ? 'Denne rettigheten fjernes'
+              : 'Disse rettighetene fjernes'}
+          </Heading>
+          <RightsList resources={changeRequest.unwantedResources} />
+        </div>
+      )}
       <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
       <div>
         {!userInfo.canCreateSystemUser && <RightsError />}
-        {isAcceptCreationRequestError && (
+        {isAcceptChangeRequestError && (
           <Alert color='danger' role='alert'>
             {t('vendor_request.accept_error')}
           </Alert>
         )}
-        {isRejectCreationRequestError && (
+        {isRejectChangeRequestError && (
           <Alert color='danger' role='alert'>
             {t('vendor_request.reject_error')}
           </Alert>
@@ -164,12 +172,12 @@ export const ChangeRequestPageContent = ({
             aria-disabled={isActionButtonDisabled}
             onClick={() => {
               if (!isActionButtonDisabled) {
-                acceptSystemUser();
+                acceptChangeRequest();
               }
             }}
-            loading={isAcceptingSystemUser}
+            loading={isAcceptingChangeRequest}
           >
-            {isAcceptingSystemUser
+            {isAcceptingChangeRequest
               ? t('vendor_request.accept_loading')
               : t('vendor_request.accept')}
           </Button>
@@ -178,12 +186,12 @@ export const ChangeRequestPageContent = ({
             aria-disabled={isActionButtonDisabled}
             onClick={() => {
               if (!isActionButtonDisabled) {
-                rejectSystemUser();
+                rejectChangeRequest();
               }
             }}
-            loading={isRejectingSystemUser}
+            loading={isRejectingChangeRequest}
           >
-            {isRejectingSystemUser
+            {isRejectingChangeRequest
               ? t('vendor_request.reject_loading')
               : t('vendor_request.reject')}
           </Button>
