@@ -14,7 +14,7 @@ import { AuthenticationRoute } from '@/routes/paths';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
-import { getApiBaseUrl } from '@/utils/urlUtils';
+import { getApiBaseUrl, getLogoutUrl } from '@/utils/urlUtils';
 
 interface ChangeRequestPageContentProps {
   changeRequest: ChangeRequest;
@@ -88,7 +88,7 @@ export const ChangeRequestPageContent = ({
   };
 
   const logoutUser = (): void => {
-    window.location.assign('/ui/Authentication/Logout');
+    window.location.assign(getLogoutUrl());
   };
 
   if (isReceiptVisible) {
