@@ -87,6 +87,4 @@ public class ChangeRequestController(
 
         return Ok(req.Value);
     }
-
-    // GET redirect
 }
