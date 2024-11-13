@@ -26,6 +26,7 @@ export const systemUserApi = apiWithTag.injectEndpoints({
     getVendors: builder.query<VendorSystem[], void>({
       query: () => `/systemregister`,
       providesTags: [Tags.VendorSystems],
+      keepUnusedDataFor: Infinity,
     }),
     getSystemRights: builder.query<ServiceResource[], string>({
       query: (systemId) => url`systemregister/rights/${systemId}`,
