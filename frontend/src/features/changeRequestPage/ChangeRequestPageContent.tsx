@@ -41,32 +41,47 @@ export const ChangeRequestPageContent = ({
     { isError: isRejectChangeRequestError, isLoading: isRejectingChangeRequest },
   ] = useRejectChangeRequestMutation();
 
+  const isActionButtonDisabled =
+    !userInfo.canCreateSystemUser ||
+    isAcceptingChangeRequest ||
+    isRejectingChangeRequest ||
+    changeRequest.status !== 'New';
+
   const acceptChangeRequest = (): void => {
-    postAcceptChangeRequest(changeRequest.id)
-      .unwrap()
-      .then(() => {
-        if (changeRequest.redirectUrl) {
-          redirectToVendor(changeRequest.redirectUrl);
-        } else {
-          setIsReceiptVisible(true);
-        }
-      });
+    if (!isActionButtonDisabled) {
+      postAcceptChangeRequest(changeRequest.id)
+        .unwrap()
+        .then(() => {
+          if (changeRequest.redirectUrl) {
+            logoutAndRedirectToVendor();
+          } else {
+            setIsReceiptVisible(true);
+          }
+        });
+    }
   };
 
   const rejectChangeRequest = (): void => {
-    postRejectChangeRequest(changeRequest.id)
-      .unwrap()
-      .then(() => {
-        if (changeRequest.redirectUrl) {
-          redirectToVendor(changeRequest.redirectUrl);
-        } else {
-          logoutUser();
-        }
-      });
+    if (!isActionButtonDisabled) {
+      postRejectChangeRequest(changeRequest.id)
+        .unwrap()
+        .then(() => {
+          if (changeRequest.redirectUrl) {
+            logoutAndRedirectToVendor();
+          } else {
+            logoutUser();
+          }
+        });
+    }
   };
 
-  const redirectToVendor = (requestUrl: string): void => {
-    const url = new URL(requestUrl);
+  const redirectToOverview = (): void => {
+    dispatch(setCreatedId(changeRequest.id));
+    navigate(AuthenticationRoute.Overview);
+  };
+
+  const logoutAndRedirectToVendor = (): void => {
+    const url = new URL('/authfront/api/v1/logout');
     url.searchParams.append('id', changeRequest.id);
     window.location.assign(url.toString());
   };
@@ -74,12 +89,6 @@ export const ChangeRequestPageContent = ({
   const logoutUser = (): void => {
     window.location.assign('/ui/Authentication/Logout');
   };
-
-  const isActionButtonDisabled =
-    !userInfo.canCreateSystemUser ||
-    isAcceptingChangeRequest ||
-    isRejectingChangeRequest ||
-    changeRequest.status !== 'New';
 
   if (isReceiptVisible) {
     return (
@@ -91,16 +100,10 @@ export const ChangeRequestPageContent = ({
         </Heading>
         <Paragraph>{t('vendor_request.receipt_body')}</Paragraph>
         <div className={classes.buttonRow}>
-          <Button variant='primary' onClick={() => logoutUser()}>
+          <Button variant='primary' onClick={logoutUser}>
             {t('vendor_request.receipt_close')}
           </Button>
-          <Button
-            variant='tertiary'
-            onClick={() => {
-              dispatch(setCreatedId(changeRequest.id));
-              navigate(AuthenticationRoute.Overview);
-            }}
-          >
+          <Button variant='tertiary' onClick={redirectToOverview}>
             {t('vendor_request.receipt_go_to_overview')}
           </Button>
         </div>
@@ -170,11 +173,7 @@ export const ChangeRequestPageContent = ({
           <Button
             variant='primary'
             aria-disabled={isActionButtonDisabled}
-            onClick={() => {
-              if (!isActionButtonDisabled) {
-                acceptChangeRequest();
-              }
-            }}
+            onClick={acceptChangeRequest}
             loading={isAcceptingChangeRequest}
           >
             {isAcceptingChangeRequest
@@ -184,11 +183,7 @@ export const ChangeRequestPageContent = ({
           <Button
             variant='tertiary'
             aria-disabled={isActionButtonDisabled}
-            onClick={() => {
-              if (!isActionButtonDisabled) {
-                rejectChangeRequest();
-              }
-            }}
+            onClick={rejectChangeRequest}
             loading={isRejectingChangeRequest}
           >
             {isRejectingChangeRequest

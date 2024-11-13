@@ -38,28 +38,38 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
     { isError: isRejectCreationRequestError, isLoading: isRejectingSystemUser },
   ] = useRejectSystemUserRequestMutation();
 
+  const isActionButtonDisabled =
+    !userInfo.canCreateSystemUser ||
+    isAcceptingSystemUser ||
+    isRejectingSystemUser ||
+    request.status !== 'New';
+
   const acceptSystemUser = (): void => {
-    postAcceptCreationRequest(request.id)
-      .unwrap()
-      .then(() => {
-        if (request.redirectUrl) {
-          redirectToVendor(request.redirectUrl);
-        } else {
-          setIsReceiptVisible(true);
-        }
-      });
+    if (!isActionButtonDisabled) {
+      postAcceptCreationRequest(request.id)
+        .unwrap()
+        .then(() => {
+          if (request.redirectUrl) {
+            redirectToVendor(request.redirectUrl);
+          } else {
+            setIsReceiptVisible(true);
+          }
+        });
+    }
   };
 
   const rejectSystemUser = (): void => {
-    postRejectCreationRequest(request.id)
-      .unwrap()
-      .then(() => {
-        if (request.redirectUrl) {
-          redirectToVendor(request.redirectUrl);
-        } else {
-          logoutUser();
-        }
-      });
+    if (!isActionButtonDisabled) {
+      postRejectCreationRequest(request.id)
+        .unwrap()
+        .then(() => {
+          if (request.redirectUrl) {
+            redirectToVendor(request.redirectUrl);
+          } else {
+            logoutUser();
+          }
+        });
+    }
   };
 
   const redirectToVendor = (requestUrl: string): void => {
@@ -72,11 +82,10 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
     window.location.assign('/ui/Authentication/Logout');
   };
 
-  const isActionButtonDisabled =
-    !userInfo.canCreateSystemUser ||
-    isAcceptingSystemUser ||
-    isRejectingSystemUser ||
-    request.status !== 'New';
+  const redirectToOverview = (): void => {
+    dispatch(setCreatedId(request.id));
+    navigate(AuthenticationRoute.Overview);
+  };
 
   if (isReceiptVisible) {
     return (
@@ -88,16 +97,10 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         </Heading>
         <Paragraph>{t('vendor_request.receipt_body')}</Paragraph>
         <div className={classes.buttonRow}>
-          <Button variant='primary' onClick={() => logoutUser()}>
+          <Button variant='primary' onClick={logoutUser}>
             {t('vendor_request.receipt_close')}
           </Button>
-          <Button
-            variant='tertiary'
-            onClick={() => {
-              dispatch(setCreatedId(request.id));
-              navigate(AuthenticationRoute.Overview);
-            }}
-          >
+          <Button variant='tertiary' onClick={redirectToOverview}>
             {t('vendor_request.receipt_go_to_overview')}
           </Button>
         </div>
@@ -155,11 +158,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
           <Button
             variant='primary'
             aria-disabled={isActionButtonDisabled}
-            onClick={() => {
-              if (!isActionButtonDisabled) {
-                acceptSystemUser();
-              }
-            }}
+            onClick={acceptSystemUser}
             loading={isAcceptingSystemUser}
           >
             {isAcceptingSystemUser
@@ -169,11 +168,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
           <Button
             variant='tertiary'
             aria-disabled={isActionButtonDisabled}
-            onClick={() => {
-              if (!isActionButtonDisabled) {
-                rejectSystemUser();
-              }
-            }}
+            onClick={rejectSystemUser}
             loading={isRejectingSystemUser}
           >
             {isRejectingSystemUser
