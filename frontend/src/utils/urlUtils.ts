@@ -1,3 +1,7 @@
+export const getApiBaseUrl = (): string => {
+  return '/authfront/api/v1/';
+};
+
 export const url = (strings: readonly string[], ...values: readonly string[]): string => {
   let result = strings[0];
   for (let i = 1; i < strings.length; i++) {

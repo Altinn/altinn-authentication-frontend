@@ -13,7 +13,7 @@ using Microsoft.Extensions.Options;
 /// The adminstration ( CRUD API ) of Requests are done by Vendors directly towards the Authentication component.
 /// </summary>
 
-[Route("authfront/api/v1/systemuser/request")]
+[Route("authfront/api/v1/systemuser/changerequest")]
 [ApiController]
 [AutoValidateAntiforgeryTokenIfAuthCookie]
 public class ChangeRequestController(
@@ -86,5 +86,29 @@ public class ChangeRequestController(
         }
 
         return Ok(req.Value);
+    }
+
+    /// <summary>
+    /// Logout
+    /// </summary>
+    /// <returns></returns>
+    [Authorize]
+    [HttpGet("logout")]
+    public IActionResult Logout([FromQuery] Guid id)
+    {
+        CookieOptions cookieOptions = new()
+        {
+            Domain = _generalSettings.Value.HostName,
+            HttpOnly = true,
+            Secure = true,
+            IsEssential = true,
+            SameSite = SameSiteMode.Lax
+        };
+
+        // store cookie value for redirect
+        HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserChangeRequestId={id}", cookieOptions);
+
+        string logoutUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}logout";
+        return Redirect(logoutUrl);
     }
 }

@@ -14,6 +14,7 @@ import { AuthenticationRoute } from '@/routes/paths';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
+import { getApiBaseUrl } from '@/utils/urlUtils';
 
 interface ChangeRequestPageContentProps {
   changeRequest: ChangeRequest;
@@ -81,7 +82,7 @@ export const ChangeRequestPageContent = ({
   };
 
   const logoutAndRedirectToVendor = (): void => {
-    const url = new URL('/authfront/api/v1/systemuser/request/logout', window.location.href);
+    const url = new URL(`${getApiBaseUrl()}systemuser/changerequest/logout`, window.location.href);
     url.searchParams.append('id', changeRequest.id);
     window.location.assign(url.toString());
   };
