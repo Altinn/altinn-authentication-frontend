@@ -70,28 +70,4 @@ public class ChangeRequestClient(
 
         return Problem.Generic_EndOfMethod;
     }
-/*
-    public async Task<Result<RedirectUrl>> GetChangeRequestRedirectUrl(Guid requestId, CancellationToken cancellationToken)
-    {
-        string endpoint = $"systemuser/changerequest/redirect/{requestId}";
-        HttpResponseMessage res = await client.GetAsync(InitClient(), endpoint);
-
-        if (res.IsSuccessStatusCode)
-        {
-            return JsonSerializer.Deserialize<RedirectUrl>(await res.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions);
-        } 
-        else 
-        {
-            AltinnProblemDetails? problemDetails = await res.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellationToken);
-            if (problemDetails?.ErrorCode.ToString() is "AUTH-00010") 
-            {
-                return Problem.RequestNotFound;
-            } 
-            else 
-            {
-                return Problem.Generic_EndOfMethod;
-            }
-        }
-    }
-    */
 }

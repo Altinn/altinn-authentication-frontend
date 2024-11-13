@@ -56,10 +56,4 @@ public class ChangeRequestService(
     {
         return await changeRequestClient.RejectChangeRequest(partyId, requestId, cancellationToken);
     }
-/*
-    public async Task<Result<RedirectUrl>> GetChangeRequestRedirectUrl(Guid requestId, CancellationToken cancellationToken = default)
-    {
-        return await changeRequestClient.GetChangeRequestRedirectUrl(requestId, cancellationToken);
-    }
-    */
 }
