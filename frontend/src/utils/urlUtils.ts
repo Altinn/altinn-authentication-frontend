@@ -15,3 +15,7 @@ export const url = (strings: readonly string[], ...values: readonly string[]): s
 export const getHostUrl = (): string => {
   return window.location.hostname.replace('authn.ui.', '');
 };
+
+export const getLogoutUrl = (): string => {
+  return `${getHostUrl()}/ui/Authentication/Logout`;
+};
