@@ -115,22 +115,22 @@ export const ChangeRequestPageContent = ({
   return (
     <>
       {changeRequest.status === 'Accepted' && (
-        <Alert color='info'>{t('vendor_request.request_accepted')}</Alert>
+        <Alert color='info'>{t('change_request.request_accepted')}</Alert>
       )}
       {changeRequest.status === 'Rejected' && (
-        <Alert color='info'>{t('vendor_request.request_rejected')}</Alert>
+        <Alert color='info'>{t('change_request.request_rejected')}</Alert>
       )}
       {changeRequest.status === 'Timedout' && (
-        <Alert color='info'>{t('vendor_request.request_expired')}</Alert>
+        <Alert color='info'>{t('change_request.request_expired')}</Alert>
       )}
       <Heading level={2} size='sm'>
-        {t('vendor_request.creation_header', {
+        {t('change_request.change_request_header', {
           vendorName: changeRequest.system.name[currentLanguage],
         })}
       </Heading>
       <Paragraph spacing>
         <Trans
-          i18nKey={'vendor_request.system_description'}
+          i18nKey={'change_request.system_description'}
           values={{
             systemName: changeRequest.system.name[currentLanguage],
             partyName: userInfo.representingPartyName,
@@ -141,8 +141,8 @@ export const ChangeRequestPageContent = ({
         <div>
           <Heading level={3} size='xs'>
             {changeRequest.requiredResources.length === 1
-              ? 'Denne rettigheten legges til'
-              : 'Disse rettighetene legges til'}
+              ? t('change_request.right_singular_added')
+              : t('change_request.rights_plural_added')}
           </Heading>
           <RightsList resources={changeRequest.requiredResources} />
         </div>
@@ -150,9 +150,9 @@ export const ChangeRequestPageContent = ({
       {changeRequest.unwantedResources.length > 0 && (
         <div>
           <Heading level={3} size='xs'>
-            {changeRequest.requiredResources.length === 1
-              ? 'Denne rettigheten fjernes'
-              : 'Disse rettighetene fjernes'}
+            {changeRequest.unwantedResources.length === 1
+              ? t('change_request.right_singular_removed')
+              : t('change_request.rights_plural_removed')}
           </Heading>
           <RightsList resources={changeRequest.unwantedResources} />
         </div>
@@ -162,12 +162,12 @@ export const ChangeRequestPageContent = ({
         {!userInfo.canCreateSystemUser && <RightsError />}
         {isAcceptChangeRequestError && (
           <Alert color='danger' role='alert'>
-            {t('vendor_request.accept_error')}
+            {t('change_request.accept_error')}
           </Alert>
         )}
         {isRejectChangeRequestError && (
           <Alert color='danger' role='alert'>
-            {t('vendor_request.reject_error')}
+            {t('change_request.reject_error')}
           </Alert>
         )}
         <div className={classes.buttonRow}>
@@ -178,8 +178,8 @@ export const ChangeRequestPageContent = ({
             loading={isAcceptingChangeRequest}
           >
             {isAcceptingChangeRequest
-              ? t('vendor_request.accept_loading')
-              : t('vendor_request.accept')}
+              ? t('change_request.accept_loading')
+              : t('change_request.accept')}
           </Button>
           <Button
             variant='tertiary'
@@ -188,8 +188,8 @@ export const ChangeRequestPageContent = ({
             loading={isRejectingChangeRequest}
           >
             {isRejectingChangeRequest
-              ? t('vendor_request.reject_loading')
-              : t('vendor_request.reject')}
+              ? t('change_request.reject_loading')
+              : t('change_request.reject')}
           </Button>
         </div>
       </div>

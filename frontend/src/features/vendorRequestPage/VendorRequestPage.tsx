@@ -36,13 +36,13 @@ export const VendorRequestPage = () => {
         <Alert color='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
       )}
       {(isLoadingCreationRequestError || (creationRequest && !creationRequest.system)) && (
-        <Alert color='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
+        <Alert color='danger'>{t('change_request.load_creation_request_error')}</Alert>
       )}
       {isLoadUserInfoError && (
         <Alert color='danger'>{t('vendor_request.load_user_info_error')}</Alert>
       )}
       {(isLoadingUserInfo || isLoadingCreationRequest) && (
-        <Spinner title={t('vendor_request.loading')} />
+        <Spinner title={t('vendor_request.loading_creation_request')} />
       )}
       {creationRequest && creationRequest.system && userInfo && (
         <VendorRequestPageContent request={creationRequest} userInfo={userInfo} />

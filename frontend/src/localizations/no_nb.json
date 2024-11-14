@@ -86,8 +86,8 @@
     "load_creation_request_error": "Kunne ikke laste systemtilgang-forespørsel",
     "load_user_info_error": "Kunne ikke laste brukerinfo",
     "load_creation_request_no_id": "id må være med som query-parameter i url",
-    "accept_error": "Kunne ikke godkjenne forespørsel",
-    "reject_error": "Kunne ikke avvise forespørsel",
+    "accept_error": "Kunne ikke godkjenne systemtilgang",
+    "reject_error": "Kunne ikke avvise systemtilgang",
     "accept_loading": "Godkjenner systemtilgang...",
     "reject_loading": "Avviser systemtilgang...",
     "request_accepted": "Denne forespørselen er allerede godkjent",
@@ -98,5 +98,25 @@
     "receipt_body": "På altinn.no finner du en oversikt over systemtilgangene dine. Der kan du også endre navn på systemtilgangen, og når som helst trekke tilbake godkjenningen.",
     "receipt_close": "Lukk",
     "receipt_go_to_overview": "Se oversikt i Altinn"
+  },
+  "change_request": {
+    "banner_title": "Endre systemtilgang",
+    "change_request_header": "{{vendorName}} ber om godkjenning til å gjøre endringer i systemtilgang",
+    "system_description": "Gjennom systemtilgangen kan <strong>{{systemName}}</strong> løse oppgaver på vegne av <strong>{{partyName}}</strong>. Endringen innebærer.....",
+    "right_singular_added": "Denne tjenesten legges til",
+    "rights_plural_added": "Disse tjenestene legges til",
+    "right_singular_removed": "Denne tjenesten fjernes",
+    "rights_plural_removed": "Disse tjenestene fjernes",
+    "accept": "Godkjenn oppdatert systemtilgang",
+    "reject": "Avvis",
+    "loading_change_request": "Laster endringsforespørsel",
+    "load_change_request_error": "Kunne ikke laste endringsforespørsel",
+    "accept_error": "Kunne ikke godkjenne endring",
+    "reject_error": "Kunne ikke avvise endring",
+    "accept_loading": "Godkjenner endring...",
+    "reject_loading": "Avviser endring...",
+    "request_accepted": "Denne endringsforespørselen er allerede godkjent",
+    "request_rejected": "Denne endringsforespørselen er allerede avvist",
+    "request_expired": "Denne endringsforespørselen har utløpt"
   }
 }

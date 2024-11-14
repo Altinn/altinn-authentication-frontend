@@ -30,19 +30,19 @@ export const ChangeRequestPage = () => {
     <RequestPage
       userInfo={userInfo}
       system={changeRequest?.system}
-      heading={t('vendor_request.banner_title')}
+      heading={t('change_request.banner_title')}
     >
       {!changeRequestId && (
         <Alert color='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
       )}
       {(isLoadingChangeRequestError || (changeRequest && !changeRequest.system)) && (
-        <Alert color='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
+        <Alert color='danger'>{t('change_request.load_change_request_error')}</Alert>
       )}
       {isLoadUserInfoError && (
-        <Alert color='danger'>{t('vendor_request.load_user_info_error')}</Alert>
+        <Alert color='danger'>{t('change_request.load_user_info_error')}</Alert>
       )}
       {(isLoadingUserInfo || isLoadingChangeRequest) && (
-        <Spinner title={t('vendor_request.loading')} />
+        <Spinner title={t('change_request.loading_change_request')} />
       )}
       {changeRequest && changeRequest.system && userInfo && (
         <ChangeRequestPageContent changeRequest={changeRequest} userInfo={userInfo} />
