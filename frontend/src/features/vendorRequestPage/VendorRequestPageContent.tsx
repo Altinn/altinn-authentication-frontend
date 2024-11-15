@@ -43,7 +43,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       .unwrap()
       .then(() => {
         if (request.redirectUrl) {
-          redirectToVendor(request.redirectUrl);
+          logoutAndRedirectToVendor();
         } else {
           setIsReceiptVisible(true);
         }
@@ -55,15 +55,15 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       .unwrap()
       .then(() => {
         if (request.redirectUrl) {
-          redirectToVendor(request.redirectUrl);
+          logoutAndRedirectToVendor();
         } else {
           logoutUser();
         }
       });
   };
 
-  const redirectToVendor = (requestUrl: string): void => {
-    const url = new URL(requestUrl);
+  const logoutAndRedirectToVendor = (): void => {
+    const url = new URL('/authfront/api/v1/systemuser/request/logout', window.location.href);
     url.searchParams.append('id', request.id);
     window.location.assign(url.toString());
   };
