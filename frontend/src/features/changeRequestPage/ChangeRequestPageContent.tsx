@@ -91,6 +91,28 @@ export const ChangeRequestPageContent = ({
     window.location.assign(getLogoutUrl());
   };
 
+  const getChangeDescription = (): string => {
+    let addedText = '';
+    let removedText = '';
+    if (changeRequest.requiredResources.length) {
+      addedText =
+        changeRequest.requiredResources.length === 1
+          ? t('change_request.rights_change_add_singular')
+          : t('change_request.rights_change_add_plural', {
+              addedCount: changeRequest.requiredResources.length,
+            });
+    }
+    if (changeRequest.unwantedResources.length) {
+      removedText =
+        changeRequest.unwantedResources.length === 1
+          ? t('change_request.rights_change_remove_singular')
+          : t('change_request.rights_change_remove_plural', {
+              removedCount: changeRequest.unwantedResources.length,
+            });
+    }
+    return [addedText, removedText].filter(Boolean).join(` ${t('change_request.and')} `) + '.';
+  };
+
   if (isReceiptVisible) {
     return (
       <>
@@ -134,6 +156,7 @@ export const ChangeRequestPageContent = ({
           values={{
             systemName: changeRequest.system.name[currentLanguage],
             partyName: userInfo.representingPartyName,
+            changeDescription: getChangeDescription(),
           }}
         ></Trans>
       </Paragraph>
