@@ -49,14 +49,14 @@ public class SystemUserController : ControllerBase
 
         if (partyId == 0) return actionResult;               
 
-        var list = await _systemUserService.GetAllSystemUsersForParty(partyId, cancellationToken);
+        Result<List<SystemUser>> list = await _systemUserService.GetAllSystemUsersForParty(partyId, cancellationToken);
 
         if (list.IsProblem)
         {
             return list.Problem.ToActionResult();
         }
 
-        return Ok(list);
+        return Ok(list.Value);
     }
 
     [Authorize]
