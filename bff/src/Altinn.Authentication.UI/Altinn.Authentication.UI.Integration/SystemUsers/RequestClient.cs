@@ -31,6 +31,11 @@ public class RequestClient(
         string endpoint = $"systemuser/request/{partyId}/{requestId}";
         HttpResponseMessage res = await client.GetAsync(InitClient(), endpoint);
 
+        if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return Problem.RequestNotFound;
+        } 
+
         if (res.IsSuccessStatusCode)
         {
             var val = JsonSerializer.Deserialize<VendorRequest>(await res.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions);

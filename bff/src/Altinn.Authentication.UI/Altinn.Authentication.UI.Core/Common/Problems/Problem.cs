@@ -50,6 +50,12 @@ public static class Problem
     /// <summary>
     /// Gets a <see cref="ProblemDescriptor"/>.
     /// </summary>
+    public static ProblemDescriptor RequestNotFound { get; }
+        = _factory.Create(10, HttpStatusCode.NotFound, "The request was not found for given party.");
+
+    /// <summary>
+    /// Gets a <see cref="ProblemDescriptor"/>.
+    /// </summary>
     public static ProblemDescriptor UnableToDoDelegationCheck { get; }
         = _factory.Create(14, HttpStatusCode.InternalServerError, "DelegationCheck failed with unknown error.");
 
