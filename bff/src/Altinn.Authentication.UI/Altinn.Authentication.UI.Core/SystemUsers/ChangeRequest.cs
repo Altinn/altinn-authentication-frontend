@@ -101,14 +101,14 @@ public class ChangeRequest()
     /// The list of resources calculated from RequiredRights.
     /// </summary>
     [Required]
-    [JsonPropertyName("resources")]
+    [JsonPropertyName("requiredResources")]
     public List<ServiceResource> RequiredResources { get; set; } = [];
 
     /// <summary>
     /// The list of resources calculated from UnwantedRights.
     /// </summary>
     [Required]
-    [JsonPropertyName("resources")]
+    [JsonPropertyName("unwantedResources")]
     public List<ServiceResource> UnwantedResources { get; set; } = [];
 
     /// <summary>
