@@ -93,8 +93,8 @@ public class RequestController(
     /// </summary>
     /// <returns></returns>
     [Authorize]
-    [HttpGet("logout")]
-    public IActionResult Logout([FromQuery] Guid id)
+    [HttpGet("{requestId}/logout")]
+    public IActionResult Logout(Guid requestId)
     {
         CookieOptions cookieOptions = new()
         {
@@ -106,7 +106,7 @@ public class RequestController(
         };
 
         // store cookie value for redirect
-        HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={id}", cookieOptions);
+        HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={requestId}", cookieOptions);
         
         string logoutUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}logout";
         return Redirect(logoutUrl);

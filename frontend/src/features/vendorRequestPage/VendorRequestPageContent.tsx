@@ -65,8 +65,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   };
 
   const logoutAndRedirectToVendor = (): void => {
-    const url = new URL('/authfront/api/v1/systemuser/request/logout', window.location.href);
-    url.searchParams.append('id', request.id);
+    const url = `/authfront/api/v1/systemuser/request/${request.id}/logout`;
     window.location.assign(url.toString());
   };
 
