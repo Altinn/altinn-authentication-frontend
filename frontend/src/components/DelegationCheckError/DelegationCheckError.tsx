@@ -16,23 +16,23 @@ export const DelegationCheckError = ({ error }: DelegationCheckErrorProps): Reac
   const getErrorMessage = (): string => {
     switch (error?.data?.code) {
       case 'ATUI-00001':
-        return t('01_rights_not_found_or_not_delegable');
+        return t('delegation_errors.01_rights_not_found_or_not_delegable');
       case 'ATUI-00002':
-        return t('02_rights_failed_to_delegate');
+        return t('delegation_errors.02_rights_failed_to_delegate');
       case 'ATUI-00003':
-        return t('03_systemuser_failed_to_create');
+        return t('delegation_errors.03_systemuser_failed_to_create');
       case 'ATUI-00004':
-        return t('04_system_user_already_exists');
+        return t('delegation_errors.04_system_user_already_exists');
       case 'ATUI-00014':
-        return t('14_unable_to_do_delegation_check');
+        return t('delegation_errors.14_unable_to_do_delegation_check');
       case 'ATUI-00015':
-        return t('15_delegation_right_missing_role_access');
+        return t('delegation_errors.15_delegation_right_missing_role_access');
       case 'ATUI-00016':
-        return t('16_delegation_right_missing_delegation_access');
+        return t('delegation_errors.16_delegation_right_missing_delegation_access');
       case 'ATUI-00017':
-        return t('17_delegation_right_missing_srr_right_access');
+        return t('delegation_errors.17_delegation_right_missing_srr_right_access');
       case 'ATUI-00018':
-        return t('18_delegation_right_insufficient_authentication_level');
+        return t('delegation_errors.18_delegation_right_insufficient_authentication_level');
       default:
         return t('authent_includedrightspage.create_systemuser_error');
     }
