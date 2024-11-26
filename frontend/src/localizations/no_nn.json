@@ -98,5 +98,22 @@
     "receipt_body": "På altinn.no finn du ei oversikt over systemtilgangane dine. Der kan du også endre navn på systemtilgangen, og når som helst trekke tilbake godkjenninga.",
     "receipt_close": "Lukk",
     "receipt_go_to_overview": "Sjå oversikt i Altinn"
+  },
+  "change_request": {
+    "banner_title": "Oppdatering av systemtilgang",
+    "change_request_header": "{{vendorName}} ber om godkjenning til å gjøre endringar i systemtilgang",
+    "rights_list_header": "Etter oppdateringen vil systemtilgangen innehalde desse tenestene:",
+    "rights_list_header_single": "Etter oppdateringen vil systemtilgangen innehalde denne tenesta:",
+    "accept": "Godkjenn oppdatert systemtilgang",
+    "reject": "Avvis",
+    "loading_change_request": "Laster oppdaterings-førespurnad",
+    "load_change_request_error": "Kunne ikkje laste oppdaterings-førespurnad",
+    "accept_error": "Kunne ikkje godkjenne oppdatert systemtilgang",
+    "reject_error": "Kunne ikkje avvise oppdatert systemtilgang",
+    "accept_loading": "Godkjenner oppdatert systemtilgang...",
+    "reject_loading": "Avviser oppdatert systemtilgang...",
+    "request_accepted": "Denne oppdaterings-førespurnaden er allerede godkjent",
+    "request_rejected": "Denne oppdaterings-førespurnaden er allerede avvist",
+    "request_expired": "Denne oppdaterings-førespurnaden har gått ut"
   }
 }

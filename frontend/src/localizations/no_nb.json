@@ -100,21 +100,20 @@
     "receipt_go_to_overview": "Se oversikt i Altinn"
   },
   "change_request": {
-    "banner_title": "Endre systemtilgang",
+    "banner_title": "Oppdatering av systemtilgang",
     "change_request_header": "{{vendorName}} ber om godkjenning til å gjøre endringer i systemtilgang",
-    "system_description": "Gjennom systemtilgangen kan <strong>{{systemName}}</strong> løse oppgaver på vegne av <strong>{{partyName}}</strong>.",
     "rights_list_header": "Etter oppdateringen vil systemtilgangen inneholde disse tjenestene:",
     "rights_list_header_single": "Etter oppdateringen vil systemtilgangen inneholde denne tjenesten:",
     "accept": "Godkjenn oppdatert systemtilgang",
     "reject": "Avvis",
-    "loading_change_request": "Laster endringsforespørsel",
-    "load_change_request_error": "Kunne ikke laste endringsforespørsel",
-    "accept_error": "Kunne ikke godkjenne endring",
-    "reject_error": "Kunne ikke avvise endring",
-    "accept_loading": "Godkjenner endring...",
-    "reject_loading": "Avviser endring...",
-    "request_accepted": "Denne endringsforespørselen er allerede godkjent",
-    "request_rejected": "Denne endringsforespørselen er allerede avvist",
-    "request_expired": "Denne endringsforespørselen har utløpt"
+    "loading_change_request": "Laster oppdaterings-forespørsel",
+    "load_change_request_error": "Kunne ikke laste oppdaterings-forespørsel",
+    "accept_error": "Kunne ikke godkjenne oppdatert systemtilgang",
+    "reject_error": "Kunne ikke avvise oppdatert systemtilgang",
+    "accept_loading": "Godkjenner oppdatert systemtilgang...",
+    "reject_loading": "Avviser oppdatert systemtilgang...",
+    "request_accepted": "Denne oppdaterings-forespørselen er allerede godkjent",
+    "request_rejected": "Denne oppdaterings-forespørselen er allerede avvist",
+    "request_expired": "Denne oppdaterings-forespørselen har utløpt"
   }
 }

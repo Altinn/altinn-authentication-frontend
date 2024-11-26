@@ -130,7 +130,7 @@ export const ChangeRequestPageContent = ({
       </Heading>
       <Paragraph spacing>
         <Trans
-          i18nKey={'change_request.system_description'}
+          i18nKey={'vendor_request.system_description'}
           values={{
             systemName: changeRequest.system.name[currentLanguage],
             partyName: userInfo.representingPartyName,
