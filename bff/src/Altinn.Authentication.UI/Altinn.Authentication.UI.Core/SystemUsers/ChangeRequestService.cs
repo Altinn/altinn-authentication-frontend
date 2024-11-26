@@ -21,8 +21,7 @@ public class ChangeRequestService(
         if (request.Value != null) 
         {
             // add resources
-            request.Value.RequiredResources = await resourceRegistryClient.GetResources(request.Value.RequiredRights, cancellationToken);
-            request.Value.UnwantedResources = await resourceRegistryClient.GetResources(request.Value.UnwantedRights, cancellationToken);
+            request.Value.ResourcesAfterChange = await resourceRegistryClient.GetResources(request.Value.RequiredRights, cancellationToken);
 
             // add system
             RegisteredSystemDTO? system = await systemRegisterClient.GetSystem(request.Value.SystemId, cancellationToken);

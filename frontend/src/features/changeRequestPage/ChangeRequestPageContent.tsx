@@ -91,28 +91,6 @@ export const ChangeRequestPageContent = ({
     window.location.assign(getLogoutUrl());
   };
 
-  const getChangeDescription = (): string => {
-    let addedText = '';
-    let removedText = '';
-    if (changeRequest.requiredResources.length) {
-      addedText =
-        changeRequest.requiredResources.length === 1
-          ? t('change_request.rights_change_add_singular')
-          : t('change_request.rights_change_add_plural', {
-              addedCount: changeRequest.requiredResources.length,
-            });
-    }
-    if (changeRequest.unwantedResources.length) {
-      removedText =
-        changeRequest.unwantedResources.length === 1
-          ? t('change_request.rights_change_remove_singular')
-          : t('change_request.rights_change_remove_plural', {
-              removedCount: changeRequest.unwantedResources.length,
-            });
-    }
-    return [addedText, removedText].filter(Boolean).join(` ${t('change_request.and')} `) + '.';
-  };
-
   if (isReceiptVisible) {
     return (
       <>
@@ -156,30 +134,17 @@ export const ChangeRequestPageContent = ({
           values={{
             systemName: changeRequest.system.name[currentLanguage],
             partyName: userInfo.representingPartyName,
-            changeDescription: getChangeDescription(),
           }}
         ></Trans>
       </Paragraph>
-      {changeRequest.requiredResources.length > 0 && (
-        <div>
-          <Heading level={3} size='xs'>
-            {changeRequest.requiredResources.length === 1
-              ? t('change_request.right_singular_added')
-              : t('change_request.rights_plural_added')}
-          </Heading>
-          <RightsList resources={changeRequest.requiredResources} />
-        </div>
-      )}
-      {changeRequest.unwantedResources.length > 0 && (
-        <div>
-          <Heading level={3} size='xs'>
-            {changeRequest.unwantedResources.length === 1
-              ? t('change_request.right_singular_removed')
-              : t('change_request.rights_plural_removed')}
-          </Heading>
-          <RightsList resources={changeRequest.unwantedResources} />
-        </div>
-      )}
+      <div>
+        <Heading level={3} size='xs'>
+          {changeRequest.resourcesAfterChange.length === 1
+            ? t('change_request.rights_list_header_single')
+            : t('change_request.rights_list_header')}
+        </Heading>
+        <RightsList resources={changeRequest.resourcesAfterChange} />
+      </div>
       <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
       <div>
         {!userInfo.canCreateSystemUser && <RightsError />}

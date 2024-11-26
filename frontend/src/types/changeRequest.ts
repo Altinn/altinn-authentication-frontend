@@ -11,7 +11,6 @@ export interface ChangeRequest {
   status: RequestStatus;
   requiredRights: SystemRight[];
   unwantedRights: SystemRight[];
-  requiredResources: ServiceResource[];
-  unwantedResources: ServiceResource[];
+  resourcesAfterChange: ServiceResource[];
   redirectUrl?: string;
 }

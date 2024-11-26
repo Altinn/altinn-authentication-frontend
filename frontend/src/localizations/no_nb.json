@@ -102,11 +102,9 @@
   "change_request": {
     "banner_title": "Endre systemtilgang",
     "change_request_header": "{{vendorName}} ber om godkjenning til å gjøre endringer i systemtilgang",
-    "system_description": "Gjennom systemtilgangen kan <strong>{{systemName}}</strong> løse oppgaver på vegne av <strong>{{partyName}}</strong>. Endringen innebærer at {{changeDescription}}",
-    "right_singular_added": "Denne tjenesten legges til",
-    "rights_plural_added": "Disse tjenestene legges til",
-    "right_singular_removed": "Denne tjenesten fjernes",
-    "rights_plural_removed": "Disse tjenestene fjernes",
+    "system_description": "Gjennom systemtilgangen kan <strong>{{systemName}}</strong> løse oppgaver på vegne av <strong>{{partyName}}</strong>.",
+    "rights_list_header": "Etter oppdateringen vil systemtilgangen inneholde disse tjenestene:",
+    "rights_list_header_single": "Etter oppdateringen vil systemtilgangen inneholde denne tjenesten:",
     "accept": "Godkjenn oppdatert systemtilgang",
     "reject": "Avvis",
     "loading_change_request": "Laster endringsforespørsel",
@@ -117,11 +115,6 @@
     "reject_loading": "Avviser endring...",
     "request_accepted": "Denne endringsforespørselen er allerede godkjent",
     "request_rejected": "Denne endringsforespørselen er allerede avvist",
-    "request_expired": "Denne endringsforespørselen har utløpt",
-    "rights_change_add_singular": "en tjeneste legges til",
-    "rights_change_add_plural": "{{addedCount}} tjenester legges til",
-    "rights_change_remove_singular": "en tjeneste fjernes",
-    "rights_change_remove_plural": "{{removeCount}} tjenester fjernes",
-    "and": "og"
+    "request_expired": "Denne endringsforespørselen har utløpt"
   }
 }

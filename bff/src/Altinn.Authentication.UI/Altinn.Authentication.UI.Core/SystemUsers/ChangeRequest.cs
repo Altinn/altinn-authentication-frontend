@@ -98,18 +98,11 @@ public class ChangeRequest()
     public DateTime Created { get; set; }
 
     /// <summary>
-    /// The list of resources calculated from RequiredRights.
+    /// The list of resources calculated from RequiredRights and UnwantedRights.
     /// </summary>
     [Required]
-    [JsonPropertyName("requiredResources")]
-    public List<ServiceResource> RequiredResources { get; set; } = [];
-
-    /// <summary>
-    /// The list of resources calculated from UnwantedRights.
-    /// </summary>
-    [Required]
-    [JsonPropertyName("unwantedResources")]
-    public List<ServiceResource> UnwantedResources { get; set; } = [];
+    [JsonPropertyName("resourcesAfterChange")]
+    public List<ServiceResource> ResourcesAfterChange { get; set; } = [];
 
     /// <summary>
     /// Full system object

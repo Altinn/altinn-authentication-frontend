@@ -773,7 +773,7 @@ export const handlers = [
           ],
         },
       ],
-      requiredResources: [
+      resourcesAfterChange: [
         {
           identifier: 'ske-krav-og-betalinger',
           version: '1',
@@ -827,8 +827,6 @@ export const handlers = [
           authorizationReference: null,
           logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
         },
-      ],
-      unwantedResources: [
         {
           identifier: 'nav-og-betalinger',
           version: '1',
