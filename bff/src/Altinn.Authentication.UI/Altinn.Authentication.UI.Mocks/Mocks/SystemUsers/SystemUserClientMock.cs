@@ -104,7 +104,7 @@ public class SystemUserClientMock : ISystemUserClient
         return _systemUserList;
     }
 
-    public Task<Result<CreateSystemUserResponse>> CreateSystemUser(int partyId, SystemUserRequestDto newSystemUserDescriptor, CancellationToken cancellation = default)
+    public Task<Result<SystemUser>> CreateSystemUser(int partyId, SystemUserRequestDto newSystemUserDescriptor, CancellationToken cancellation = default)
     {
         throw new NotImplementedException();
     }

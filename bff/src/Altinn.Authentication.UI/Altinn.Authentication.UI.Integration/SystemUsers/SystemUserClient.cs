@@ -52,14 +52,14 @@ public class SystemUserClient : ISystemUserClient
         return null;
     }
 
-    public async Task<Result<CreateSystemUserResponse>> CreateSystemUser(
+    public async Task<Result<SystemUser>> CreateSystemUser(
         int partyId,
         SystemUserRequestDto newSystemUser,
         CancellationToken cancellation = default)
     {
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"systemuser/{partyId}/bff";
+        string endpointUrl = $"systemuser/{partyId}/create";
 
         _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUser} ");
 
@@ -68,7 +68,7 @@ public class SystemUserClient : ISystemUserClient
        
         if (response.IsSuccessStatusCode) 
         {
-            return await response.Content.ReadFromJsonAsync<CreateSystemUserResponse>(cancellation);
+            return await response.Content.ReadFromJsonAsync<SystemUser>(cancellation);
         }
         
         try

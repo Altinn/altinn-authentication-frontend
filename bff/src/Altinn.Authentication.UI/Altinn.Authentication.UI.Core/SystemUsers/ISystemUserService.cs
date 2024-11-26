@@ -13,7 +13,7 @@ public interface ISystemUserService
     Task<Result<List<SystemUser>>> GetAllSystemUsersForParty(int partyId, CancellationToken cancellationToken = default);
     Task<SystemUser?> GetSpecificSystemUserDTO(int partyId, Guid id, CancellationToken cancellationToken = default);
 
-    Task<Result<CreateSystemUserResponse>> CreateSystemUserV2(int partyId, SystemUserRequestDto newSystemUserDescriptor, CancellationToken cancellation = default);
+    Task<Result<SystemUser>> CreateSystemUser(int partyId, SystemUserRequestDto newSystemUserDescriptor, CancellationToken cancellation = default);
 
     /// <summary>
     /// Deletes system user

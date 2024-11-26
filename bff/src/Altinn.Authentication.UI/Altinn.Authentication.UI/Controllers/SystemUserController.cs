@@ -88,14 +88,14 @@ public class SystemUserController : ControllerBase
         // Get the partyId from the context (Altinn Part Coook)
         int partyId = AuthenticationHelper.GetRepresentingPartyId( HttpContext);        
 
-        Result<CreateSystemUserResponse> systemUserv2 = await _systemUserService.CreateSystemUserV2(partyId, newSystemUser, cancellationToken);
+        Result<SystemUser> systemUser = await _systemUserService.CreateSystemUser(partyId, newSystemUser, cancellationToken);
 
-        if (systemUserv2.IsProblem)
+        if (systemUser.IsProblem)
         {
-            return systemUserv2.Problem.ToActionResult(); 
+            return systemUser.Problem.ToActionResult(); 
         }
 
-        return Ok(systemUserv2.Value);
+        return Ok(systemUser.Value);
     }
 
     [Authorize]

@@ -75,7 +75,7 @@ public class SystemUserService : ISystemUserService
         return systemUser;
     }
 
-    public async Task<Result<CreateSystemUserResponse>> CreateSystemUserV2(int partyId, SystemUserRequestDto newSystemUser, CancellationToken cancellation = default)
+    public async Task<Result<SystemUser>> CreateSystemUser(int partyId, SystemUserRequestDto newSystemUser, CancellationToken cancellation = default)
     {
         AuthorizedPartyExternal? party = await _accessManagementClient.GetPartyFromReporteeListIfExists(partyId);
         if (party is null)
