@@ -49,25 +49,32 @@ public class RequestClient(
     {
         string endpoint = $"systemuser/request/{partyId}/{requestId}/approve";
         HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
-
-        if (res.IsSuccessStatusCode)
-        {
-            return true;
-        }
-
-        return Problem.Generic_EndOfMethod;
+        return await HandleResponse(res, cancellationToken);
     }
 
     public async Task<Result<bool>> RejectRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
     {
         string endpoint = $"systemuser/request/{partyId}/{requestId}/reject";
         HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
+        return await HandleResponse(res, cancellationToken);
+    }
+
+    private async Task<Result<bool>> HandleResponse(HttpResponseMessage res, CancellationToken cancellationToken)
+    {
 
         if (res.IsSuccessStatusCode)
         {
             return true;
         }
 
-        return Problem.Generic_EndOfMethod;
+        try
+        {
+            AltinnProblemDetails? problemDetails = await res.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellationToken);
+            return ProblemMapper.MapToAuthUiError(problemDetails?.ErrorCode.ToString());
+        }
+        catch 
+        {
+            return Problem.Generic_EndOfMethod;
+        }
     }
 }

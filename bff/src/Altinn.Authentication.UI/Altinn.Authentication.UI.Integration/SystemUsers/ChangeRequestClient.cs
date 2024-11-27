@@ -31,6 +31,11 @@ public class ChangeRequestClient(
         string endpoint = $"systemuser/changerequest/{partyId}/{requestId}";
         HttpResponseMessage res = await client.GetAsync(InitClient(), endpoint);
 
+        if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return Problem.RequestNotFound;
+        } 
+
         if (res.IsSuccessStatusCode)
         {
             var val = JsonSerializer.Deserialize<ChangeRequest>(await res.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions);
@@ -49,25 +54,32 @@ public class ChangeRequestClient(
     {
         string endpoint = $"systemuser/changerequest/{partyId}/{requestId}/approve";
         HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
-
-        if (res.IsSuccessStatusCode)
-        {
-            return true;
-        }
-
-        return Problem.Generic_EndOfMethod;
+        return await HandleResponse(res, cancellationToken);
     }
 
     public async Task<Result<bool>> RejectChangeRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
     {
         string endpoint = $"systemuser/changerequest/{partyId}/{requestId}/reject";
         HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
+        return await HandleResponse(res, cancellationToken);
+    }
+
+    private async Task<Result<bool>> HandleResponse(HttpResponseMessage res, CancellationToken cancellationToken)
+    {
 
         if (res.IsSuccessStatusCode)
         {
             return true;
         }
 
-        return Problem.Generic_EndOfMethod;
+        try
+        {
+            AltinnProblemDetails? problemDetails = await res.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellationToken);
+            return ProblemMapper.MapToAuthUiError(problemDetails?.ErrorCode.ToString());
+        }
+        catch 
+        {
+            return Problem.Generic_EndOfMethod;
+        }
     }
 }
