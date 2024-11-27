@@ -33,11 +33,11 @@ export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderPro
       <div className={classes.titleWrapper}>
         {icon}
         <div>
-          <Paragraph size={headingSize} className={classes.title}>
+          <Paragraph data-size={headingSize} className={classes.title}>
             {title}
           </Paragraph>
           {subtitle && (
-            <Paragraph size='xs' className={classes.subtitle}>
+            <Paragraph data-size='xs' className={classes.subtitle}>
               {subtitle}
             </Paragraph>
           )}

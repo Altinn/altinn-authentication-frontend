@@ -512,35 +512,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:1.0.0-next.34":
-  version: 1.0.0-next.34
-  resolution: "@digdir/designsystemet-css@npm:1.0.0-next.34"
-  checksum: 10c0/0516d38fb847794c3de53f6e5976d97116edbe7c118eeab107c77afb776370b1de2cdf409d40de236d6d9f38004d47df225e5c30601be1bd3b62d896dae5fa78
+"@digdir/designsystemet-css@npm:1.0.0-next.39":
+  version: 1.0.0-next.39
+  resolution: "@digdir/designsystemet-css@npm:1.0.0-next.39"
+  checksum: 10c0/9fec473ec40aa9387ba87d2673a2928abf7df00f06106306b4b3894bef2d36fe6c71b462c0442848faf8eeb4847fbb930ae64cec70337d992b51588040db3a94
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-react@npm:1.0.0-next.34":
-  version: 1.0.0-next.34
-  resolution: "@digdir/designsystemet-react@npm:1.0.0-next.34"
+"@digdir/designsystemet-react@npm:1.0.0-next.39":
+  version: 1.0.0-next.39
+  resolution: "@digdir/designsystemet-react@npm:1.0.0-next.39"
   dependencies:
     "@floating-ui/dom": "npm:^1.6.10"
     "@floating-ui/react": "npm:0.26.23"
     "@navikt/aksel-icons": "npm:^6.14.0"
     "@radix-ui/react-slot": "npm:^1.1.0"
     "@tanstack/react-virtual": "npm:^3.10.7"
-    "@u-elements/u-details": "npm:^0.0.5"
+    "@u-elements/u-details": "npm:^0.1.0"
     clsx: "npm:^2.1.1"
   peerDependencies:
     react: ">=18.3.1"
     react-dom: ">=18.3.1"
-  checksum: 10c0/020929b52f5b115c8f7fafc6f5f770d59d6adbd811baf04a3b6258fb6c31b11779e74cefbf5e0bcefc83c575c94c6bc4baad3d5dcf93c66a5f4801ee997c53b7
+  checksum: 10c0/d9d7d76bb554ba58f9d2bb94e89f4c16ff5dd11484fe0cbdfadd8f15ea89ed087fb9afca717dc46448a1d386a732b014062ffe6ea7da3d05c0c88785ac8afc12
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-theme@npm:1.0.0-next.34":
-  version: 1.0.0-next.34
-  resolution: "@digdir/designsystemet-theme@npm:1.0.0-next.34"
-  checksum: 10c0/2499f3182a354c5cd9e0830ed280f08c87f4e2990f26480b0b483b4b22c35cd329ce50975633c70a153af3ca57d1412be0d23477a0eec996f4c02e27e01c1db7
+"@digdir/designsystemet-theme@npm:1.0.0-next.39":
+  version: 1.0.0-next.39
+  resolution: "@digdir/designsystemet-theme@npm:1.0.0-next.39"
+  checksum: 10c0/a9466a2c0c259517f98b5f549ea9b43ae0e88711da7e5b12975eed10f5901dd818f31e0c7ffcd4c8cd321739248cc9c2ed5da31137d5ef1d0f0685543178b6b8
   languageName: node
   linkType: hard
 
@@ -1754,10 +1754,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@u-elements/u-details@npm:^0.0.5":
-  version: 0.0.5
-  resolution: "@u-elements/u-details@npm:0.0.5"
-  checksum: 10c0/cc3dc9aceeb2574cfd7e4549e9dd004bd6c48bf1f5913118dd2f4b1fe79a3bab1c4103970e6274763a108d899e1eaea7d14ad624b1e2783ab2d835a3c2a108bf
+"@u-elements/u-details@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@u-elements/u-details@npm:0.1.0"
+  checksum: 10c0/b4a45ed5a28fedf27688e66f8cc67ba323fe5ceae8625cf39c2b56da07fd1bb7fb666fd54ad42c4906dbf691f6de29844246e6bddf2d591c7220e847a7d9f57a
   languageName: node
   linkType: hard
 
@@ -2023,9 +2023,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:1.0.0-next.34"
-    "@digdir/designsystemet-react": "npm:1.0.0-next.34"
-    "@digdir/designsystemet-theme": "npm:1.0.0-next.34"
+    "@digdir/designsystemet-css": "npm:1.0.0-next.39"
+    "@digdir/designsystemet-react": "npm:1.0.0-next.39"
+    "@digdir/designsystemet-theme": "npm:1.0.0-next.39"
     "@navikt/aksel-icons": "npm:^7.0.0"
     "@playwright/test": "npm:^1.45.1"
     "@reduxjs/toolkit": "npm:^2.1.0"
