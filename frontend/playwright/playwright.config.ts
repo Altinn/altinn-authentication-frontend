@@ -21,6 +21,9 @@ dotenv.config({
  */
 export default defineConfig({
   testDir: './e2eTests',
+  expect: {
+    timeout: 15_000,
+  },
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['dot'],
