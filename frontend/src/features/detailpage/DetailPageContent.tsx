@@ -42,14 +42,12 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           {t('authent_detailpage.delete_systemuser_body', {
             title: systemUser.integrationTitle,
           })}
-        </Modal.Block>
-        {isDeleteError && (
-          <Alert data-color='danger' role='alert'>
-            {t('authent_detailpage.delete_systemuser_error')}
-          </Alert>
-        )}
-        <Modal.Block>
-          <div className={classes.buttonContainer}>
+          {isDeleteError && (
+            <Alert data-color='danger' role='alert'>
+              {t('authent_detailpage.delete_systemuser_error')}
+            </Alert>
+          )}
+          <ButtonRow>
             <Button
               data-color='danger'
               disabled={isDeletingSystemUser}
@@ -64,7 +62,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
             <Button variant='tertiary' onClick={() => deleteModalRef.current?.close()}>
               {t('common.cancel')}
             </Button>
-          </div>
+          </ButtonRow>
         </Modal.Block>
       </Modal>
       <div>

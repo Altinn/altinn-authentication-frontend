@@ -55,21 +55,21 @@ export const OverviewPageContent = () => {
           <Heading level={2} data-size='xs'>
             {t('authent_overviewpage.sub_title')}
           </Heading>
-          <Paragraph>{t('authent_overviewpage.sub_title_text')}</Paragraph>
+          <Paragraph className={classes.description}>
+            {t('authent_overviewpage.sub_title_text')}
+          </Paragraph>
         </>
       )}
-      <div>
-        <Button
-          variant='secondary'
-          onClick={goToStartNewSystemUser}
-          disabled={!userCanCreateSystemUser}
-        >
-          <PlusIcon fontSize={28} />
-          {systemUsers && systemUsers.length === 0
-            ? t('authent_overviewpage.new_first_system_user_button')
-            : t('authent_overviewpage.new_system_user_button')}
-        </Button>
-      </div>
+      <Button
+        variant='secondary'
+        onClick={goToStartNewSystemUser}
+        disabled={!userCanCreateSystemUser}
+      >
+        <PlusIcon fontSize={28} />
+        {systemUsers && systemUsers.length === 0
+          ? t('authent_overviewpage.new_first_system_user_button')
+          : t('authent_overviewpage.new_system_user_button')}
+      </Button>
       {!userCanCreateSystemUser && <RightsError />}
       {isLoadSystemUsersError && (
         <Alert data-color='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
