@@ -45,17 +45,17 @@ export const OverviewPageContent = () => {
     [...systemUsers].reverse().filter((systemUser) => systemUser.id !== newlyCreatedId);
 
   if (isLoadingUserInfo || isLoadingSystemUsers) {
-    return <Spinner title={t('authent_overviewpage.loading_systemusers')} />;
+    return <Spinner aria-label={t('authent_overviewpage.loading_systemusers')} />;
   }
 
   return (
     <div>
       {(!userCanCreateSystemUser || (systemUsers && systemUsers.length === 0)) && (
         <>
-          <Heading level={2} size='xs' spacing>
+          <Heading level={2} data-size='xs'>
             {t('authent_overviewpage.sub_title')}
           </Heading>
-          <Paragraph spacing>{t('authent_overviewpage.sub_title_text')}</Paragraph>
+          <Paragraph>{t('authent_overviewpage.sub_title_text')}</Paragraph>
         </>
       )}
       <div>
@@ -72,11 +72,11 @@ export const OverviewPageContent = () => {
       </div>
       {!userCanCreateSystemUser && <RightsError />}
       {isLoadSystemUsersError && (
-        <Alert color='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
+        <Alert data-color='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
       )}
       {newlyCreatedItem && (
         <div>
-          <Heading level={2} size='xs' spacing className={classes.systemUserHeader}>
+          <Heading level={2} data-size='xs' className={classes.systemUserHeader}>
             {t('authent_overviewpage.created_system_user_title')}
           </Heading>
           <SystemUserActionBar systemUser={newlyCreatedItem} defaultOpen />
@@ -84,7 +84,7 @@ export const OverviewPageContent = () => {
       )}
       {systemUsersWithoutCreatedItem && systemUsersWithoutCreatedItem.length > 0 && (
         <>
-          <Heading level={2} size='xs' spacing className={classes.systemUserHeader}>
+          <Heading level={2} data-size='xs' className={classes.systemUserHeader}>
             {newlyCreatedItem
               ? t('authent_overviewpage.existing_earlier_system_users_title')
               : t('authent_overviewpage.existing_system_users_title')}

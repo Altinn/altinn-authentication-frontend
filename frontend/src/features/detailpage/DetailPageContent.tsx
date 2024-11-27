@@ -34,48 +34,50 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
 
   return (
     <div className={classes.detailPageContent}>
-      <Modal.Dialog ref={deleteModalRef}>
-        <Modal.Header>{t('authent_detailpage.delete_systemuser_header')}</Modal.Header>
-        <Modal.Content>
+      <Modal ref={deleteModalRef}>
+        <Modal.Block>
+          <Heading level={2}>{t('authent_detailpage.delete_systemuser_header')}</Heading>
+        </Modal.Block>
+        <Modal.Block>
           {t('authent_detailpage.delete_systemuser_body', {
             title: systemUser.integrationTitle,
           })}
-        </Modal.Content>
+        </Modal.Block>
         {isDeleteError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('authent_detailpage.delete_systemuser_error')}
           </Alert>
         )}
-        <Modal.Footer>
-          <Button
-            color='danger'
-            disabled={isDeletingSystemUser}
-            onClick={() =>
-              deleteSystemUser(systemUser.id)
-                .unwrap()
-                .then(() => navigate(AuthenticationRoute.Overview))
-            }
-          >
-            {t('authent_detailpage.delete_systemuser')}
-          </Button>
-          <Button variant='tertiary' onClick={() => deleteModalRef.current?.close()}>
-            {t('common.cancel')}
-          </Button>
-        </Modal.Footer>
-      </Modal.Dialog>
+        <Modal.Block>
+          <div className={classes.buttonContainer}>
+            <Button
+              data-color='danger'
+              disabled={isDeletingSystemUser}
+              onClick={() =>
+                deleteSystemUser(systemUser.id)
+                  .unwrap()
+                  .then(() => navigate(AuthenticationRoute.Overview))
+              }
+            >
+              {t('authent_detailpage.delete_systemuser')}
+            </Button>
+            <Button variant='tertiary' onClick={() => deleteModalRef.current?.close()}>
+              {t('common.cancel')}
+            </Button>
+          </div>
+        </Modal.Block>
+      </Modal>
       <div>
-        <Heading level={2} size='md'>
+        <Heading level={2} data-size='md'>
           {systemUser.integrationTitle || t('authent_detailpage.no_name')}
         </Heading>
-        <Paragraph size='sm' spacing>
-          {systemUser.supplierName?.toUpperCase()}
-        </Paragraph>
+        <Paragraph data-size='sm'>{systemUser.supplierName?.toUpperCase()}</Paragraph>
       </div>
       {IS_EDIT_NAME_ENABLED && (
         <Textfield
           label={t('authent_detailpage.edit_systemuser_name')}
           className={classes.nameField}
-          size='sm'
+          data-size='sm'
           value={name}
           onChange={(event) => setName(event.target.value)}
           error={
@@ -84,7 +86,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         />
       )}
       {isUpdateError && (
-        <Alert color='danger' role='alert'>
+        <Alert data-color='danger' role='alert'>
           {t('authent_detailpage.update_systemuser_error')}
         </Alert>
       )}
@@ -109,7 +111,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
         )}
         <Button
           variant='tertiary'
-          color='danger'
+          data-color='danger'
           onClick={() => deleteModalRef.current?.showModal()}
         >
           <TrashIcon />

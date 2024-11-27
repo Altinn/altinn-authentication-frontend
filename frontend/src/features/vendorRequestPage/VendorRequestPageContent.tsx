@@ -91,7 +91,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   if (isReceiptVisible) {
     return (
       <>
-        <Heading level={2} size='sm'>
+        <Heading level={2} data-size='sm'>
           {t('vendor_request.receipt_ingress', {
             systemName: request.system.name[currentLanguage],
           })}
@@ -112,20 +112,20 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   return (
     <>
       {request.status === 'Accepted' && (
-        <Alert color='info'>{t('vendor_request.request_accepted')}</Alert>
+        <Alert data-color='info'>{t('vendor_request.request_accepted')}</Alert>
       )}
       {request.status === 'Rejected' && (
-        <Alert color='info'>{t('vendor_request.request_rejected')}</Alert>
+        <Alert data-color='info'>{t('vendor_request.request_rejected')}</Alert>
       )}
       {request.status === 'Timedout' && (
-        <Alert color='info'>{t('vendor_request.request_expired')}</Alert>
+        <Alert data-color='info'>{t('vendor_request.request_expired')}</Alert>
       )}
-      <Heading level={2} size='sm'>
+      <Heading level={2} data-size='sm'>
         {t('vendor_request.creation_header', {
           vendorName: request.system.name[currentLanguage],
         })}
       </Heading>
-      <Paragraph spacing>
+      <Paragraph>
         <Trans
           i18nKey={'vendor_request.system_description'}
           values={{
@@ -134,8 +134,9 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
           }}
         ></Trans>
       </Paragraph>
+      <div />
       <div>
-        <Heading level={3} size='xs'>
+        <Heading level={3} data-size='xs'>
           {request.resources.length === 1
             ? t('vendor_request.rights_list_header_single')
             : t('vendor_request.rights_list_header')}
@@ -146,12 +147,12 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       <div>
         {!userInfo.canCreateSystemUser && <RightsError />}
         {isAcceptCreationRequestError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('vendor_request.accept_error')}
           </Alert>
         )}
         {isRejectCreationRequestError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('vendor_request.reject_error')}
           </Alert>
         )}

@@ -65,17 +65,17 @@ export const RightsIncludedPageContent = () => {
   };
 
   if (isLoadingRights) {
-    return <Spinner title={t('authent_includedrightspage.loading_rights')} />;
+    return <Spinner aria-label={t('authent_includedrightspage.loading_rights')} />;
   }
 
   return (
-    <div>
-      <Heading level={2} size='sm' spacing>
+    <div className={classes.rightsIncludedWrapper}>
+      <Heading level={2} data-size='sm'>
         {rights?.length === 1
           ? t('authent_includedrightspage.sub_title_single')
           : t('authent_includedrightspage.sub_title')}
       </Heading>
-      <Paragraph size='sm' spacing>
+      <Paragraph data-size='sm'>
         {rights?.length === 1
           ? t('authent_includedrightspage.content_text_single')
           : t('authent_includedrightspage.content_text')}
@@ -83,18 +83,18 @@ export const RightsIncludedPageContent = () => {
       <div>
         <RightsList resources={rights ?? []} />
         {isCreateSystemUserError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}
           </Alert>
         )}
         {isLoadRightsError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('authent_includedrightspage.load_rights_error')}
           </Alert>
         )}
         <ButtonRow>
           <Button
-            size='sm'
+            data-size='sm'
             variant='primary'
             onClick={handleConfirm}
             disabled={isCreatingSystemUser || isLoadRightsError}
@@ -105,7 +105,7 @@ export const RightsIncludedPageContent = () => {
               ? t('authent_includedrightspage.creating_systemuser')
               : t('authent_includedrightspage.confirm_button')}
           </Button>
-          <Button variant='tertiary' size='sm' onClick={handleReject}>
+          <Button variant='tertiary' data-size='sm' onClick={handleReject}>
             {t('common.cancel')}
           </Button>
         </ButtonRow>
