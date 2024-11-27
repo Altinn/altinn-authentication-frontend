@@ -94,7 +94,7 @@ export const ChangeRequestPageContent = ({
   if (isReceiptVisible) {
     return (
       <>
-        <Heading level={2} size='sm'>
+        <Heading level={2} data-size='sm'>
           {t('vendor_request.receipt_ingress', {
             systemName: changeRequest.system.name[currentLanguage],
           })}
@@ -115,20 +115,20 @@ export const ChangeRequestPageContent = ({
   return (
     <>
       {changeRequest.status === 'Accepted' && (
-        <Alert color='info'>{t('change_request.request_accepted')}</Alert>
+        <Alert data-color='info'>{t('change_request.request_accepted')}</Alert>
       )}
       {changeRequest.status === 'Rejected' && (
-        <Alert color='info'>{t('change_request.request_rejected')}</Alert>
+        <Alert data-color='info'>{t('change_request.request_rejected')}</Alert>
       )}
       {changeRequest.status === 'Timedout' && (
-        <Alert color='info'>{t('change_request.request_expired')}</Alert>
+        <Alert data-color='info'>{t('change_request.request_expired')}</Alert>
       )}
-      <Heading level={2} size='sm'>
+      <Heading level={2} data-size='sm'>
         {t('change_request.change_request_header', {
           vendorName: changeRequest.system.name[currentLanguage],
         })}
       </Heading>
-      <Paragraph spacing>
+      <Paragraph>
         <Trans
           i18nKey={'vendor_request.system_description'}
           values={{
@@ -137,8 +137,9 @@ export const ChangeRequestPageContent = ({
           }}
         ></Trans>
       </Paragraph>
+      <div />
       <div>
-        <Heading level={3} size='xs'>
+        <Heading level={3} data-size='xs'>
           {changeRequest.resourcesAfterChange.length === 1
             ? t('change_request.rights_list_header_single')
             : t('change_request.rights_list_header')}
@@ -149,12 +150,12 @@ export const ChangeRequestPageContent = ({
       <div>
         {!userInfo.canCreateSystemUser && <RightsError />}
         {isAcceptChangeRequestError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('change_request.accept_error')}
           </Alert>
         )}
         {isRejectChangeRequestError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('change_request.reject_error')}
           </Alert>
         )}
