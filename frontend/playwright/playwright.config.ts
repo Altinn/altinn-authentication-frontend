@@ -11,6 +11,11 @@ dotenv.config({
   path: path.resolve(__dirname, `config/.env.${process.env.environment ?? 'AT22'}`),
 });
 
+// Load sensitive credentials from shared `.env` file
+dotenv.config({
+  path: path.resolve(__dirname, 'config/.env'),
+});
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
