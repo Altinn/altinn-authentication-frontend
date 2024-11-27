@@ -12,13 +12,13 @@ public static class ProblemMapper
         {
             "AUTH-00001" => Problem.Rights_NotFound_Or_NotDelegable,
             "AUTH-00002" => Problem.Rights_FailedToDelegate,
-            "AUTH-00003" => Problem.SystemUser_FailedToCreate ,
+            "AUTH-00003" => Problem.SystemUser_FailedToCreate,
             "AUTH-00004" => Problem.SystemUser_AlreadyExists,
             "AUTH-00014" => Problem.UnableToDoDelegationCheck,
-            "AUTH-00015" => Problem.DelegationRightMissingRoleAccess,
-            "AUTH-00016" => Problem.DelegationRightMissingDelegationAccess,
-            "AUTH-00017" => Problem.DelegationRightMissingSrrRightAccess,
-            "AUTH-00018" => Problem.DelegationRightInsufficientAuthenticationLevel,
+            "AUTH-00016" => Problem.DelegationRightMissingRoleAccess,
+            "AUTH-00018" => Problem.DelegationRightMissingDelegationAccess,
+            "AUTH-00019" => Problem.DelegationRightMissingSrrRightAccess,
+            "AUTH-00020" => Problem.DelegationRightInsufficientAuthenticationLevel,
             _ => Problem.Generic_EndOfMethod,
         };
     }
