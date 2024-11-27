@@ -35,14 +35,11 @@ public async getEnterpriseAltinnToken(scopes: string): Promise<string> {
   return token;
 }
 
-
-
      /**
    * Used for fetching an Altinn test token for a specific role
-   * @param user User read from test config (testusers.at.json)
    * @returns The Altinn test token as a string
    */
-  public async getPersonalAltinnToken(scopes: string): Promise<string> {
+  public async getPersonalAltinnToken(scopes: string = ''): Promise<string> {
     const username = process.env.token_api_username;
     const password = process.env.token_api_password;
     if (!username || !password) {
@@ -50,13 +47,11 @@ public async getEnterpriseAltinnToken(scopes: string): Promise<string> {
     }
     // Construct the URL for fetching the Altinn test token
     const url = `https://altinn-testtools-token-generator.azurewebsites.net/api/GetPersonalToken?env=${process.env.environment}` +
-                `&scopes=${scopes}` +
                 `&pid=${process.env.PID}` +
                 `&userid=${process.env.ALTINN_USER_ID}` +
                 `&partyid=${process.env.ALTINN_PARTY_ID}` +
-                `&authLvl=3&ttl=3000`;
-
-    console.log(url)
+                `&authLvl=3&ttl=3000` +
+                (scopes ? `&scopes=${scopes}` : '');
 
     // Retrieve the token
     const auth = Buffer.from(`${username}:${password}`).toString('base64');

@@ -14,6 +14,69 @@ interface PostSystemUserRequestPayload {
 
 export class ApiRequests {
 
+
+  public async cleanUpSystemUsers(systemUsers: Array<{ id: string }>, token: string): Promise<void> {
+  for (const systemuser of systemUsers) {
+    await this.deleteSystemUser(token, systemuser.id)
+  }
+}
+
+  //Todo - consider moving to class TestdataApi
+  public async getSystemUsers(token: string): Promise<string> {
+    var endpoint = `v1/systemuser/${process.env.ALTINN_PARTY_ID}`;
+    var url = `${process.env.API_BASE_URL}${endpoint}`;
+
+    try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`, // Use the token for authentication
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text(); // Optional: Read the error body
+      console.error('Failed to fetch system users:', response.status, errorText);
+      throw new Error(`Failed to fetch system users: ${response.statusText}`);
+    }
+
+    const data = await response.json(); // Assuming the API returns JSON data
+    return JSON.stringify(data, null, 2); // Format the JSON for better readability (optional)
+  } catch (error) {
+    console.error('Error fetching system users:', error);
+    throw new Error('Error fetching system users. Check logs for details.');
+  }
+
+  }
+
+  public async deleteSystemUser(token: string, systemUserId: string): Promise<void>{
+    var endpoint = `v1/systemuser/${process.env.ALTINN_PARTY_ID}/${systemUserId}`
+    var url = `${process.env.API_BASE_URL}${endpoint}`
+
+     try {
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`, // Replace with your token logic
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorBody = await response.text(); // Read the error body if needed
+        console.error('Failed to delete system user:', response.status, errorBody);
+        throw new Error(`Failed to delete system user: ${response.statusText}`);
+      }
+
+      console.log(`System user deleted successfully: ${response.status}`);
+    } catch (error) {
+      console.error('Error during system user deletion:', error);
+      throw new Error('System user deletion failed. Check logs for details.');
+    }
+  }
+
+
  public async sendPostRequest(payload: PostSystemUserRequestPayload, endpoint: string, token: string): Promise<any> {
   var url = `${process.env.API_BASE_URL}${endpoint}`
 
