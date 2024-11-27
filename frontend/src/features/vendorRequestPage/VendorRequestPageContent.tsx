@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph } from '@digdir/designsystemet-react';
-import classes from './VendorRequestPageContent.module.css';
 import { RightsList } from '@/components/RightsList';
 import { ProfileInfo, SystemUserCreationRequest } from '@/types';
 import { RightsError } from '@/components/RightsError';
@@ -15,6 +14,7 @@ import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 import { getLogoutUrl } from '@/utils/urlUtils';
+import { ButtonRow } from '@/components/ButtonRow';
 
 interface VendorRequestPageContentProps {
   request: SystemUserCreationRequest;
@@ -97,14 +97,14 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
           })}
         </Heading>
         <Paragraph>{t('vendor_request.receipt_body')}</Paragraph>
-        <div className={classes.buttonRow}>
+        <ButtonRow>
           <Button variant='primary' onClick={logoutUser}>
             {t('vendor_request.receipt_close')}
           </Button>
           <Button variant='tertiary' onClick={redirectToOverview}>
             {t('vendor_request.receipt_go_to_overview')}
           </Button>
-        </div>
+        </ButtonRow>
       </>
     );
   }
@@ -155,7 +155,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
             {t('vendor_request.reject_error')}
           </Alert>
         )}
-        <div className={classes.buttonRow}>
+        <ButtonRow>
           <Button
             variant='primary'
             aria-disabled={isActionButtonDisabled}
@@ -176,7 +176,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
               ? t('vendor_request.reject_loading')
               : t('vendor_request.reject')}
           </Button>
-        </div>
+        </ButtonRow>
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { RightsList } from '@/components/RightsList';
+import { ButtonRow } from '@/components/ButtonRow';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -91,7 +92,7 @@ export const RightsIncludedPageContent = () => {
             {t('authent_includedrightspage.load_rights_error')}
           </Alert>
         )}
-        <div className={classes.buttonContainer}>
+        <ButtonRow>
           <Button
             size='sm'
             variant='primary'
@@ -107,7 +108,7 @@ export const RightsIncludedPageContent = () => {
           <Button variant='tertiary' size='sm' onClick={handleReject}>
             {t('common.cancel')}
           </Button>
-        </div>
+        </ButtonRow>
       </div>
     </div>
   );

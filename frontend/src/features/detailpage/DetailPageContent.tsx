@@ -10,6 +10,7 @@ import {
   useUpdateSystemuserMutation,
 } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
+import { ButtonRow } from '@/components/ButtonRow';
 
 interface DetailPageContentProps {
   systemUser: SystemUser;
@@ -89,7 +90,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
       )}
       <div>
         {IS_EDIT_NAME_ENABLED && (
-          <div className={classes.buttonContainer}>
+          <ButtonRow>
             <Button
               onClick={() => {
                 updateSystemUser({
@@ -104,7 +105,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
             <Button variant='tertiary' asChild>
               <RouterLink to={AuthenticationRoute.Overview}>{t('common.cancel')}</RouterLink>
             </Button>
-          </div>
+          </ButtonRow>
         )}
         <Button
           variant='tertiary'
