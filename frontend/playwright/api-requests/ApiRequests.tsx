@@ -36,8 +36,13 @@ export class ApiRequests {
     });
 
     if (!response.ok) {
-      const errorText = await response.text(); // Optional: Read the error body
+        if (response.status === 404) {
+          console.warn('System users not found (404).');
+          return '[]'; //Return empty list if no users to be deleted
+        }
+      const errorText = await response.text();
       console.error('Failed to fetch system users:', response.status, errorText);
+      console.log(response.status)
       throw new Error(`Failed to fetch system users: ${response.statusText}`);
     }
 
@@ -58,7 +63,7 @@ export class ApiRequests {
       const response = await fetch(url, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`, // Replace with your token logic
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
@@ -68,8 +73,6 @@ export class ApiRequests {
         console.error('Failed to delete system user:', response.status, errorBody);
         throw new Error(`Failed to delete system user: ${response.statusText}`);
       }
-
-      console.log(`System user deleted successfully: ${response.status}`);
     } catch (error) {
       console.error('Error during system user deletion:', error);
       throw new Error('System user deletion failed. Check logs for details.');

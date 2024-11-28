@@ -1,4 +1,3 @@
-//Dummy URL to test with: https://authn.ui.at22.altinn.cloud/authfront/ui/auth/vendorrequest?id=fa82738b-d948-48d7-b58f-b2709dccec55
 import test, { expect } from '@playwright/test';
 import { ApiRequests } from '../api-requests/ApiRequests';
 import { Token } from 'playwright/api-requests/Token';
@@ -24,11 +23,6 @@ test('Godkjenn Systembrukerforespørsel', async ({ page }): Promise<void> => {
   await page.getByRole('button', { name: 'Godkjenn' }).click();
   const logoutButton = page.locator('span.sr-only', { hasText: 'Logg inn/Min profil' });
   await expect(logoutButton).toBeVisible();
-});
-
-//Clean up test users
-test.afterAll(async () => {
-  await TestdataApi.cleanUpTestUsers();
 });
 
 async function prepareSystemUserRequest(api: ApiRequests, tokenclass: Token) {

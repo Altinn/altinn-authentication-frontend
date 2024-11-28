@@ -8,15 +8,14 @@ export class TestdataApi {
     const tokenclass = new Token();
 
     try {
+      //cleanup method, dont fail test if this fails but log it
       const token = await tokenclass.getPersonalAltinnToken();
       const resp = await api.getSystemUsers(token);
-      const users = JSON.parse(resp); // Convert the JSON string into an array of objects
+      const users = JSON.parse(resp);
 
       if (users.length > 0) {
         const respCleanUp = await api.cleanUpSystemUsers(users, token);
-        console.log('Cleanup response:', respCleanUp);
       } else {
-        console.log('No system users to clean up.');
       }
     } catch (error) {
       console.error('Error during cleanup:', error);

@@ -13,6 +13,7 @@ export class Token {
     this.org = process.env.ORG || '';
     this.environment = process.env.environment || '';
 
+
     if (!this.username || !this.password) {
       throw new Error('API username or password is not defined in the environment variables.');
     }

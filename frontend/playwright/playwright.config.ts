@@ -21,6 +21,7 @@ dotenv.config({
  */
 export default defineConfig({
   testDir: './e2eTests',
+  globalTeardown: './api-requests/global-teardown.tsx',
   expect: {
     timeout: 15_000,
   },
