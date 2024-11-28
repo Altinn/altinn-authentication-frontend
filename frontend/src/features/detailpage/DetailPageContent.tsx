@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Heading, Modal, Paragraph, Textfield, Alert } from '@digdir/designsystemet-react';
+import { Button, Heading, Modal, Textfield, Alert } from '@digdir/designsystemet-react';
 import { TrashIcon } from '@navikt/aksel-icons';
 import classes from './DetailPage.module.css';
 import { AuthenticationRoute } from '@/routes/paths';
@@ -11,6 +11,7 @@ import {
 } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
 import { ButtonRow } from '@/components/ButtonRow';
+import { PageDescription } from '@/components/PageDescription';
 
 interface DetailPageContentProps {
   systemUser: SystemUser;
@@ -65,12 +66,10 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           </ButtonRow>
         </Modal.Block>
       </Modal>
-      <div>
-        <Heading level={2} data-size='md'>
-          {systemUser.integrationTitle || t('authent_detailpage.no_name')}
-        </Heading>
-        <Paragraph data-size='sm'>{systemUser.supplierName?.toUpperCase()}</Paragraph>
-      </div>
+      <PageDescription
+        heading={systemUser.integrationTitle || t('authent_detailpage.no_name')}
+        ingress={systemUser.supplierName?.toUpperCase()}
+      />
       {IS_EDIT_NAME_ENABLED && (
         <Textfield
           label={t('authent_detailpage.edit_systemuser_name')}

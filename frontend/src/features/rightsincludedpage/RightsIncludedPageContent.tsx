@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
+import { Alert, Button, Spinner } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
 import { useCreateSystemUserMutation, useGetSystemRightsQuery } from '@/rtk/features/systemUserApi';
@@ -10,6 +10,7 @@ import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { RightsList } from '@/components/RightsList';
 import { ButtonRow } from '@/components/ButtonRow';
+import { PageDescription } from '@/components/PageDescription';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -70,16 +71,18 @@ export const RightsIncludedPageContent = () => {
 
   return (
     <div className={classes.rightsIncludedWrapper}>
-      <Heading level={2} data-size='sm'>
-        {rights?.length === 1
-          ? t('authent_includedrightspage.sub_title_single')
-          : t('authent_includedrightspage.sub_title')}
-      </Heading>
-      <Paragraph data-size='sm'>
-        {rights?.length === 1
-          ? t('authent_includedrightspage.content_text_single')
-          : t('authent_includedrightspage.content_text')}
-      </Paragraph>
+      <PageDescription
+        heading={
+          rights?.length === 1
+            ? t('authent_includedrightspage.sub_title_single')
+            : t('authent_includedrightspage.sub_title')
+        }
+        ingress={
+          rights?.length === 1
+            ? t('authent_includedrightspage.content_text_single')
+            : t('authent_includedrightspage.content_text')
+        }
+      />
       <div>
         <RightsList resources={rights ?? []} />
         {isCreateSystemUserError && (

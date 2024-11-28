@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Button, Heading, Combobox, Alert, Paragraph } from '@digdir/designsystemet-react';
+import { Button, Combobox, Alert } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 import { ButtonRow } from '@/components/ButtonRow';
+import { PageDescription } from '@/components/PageDescription';
 
 export const CreationPageContent = () => {
   const { i18n, t } = useTranslation();
@@ -43,10 +44,10 @@ export const CreationPageContent = () => {
   return (
     <div className={classes.creationPageContainer}>
       <div>
-        <Heading level={2} data-size='sm'>
-          {t('authent_creationpage.sub_title')}
-        </Heading>
-        <Paragraph data-size='sm'>{t('authent_creationpage.content_text1')}</Paragraph>
+        <PageDescription
+          heading={t('authent_creationpage.sub_title')}
+          ingress={t('authent_creationpage.content_text1')}
+        />
       </div>
       <div className={classes.inputContainer}>
         <Combobox
