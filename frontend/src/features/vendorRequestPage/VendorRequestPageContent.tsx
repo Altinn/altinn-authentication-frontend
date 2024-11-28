@@ -13,7 +13,7 @@ import { AuthenticationRoute } from '@/routes/paths';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
-import { getLogoutUrl } from '@/utils/urlUtils';
+import { getApiBaseUrl, getLogoutUrl } from '@/utils/urlUtils';
 import { ButtonRow } from '@/components/ButtonRow';
 
 interface VendorRequestPageContentProps {
@@ -73,19 +73,21 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
     }
   };
 
+  const redirectToOverview = (): void => {
+    dispatch(setCreatedId(request.id));
+    navigate(AuthenticationRoute.Overview);
+  };
+
   const logoutAndRedirectToVendor = (): void => {
-    const url = new URL('/authfront/api/v1/systemuser/request/logout', window.location.href);
-    url.searchParams.append('id', request.id);
+    const url = new URL(
+      `${getApiBaseUrl()}systemuser/changerequest/${request.id}/logout`,
+      window.location.href,
+    );
     window.location.assign(url.toString());
   };
 
   const logoutUser = (): void => {
     window.location.assign(getLogoutUrl());
-  };
-
-  const redirectToOverview = (): void => {
-    dispatch(setCreatedId(request.id));
-    navigate(AuthenticationRoute.Overview);
   };
 
   if (isReceiptVisible) {
@@ -146,6 +148,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
       <div>
         {!userInfo.canCreateSystemUser && <RightsError />}
+        {/* TODO: DelegationCheckError here */}
         {isAcceptCreationRequestError && (
           <Alert data-color='danger' role='alert'>
             {t('vendor_request.accept_error')}
