@@ -8,8 +8,8 @@ export class Token {
   private readonly environment: string;
 
   constructor() {
-    this.username = process.env.token_api_username || process.env.USERNAME_TEST_API || '';
-    this.password = process.env.token_api_password || process.env.PASSWORD_TEST_API || '';
+    this.username = process.env.USERNAME_TEST_API || '';
+    this.password = process.env.PASSWORD_TEST_API || '';
     this.org = process.env.ORG || '';
     this.environment = process.env.environment || '';
 
