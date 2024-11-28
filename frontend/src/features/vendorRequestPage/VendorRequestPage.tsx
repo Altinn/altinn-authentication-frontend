@@ -44,9 +44,9 @@ export const VendorRequestPage = () => {
           <Alert data-color='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
         )}
         {(loadingCreationRequestError || (creationRequest && !creationRequest.system)) && (
-          <Alert color='danger'>
+          <Alert data-color='danger'>
             {(loadingCreationRequestError as { data: ProblemDetail }).data.status === 404
-              ? t('vendor_request.load_creation_request_error')
+              ? t('vendor_request.load_creation_request_error_notfound')
               : t('vendor_request.load_creation_request_error')}
           </Alert>
         )}

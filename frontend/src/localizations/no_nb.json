@@ -83,7 +83,7 @@
     "reject": "Avvis",
     "org_nr": "{{systemName}} blir levert av {{vendorName}}, org.nr. {{vendorOrg}}",
     "loading_creation_request": "Laster forespørsel",
-    "load_creation_request_erro_notfound": "Systemtilgang-forespørsel for valgt aktør finnes ikke. Er du sikker på at du har valgt riktig aktør?",
+    "load_creation_request_error_notfound": "Systemtilgang-forespørsel for valgt aktør finnes ikke. Er du sikker på at du har valgt riktig aktør?",
     "load_creation_request_error": "Kunne ikke laste systemtilgang-forespørsel",
     "load_user_info_error": "Kunne ikke laste brukerinfo",
     "load_creation_request_no_id": "id må være med som query-parameter i url",

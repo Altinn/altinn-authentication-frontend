@@ -83,7 +83,7 @@
     "reject": "Reject",
     "org_nr": "{{systemName}} is delivered by {{vendorName}}, org.nr. {{vendorOrg}}",
     "loading_creation_request": "Loading request",
-    "load_creation_request_erro_notfound": "System access request for chosen party does not exist. Are you certain that you have chosen correct party?",
+    "load_creation_request_error_notfound": "System access request for chosen party does not exist. Are you certain that you have chosen correct party?",
     "load_creation_request_error": "Could not load system access request",
     "load_user_info_error": "Could not load user info",
     "load_creation_request_no_id": "id must be included as query-parameter in url",

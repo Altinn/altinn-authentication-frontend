@@ -40,7 +40,7 @@ export const DelegationCheckError = ({ error }: DelegationCheckErrorProps): Reac
 
   return (
     <div className={classes.delegationCheckError}>
-      <Alert color='danger'>{getErrorMessage()}</Alert>
+      <Alert data-color='danger'>{getErrorMessage()}</Alert>
     </div>
   );
 };
