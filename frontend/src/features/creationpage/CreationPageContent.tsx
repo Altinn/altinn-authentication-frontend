@@ -1,13 +1,14 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Button, Heading, Combobox, Alert, Paragraph } from '@digdir/designsystemet-react';
+import { Button, Combobox, Alert } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { setSelectedSystemId } from '@/rtk/features/createSystemUserSlice';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
+import { PageDescription } from '@/components/PageDescription';
 
 export const CreationPageContent = () => {
   const { i18n, t } = useTranslation();
@@ -40,12 +41,10 @@ export const CreationPageContent = () => {
   return (
     <div className={classes.creationPageContainer}>
       <div>
-        <Heading level={2} size='sm' spacing>
-          {t('authent_creationpage.sub_title')}
-        </Heading>
-        <Paragraph size='sm' spacing>
-          {t('authent_creationpage.content_text1')}
-        </Paragraph>
+        <PageDescription
+          heading={t('authent_creationpage.sub_title')}
+          ingress={t('authent_creationpage.content_text1')}
+        />
       </div>
       <div className={classes.inputContainer}>
         <Combobox
@@ -89,19 +88,19 @@ export const CreationPageContent = () => {
           })}
         </Combobox>
         {isLoadVendorError && (
-          <Alert color='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>
+          <Alert data-color='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>
         )}
       </div>
       <div className={classes.buttonContainer}>
         <Button
           variant='primary'
-          size='sm'
+          data-size='sm'
           onClick={handleConfirm}
           disabled={!integrationTitle.trim() || !selectedSystemId}
         >
           {t('authent_creationpage.confirm_button')}
         </Button>
-        <Button variant='tertiary' size='sm' onClick={handleCancel}>
+        <Button variant='tertiary' data-size='sm' onClick={handleCancel}>
           {t('common.cancel')}
         </Button>
       </div>

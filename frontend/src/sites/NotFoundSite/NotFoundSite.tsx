@@ -18,36 +18,36 @@ export const NotFoundSite = () => {
   return (
     <PageContainer>
       <Page>
-        <div className={classes.notFoundSiteWrapper}>
-          <Paragraph size='xsmall' spacing>
+        <div className={classes.flexWrapper}>
+          <Paragraph data-size='xs'>
             {t('common.error_status_code')}: {error.status}
           </Paragraph>
-          <Paragraph size='xsmall' spacing>
+          <Paragraph data-size='xs'>
             {t('common.error_message')}: {error.error.message}
             {error.message}
           </Paragraph>
-          <Heading level={1} size='large' spacing>
+          <Heading level={1} data-size='lg'>
             {t('error_page.not_found_site_header')}
           </Heading>
           <div className={classes.flexContainer}>
-            <div>
-              <Paragraph spacing>{t('error_page.not_found_site_upper_text')}</Paragraph>
-              <Paragraph spacing>
+            <div className={classes.flexWrapper}>
+              <Paragraph>{t('error_page.not_found_site_upper_text')}</Paragraph>
+              <Paragraph>
                 <Link href={`https://${getHostUrl()}/ui/MessageBox`}>
                   {t('error_page.go_to_inbox')}
                 </Link>
               </Paragraph>
-              <Paragraph spacing>
+              <Paragraph>
                 <Link href={`https://${getHostUrl()}/ui/Profile`}>
                   {t('error_page.go_to_profile')}
                 </Link>
               </Paragraph>
-              <Paragraph spacing>
+              <Paragraph>
                 <Link href={`https://${getHostUrl()}/skjemaoversikt`}>
                   {t('error_page.find_and_submit_scheme')}
                 </Link>
               </Paragraph>
-              <Paragraph spacing>{t('error_page.not_found_site_lower_text')}</Paragraph>
+              <Paragraph>{t('error_page.not_found_site_lower_text')}</Paragraph>
             </div>
             <div className={classes.rightContainer}>
               <SeagullIcon />

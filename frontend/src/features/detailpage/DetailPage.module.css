@@ -7,8 +7,6 @@
 .buttonContainer {
   display: flex;
   align-items: flex-start;
-  margin-top: var(--ds-spacing-12);
-  margin-bottom: var(--ds-spacing-4);
   gap: var(--ds-spacing-4);
 }
 
