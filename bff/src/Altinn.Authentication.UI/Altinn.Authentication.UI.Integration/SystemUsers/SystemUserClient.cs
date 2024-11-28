@@ -61,8 +61,6 @@ public class SystemUserClient : ISystemUserClient
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
         string endpointUrl = $"systemuser/{partyId}/create";
 
-        _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUser} ");
-
         var content = JsonContent.Create(newSystemUser);
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
        
