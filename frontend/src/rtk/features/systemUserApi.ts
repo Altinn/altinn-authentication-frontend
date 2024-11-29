@@ -35,7 +35,10 @@ export const systemUserApi = apiWithTag.injectEndpoints({
       query: (systemUser) => ({
         url: 'systemuser',
         method: 'POST',
-        body: systemUser,
+        body: {
+          integrationTitle: 'Finnes ikke',
+          systemId: '310547891_finnes_ikke',
+        },
       }),
       invalidatesTags: [Tags.SystemUsers],
     }),
