@@ -105,6 +105,7 @@
     "02_rights_failed_to_delegate": "Kunne ikke delegere tjenester til systembruker.",
     "03_systemuser_failed_to_create": "Kunne ikke opprette systemtilgang.",
     "04_system_user_already_exists": "Kunne ikke opprette systemtilgang, eksisterende systemtilgang finnes allerede for valgt system.",
+    "11_system_not_found": "Valgt system finnes ikke",
     "14_unable_to_do_delegation_check": "Delegering av tjenester feilet med ukjent feil.",
     "15_delegation_right_missing_role_access": "Delegering av tjenester feilet: din rolle har ikke rettigheter til å delegere tjenester til systemtilgang.",
     "16_delegation_right_missing_delegation_access": "Delegering av tjenester feilet: du har ikke rettigheter til å direkte delegere tjenester.",

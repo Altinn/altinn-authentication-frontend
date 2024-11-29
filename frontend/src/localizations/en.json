@@ -105,6 +105,7 @@
     "02_rights_failed_to_delegate": "Could not delegate services to the system user.",
     "03_systemuser_failed_to_create": "Could not create system access.",
     "04_system_user_already_exists": "Could not create system access; existing system access already exists for the selected system.",
+    "11_system_not_found": "Chosen system does not exist",
     "14_unable_to_do_delegation_check": "Delegation of services failed with an unknown error.",
     "15_delegation_right_missing_role_access": "Delegation of services failed: your role does not have the rights to delegate services to system access.",
     "16_delegation_right_missing_delegation_access": "Delegation of services failed: you do not have the rights to directly delegate services.",

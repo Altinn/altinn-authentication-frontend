@@ -23,6 +23,8 @@ export const DelegationCheckError = ({ error }: DelegationCheckErrorProps): Reac
         return t('delegation_errors.03_systemuser_failed_to_create');
       case 'ATUI-00004':
         return t('delegation_errors.04_system_user_already_exists');
+      case 'ATUI-00011':
+        return t('delegation_errors.11_system_not_found');
       case 'ATUI-00014':
         return t('delegation_errors.14_unable_to_do_delegation_check');
       case 'ATUI-00015':
