@@ -56,6 +56,12 @@ public static class Problem
     /// <summary>
     /// Gets a <see cref="ProblemDescriptor"/>.
     /// </summary>
+    public static ProblemDescriptor SystemIdNotFound { get; }
+        = _factory.Create(11, HttpStatusCode.NotFound, "The Id does not refer to a Registered System.");
+        
+    /// <summary>
+    /// Gets a <see cref="ProblemDescriptor"/>.
+    /// </summary>
     public static ProblemDescriptor UnableToDoDelegationCheck { get; }
         = _factory.Create(14, HttpStatusCode.InternalServerError, "DelegationCheck failed with unknown error.");
 

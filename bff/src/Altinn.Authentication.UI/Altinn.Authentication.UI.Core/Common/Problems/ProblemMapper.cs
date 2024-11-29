@@ -14,6 +14,7 @@ public static class ProblemMapper
             "AUTH-00002" => Problem.Rights_FailedToDelegate,
             "AUTH-00003" => Problem.SystemUser_FailedToCreate,
             "AUTH-00004" => Problem.SystemUser_AlreadyExists,
+            "AUTH-00011" => Problem.SystemIdNotFound,
             "AUTH-00014" => Problem.UnableToDoDelegationCheck,
             "AUTH-00016" => Problem.DelegationRightMissingRoleAccess,
             "AUTH-00018" => Problem.DelegationRightMissingDelegationAccess,
