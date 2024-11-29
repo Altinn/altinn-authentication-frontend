@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
 import { PlusIcon } from '@navikt/aksel-icons';
-import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
+import { Alert, Button, Heading, Spinner } from '@digdir/designsystemet-react';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
@@ -12,6 +12,7 @@ import { setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
 import { SystemUserActionBar } from '@/components/SystemUserActionBar';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { RightsError } from '@/components/RightsError';
+import { PageDescription } from '@/components/PageDescription';
 
 export const OverviewPageContent = () => {
   const {
@@ -45,18 +46,16 @@ export const OverviewPageContent = () => {
     [...systemUsers].reverse().filter((systemUser) => systemUser.id !== newlyCreatedId);
 
   if (isLoadingUserInfo || isLoadingSystemUsers) {
-    return <Spinner title={t('authent_overviewpage.loading_systemusers')} />;
+    return <Spinner aria-label={t('authent_overviewpage.loading_systemusers')} />;
   }
 
   return (
     <div>
       {(!userCanCreateSystemUser || (systemUsers && systemUsers.length === 0)) && (
-        <>
-          <Heading level={2} size='xs' spacing>
-            {t('authent_overviewpage.sub_title')}
-          </Heading>
-          <Paragraph spacing>{t('authent_overviewpage.sub_title_text')}</Paragraph>
-        </>
+        <PageDescription
+          heading={t('authent_overviewpage.sub_title')}
+          ingress={t('authent_overviewpage.sub_title_text')}
+        />
       )}
       <div>
         <Button
@@ -72,11 +71,11 @@ export const OverviewPageContent = () => {
       </div>
       {!userCanCreateSystemUser && <RightsError />}
       {isLoadSystemUsersError && (
-        <Alert color='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
+        <Alert data-color='danger'>{t('authent_overviewpage.systemusers_load_error')}</Alert>
       )}
       {newlyCreatedItem && (
         <div>
-          <Heading level={2} size='xs' spacing className={classes.systemUserHeader}>
+          <Heading level={2} data-size='xs' className={classes.systemUserHeader}>
             {t('authent_overviewpage.created_system_user_title')}
           </Heading>
           <SystemUserActionBar systemUser={newlyCreatedItem} defaultOpen />
@@ -84,7 +83,7 @@ export const OverviewPageContent = () => {
       )}
       {systemUsersWithoutCreatedItem && systemUsersWithoutCreatedItem.length > 0 && (
         <>
-          <Heading level={2} size='xs' spacing className={classes.systemUserHeader}>
+          <Heading level={2} data-size='xs' className={classes.systemUserHeader}>
             {newlyCreatedItem
               ? t('authent_overviewpage.existing_earlier_system_users_title')
               : t('authent_overviewpage.existing_system_users_title')}

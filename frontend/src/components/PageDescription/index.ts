@@ -1,0 +1,1 @@
+export { PageDescription } from './PageDescription';

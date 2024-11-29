@@ -30,7 +30,7 @@ export const PageContainer = ({ backUrl, children }: PageContainerProps) => {
               title={t('common.back')}
               variant='tertiary'
               className={classes.buttonContainerButton}
-              size='sm'
+              data-size='sm'
               asChild
             >
               <RouterLink to={backUrl}>
@@ -42,7 +42,7 @@ export const PageContainer = ({ backUrl, children }: PageContainerProps) => {
             icon={true}
             title={t('common.close')}
             className={classes.buttonContainerButton}
-            size='sm'
+            data-size='sm'
             asChild
           >
             <a href={profileUrl}>

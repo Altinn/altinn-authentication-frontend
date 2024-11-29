@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
+import { Alert, Button, Spinner } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
 import { useCreateSystemUserMutation, useGetSystemRightsQuery } from '@/rtk/features/systemUserApi';
@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { RightsList } from '@/components/RightsList';
+import { PageDescription } from '@/components/PageDescription';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -64,36 +65,38 @@ export const RightsIncludedPageContent = () => {
   };
 
   if (isLoadingRights) {
-    return <Spinner title={t('authent_includedrightspage.loading_rights')} />;
+    return <Spinner aria-label={t('authent_includedrightspage.loading_rights')} />;
   }
 
   return (
-    <div>
-      <Heading level={2} size='sm' spacing>
-        {rights?.length === 1
-          ? t('authent_includedrightspage.sub_title_single')
-          : t('authent_includedrightspage.sub_title')}
-      </Heading>
-      <Paragraph size='sm' spacing>
-        {rights?.length === 1
-          ? t('authent_includedrightspage.content_text_single')
-          : t('authent_includedrightspage.content_text')}
-      </Paragraph>
+    <div className={classes.rightsIncludedWrapper}>
+      <PageDescription
+        heading={
+          rights?.length === 1
+            ? t('authent_includedrightspage.sub_title_single')
+            : t('authent_includedrightspage.sub_title')
+        }
+        ingress={
+          rights?.length === 1
+            ? t('authent_includedrightspage.content_text_single')
+            : t('authent_includedrightspage.content_text')
+        }
+      />
       <div>
         <RightsList resources={rights ?? []} />
         {isCreateSystemUserError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('authent_includedrightspage.create_systemuser_error')}
           </Alert>
         )}
         {isLoadRightsError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('authent_includedrightspage.load_rights_error')}
           </Alert>
         )}
         <div className={classes.buttonContainer}>
           <Button
-            size='sm'
+            data-size='sm'
             variant='primary'
             onClick={handleConfirm}
             disabled={isCreatingSystemUser || isLoadRightsError}
@@ -104,7 +107,7 @@ export const RightsIncludedPageContent = () => {
               ? t('authent_includedrightspage.creating_systemuser')
               : t('authent_includedrightspage.confirm_button')}
           </Button>
-          <Button variant='tertiary' size='sm' onClick={handleReject}>
+          <Button variant='tertiary' data-size='sm' onClick={handleReject}>
             {t('common.cancel')}
           </Button>
         </div>

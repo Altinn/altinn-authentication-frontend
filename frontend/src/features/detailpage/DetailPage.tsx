@@ -21,9 +21,9 @@ export const DetailPage = (): React.ReactNode => {
   return (
     <PageContainer backUrl={AuthenticationRoute.Overview}>
       <Page color='dark' icon={<ApiIcon />} title={t('authent_detailpage.edit_systemuser')}>
-        {isLoadingSystemUser && <Spinner title={t('authent_detailpage.loading_systemuser')} />}
+        {isLoadingSystemUser && <Spinner aria-label={t('authent_detailpage.loading_systemuser')} />}
         {isLoadSystemUserError && (
-          <Alert color='danger'>{t('authent_detailpage.load_systemuser_error')}</Alert>
+          <Alert data-color='danger'>{t('authent_detailpage.load_systemuser_error')}</Alert>
         )}
         {systemUser && <DetailPageContent systemUser={systemUser} />}
       </Page>
