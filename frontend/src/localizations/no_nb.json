@@ -107,9 +107,9 @@
     "04_system_user_already_exists": "Kunne ikke opprette systemtilgang, eksisterende systemtilgang finnes allerede for valgt system.",
     "11_system_not_found": "Valgt system finnes ikke",
     "14_unable_to_do_delegation_check": "Delegering av tjenester feilet med ukjent feil.",
-    "15_delegation_right_missing_role_access": "Delegering av tjenester feilet: din rolle har ikke rettigheter til å delegere tjenester til systemtilgang.",
-    "16_delegation_right_missing_delegation_access": "Delegering av tjenester feilet: du har ikke rettigheter til å direkte delegere tjenester.",
-    "17_delegation_right_missing_srr_right_access": "Delegering av tjenester feilet: en eller flere tjenester bruker tilgangslister der virksomhet ikke har tilgang.",
-    "18_delegation_right_insufficient_authentication_level": "Delegering av tjenester feilet: en eller flere tjenester krever eksplisitt tilgangsnivå."
+    "16_delegation_right_missing_role_access": "Delegering av tjenester feilet: din rolle har ikke rettigheter til å delegere tjenester til systemtilgang.",
+    "18_delegation_right_missing_delegation_access": "Delegering av tjenester feilet: du har ikke rettigheter til å direkte delegere tjenester.",
+    "19_delegation_right_missing_srr_right_access": "Delegering av tjenester feilet: en eller flere tjenester bruker tilgangslister der virksomhet ikke har tilgang.",
+    "20_delegation_right_insufficient_authentication_level": "Delegering av tjenester feilet: en eller flere tjenester krever eksplisitt tilgangsnivå."
   }
 }

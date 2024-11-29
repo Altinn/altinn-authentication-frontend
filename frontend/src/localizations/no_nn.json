@@ -107,9 +107,9 @@
     "04_system_user_already_exists": "Kunne ikkje opprette systemtilgang, eksisterande systemtilgang finst allereie for valt system",
     "11_system_not_found": "Valgt system finnes ikkje",
     "14_unable_to_do_delegation_check": "Delegering av tenester feila med ukjend feil.",
-    "15_delegation_right_missing_role_access": "Delegering av tenester feila: rolla di har ikkje rettar til å delegere tenester til systemtilgang.",
-    "16_delegation_right_missing_delegation_access": "Delegering av tenester feila: du har ikkje rettar til å direkte delegere tenester.",
-    "17_delegation_right_missing_srr_right_access": "Delegering av tenester feila: ei eller fleire tenester nyttar tilgangslister der verksemda ikkje har tilgang.",
-    "18_delegation_right_insufficient_authentication_level": "Delegering av tenester feila: ei eller fleire tenester krev eksplisitt tilgangsnivå."
+    "16_delegation_right_missing_role_access": "Delegering av tenester feila: rolla di har ikkje rettar til å delegere tenester til systemtilgang.",
+    "18_delegation_right_missing_delegation_access": "Delegering av tenester feila: du har ikkje rettar til å direkte delegere tenester.",
+    "19_delegation_right_missing_srr_right_access": "Delegering av tenester feila: ei eller fleire tenester nyttar tilgangslister der verksemda ikkje har tilgang.",
+    "20_delegation_right_insufficient_authentication_level": "Delegering av tenester feila: ei eller fleire tenester krev eksplisitt tilgangsnivå."
   }
 }

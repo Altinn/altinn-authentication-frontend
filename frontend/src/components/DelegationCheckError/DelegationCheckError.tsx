@@ -27,14 +27,14 @@ export const DelegationCheckError = ({ error }: DelegationCheckErrorProps): Reac
         return t('delegation_errors.11_system_not_found');
       case 'ATUI-00014':
         return t('delegation_errors.14_unable_to_do_delegation_check');
-      case 'ATUI-00015':
-        return t('delegation_errors.15_delegation_right_missing_role_access');
       case 'ATUI-00016':
-        return t('delegation_errors.16_delegation_right_missing_delegation_access');
-      case 'ATUI-00017':
-        return t('delegation_errors.17_delegation_right_missing_srr_right_access');
+        return t('delegation_errors.16_delegation_right_missing_role_access');
       case 'ATUI-00018':
-        return t('delegation_errors.18_delegation_right_insufficient_authentication_level');
+        return t('delegation_errors.18_delegation_right_missing_delegation_access');
+      case 'ATUI-00019':
+        return t('delegation_errors.19_delegation_right_missing_srr_right_access');
+      case 'ATUI-00020':
+        return t('delegation_errors.20_delegation_right_insufficient_authentication_level');
       default:
         return t('authent_includedrightspage.create_systemuser_error');
     }

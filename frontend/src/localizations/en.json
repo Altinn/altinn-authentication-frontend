@@ -107,9 +107,9 @@
     "04_system_user_already_exists": "Could not create system access; existing system access already exists for the selected system.",
     "11_system_not_found": "Chosen system does not exist",
     "14_unable_to_do_delegation_check": "Delegation of services failed with an unknown error.",
-    "15_delegation_right_missing_role_access": "Delegation of services failed: your role does not have the rights to delegate services to system access.",
-    "16_delegation_right_missing_delegation_access": "Delegation of services failed: you do not have the rights to directly delegate services.",
-    "17_delegation_right_missing_srr_right_access": "Delegation of services failed: one or more services use access lists where the organization does not have access.",
-    "18_delegation_right_insufficient_authentication_level": "Delegation of services failed: one or more services require an explicit access level."
+    "16_delegation_right_missing_role_access": "Delegation of services failed: your role does not have the rights to delegate services to system access.",
+    "18_delegation_right_missing_delegation_access": "Delegation of services failed: you do not have the rights to directly delegate services.",
+    "19_delegation_right_missing_srr_right_access": "Delegation of services failed: one or more services use access lists where the organization does not have access.",
+    "20_delegation_right_insufficient_authentication_level": "Delegation of services failed: one or more services require an explicit access level."
   }
 }
