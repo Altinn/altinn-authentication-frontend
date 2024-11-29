@@ -80,7 +80,7 @@ public class SystemUserController : ControllerBase
     /// <param name="newSystemUser">The required params for a system to be created</param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    //[Authorize]
+    [Authorize]
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] SystemUserRequestDto newSystemUser, CancellationToken cancellationToken = default)
