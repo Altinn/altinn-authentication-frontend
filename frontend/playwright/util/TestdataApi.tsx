@@ -14,9 +14,8 @@ export class TestdataApi {
       const users = JSON.parse(resp);
 
       if (users.length > 0) {
-        const respCleanUp = await api.cleanUpSystemUsers(users, token);
-      } else {
-      }
+        await api.cleanUpSystemUsers(users, token);
+      } 
     } catch (error) {
       console.error('Error during cleanup:', error);
     }

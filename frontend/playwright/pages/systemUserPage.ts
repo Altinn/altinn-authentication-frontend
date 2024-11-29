@@ -32,7 +32,7 @@ export class SystemUserPage {
       name: noNb.authent_detailpage.delete_systemuser,
     });
 
-    this.FINAL_DELETE_SYSTEMUSER_BUTTON = this.page.getByRole('contentinfo').getByRole('button', {
+    this.FINAL_DELETE_SYSTEMUSER_BUTTON = this.page.getByRole('dialog').getByRole('button', {
       name: noNb.authent_detailpage.delete_systemuser,
     });
 

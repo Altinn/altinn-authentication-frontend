@@ -21,7 +21,6 @@ export class ApiRequests {
   }
 }
 
-  //Todo - consider moving to class TestdataApi
   public async getSystemUsers(token: string): Promise<string> {
     var endpoint = `v1/systemuser/${process.env.ALTINN_PARTY_ID}`;
     var url = `${process.env.API_BASE_URL}${endpoint}`;
