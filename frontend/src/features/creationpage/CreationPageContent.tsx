@@ -6,7 +6,7 @@ import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
+import { setSelectedSystemId } from '@/rtk/features/createSystemUserSlice';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 import { ButtonRow } from '@/components/ButtonRow';
 import { PageDescription } from '@/components/PageDescription';
@@ -17,9 +17,7 @@ export const CreationPageContent = () => {
 
   const dispatch = useAppDispatch();
 
-  const { integrationTitle, selectedSystemType } = useAppSelector(
-    (state) => state.createSystemUser,
-  );
+  const { integrationTitle, selectedSystemId } = useAppSelector((state) => state.createSystemUser);
 
   const {
     data: vendors,
@@ -59,7 +57,7 @@ export const CreationPageContent = () => {
             if (newValue?.length) {
               const system = vendors?.find((x) => x.systemId === newValue[0]);
               dispatch(
-                setSelectedSystemType({
+                setSelectedSystemId({
                   systemId: newValue[0],
                   friendlySystemName: system?.name[currentLanguage] ?? '',
                 }),
@@ -76,7 +74,7 @@ export const CreationPageContent = () => {
             const isSystemNameMatch = isStringMatch(inputValue, vendor.name[currentLanguage]);
             return isOrgNrMatch || isOrgNameMatch || isSystemNameMatch;
           }}
-          value={selectedSystemType ? [selectedSystemType] : undefined}
+          value={selectedSystemId ? [selectedSystemId] : undefined}
         >
           {vendors?.map((vendor) => {
             return (
@@ -99,7 +97,7 @@ export const CreationPageContent = () => {
           variant='primary'
           data-size='sm'
           onClick={handleConfirm}
-          disabled={!integrationTitle.trim() || !selectedSystemType}
+          disabled={!integrationTitle.trim() || !selectedSystemId}
         >
           {t('authent_creationpage.confirm_button')}
         </Button>

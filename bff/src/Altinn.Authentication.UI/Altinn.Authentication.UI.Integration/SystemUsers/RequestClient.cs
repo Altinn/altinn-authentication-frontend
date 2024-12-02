@@ -1,6 +1,5 @@
 ﻿using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Authentication.UI.Integration.AccessToken;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authorization.ProblemDetails;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Altinn.Authentication.UI.Core.Extensions;
 using System.Text.Json;
 using Altinn.Authentication.UI.Core.Common.Problems;
+using System.Net.Http.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
@@ -30,6 +30,11 @@ public class RequestClient(
     {        
         string endpoint = $"systemuser/request/{partyId}/{requestId}";
         HttpResponseMessage res = await client.GetAsync(InitClient(), endpoint);
+
+        if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
+        {
+            return Problem.RequestNotFound;
+        } 
 
         if (res.IsSuccessStatusCode)
         {

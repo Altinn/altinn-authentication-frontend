@@ -6,6 +6,7 @@ import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { useGetSystemUserRequestQuery } from '@/rtk/features/systemUserApi';
 import { useSearchParams } from 'react-router-dom';
 import { RequestPage } from '@/components/RequestPage';
+import { ProblemDetail } from '@/types/problemDetail';
 
 export const VendorRequestPage = () => {
   const { t } = useTranslation();
@@ -21,7 +22,7 @@ export const VendorRequestPage = () => {
   const {
     data: creationRequest,
     isLoading: isLoadingCreationRequest,
-    isError: isLoadingCreationRequestError,
+    error: loadingCreationRequestError,
   } = useGetSystemUserRequestQuery(requestId ?? '', {
     skip: !requestId,
   });
@@ -35,8 +36,12 @@ export const VendorRequestPage = () => {
       {!requestId && (
         <Alert data-color='danger'>{t('vendor_request.load_creation_request_no_id')}</Alert>
       )}
-      {(isLoadingCreationRequestError || (creationRequest && !creationRequest.system)) && (
-        <Alert data-color='danger'>{t('vendor_request.load_creation_request_error')}</Alert>
+      {(loadingCreationRequestError || (creationRequest && !creationRequest.system)) && (
+        <Alert data-color='danger'>
+          {(loadingCreationRequestError as { data: ProblemDetail }).data.status === 404
+            ? t('vendor_request.load_creation_request_error_notfound')
+            : t('vendor_request.load_creation_request_error')}
+        </Alert>
       )}
       {isLoadUserInfoError && (
         <Alert data-color='danger'>{t('vendor_request.load_user_info_error')}</Alert>

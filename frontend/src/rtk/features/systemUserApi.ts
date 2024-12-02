@@ -15,7 +15,7 @@ enum Tags {
 
 interface CreationRequest {
   integrationTitle: string;
-  selectedSystemType: string;
+  systemId: string;
 }
 
 const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers, Tags.VendorSystems] });

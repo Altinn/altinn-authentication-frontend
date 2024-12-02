@@ -5,7 +5,6 @@ using Altinn.Authentication.UI.Mocks.Authentication;
 using Altinn.Authentication.UI.Mocks.UserProfiles;
 using Altinn.Authentication.UI.Mocks.Mocks;
 using Altinn.Authentication.UI.Mocks.Utils;
-using Altinn.Common.PEP.Interfaces;
 using AltinnCore.Authentication.JwtCookie;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
@@ -53,7 +52,6 @@ public class AuthenticationControllerTest : IClassFixture<CustomWebApplicationFa
                 services.AddSingleton<IAuthenticationClient, AuthenticationNullRefreshMock>();
                 services.AddTransient<IUserProfileClient, UserProfileClientMock>();
                 services.AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
-                services.AddSingleton<IPDP, PdpPermitMock>();
             });
         }).CreateClient(new Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryClientOptions { AllowAutoRedirect = false});
 
@@ -69,7 +67,6 @@ public class AuthenticationControllerTest : IClassFixture<CustomWebApplicationFa
                 services.AddSingleton<IAuthenticationClient, AuthenticationClientMock>();
                 services.AddTransient<IUserProfileClient, UserProfileClientMock>();
                 services.AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
-                services.AddSingleton<IPDP, PdpPermitMock>();
             });
 
         }).CreateClient(new Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactoryClientOptions { AllowAutoRedirect = false});

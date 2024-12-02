@@ -8,7 +8,7 @@ import { useFirstRenderEffect } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { setSelectedSystemType } from '@/rtk/features/createSystemUserSlice';
+import { setSelectedSystemId } from '@/rtk/features/createSystemUserSlice';
 import { SystemUserActionBar } from '@/components/SystemUserActionBar';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { RightsError } from '@/components/RightsError';
@@ -32,7 +32,7 @@ export const OverviewPageContent = () => {
 
   // reset create wizard values when overviewPage is rendered; the user ends up here after create, cancel or back navigation
   useFirstRenderEffect(() => {
-    dispatch(setSelectedSystemType({ systemId: '', friendlySystemName: '' }));
+    dispatch(setSelectedSystemId({ systemId: '', friendlySystemName: '' }));
   });
 
   const goToStartNewSystemUser = () => {

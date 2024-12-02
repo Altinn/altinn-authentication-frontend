@@ -1,16 +1,13 @@
-﻿using Altinn.Authentication.UI.Controllers;
-using Altinn.Authentication.UI.Core.Authentication;
+﻿using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.UserProfiles;
 using Altinn.Authentication.UI.Mocks.Authentication;
 using Altinn.Authentication.UI.Mocks.UserProfiles;
-using Altinn.Authentication.UI.Mocks;
 using Altinn.Authentication.UI.Mocks.Mocks;
 using AltinnCore.Authentication.JwtCookie;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Altinn.Common.PEP.Interfaces;
 using Altinn.Authentication.UI.Core.SystemRegister;
 using Altinn.Authentication.UI.Mocks.SystemRegister;
 using Altinn.Authentication.UI.Core.SystemUsers;
@@ -35,7 +32,6 @@ public static class SetupUtils
                 services.AddTransient<IResourceRegistryClient, ResourceRegistryClientMock>();
                 services.AddTransient<IUserProfileClient, UserProfileClientMock>();
                 services.AddSingleton<IPostConfigureOptions<JwtCookieOptions>, JwtCookiePostConfigureOptionsStub>();
-                services.AddSingleton<IPDP, PdpPermitMock>();
             });
         });
 
