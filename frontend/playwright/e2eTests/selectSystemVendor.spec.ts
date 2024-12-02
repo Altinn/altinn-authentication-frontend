@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 import { SystemUserPage } from '../pages/systemUserPage';
-import { TestdataApi } from 'playwright/util/TestdataApi';
 
 test('should be able to select a system vendor', async ({ page }): Promise<void> => {
   const systemUserPage = new SystemUserPage(page);

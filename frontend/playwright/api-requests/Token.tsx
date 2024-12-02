@@ -1,4 +1,3 @@
-import * as dotenv from 'dotenv';
 
 export class Token {
 
@@ -51,7 +50,7 @@ public async getEnterpriseAltinnToken(scopes: string): Promise<string> {
    * Used for fetching an Altinn test token for a specific role
    * @returns The Altinn test token as a string
    */
-  public async getPersonalAltinnToken(scopes: string = ''): Promise<string> {
+  public async getPersonalAltinnToken(scopes = ''): Promise<string> {
     // Construct the URL for fetching the Altinn test token
     const url = `https://altinn-testtools-token-generator.azurewebsites.net/api/GetPersonalToken?env=${process.env.environment}` +
                 `&pid=${process.env.PID}` +

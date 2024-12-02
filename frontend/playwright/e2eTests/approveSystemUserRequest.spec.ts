@@ -1,12 +1,11 @@
 import test, { expect } from '@playwright/test';
 import { ApiRequests } from '../api-requests/ApiRequests';
 import { Token } from 'playwright/api-requests/Token';
-import { TestdataApi } from 'playwright/util/TestdataApi';
 
 test('Avvis Systembrukerforespørsel', async ({ page }): Promise<void> => {
   const api = new ApiRequests(); // Create an instance
   const tokenclass = new Token();
-  var confirmUrl = await prepareSystemUserRequest(api, tokenclass);
+  const confirmUrl = await prepareSystemUserRequest(api, tokenclass);
 
   await page.goto(confirmUrl);
   await page.getByRole('button', { name: 'Avvis' }).click();
@@ -17,7 +16,7 @@ test('Avvis Systembrukerforespørsel', async ({ page }): Promise<void> => {
 test('Godkjenn Systembrukerforespørsel', async ({ page }): Promise<void> => {
   const api = new ApiRequests(); // Create an instance
   const tokenclass = new Token();
-  var confirmUrl = await prepareSystemUserRequest(api, tokenclass);
+  const confirmUrl = await prepareSystemUserRequest(api, tokenclass);
 
   await page.goto(confirmUrl);
   await page.getByRole('button', { name: 'Godkjenn' }).click();

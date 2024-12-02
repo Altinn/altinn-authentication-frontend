@@ -18,7 +18,3 @@ test('Delete created system user', async ({ page }): Promise<void> => {
   //Back to overview page
   await expect(systemUserPage.MAIN_HEADER).toBeVisible();
 });
-
-test('Cancel', async ({ page }): Promise<void> => {
-  const systemUserPage = new SystemUserPage(page);
-});

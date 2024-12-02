@@ -2,12 +2,12 @@ interface PostSystemUserRequestPayload {
   systemId: string;
   partyOrgNo: string;
   externalRef: string;
-  rights: Array<{
-    resource: Array<{
-      id: string;
+  rights: {
+    resource: {
+     id: string;
       value: string;
-    }>;
-  }>;
+    }[];
+  }[];
   redirectUrl: string;
 }
 
@@ -15,15 +15,15 @@ interface PostSystemUserRequestPayload {
 export class ApiRequests {
 
 
-  public async cleanUpSystemUsers(systemUsers: Array<{ id: string }>, token: string): Promise<void> {
+  public async cleanUpSystemUsers(systemUsers: { id: string }[], token: string): Promise<void> {
   for (const systemuser of systemUsers) {
     await this.deleteSystemUser(token, systemuser.id)
   }
 }
 
   public async getSystemUsers(token: string): Promise<string> {
-    var endpoint = `v1/systemuser/${process.env.ALTINN_PARTY_ID}`;
-    var url = `${process.env.API_BASE_URL}${endpoint}`;
+    const endpoint = `v1/systemuser/${process.env.ALTINN_PARTY_ID}`;
+    const url = `${process.env.API_BASE_URL}${endpoint}`;
 
     try {
     const response = await fetch(url, {
@@ -55,8 +55,8 @@ export class ApiRequests {
   }
 
   public async deleteSystemUser(token: string, systemUserId: string): Promise<void>{
-    var endpoint = `v1/systemuser/${process.env.ALTINN_PARTY_ID}/${systemUserId}`
-    var url = `${process.env.API_BASE_URL}${endpoint}`
+    const endpoint = `v1/systemuser/${process.env.ALTINN_PARTY_ID}/${systemUserId}`
+    const url = `${process.env.API_BASE_URL}${endpoint}`
 
      try {
       const response = await fetch(url, {
@@ -79,8 +79,8 @@ export class ApiRequests {
   }
 
 
- public async sendPostRequest(payload: PostSystemUserRequestPayload, endpoint: string, token: string): Promise<any> {
-  var url = `${process.env.API_BASE_URL}${endpoint}`
+ public async sendPostRequest<T>(payload: PostSystemUserRequestPayload, endpoint: string, token: string): Promise<T> {
+  const url = `${process.env.API_BASE_URL}${endpoint}`
 
     try {
       const response = await fetch(url, {
@@ -98,7 +98,7 @@ export class ApiRequests {
     throw new Error(`HTTP error! Status: ${response.status}, Response Body: ${errorBody}`);
   }
       const data = await response.json();
-      return data; // Return the response data
+      return data as Promise<T>; // Return the response data
     } catch (error) {
       console.error('Error:', error);
       throw error; // Rethrow the error to handle it in the test
@@ -111,7 +111,7 @@ export class ApiRequests {
  * @param token The authorization token.
  * @returns The response data as JSON.
  */
-public async fetchLastSystemRequest(endpoint: string, token: string): Promise<any> {
+public async fetchLastSystemRequest<T>(endpoint: string, token: string): Promise<T> {
   const url = `${process.env.API_BASE_URL}${endpoint}`;
 
   try {
@@ -137,7 +137,7 @@ public async fetchLastSystemRequest(endpoint: string, token: string): Promise<an
 }
 
   generatePayloadSystemUserRequest(): PostSystemUserRequestPayload {
-    var randomString =  Date.now(); // Current timestamp in milliseconds
+    const randomString =  Date.now(); // Current timestamp in milliseconds
     const randomNum = Math.random().toString(36);
     return {
       systemId: `${process.env.SYSTEM_ID}`,
