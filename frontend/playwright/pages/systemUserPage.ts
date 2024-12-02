@@ -45,10 +45,10 @@ export class SystemUserPage {
     });
   }
 
-  async selectSystemVendor(vendorSystem: string) {
+  async selectSystem(system: string) {
     await this.page.goto(`${process.env.SYSYEMUSER_URL}`);
-    await this.SELECT_VENDOR_LABEL.fill(vendorSystem.substring(0, 9));
-    await this.page.getByLabel(vendorSystem, { exact: true }).click();
+    await this.SELECT_VENDOR_LABEL.fill(system);
+    await this.page.getByLabel(system).click();
 
     await this.CONTINUE_BUTTON.click();
     await expect(this.CREATE_SYSTEM_USER_BUTTON).toBeVisible();

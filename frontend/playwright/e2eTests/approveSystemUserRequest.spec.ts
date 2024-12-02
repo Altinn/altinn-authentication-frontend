@@ -20,8 +20,9 @@ test('Godkjenn Systembrukerforespørsel', async ({ page }): Promise<void> => {
 
   await page.goto(confirmUrl);
   await page.getByRole('button', { name: 'Godkjenn' }).click();
-  const logoutButton = page.locator('span.sr-only', { hasText: 'Logg inn/Min profil' });
+  const logoutButton = page.locator('span', { hasText: 'Logg inn/Min profil' });
   await expect(logoutButton).toBeVisible();
+  await expect(page).toHaveURL('https://info.altinn.no');
 });
 
 async function prepareSystemUserRequest(api: ApiRequests, tokenclass: Token) {

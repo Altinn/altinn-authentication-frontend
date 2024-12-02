@@ -4,11 +4,13 @@ import { SystemUserPage } from '../pages/systemUserPage';
 test('Delete created system user', async ({ page }): Promise<void> => {
   const systemUserPage = new SystemUserPage(page);
 
+  const system = 'E2E - Playwright - Authentication';
+
   // Create new system user
-  await systemUserPage.selectSystemVendor('TripletexN/A (914286018)');
+  await systemUserPage.selectSystem(system);
   await systemUserPage.CREATE_SYSTEM_USER_BUTTON.click();
   await expect(systemUserPage.SYSTEMUSER_CREATED_HEADING).toBeVisible();
-  await expect(page.getByText('Tripletex').first()).toBeVisible();
+  await expect(page.getByText(system).first()).toBeVisible();
 
   // Delete system user
   await systemUserPage.EDIT_SYSTEMUSER_LINK.click();
