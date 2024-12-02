@@ -30,7 +30,7 @@ async function prepareSystemUserRequest(api: ApiRequests, tokenclass: Token) {
     'altinn:authentication/systemuser.request.read altinn:authentication/systemuser.request.write';
   const token = await tokenclass.getEnterpriseAltinnToken(scopes);
   const endpoint = 'v1/systemuser/request/vendor';
-  const apiResponse = await api.sendPostRequest(payload, endpoint, token);
+  const apiResponse = await api.sendPostRequest<{ confirmUrl: string }>(payload, endpoint, token);
   return apiResponse.confirmUrl; // Return the Confirmation URL to use in the test
 }
 
