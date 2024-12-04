@@ -82,8 +82,10 @@ export const ChangeRequestPageContent = ({
   };
 
   const logoutAndRedirectToVendor = (): void => {
-    const url = new URL(`${getApiBaseUrl()}systemuser/changerequest/logout`, window.location.href);
-    url.searchParams.append('id', changeRequest.id);
+    const url = new URL(
+      `${getApiBaseUrl()}systemuser/changerequest/${changeRequest.id}/logout`,
+      window.location.href,
+    );
     window.location.assign(url.toString());
   };
 
@@ -140,11 +142,11 @@ export const ChangeRequestPageContent = ({
       <div />
       <div>
         <Heading level={3} data-size='xs'>
-          {changeRequest.resourcesAfterChange.length === 1
+          {changeRequest.resources.length === 1
             ? t('change_request.rights_list_header_single')
             : t('change_request.rights_list_header')}
         </Heading>
-        <RightsList resources={changeRequest.resourcesAfterChange} />
+        <RightsList resources={changeRequest.resources} />
       </div>
       <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
       <div>

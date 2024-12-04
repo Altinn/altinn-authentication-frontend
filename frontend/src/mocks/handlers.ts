@@ -697,4 +697,186 @@ export const handlers = [
       status: 204,
     });
   }),
+
+  // GET change request
+  http.get('/authfront/api/v1/systemuser/changerequest/:requestId', () => {
+    return HttpResponse.json({
+      id: 'b3da3525-b16d-4a51-9613-fe5d277396a5',
+      externalRef: '344b8b40-c386-478c-869d-d93d6f127d17',
+      systemId: '991825827_smartcloud',
+      system: {
+        systemId: '991825827_smartcloud',
+        systemVendorOrgNumber: '991825827',
+        systemVendorOrgName: 'DIGITALISERINGSDIREKTORATET',
+        name: {
+          en: 'SmartCloud',
+          nb: 'SmartCloud',
+          nn: 'Smart SKY',
+        },
+        description: {
+          en: 'SmartCloud Rocks',
+          nb: 'SmartCloud er verdens beste system.',
+          nn: 'SmartSky er vestlandes beste system',
+        },
+        rights: [
+          {
+            action: null,
+            resource: [
+              {
+                id: 'urn:altinn:resource',
+                value: 'ske-krav-og-betalinger',
+              },
+            ],
+          },
+        ],
+      },
+      partyOrgNo: '314048431',
+      requiredRights: [
+        {
+          action: null,
+          resource: [
+            {
+              id: 'urn:altinn:resource',
+              value: 'ske-krav-og-betalinger',
+            },
+          ],
+        },
+      ],
+      unwantedRights: [
+        {
+          action: null,
+          resource: [
+            {
+              id: 'urn:altinn:resource',
+              value: 'ske-krav-og-betalinger',
+            },
+          ],
+        },
+      ],
+      resources: [
+        {
+          identifier: 'ske-krav-og-betalinger',
+          version: '1',
+          title: {
+            en: 'Krav og betalinger',
+            nb: 'Krav og betalinger',
+            nn: 'Krav og betalinger',
+          },
+          description: {
+            en: 'Ressurs for å styre tilgang til Krav og betalinger',
+            nb: 'Ressurs for å styre tilgang til Krav og betalinger',
+            nn: 'Ressurs for å styre tilgang til Krav og betalinger',
+          },
+          rightDescription: {
+            en: 'Gir tilgang til Krav og betalinger',
+            nb: 'Gir tilgang til Krav og betalinger',
+            nn: 'Gir tilgang til Krav og betalinger',
+          },
+          homepage: 'https://skatteetaten.github.io/api-dokumentasjon/api/kravogbetalinger',
+          status: 'UnderDevelopment',
+          spatial: null,
+          contactPoints: [
+            {
+              category: 'Brukerstøtte',
+              email: '',
+              telephone: '',
+              contactPage: 'https://skatteetaten.github.io/api-dokumentasjon/kontaktoss',
+            },
+          ],
+          produces: null,
+          isPartOf: null,
+          thematicAreas: null,
+          resourceReferences: null,
+          delegable: true,
+          visible: true,
+          hasCompetentAuthority: {
+            organization: '974761076',
+            orgcode: 'skd',
+            name: {
+              en: 'Norwegian Tax Administration',
+              nb: 'Skatteetaten',
+              nn: 'Skatteetaten',
+            },
+          },
+          keywords: [],
+          accessListMode: 'Disabled',
+          selfIdentifiedUserEnabled: false,
+          enterpriseUserEnabled: true,
+          resourceType: 'GenericAccessResource',
+          availableForType: ['LegalEntityEnterprise'],
+          authorizationReference: null,
+          logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
+        },
+        {
+          identifier: 'nav-og-betalinger',
+          version: '1',
+          title: {
+            en: 'Nav og betalinger',
+            nb: 'Nav og betalinger',
+            nn: 'Nav og betalinger',
+          },
+          description: {
+            en: 'Ressurs for å styre tilgang til Nav og betalinger',
+            nb: 'Ressurs for å styre tilgang til Nav og betalinger',
+            nn: 'Ressurs for å styre tilgang til Nav og betalinger',
+          },
+          rightDescription: {
+            en: 'Gir tilgang til Nav og betalinger',
+            nb: 'Gir tilgang til Nav og betalinger',
+            nn: 'Gir tilgang til Nav og betalinger',
+          },
+          homepage: 'https://skatteetaten.github.io/api-dokumentasjon/api/kravogbetalinger',
+          status: 'UnderDevelopment',
+          spatial: null,
+          contactPoints: [
+            {
+              category: 'Brukerstøtte',
+              email: '',
+              telephone: '',
+              contactPage: 'https://skatteetaten.github.io/api-dokumentasjon/kontaktoss',
+            },
+          ],
+          produces: null,
+          isPartOf: null,
+          thematicAreas: null,
+          resourceReferences: null,
+          delegable: true,
+          visible: true,
+          hasCompetentAuthority: {
+            organization: '889640782',
+            orgcode: 'nav',
+            name: {
+              en: 'Norwegian Labour and Welfare Administration (NAV)',
+              nb: 'Arbeids- og velferdsetaten (NAV)',
+              nn: 'Arbeids- og velferdsetaten (NAV)',
+            },
+          },
+          keywords: [],
+          accessListMode: 'Disabled',
+          selfIdentifiedUserEnabled: false,
+          enterpriseUserEnabled: true,
+          resourceType: 'GenericAccessResource',
+          availableForType: ['LegalEntityEnterprise'],
+          authorizationReference: null,
+          logoUrl: 'https://altinncdn.no/orgs/nav/nav.png',
+        },
+      ],
+      status: 'New',
+      redirectUrl: 'https://smartcloudaltinn.azurewebsites.net/receipt',
+    });
+  }),
+
+  // POST approve change request
+  http.post('/authfront/api/v1/systemuser/changerequest/:requestId/approve', () => {
+    return new HttpResponse(null, {
+      status: 204,
+    });
+  }),
+
+  // POST reject change request
+  http.post('/authfront/api/v1/systemuser/changerequest/:requestId/reject', () => {
+    return new HttpResponse(null, {
+      status: 204,
+    });
+  }),
 ];

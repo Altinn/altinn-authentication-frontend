@@ -82,7 +82,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
 
   const logoutAndRedirectToVendor = (): void => {
     const url = new URL(
-      `${getApiBaseUrl()}systemuser/changerequest/${request.id}/logout`,
+      `${getApiBaseUrl()}systemuser/request/${request.id}/logout`,
       window.location.href,
     );
     window.location.assign(url.toString());
