@@ -11,11 +11,20 @@ dotenv.config({
   path: path.resolve(__dirname, `config/.env.${process.env.environment ?? 'AT22'}`),
 });
 
+// Load sensitive credentials from shared `.env` file
+dotenv.config({
+  path: path.resolve(__dirname, 'config/.env'),
+});
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
   testDir: './e2eTests',
+  globalTeardown: './api-requests/global-teardown.tsx',
+  expect: {
+    timeout: 15_000,
+  },
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['dot'],
