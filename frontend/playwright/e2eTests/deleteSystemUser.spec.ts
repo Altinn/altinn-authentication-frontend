@@ -3,7 +3,6 @@ import { SystemUserPage } from '../pages/systemUserPage';
 
 test('Delete created system user', async ({ page }): Promise<void> => {
   const systemUserPage = new SystemUserPage(page);
-
   const system = 'E2E - Playwright - Authentication';
 
   // Create new system user
