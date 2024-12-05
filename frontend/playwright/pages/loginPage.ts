@@ -1,9 +1,13 @@
-import { type Page, expect } from '@playwright/test';
+import { Locator, type Page, expect } from '@playwright/test';
 
 const authFile = '.playwright/.auth/user.json';
 
 export class LoginWithUserPage {
-  constructor(public page: Page) {}
+  public readonly LOGIN_BUTTON: Locator;
+
+  constructor(public page: Page) {
+    this.LOGIN_BUTTON = page.locator('span', { hasText: 'Logg inn/Min profil' });
+  }
 
   async loginAndChooseReportee(testUser: string, reportee: string) {
     await this.page.goto(`${process.env.BASE_URL}`);
