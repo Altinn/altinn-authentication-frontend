@@ -41,7 +41,7 @@
     "typescript": "*",
     "typescript-eslint": "^8.0.0",
     "typescript-plugin-css-modules": "^5.1.0",
-    "vite": "^5.1.4",
+    "vite": "^6.0.0",
     "vite-plugin-svgr": "^4.2.0"
   },
   "workspaces": [
