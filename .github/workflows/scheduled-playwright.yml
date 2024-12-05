@@ -2,10 +2,10 @@ name: Playwright tests (Authentication)
 
 on:
   schedule:
-    # Runs at 7:00 AM UTC every day
-    - cron: "0 7 * * *"
-    # Runs at 1:00 PM UTC every day
-    - cron: "0 13 * * *"
+    # Runs at 6:00 AM UTC every day
+    - cron: "0 6 * * *"
+    # Runs at 12:00 PM UTC every day
+    - cron: "0 12 * * *"
 
 jobs:
   playwright-scheduled:
