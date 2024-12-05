@@ -87,6 +87,8 @@ jobs:
     secrets:
       USERNAME_TEST_API: ${{ secrets.USERNAME_TEST_API }}
       PASSWORD_TEST_API: ${{ secrets.PASSWORD_TEST_API }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
 
 
 
