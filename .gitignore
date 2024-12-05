@@ -8,6 +8,8 @@
 /frontend/playwright/blob-report/
 /frontend/playwright/.cache/
 /frontend/playwright/.playwright/
+/frontend/playwright/config/.env
+
 
 # From access management repo:
 # Yarn stuff; we're not using PnP/Zero installs
