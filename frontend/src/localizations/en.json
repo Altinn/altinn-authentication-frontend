@@ -83,6 +83,7 @@
     "reject": "Reject",
     "org_nr": "{{systemName}} is delivered by {{vendorName}}, org.nr. {{vendorOrg}}",
     "loading_creation_request": "Loading request",
+    "load_creation_request_error_notfound": "System access request for chosen party does not exist. Are you certain that you have chosen correct party?",
     "load_creation_request_error": "Could not load system access request",
     "load_user_info_error": "Could not load user info",
     "load_creation_request_no_id": "id must be included as query-parameter in url",
@@ -98,5 +99,17 @@
     "receipt_body": "At altinn.no you will find and overview of your system accesses. There you can also edit the name of the system accesses, and withdraw the approval at any time.",
     "receipt_close": "Close",
     "receipt_go_to_overview": "Go to overview in Altinn"
+  },
+  "delegation_errors": {
+    "01_rights_not_found_or_not_delegable": "One or more services do not exist, or cannot be delegated.",
+    "02_rights_failed_to_delegate": "Could not delegate services to the system user.",
+    "03_systemuser_failed_to_create": "Could not create system access.",
+    "04_system_user_already_exists": "Could not create system access; existing system access already exists for the selected system.",
+    "11_system_not_found": "Chosen system does not exist",
+    "14_unable_to_do_delegation_check": "Delegation of services failed with an unknown error.",
+    "16_delegation_right_missing_role_access": "Delegation of services failed: your role does not have the rights to delegate services to system access.",
+    "18_delegation_right_missing_delegation_access": "Delegation of services failed: you do not have the rights to directly delegate services.",
+    "19_delegation_right_missing_srr_right_access": "Delegation of services failed: one or more services use access lists where the organization does not have access.",
+    "20_delegation_right_insufficient_authentication_level": "Delegation of services failed: one or more services require an explicit access level."
   }
 }

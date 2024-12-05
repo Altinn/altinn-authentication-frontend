@@ -83,28 +83,6 @@ public class SystemUserClientMock : ISystemUserClient
         return _systemUserList.Find(i => i.Id == id.ToString());
     }
 
-    public async Task<SystemUser> PostNewSystemUserReal(int party, CreateSystemUserRequestToAuthComp newSystemUserDescriptor, CancellationToken cancellation = default)
-    {
-        await Task.Delay(50);
-        //var sysreal = MapDescriptorToSystemUserReal(newSystemUserDescriptor);
-        SystemUser newSystemUser = new ()
-        {
-            Created = System.DateTime.UtcNow,
-            Id = Guid.NewGuid().ToString(),
-            IsDeleted = false,
-            IntegrationTitle = newSystemUserDescriptor.IntegrationTitle!,
-            PartyId = party.ToString(),
-            ReporteeOrgNo = newSystemUserDescriptor.ReporteeOrgNo!,
-            SystemId = newSystemUserDescriptor.SelectedSystemType!,            
-            SupplierOrgNo = newSystemUserDescriptor.SelectedSystemType!,// need to call Auth-System-Register to find the orgno, based on the system_id
-            SupplierName = newSystemUserDescriptor.SelectedSystemType!, // need to call Registry to find the name, based on the orgno
-            SystemInternalId = Guid.NewGuid()              
-        };
-
-        _systemUserList.Add(newSystemUser);
-        return newSystemUser;
-    }
-
     public async Task<Result<bool>> DeleteSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
@@ -120,21 +98,14 @@ public class SystemUserClientMock : ISystemUserClient
         throw new NotImplementedException();
     }
 
-    public async Task<bool> ChangeSystemUserRealDescription(string newDescr, Guid id, CancellationToken cancellationToken = default)
-    {
-        await Task.Delay(50);
-        throw new NotImplementedException();
-    }
-
     public async Task<List<SystemUser>> GetSystemUserRealsForChosenUser(int id, CancellationToken cancellationToken = default)
     {
         await Task.Delay(50);
         return _systemUserList;
     }
 
-    public async Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
+    public Task<Result<SystemUser>> CreateSystemUser(int partyId, SystemUserRequestDto newSystemUserDescriptor, CancellationToken cancellation = default)
     {
-        await Task.Delay(50);
         throw new NotImplementedException();
     }
 }

@@ -14,6 +14,8 @@ import { AuthenticationRoute } from '@/routes/paths';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
+import { DelegationCheckError } from '@/components/DelegationCheckError';
+import { ProblemDetail } from '@/types/problemDetail';
 
 interface VendorRequestPageContentProps {
   request: SystemUserCreationRequest;
@@ -30,7 +32,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
 
   const [
     postAcceptCreationRequest,
-    { isError: isAcceptCreationRequestError, isLoading: isAcceptingSystemUser },
+    { error: acceptCreationRequestError, isLoading: isAcceptingSystemUser },
   ] = useApproveSystemUserRequestMutation();
 
   const [
@@ -63,8 +65,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   };
 
   const logoutAndRedirectToVendor = (): void => {
-    const url = new URL('/authfront/api/v1/systemuser/request/logout', window.location.href);
-    url.searchParams.append('id', request.id);
+    const url = `/authfront/api/v1/systemuser/request/${request.id}/logout`;
     window.location.assign(url.toString());
   };
 
@@ -168,10 +169,8 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
         <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
         <div>
           {!userInfo.canCreateSystemUser && <RightsError />}
-          {isAcceptCreationRequestError && (
-            <Alert data-color='danger' role='alert'>
-              {t('vendor_request.accept_error')}
-            </Alert>
+          {acceptCreationRequestError && (
+            <DelegationCheckError error={acceptCreationRequestError as { data: ProblemDetail }} />
           )}
           {isRejectCreationRequestError && (
             <Alert data-color='danger' role='alert'>
