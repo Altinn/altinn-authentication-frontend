@@ -1,4 +1,4 @@
-import React, { useId, useState, forwardRef } from 'react';
+import React, { useId, useState } from 'react';
 
 import { type ClickHandler, ActionBarContext } from './Context';
 import { ActionBarContent } from './ActionBarContent';
@@ -64,59 +64,54 @@ export interface ActionBarProps {
  * @returns {React.ReactNode} The rendered ActionBar component.
  */
 
-export const ActionBar = forwardRef<HTMLDivElement, ActionBarProps>(
-  (
-    {
-      additionalText,
-      children,
-      color = 'neutral',
-      size = 'medium',
-      onClick,
-      open,
-      defaultOpen = false,
-      subtitle,
-      title,
-      icon,
-    },
-    ref,
-  ) => {
-    const headerId = useId();
-    const contentId = useId();
+export const ActionBar = ({
+  additionalText,
+  children,
+  color = 'neutral',
+  size = 'medium',
+  onClick,
+  open,
+  defaultOpen = false,
+  subtitle,
+  title,
+  icon,
+}: ActionBarProps): React.ReactNode => {
+  const headerId = useId();
+  const contentId = useId();
 
-    const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen);
-    const isOpen = open ?? internalOpen;
+  const [internalOpen, setInternalOpen] = useState<boolean>(defaultOpen);
+  const isOpen = open ?? internalOpen;
 
-    const toggleOpen = () => {
-      if (onClick) {
-        onClick();
-      } else {
-        setInternalOpen((openState) => !openState);
-      }
-    };
+  const toggleOpen = () => {
+    if (onClick) {
+      onClick();
+    } else {
+      setInternalOpen((openState) => !openState);
+    }
+  };
 
-    return (
-      <div ref={ref}>
-        <ActionBarContext.Provider
-          value={{
-            toggleOpen,
-            open: isOpen,
-            headerId,
-            contentId,
-            color,
-            size,
-          }}
-        >
-          <ActionBarHeader
-            title={title}
-            subtitle={subtitle}
-            icon={icon}
-            additionalText={additionalText}
-          ></ActionBarHeader>
-          <ActionBarContent>{children}</ActionBarContent>
-        </ActionBarContext.Provider>
-      </div>
-    );
-  },
-);
+  return (
+    <div>
+      <ActionBarContext.Provider
+        value={{
+          toggleOpen,
+          open: isOpen,
+          headerId,
+          contentId,
+          color,
+          size,
+        }}
+      >
+        <ActionBarHeader
+          title={title}
+          subtitle={subtitle}
+          icon={icon}
+          additionalText={additionalText}
+        ></ActionBarHeader>
+        <ActionBarContent>{children}</ActionBarContent>
+      </ActionBarContext.Provider>
+    </div>
+  );
+};
 
 ActionBar.displayName = 'ActionBar';
