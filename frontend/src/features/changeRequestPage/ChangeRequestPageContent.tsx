@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation, Trans } from 'react-i18next';
 import { Alert, Button, Heading, Paragraph } from '@digdir/designsystemet-react';
 import { RightsList } from '@/components/RightsList';
-import { ProfileInfo, SystemUserCreationRequest } from '@/types';
+import { ChangeRequest, ProfileInfo } from '@/types';
 import { RightsError } from '@/components/RightsError';
 import {
-  useApproveSystemUserRequestMutation,
-  useRejectSystemUserRequestMutation,
+  useApproveChangeRequestMutation,
+  useRejectChangeRequestMutation,
 } from '@/rtk/features/systemUserApi';
 import { AuthenticationRoute } from '@/routes/paths';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
@@ -18,12 +18,15 @@ import { ButtonRow } from '@/components/ButtonRow';
 import { DelegationCheckError } from '@/components/DelegationCheckError';
 import { ProblemDetail } from '@/types/problemDetail';
 
-interface VendorRequestPageContentProps {
-  request: SystemUserCreationRequest;
+interface ChangeRequestPageContentProps {
+  changeRequest: ChangeRequest;
   userInfo: ProfileInfo;
 }
 
-export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPageContentProps) => {
+export const ChangeRequestPageContent = ({
+  changeRequest,
+  userInfo,
+}: ChangeRequestPageContentProps) => {
   const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
   const [isReceiptVisible, setIsReceiptVisible] = useState<boolean>(false);
@@ -32,27 +35,27 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   const dispatch = useAppDispatch();
 
   const [
-    postAcceptCreationRequest,
-    { error: acceptCreationRequestError, isLoading: isAcceptingSystemUser },
-  ] = useApproveSystemUserRequestMutation();
+    postAcceptChangeRequest,
+    { error: acceptChangeRequestError, isLoading: isAcceptingChangeRequest },
+  ] = useApproveChangeRequestMutation();
 
   const [
-    postRejectCreationRequest,
-    { isError: isRejectCreationRequestError, isLoading: isRejectingSystemUser },
-  ] = useRejectSystemUserRequestMutation();
+    postRejectChangeRequest,
+    { isError: isRejectChangeRequestError, isLoading: isRejectingChangeRequest },
+  ] = useRejectChangeRequestMutation();
 
   const isActionButtonDisabled =
     !userInfo.canCreateSystemUser ||
-    isAcceptingSystemUser ||
-    isRejectingSystemUser ||
-    request.status !== 'New';
+    isAcceptingChangeRequest ||
+    isRejectingChangeRequest ||
+    changeRequest.status !== 'New';
 
-  const acceptSystemUser = (): void => {
+  const acceptChangeRequest = (): void => {
     if (!isActionButtonDisabled) {
-      postAcceptCreationRequest(request.id)
+      postAcceptChangeRequest(changeRequest.id)
         .unwrap()
         .then(() => {
-          if (request.redirectUrl) {
+          if (changeRequest.redirectUrl) {
             logoutAndRedirectToVendor();
           } else {
             setIsReceiptVisible(true);
@@ -61,12 +64,12 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
     }
   };
 
-  const rejectSystemUser = (): void => {
+  const rejectChangeRequest = (): void => {
     if (!isActionButtonDisabled) {
-      postRejectCreationRequest(request.id)
+      postRejectChangeRequest(changeRequest.id)
         .unwrap()
         .then(() => {
-          if (request.redirectUrl) {
+          if (changeRequest.redirectUrl) {
             logoutAndRedirectToVendor();
           } else {
             logoutUser();
@@ -76,13 +79,13 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   };
 
   const redirectToOverview = (): void => {
-    dispatch(setCreatedId(request.id));
+    dispatch(setCreatedId(changeRequest.id));
     navigate(AuthenticationRoute.Overview);
   };
 
   const logoutAndRedirectToVendor = (): void => {
     const url = new URL(
-      `${getApiBaseUrl()}systemuser/request/${request.id}/logout`,
+      `${getApiBaseUrl()}systemuser/changerequest/${changeRequest.id}/logout`,
       window.location.href,
     );
     window.location.assign(url.toString());
@@ -97,7 +100,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       <>
         <Heading level={2} data-size='sm'>
           {t('vendor_request.receipt_ingress', {
-            systemName: request.system.name[currentLanguage],
+            systemName: changeRequest.system.name[currentLanguage],
           })}
         </Heading>
         <Paragraph>{t('vendor_request.receipt_body')}</Paragraph>
@@ -115,25 +118,25 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
 
   return (
     <>
-      {request.status === 'Accepted' && (
-        <Alert data-color='info'>{t('vendor_request.request_accepted')}</Alert>
+      {changeRequest.status === 'Accepted' && (
+        <Alert data-color='info'>{t('change_request.request_accepted')}</Alert>
       )}
-      {request.status === 'Rejected' && (
-        <Alert data-color='info'>{t('vendor_request.request_rejected')}</Alert>
+      {changeRequest.status === 'Rejected' && (
+        <Alert data-color='info'>{t('change_request.request_rejected')}</Alert>
       )}
-      {request.status === 'Timedout' && (
-        <Alert data-color='info'>{t('vendor_request.request_expired')}</Alert>
+      {changeRequest.status === 'Timedout' && (
+        <Alert data-color='info'>{t('change_request.request_expired')}</Alert>
       )}
       <Heading level={2} data-size='sm'>
-        {t('vendor_request.creation_header', {
-          vendorName: request.system.name[currentLanguage],
+        {t('change_request.change_request_header', {
+          vendorName: changeRequest.system.name[currentLanguage],
         })}
       </Heading>
       <Paragraph>
         <Trans
           i18nKey={'vendor_request.system_description'}
           values={{
-            systemName: request.system.name[currentLanguage],
+            systemName: changeRequest.system.name[currentLanguage],
             partyName: userInfo.representingPartyName,
           }}
         ></Trans>
@@ -141,46 +144,46 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       <div />
       <div>
         <Heading level={3} data-size='xs'>
-          {request.resources.length === 1
-            ? t('vendor_request.rights_list_header_single')
-            : t('vendor_request.rights_list_header')}
+          {changeRequest.resources.length === 1
+            ? t('change_request.rights_list_header_single')
+            : t('change_request.rights_list_header')}
         </Heading>
-        <RightsList resources={request.resources} />
+        <RightsList resources={changeRequest.resources} />
       </div>
       <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
       <div>
         {!userInfo.canCreateSystemUser && <RightsError />}
-        {acceptCreationRequestError && (
+        {acceptChangeRequestError && (
           <DelegationCheckError
-            defaultError='authent_includedrightspage.create_systemuser_error'
-            error={acceptCreationRequestError as { data: ProblemDetail }}
+            defaultError='change_request.accept_error'
+            error={acceptChangeRequestError as { data: ProblemDetail }}
           />
         )}
-        {isRejectCreationRequestError && (
+        {isRejectChangeRequestError && (
           <Alert data-color='danger' role='alert'>
-            {t('vendor_request.reject_error')}
+            {t('change_request.reject_error')}
           </Alert>
         )}
         <ButtonRow>
           <Button
             variant='primary'
             aria-disabled={isActionButtonDisabled}
-            onClick={acceptSystemUser}
-            loading={isAcceptingSystemUser}
+            onClick={acceptChangeRequest}
+            loading={isAcceptingChangeRequest}
           >
-            {isAcceptingSystemUser
-              ? t('vendor_request.accept_loading')
-              : t('vendor_request.accept')}
+            {isAcceptingChangeRequest
+              ? t('change_request.accept_loading')
+              : t('change_request.accept')}
           </Button>
           <Button
             variant='tertiary'
             aria-disabled={isActionButtonDisabled}
-            onClick={rejectSystemUser}
-            loading={isRejectingSystemUser}
+            onClick={rejectChangeRequest}
+            loading={isRejectingChangeRequest}
           >
-            {isRejectingSystemUser
-              ? t('vendor_request.reject_loading')
-              : t('vendor_request.reject')}
+            {isRejectingChangeRequest
+              ? t('change_request.reject_loading')
+              : t('change_request.reject')}
           </Button>
         </ButtonRow>
       </div>

@@ -8,6 +8,7 @@ import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
 import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { setSelectedSystemId } from '@/rtk/features/createSystemUserSlice';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
+import { ButtonRow } from '@/components/ButtonRow';
 import { PageDescription } from '@/components/PageDescription';
 
 export const CreationPageContent = () => {
@@ -91,7 +92,7 @@ export const CreationPageContent = () => {
           <Alert data-color='danger'>{t('authent_creationpage.load_vendors_error')}</Alert>
         )}
       </div>
-      <div className={classes.buttonContainer}>
+      <ButtonRow>
         <Button
           variant='primary'
           data-size='sm'
@@ -103,7 +104,7 @@ export const CreationPageContent = () => {
         <Button variant='tertiary' data-size='sm' onClick={handleCancel}>
           {t('common.cancel')}
         </Button>
-      </div>
+      </ButtonRow>
     </div>
   );
 };

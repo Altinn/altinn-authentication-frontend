@@ -1,3 +1,8 @@
 .systemUserHeader {
-  margin-top: 3rem;
+  margin-top: var(--ds-spacing-12);
+}
+
+.description {
+  margin-top: var(--ds-spacing-2);
+  margin-bottom: var(--ds-spacing-12);
 }

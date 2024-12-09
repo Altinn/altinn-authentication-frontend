@@ -148,7 +148,9 @@ namespace Altinn.Authentication.UI.Extensions
             services.AddHttpClient<ISystemRegisterClient, SystemRegisterClient>();
             services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
             services.AddHttpClient<IResourceRegistryClient, ResourceRegistryClient>();
+            services.AddHttpClient<IRegisterClient, RegisterClient>();
             services.AddHttpClient<IRequestClient, RequestClient>();
+            services.AddHttpClient<IChangeRequestClient, ChangeRequestClient>();
 
             return services;
         }
@@ -169,9 +171,7 @@ namespace Altinn.Authentication.UI.Extensions
             services.AddTransient<ISystemUserService, SystemUserService>();
             services.AddTransient<ISystemRegisterService, SystemRegisterService>();
             services.AddTransient<IRequestService, RequestService>();
-            services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
-            services.AddHttpClient<IRegisterClient, RegisterClient>();
-            services.AddHttpClient<IRequestClient, RequestClient>();
+            services.AddTransient<IChangeRequestService, ChangeRequestService>();
 
             return services;
         }

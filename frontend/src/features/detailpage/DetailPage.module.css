@@ -4,16 +4,6 @@
   gap: var(--ds-spacing-8);
 }
 
-.buttonContainer {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--ds-spacing-4);
-}
-
 .nameField {
   max-width: 30rem;
-}
-
-.rightsList {
-  flex-wrap: wrap;
 }

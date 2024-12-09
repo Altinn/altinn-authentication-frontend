@@ -2,12 +2,12 @@
   --vendor-container-padding: var(--ds-spacing-12);
 }
 
-.vendorRequestPage {
+.requestPage {
   min-height: 100vh;
   background-color: var(--ds-color-neutral-background-subtle);
 }
 
-.vendorRequestWrapper {
+.requestWrapper {
   margin-left: auto;
   margin-right: auto;
   min-width: 280px;
@@ -24,6 +24,14 @@
   padding: var(--vendor-container-padding);
 }
 
+.vendorInfo {
+  padding-top: var(--ds-spacing-4);
+  padding-right: var(--vendor-container-padding);
+  padding-bottom: var(--vendor-container-padding);
+  text-align: right;
+  font-style: italic;
+}
+
 .vendorRequestBlock {
   display: flex;
   flex-direction: column;
@@ -31,19 +39,4 @@
   background-color: var(--ds-color-accent-background-default);
   padding: var(--vendor-container-padding);
   margin-bottom: 3px;
-}
-
-.buttonRow {
-  display: flex;
-  flex-direction: row;
-  gap: var(--ds-spacing-4);
-  margin-top: var(--ds-spacing-4);
-}
-
-.vendorInfo {
-  padding-top: var(--ds-spacing-4);
-  padding-right: var(--vendor-container-padding);
-  padding-bottom: var(--vendor-container-padding);
-  text-align: right;
-  font-style: italic;
 }

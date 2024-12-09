@@ -1,4 +1,4 @@
-﻿using Altinn.Authentication.UI.Core.Authentication;
+using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authorization.ProblemDetails;
@@ -11,11 +11,11 @@ using System.Net.Http.Json;
 
 namespace Altinn.Authentication.UI.Integration.SystemUsers;
 
-public class RequestClient(
+public class ChangeRequestClient(
     HttpClient client,
     IOptions<PlatformSettings> optionsPlatformSetting,
     IHttpContextAccessor httpContext
-    ) : IRequestClient
+    ) : IChangeRequestClient
 {
     private readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
@@ -26,9 +26,9 @@ public class RequestClient(
         return JwtTokenUtil.GetTokenFromContext(httpContext.HttpContext!, optionsPlatformSetting.Value.JwtCookieName!)!;
     }
 
-    public async Task<Result<VendorRequest>> GetVendorRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
+    public async Task<Result<ChangeRequest>> GetChangeRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
     {        
-        string endpoint = $"systemuser/request/{partyId}/{requestId}";
+        string endpoint = $"systemuser/changerequest/{partyId}/{requestId}";
         HttpResponseMessage res = await client.GetAsync(InitClient(), endpoint);
 
         if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -38,7 +38,7 @@ public class RequestClient(
 
         if (res.IsSuccessStatusCode)
         {
-            var val = JsonSerializer.Deserialize<VendorRequest>(await res.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions);
+            var val = JsonSerializer.Deserialize<ChangeRequest>(await res.Content.ReadAsStringAsync(cancellationToken), _jsonSerializerOptions);
             if (val is null)
             {
                 return Problem.Generic_EndOfMethod;
@@ -50,16 +50,16 @@ public class RequestClient(
         return Problem.Generic_EndOfMethod;
     }
 
-    public async Task<Result<bool>> ApproveRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
+    public async Task<Result<bool>> ApproveChangeRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
     {
-        string endpoint = $"systemuser/request/{partyId}/{requestId}/approve";
+        string endpoint = $"systemuser/changerequest/{partyId}/{requestId}/approve";
         HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
         return await HandleResponse(res, cancellationToken);
     }
 
-    public async Task<Result<bool>> RejectRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
+    public async Task<Result<bool>> RejectChangeRequest(int partyId, Guid requestId, CancellationToken cancellationToken)
     {
-        string endpoint = $"systemuser/request/{partyId}/{requestId}/reject";
+        string endpoint = $"systemuser/changerequest/{partyId}/{requestId}/reject";
         HttpResponseMessage res = await client.PostAsync(InitClient(), endpoint, null);
         return await HandleResponse(res, cancellationToken);
     }

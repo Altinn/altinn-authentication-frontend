@@ -10,6 +10,7 @@ import {
   useUpdateSystemuserMutation,
 } from '@/rtk/features/systemUserApi';
 import { SystemUser } from '@/types';
+import { ButtonRow } from '@/components/ButtonRow';
 import { PageDescription } from '@/components/PageDescription';
 
 interface DetailPageContentProps {
@@ -42,14 +43,12 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
           {t('authent_detailpage.delete_systemuser_body', {
             title: systemUser.integrationTitle,
           })}
-        </Modal.Block>
-        {isDeleteError && (
-          <Alert data-color='danger' role='alert'>
-            {t('authent_detailpage.delete_systemuser_error')}
-          </Alert>
-        )}
-        <Modal.Block>
-          <div className={classes.buttonContainer}>
+          {isDeleteError && (
+            <Alert data-color='danger' role='alert'>
+              {t('authent_detailpage.delete_systemuser_error')}
+            </Alert>
+          )}
+          <ButtonRow>
             <Button
               data-color='danger'
               disabled={isDeletingSystemUser}
@@ -64,7 +63,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
             <Button variant='tertiary' onClick={() => deleteModalRef.current?.close()}>
               {t('common.cancel')}
             </Button>
-          </div>
+          </ButtonRow>
         </Modal.Block>
       </Modal>
       <PageDescription
@@ -90,7 +89,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
       )}
       <div>
         {IS_EDIT_NAME_ENABLED && (
-          <div className={classes.buttonContainer}>
+          <ButtonRow>
             <Button
               onClick={() => {
                 updateSystemUser({
@@ -105,7 +104,7 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
             <Button variant='tertiary' asChild>
               <RouterLink to={AuthenticationRoute.Overview}>{t('common.cancel')}</RouterLink>
             </Button>
-          </div>
+          </ButtonRow>
         )}
         <Button
           variant='tertiary'

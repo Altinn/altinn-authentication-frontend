@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { RightsList } from '@/components/RightsList';
+import { ButtonRow } from '@/components/ButtonRow';
 import { DelegationCheckError } from '@/components/DelegationCheckError';
 import { ProblemDetail } from '@/types/problemDetail';
 import { PageDescription } from '@/components/PageDescription';
@@ -87,14 +88,17 @@ export const RightsIncludedPageContent = () => {
       <div>
         <RightsList resources={rights ?? []} />
         {createSystemUserError && (
-          <DelegationCheckError error={createSystemUserError as { data: ProblemDetail }} />
+          <DelegationCheckError
+            defaultError='authent_includedrightspage.create_systemuser_error'
+            error={createSystemUserError as { data: ProblemDetail }}
+          />
         )}
         {isLoadRightsError && (
           <Alert data-color='danger' role='alert'>
             {t('authent_includedrightspage.load_rights_error')}
           </Alert>
         )}
-        <div className={classes.buttonContainer}>
+        <ButtonRow>
           <Button
             data-size='sm'
             variant='primary'
@@ -110,7 +114,7 @@ export const RightsIncludedPageContent = () => {
           <Button variant='tertiary' data-size='sm' onClick={handleReject}>
             {t('common.cancel')}
           </Button>
-        </div>
+        </ButtonRow>
       </div>
     </div>
   );
