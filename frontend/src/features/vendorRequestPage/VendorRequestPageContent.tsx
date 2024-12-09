@@ -151,7 +151,10 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
       <div>
         {!userInfo.canCreateSystemUser && <RightsError />}
         {acceptCreationRequestError && (
-          <DelegationCheckError error={acceptCreationRequestError as { data: ProblemDetail }} />
+          <DelegationCheckError
+            defaultError='authent_includedrightspage.create_systemuser_error'
+            error={acceptCreationRequestError as { data: ProblemDetail }}
+          />
         )}
         {isRejectCreationRequestError && (
           <Alert data-color='danger' role='alert'>

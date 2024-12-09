@@ -5,12 +5,16 @@ import { ProblemDetail } from '@/types/problemDetail';
 import classes from './DelegationCheckError.module.css';
 
 interface DelegationCheckErrorProps {
+  defaultError: string;
   error: {
     data: ProblemDetail;
   };
 }
 
-export const DelegationCheckError = ({ error }: DelegationCheckErrorProps): React.ReactNode => {
+export const DelegationCheckError = ({
+  defaultError,
+  error,
+}: DelegationCheckErrorProps): React.ReactNode => {
   const { t } = useTranslation();
 
   const getErrorMessage = (): string => {
@@ -36,7 +40,7 @@ export const DelegationCheckError = ({ error }: DelegationCheckErrorProps): Reac
       case 'ATUI-00020':
         return t('delegation_errors.20_delegation_right_insufficient_authentication_level');
       default:
-        return t('authent_includedrightspage.create_systemuser_error');
+        return t(defaultError);
     }
   };
 

@@ -88,7 +88,10 @@ export const RightsIncludedPageContent = () => {
       <div>
         <RightsList resources={rights ?? []} />
         {createSystemUserError && (
-          <DelegationCheckError error={createSystemUserError as { data: ProblemDetail }} />
+          <DelegationCheckError
+            defaultError='authent_includedrightspage.create_systemuser_error'
+            error={createSystemUserError as { data: ProblemDetail }}
+          />
         )}
         {isLoadRightsError && (
           <Alert data-color='danger' role='alert'>

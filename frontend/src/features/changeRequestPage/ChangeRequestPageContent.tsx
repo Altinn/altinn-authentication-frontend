@@ -15,6 +15,8 @@ import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 import { getApiBaseUrl, getLogoutUrl } from '@/utils/urlUtils';
 import { ButtonRow } from '@/components/ButtonRow';
+import { DelegationCheckError } from '@/components/DelegationCheckError';
+import { ProblemDetail } from '@/types/problemDetail';
 
 interface ChangeRequestPageContentProps {
   changeRequest: ChangeRequest;
@@ -34,7 +36,7 @@ export const ChangeRequestPageContent = ({
 
   const [
     postAcceptChangeRequest,
-    { isError: isAcceptChangeRequestError, isLoading: isAcceptingChangeRequest },
+    { error: acceptChangeRequestError, isLoading: isAcceptingChangeRequest },
   ] = useApproveChangeRequestMutation();
 
   const [
@@ -151,10 +153,11 @@ export const ChangeRequestPageContent = ({
       <Paragraph>{t('vendor_request.withdraw_consent_info')}</Paragraph>
       <div>
         {!userInfo.canCreateSystemUser && <RightsError />}
-        {isAcceptChangeRequestError && (
-          <Alert data-color='danger' role='alert'>
-            {t('change_request.accept_error')}
-          </Alert>
+        {acceptChangeRequestError && (
+          <DelegationCheckError
+            defaultError='change_request.accept_error'
+            error={acceptChangeRequestError as { data: ProblemDetail }}
+          />
         )}
         {isRejectChangeRequestError && (
           <Alert data-color='danger' role='alert'>
