@@ -148,7 +148,6 @@ namespace Altinn.Authentication.UI.Extensions
             services.AddHttpClient<ISystemRegisterClient, SystemRegisterClient>();
             services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
             services.AddHttpClient<IResourceRegistryClient, ResourceRegistryClient>();
-            services.AddHttpClient<IAccessManagementClient, AccessManagementClient>();
             services.AddHttpClient<IRegisterClient, RegisterClient>();
             services.AddHttpClient<IRequestClient, RequestClient>();
             services.AddHttpClient<IChangeRequestClient, ChangeRequestClient>();
