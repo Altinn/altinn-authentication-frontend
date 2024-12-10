@@ -1,25 +1,22 @@
 import test, { expect } from '@playwright/test';
 import { ApiRequests } from '../api-requests/ApiRequests';
-import { Token } from 'playwright/api-requests/Token';
 import { TestdataApi } from 'playwright/util/TestdataApi';
 
 test.describe('Godkjenn og avvis Systembruker endringsforespørsel', () => {
-  let token: Token;
   let api: ApiRequests;
 
   test.beforeEach(async () => {
     api = new ApiRequests();
-    token = new Token();
   });
 
   test('Avvis Systembruker endringsforespørsel', async ({ page }): Promise<void> => {
     //Generate confirmUrl from API
     const externalRef = TestdataApi.generateExternalRef();
-    const response = await api.postSystemuserRequest(token, externalRef);
+    const response = await api.postSystemuserRequest(externalRef);
 
-    await api.approveSystemuserRequest(token, response.id);
+    await api.approveSystemuserRequest(response.id);
 
-    const confirmUrlChangeRequest = await api.postSystemuserChangeRequest(token, externalRef);
+    const confirmUrlChangeRequest = await api.postSystemuserChangeRequest(externalRef);
 
     await page.goto(confirmUrlChangeRequest);
     await page.getByRole('button', { name: 'Avvis' }).click();
@@ -30,11 +27,11 @@ test.describe('Godkjenn og avvis Systembruker endringsforespørsel', () => {
 
   test('Godkjenn Systembruker endringsforespørsel', async ({ page }): Promise<void> => {
     const externalRef = TestdataApi.generateExternalRef();
-    const response = await api.postSystemuserRequest(token, externalRef);
+    const response = await api.postSystemuserRequest(externalRef);
 
-    await api.approveSystemuserRequest(token, response.id);
+    await api.approveSystemuserRequest(response.id);
 
-    const confirmUrlChangeRequest = await api.postSystemuserChangeRequest(token, externalRef);
+    const confirmUrlChangeRequest = await api.postSystemuserChangeRequest(externalRef);
 
     await page.goto(confirmUrlChangeRequest);
     await page.getByRole('button', { name: 'Godkjenn' }).click();

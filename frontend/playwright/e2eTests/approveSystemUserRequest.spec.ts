@@ -4,18 +4,16 @@ import { Token } from 'playwright/api-requests/Token';
 import { TestdataApi } from 'playwright/util/TestdataApi';
 
 test.describe('Godkjenn og avvis Systembrukerforespørsel', () => {
-  let token: Token;
   let api: ApiRequests;
 
   test.beforeEach(async () => {
     api = new ApiRequests();
-    token = new Token();
   });
 
   test('Avvis Systembrukerforespørsel', async ({ page }): Promise<void> => {
     //Generate confirmUrl from API
     const externalRef = TestdataApi.generateExternalRef();
-    const response = await api.postSystemuserRequest(token, externalRef);
+    const response = await api.postSystemuserRequest(externalRef);
 
     await page.goto(response.confirmUrl);
     await page.getByRole('button', { name: 'Avvis' }).click();
@@ -26,7 +24,7 @@ test.describe('Godkjenn og avvis Systembrukerforespørsel', () => {
 
   test('Godkjenn Systembrukerforespørsel', async ({ page }): Promise<void> => {
     const externalRef = TestdataApi.generateExternalRef();
-    const response = await api.postSystemuserRequest(token, externalRef);
+    const response = await api.postSystemuserRequest(externalRef);
 
     await page.goto(response.confirmUrl);
     await page.getByRole('button', { name: 'Godkjenn' }).click();

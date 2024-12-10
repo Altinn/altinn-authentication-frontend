@@ -27,15 +27,23 @@ interface PostSystemUserChangeRequestPayload {
 }
 
 export class ApiRequests {
-  public async cleanUpSystemUsers(systemUsers: { id: string }[], token: string): Promise<void> {
+  private tokenClass: Token;
+
+  constructor() {
+    this.tokenClass = new Token();
+  }
+
+  public async cleanUpSystemUsers(systemUsers: { id: string }[]): Promise<void> {
+    const token = await this.tokenClass.getPersonalAltinnToken();
     for (const systemuser of systemUsers) {
       await this.deleteSystemUser(token, systemuser.id);
     }
   }
 
-  public async getSystemUsers(token: string): Promise<string> {
+  public async getSystemUsers(): Promise<string> {
     const endpoint = `v1/systemuser/${process.env.ALTINN_PARTY_ID}`;
     const url = `${process.env.API_BASE_URL}${endpoint}`;
+    const token = await this.tokenClass.getPersonalAltinnToken();
 
     try {
       const response = await fetch(url, {
@@ -89,41 +97,11 @@ export class ApiRequests {
     }
   }
 
-  /**
-   * Sends a GET request to fetch the last system request.
-   * @param endpoint The API endpoint (relative path).
-   * @param token The authorization token.
-   * @returns The response data as JSON.
-   */
-  public async fetchLastSystemRequest<T>(endpoint: string, token: string): Promise<T> {
-    const url = `${process.env.API_BASE_URL}${endpoint}`;
-
-    try {
-      const response = await fetch(url, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`, // Add the Authorization header
-        },
-      });
-
-      if (!response.ok) {
-        const errorBody = await response.text(); // Read the response body
-        console.error(`HTTP Error! Status: ${response.status}, Response Body: ${errorBody}`);
-        throw new Error(`HTTP error! Status: ${response.status}, Response Body: ${errorBody}`);
-      }
-      const data = await response.json();
-      return data; // Return the response data
-    } catch (error) {
-      console.error('Error:', error);
-      throw error; // Rethrow the error to handle it in the test
-    }
-  }
-
-  public async postSystemuserRequest(tokenclass: Token, externalRef: string) {
+  public async postSystemuserRequest(externalRef: string) {
     const payload = this.generatePayloadSystemUserRequest(externalRef);
     const scopes =
       'altinn:authentication/systemuser.request.read altinn:authentication/systemuser.request.write';
-    const token = await tokenclass.getEnterpriseAltinnToken(scopes);
+    const token = await this.tokenClass.getEnterpriseAltinnToken(scopes);
     const endpoint = 'v1/systemuser/request/vendor';
     const apiResponse = await this.sendPostRequest<{ confirmUrl: string; id: string }>(
       payload,
@@ -133,10 +111,10 @@ export class ApiRequests {
     return apiResponse; // Return the Confirmation URL to use in the test
   }
 
-  public async approveSystemuserRequest(tokenclass: Token, requestId: string) {
+  public async approveSystemuserRequest(requestId: string) {
     const endpoint = `v1/systemuser/request/${process.env.ALTINN_PARTY_ID}/${requestId}/approve`;
     const url = `${process.env.API_BASE_URL}${endpoint}`;
-    const userToken = await tokenclass.getPersonalAltinnToken();
+    const userToken = await this.tokenClass.getPersonalAltinnToken();
 
     try {
       const response = await fetch(url, {
@@ -158,11 +136,11 @@ export class ApiRequests {
     }
   }
 
-  public async postSystemuserChangeRequest(tokenclass: Token, externalRef: string) {
+  public async postSystemuserChangeRequest(externalRef: string) {
     const payload = this.generatePayloadSystemUserChangeRequest(externalRef);
     const scopes =
       'altinn:authentication/systemuser.request.read altinn:authentication/systemuser.request.write';
-    const token = await tokenclass.getEnterpriseAltinnToken(scopes);
+    const token = await this.tokenClass.getEnterpriseAltinnToken(scopes);
     const endpoint = 'v1/systemuser/changerequest/vendor';
     const apiResponse = await this.sendPostRequest<{ confirmUrl: string }>(
       payload,
