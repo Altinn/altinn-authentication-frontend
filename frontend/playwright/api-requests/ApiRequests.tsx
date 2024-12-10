@@ -173,7 +173,7 @@ export class ApiRequests {
         throw new Error(`HTTP error! Status: ${response.status}, Response Body: ${errorBody}`);
       }
       const data = await response.json();
-      return data as Promise<T>; // Return the response data
+      return data; // Return the response data
     } catch (error) {
       console.error('Error:', error);
       throw error; // Rethrow the error to handle it in the test
