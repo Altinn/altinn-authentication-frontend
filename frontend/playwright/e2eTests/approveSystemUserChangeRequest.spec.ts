@@ -3,7 +3,7 @@ import { ApiRequests } from '../api-requests/ApiRequests';
 import { Token } from 'playwright/api-requests/Token';
 import { TestdataApi } from 'playwright/util/TestdataApi';
 
-test.describe('Godkjenn og avvis Systembrukerforespørsel', () => {
+test.describe('Godkjenn og avvis Systembruker endringsforespørsel', () => {
   let token: Token;
   let api: ApiRequests;
 
@@ -12,23 +12,31 @@ test.describe('Godkjenn og avvis Systembrukerforespørsel', () => {
     token = new Token();
   });
 
-  test('Avvis Systembrukerforespørsel', async ({ page }): Promise<void> => {
+  test('Avvis Systembruker endringsforespørsel', async ({ page }): Promise<void> => {
     //Generate confirmUrl from API
     const externalRef = TestdataApi.generateExternalRef();
     const response = await api.postSystemuserRequest(token, externalRef);
 
-    await page.goto(response.confirmUrl);
+    await api.approveSystemuserRequest(token, response.id);
+
+    const confirmUrlChangeRequest = await api.postSystemuserChangeRequest(token, externalRef);
+
+    await page.goto(confirmUrlChangeRequest);
     await page.getByRole('button', { name: 'Avvis' }).click();
 
     //Expect user to be logged out
     await expect(page).toHaveURL('https://info.altinn.no');
   });
 
-  test('Godkjenn Systembrukerforespørsel', async ({ page }): Promise<void> => {
+  test('Godkjenn Systembruker endringsforespørsel', async ({ page }): Promise<void> => {
     const externalRef = TestdataApi.generateExternalRef();
     const response = await api.postSystemuserRequest(token, externalRef);
 
-    await page.goto(response.confirmUrl);
+    await api.approveSystemuserRequest(token, response.id);
+
+    const confirmUrlChangeRequest = await api.postSystemuserChangeRequest(token, externalRef);
+
+    await page.goto(confirmUrlChangeRequest);
     await page.getByRole('button', { name: 'Godkjenn' }).click();
 
     //Expect user to be logged out

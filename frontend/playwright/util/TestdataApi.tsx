@@ -2,7 +2,6 @@ import { ApiRequests } from '../api-requests/ApiRequests'; // Adjust the path ba
 import { Token } from '../api-requests/Token'; // Adjust the path based on your project structure
 
 export class TestdataApi {
-    
   static async cleanUpTestUsers() {
     const api = new ApiRequests();
     const tokenclass = new Token();
@@ -15,9 +14,15 @@ export class TestdataApi {
 
       if (users.length > 0) {
         await api.cleanUpSystemUsers(users, token);
-      } 
+      }
     } catch (error) {
       console.error('Error during cleanup:', error);
     }
+  }
+
+  static generateExternalRef() {
+    const randomString = Date.now(); // Current timestamp in milliseconds
+    const randomNum = Math.random().toString(36);
+    return `${randomNum}${randomString}`;
   }
 }
