@@ -17,5 +17,5 @@ export const getHostUrl = (): string => {
 };
 
 export const getLogoutUrl = (): string => {
-  return `${getHostUrl()}/ui/Authentication/Logout`;
+  return `https://${getHostUrl()}/ui/Authentication/Logout`;
 };
