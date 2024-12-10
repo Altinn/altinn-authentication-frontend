@@ -127,12 +127,12 @@ export class ApiRequests {
 
       if (!response.ok) {
         const errorBody = await response.text(); // Read the error body if needed
-        console.error('Failed to delete system user:', response.status, errorBody);
-        throw new Error(`Failed to delete system user: ${response.statusText}`);
+        console.error('Failed to approve system user request:', response.status, errorBody);
+        throw new Error(`Failed to approve system user request: ${response.statusText}`);
       }
     } catch (error) {
-      console.error('Error during system user deletion:', error);
-      throw new Error('System user deletion failed. Check logs for details.');
+      console.error('Error during system user request approval:', error);
+      throw new Error('System user user request approval. Check logs for details.');
     }
   }
 

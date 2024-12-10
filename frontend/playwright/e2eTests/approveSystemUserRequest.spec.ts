@@ -1,6 +1,5 @@
 import test, { expect } from '@playwright/test';
 import { ApiRequests } from '../api-requests/ApiRequests';
-import { Token } from 'playwright/api-requests/Token';
 import { TestdataApi } from 'playwright/util/TestdataApi';
 
 test.describe('Godkjenn og avvis Systembrukerforespørsel', () => {
