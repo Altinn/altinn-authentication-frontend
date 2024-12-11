@@ -6,6 +6,7 @@ import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 import { RightsListLogo } from './RightsListLogo';
 import { Heading, Label, Paragraph } from '@digdir/designsystemet-react';
 import classes from './RightsList.module.css';
+import { PackageIcon } from '@navikt/aksel-icons';
 
 interface RightsListProps {
   resources: ServiceResource[];
@@ -45,6 +46,8 @@ export const RightsList = ({ resources, accessPackages }: RightsListProps): Reac
           <ActionBar
             key={accessPackage.id}
             title={accessPackage.name?.[currentLanguage]}
+            icon={<PackageIcon className={classes.packageIcon} />}
+            additionalText={`${accessPackage.resources.length} enkelttjenester`}
             subtitle={accessPackage.area?.name}
             color='neutral'
           >

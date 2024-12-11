@@ -1,3 +1,7 @@
 .rightsListHeader {
   margin-top: var(--ds-spacing-8);
 }
+
+.packageIcon {
+  font-size: 2rem;
+}

@@ -70,10 +70,10 @@ export const ActionBarHeader = ({
       >
         <div className={classes.actionBarButtonContainer}>
           {actionBarContent}
+          {additionalText}
           {toggleOpen && <ActionBarIcon />}
         </div>
       </Component>
-      {additionalText}
     </div>
   );
 };

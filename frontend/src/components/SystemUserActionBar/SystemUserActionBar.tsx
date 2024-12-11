@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Heading, Link } from '@digdir/designsystemet-react';
 import { ActionBar } from '../ActionBar';
 import classes from './SystemUserActionBar.module.css';
-import { CogIcon, PencilIcon } from '@navikt/aksel-icons';
+import { TenancyIcon, PencilIcon } from '@navikt/aksel-icons';
 import { SystemUser } from '@/types';
 import { AuthenticationRoute } from '@/routes/paths';
 import { url } from '@/utils/urlUtils';
@@ -30,7 +30,7 @@ export const SystemUserActionBar = ({
       subtitle={systemUser.supplierName?.toUpperCase()}
       icon={
         <div className={classes.icon}>
-          <CogIcon />
+          <TenancyIcon />
         </div>
       }
       color='light'
