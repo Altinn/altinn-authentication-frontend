@@ -17,7 +17,14 @@ export const RightsList = ({ resources }: RightsListProps): React.ReactNode => {
       <ActionBar
         key={resource.identifier}
         title={resource.title?.[currentLanguage]}
-        icon={resource.logoUrl && <RightsListLogo logoUrl={resource.logoUrl} />}
+        icon={
+          resource.logoUrl && (
+            <RightsListLogo
+              logoUrl={resource.logoUrl}
+              altText={resource?.hasCompetentAuthority?.name?.[currentLanguage]}
+            />
+          )
+        }
         subtitle={resource?.hasCompetentAuthority?.name?.[currentLanguage]}
         color='neutral'
       >
