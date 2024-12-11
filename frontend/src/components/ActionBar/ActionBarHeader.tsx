@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import cn from 'classnames';
 import { Button, Paragraph } from '@digdir/designsystemet-react';
 
@@ -12,68 +12,70 @@ export type ActionBarHeaderProps = Pick<
   'title' | 'subtitle' | 'icon' | 'additionalText'
 >;
 
-export const ActionBarHeader = forwardRef<HTMLHeadingElement, ActionBarHeaderProps>(
-  ({ additionalText, subtitle, title, icon }, ref) => {
-    const { open, toggleOpen, contentId, headerId, color, size } = useActionBarContext();
+export const ActionBarHeader = ({
+  additionalText,
+  subtitle,
+  title,
+  icon,
+}: ActionBarHeaderProps): React.ReactNode => {
+  const { open, toggleOpen, contentId, headerId, color, size } = useActionBarContext();
 
-    let headingSize: 'sm' | 'md' | 'lg' | 'xs';
-    switch (size) {
-      case 'large':
-        headingSize = 'lg';
-        break;
-      case 'medium':
-        headingSize = 'sm';
-        break;
-      case 'small':
-        headingSize = 'xs';
-        break;
-    }
+  let headingSize: 'sm' | 'md' | 'lg' | 'xs';
+  switch (size) {
+    case 'large':
+      headingSize = 'lg';
+      break;
+    case 'medium':
+      headingSize = 'sm';
+      break;
+    case 'small':
+      headingSize = 'xs';
+      break;
+  }
 
-    const actionBarContent: React.ReactNode = (
-      <div className={classes.titleWrapper}>
-        {icon}
-        <div>
-          <Paragraph size={headingSize} className={classes.title}>
-            {title}
+  const actionBarContent: React.ReactNode = (
+    <div className={classes.titleWrapper}>
+      {icon}
+      <div>
+        <Paragraph data-size={headingSize} className={classes.title}>
+          {title}
+        </Paragraph>
+        {subtitle && (
+          <Paragraph data-size='xs' className={classes.subtitle}>
+            {subtitle}
           </Paragraph>
-          {subtitle && (
-            <Paragraph size='xs' className={classes.subtitle}>
-              {subtitle}
-            </Paragraph>
-          )}
-        </div>
+        )}
       </div>
-    );
+    </div>
+  );
 
-    const Component = toggleOpen ? Button : 'div';
+  const Component = toggleOpen ? Button : 'div';
 
-    return (
-      <div
-        className={cn(classes.actionBar, classes[color], classes[size], {
-          [classes.subtitle]: subtitle,
-          [classes.open]: open,
-        })}
-        ref={ref}
+  return (
+    <div
+      className={cn(classes.actionBar, classes[color], classes[size], {
+        [classes.subtitle]: subtitle,
+        [classes.open]: open,
+      })}
+    >
+      <Component
+        className={cn(classes.actionBarHeader, classes[color])}
+        type='button'
+        variant={'tertiary' as never}
+        onClick={toggleOpen}
+        id={headerId}
+        data-testid='action-bar'
+        aria-expanded={toggleOpen ? open : undefined}
+        aria-controls={toggleOpen ? contentId : undefined}
       >
-        <Component
-          className={cn(classes.actionBarHeader, classes[color])}
-          type='button'
-          variant={'tertiary' as never}
-          onClick={toggleOpen}
-          id={headerId}
-          data-testid='action-bar'
-          aria-expanded={toggleOpen ? open : undefined}
-          aria-controls={toggleOpen ? contentId : undefined}
-        >
-          <div className={classes.actionBarButtonContainer}>
-            {actionBarContent}
-            {toggleOpen && <ActionBarIcon />}
-          </div>
-        </Component>
-        {additionalText}
-      </div>
-    );
-  },
-);
+        <div className={classes.actionBarButtonContainer}>
+          {actionBarContent}
+          {toggleOpen && <ActionBarIcon />}
+        </div>
+      </Component>
+      {additionalText}
+    </div>
+  );
+};
 
 ActionBarHeader.displayName = 'ActionBarHeader';

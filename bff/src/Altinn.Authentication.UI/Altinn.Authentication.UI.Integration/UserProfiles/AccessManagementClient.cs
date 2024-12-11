@@ -9,12 +9,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Altinn.Authentication.UI.Core.Common.Models;
-using System.Text;
-using Altinn.Authentication.UI.Core.SystemUsers;
-using Altinn.Authentication.UI.Core.Common.Rights;
-using System.Net.Http.Json;
-using Altinn.Authorization.ProblemDetails;
-using Altinn.Authentication.UI.Core.Common.Problems;
 
 namespace Altinn.Authentication.UI.Integration.UserProfiles;
 
@@ -100,88 +94,5 @@ public class AccessManagementClient : IAccessManagementClient
             _logger.LogError(ex, "Authentication.UI // AccessManagementClient // GetParty // Exception");
             throw;
         }
-    }
-
-    /// <inheritdoc />
-    public async Task<List<DelegationResponseData>?> CheckDelegationAccess(string partyId, DelegationCheckRequest request)
-    {
-        try
-        {
-            string endpointUrl = $"internal/{partyId}/rights/delegation/delegationcheck";
-            string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-            string content = JsonSerializer.Serialize(request, _serializerOptions);
-            StringContent requestBody = new(content, Encoding.UTF8, "application/json");
-            HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, requestBody);
-            response.EnsureSuccessStatusCode();
-            return JsonSerializer.Deserialize<List<DelegationResponseData>>( await response.Content.ReadAsStringAsync(), _serializerOptions) ;
-
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // CheckDelegationAccess // Exception");
-            throw;
-        }
-    }
-
-    /// <inheritdoc />
-    public async Task<Result<bool>> DelegateRightToSystemUser(string partyId, SystemUser systemUser, List<RightResponses> responseData)
-    {
-
-        foreach (RightResponses rightResponse in responseData)
-        {
-            if (! await DelegateSingleRightToSystemUser(partyId, systemUser, rightResponse) )
-            {
-                return Problem.Rights_FailedToDelegate;
-            };
-        }
-
-        return true;
-    }
-
-    private async Task<bool> DelegateSingleRightToSystemUser(string partyId, SystemUser systemUser, RightResponses rightResponses)
-    {
-        List<Right> rights = [];
-
-        foreach (DelegationResponseData inner in rightResponses.ResponseDataSet)
-        {
-            Right right = new()
-            {
-                Action = inner.Action,
-                Resource = inner.Resource,
-            };
-
-            rights.Add(right);
-        }
-
-        DelegationRequest rightsDelegationRequest = new()
-        {
-            To =
-            [
-                new AttributePair()
-                {
-                    Id = "urn:altinn:systemuser:uuid",
-                    Value = systemUser.Id
-                }
-            ],
-
-            Rights = rights
-        };
-
-        try
-        {
-            string endpointUrl = $"internal/{partyId}/rights/delegation/offered";
-            string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-            HttpResponseMessage response = await _client.PostAsync(token, endpointUrl, JsonContent.Create(rightsDelegationRequest));
-
-            response.EnsureSuccessStatusCode();
-
-            return true;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Authentication.UI // AccessManagementClient // DelegateSingleRightToSystemUser // Exception");
-            throw;
-        }
-
     }
 }

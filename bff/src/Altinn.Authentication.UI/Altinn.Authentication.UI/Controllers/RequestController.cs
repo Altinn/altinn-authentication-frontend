@@ -1,10 +1,12 @@
-﻿using Altinn.Authentication.UI.Core.Authentication;
+﻿using Altinn.Authentication.UI.Core.AppConfiguration;
+using Altinn.Authentication.UI.Core.Authentication;
 using Altinn.Authentication.UI.Core.SystemUsers;
 using Altinn.Authentication.UI.Filters;
+using Altinn.Authentication.UI.Integration.Configuration;
 using Altinn.Authorization.ProblemDetails;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
+using Microsoft.Extensions.Options;
 
 /// <summary>
 /// API for the Frontend to fetch a Request then reject or approve it.
@@ -15,7 +17,7 @@ using System.Net.Http.Headers;
 [ApiController]
 [AutoValidateAntiforgeryTokenIfAuthCookie]
 public class RequestController(
-    IRequestService _requestService) : ControllerBase
+    IRequestService _requestService, IOptions<PlatformSettings> _platformSettings, IOptions<GeneralSettings> _generalSettings) : ControllerBase
 {       
     /// <summary>
     /// Gets a VendorRequest by Id
@@ -84,5 +86,29 @@ public class RequestController(
         }
 
         return Ok(req.Value);
+    }
+    
+    /// <summary>
+    /// Logout
+    /// </summary>
+    /// <returns></returns>
+    [Authorize]
+    [HttpGet("{requestId}/logout")]
+    public IActionResult Logout(Guid requestId)
+    {
+        CookieOptions cookieOptions = new()
+        {
+            Domain = _generalSettings.Value.HostName,
+            HttpOnly = true,
+            Secure = true,
+            IsEssential = true,
+            SameSite = SameSiteMode.Lax
+        };
+
+        // store cookie value for redirect
+        HttpContext.Response.Cookies.Append("AltinnLogoutInfo", $"SystemuserRequestId={requestId}", cookieOptions);
+        
+        string logoutUrl = $"{_platformSettings.Value.ApiAuthenticationEndpoint}logout";
+        return Redirect(logoutUrl);
     }
 }

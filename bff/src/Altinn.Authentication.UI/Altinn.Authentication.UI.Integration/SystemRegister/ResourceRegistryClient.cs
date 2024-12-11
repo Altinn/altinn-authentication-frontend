@@ -107,12 +107,9 @@ public class ResourceRegistryClient : IResourceRegistryClient
     private async Task<string?> GetOrgIconUrl(string org, CancellationToken cancellationToken)
     {
         OrgList? orgList = await GetAllResourceOwners(cancellationToken);
-        if (orgList != null)
+        if (orgList != null && orgList.Orgs.TryGetValue(org, out Org? organization))
         {
-            if (orgList.Orgs.TryGetValue(org, out Org? organization))
-            {
-                return organization.Logo;
-            }
+            return organization.Logo;
         }
         
         return null;

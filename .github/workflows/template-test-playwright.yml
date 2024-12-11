@@ -7,6 +7,13 @@ on:
         type: string
         required: true
         description: Environment
+    secrets:
+      USERNAME_TEST_API:
+        required: true
+      PASSWORD_TEST_API:
+        required: true
+      SLACK_WEBHOOK_URL:
+        required: true
 
 jobs:
   playwright:
@@ -27,9 +34,21 @@ jobs:
       - name: Run Playwright tests
         working-directory: frontend/playwright
         run: yarn run env:${{ inputs.environment }}
+        env:
+          USERNAME_TEST_API: ${{ secrets.USERNAME_TEST_API }}
+          PASSWORD_TEST_API: ${{ secrets.PASSWORD_TEST_API }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
+      - name: Notify Slack on Failure
+        if: failure() # This step runs only if the previous steps fail
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{
+          "text": ":playwright: Frontend-tester feilet i testmiljø:`${{ inputs.environment }}` på repo: `${{ github.repository }}`. Mer detaljer her: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }' ${{ secrets.SLACK_WEBHOOK_URL }}
+
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report
-          path: frontend/playwright/test-results/${{ inputs.environment }}
+          name: playwright-report-${{ inputs.environment }}-${{ github.run_id }}
+          path: frontend/playwright/test-results/${{ inputs.environment }}/${{ github.run_id }}
           retention-days: 30

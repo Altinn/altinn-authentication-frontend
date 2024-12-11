@@ -39,12 +39,12 @@ export const SystemUserActionBar = ({
     >
       <div>
         <div className={classes.rightsHeader}>
-          <Heading level={3} size='2xs' spacing>
+          <Heading level={3} data-size='2xs'>
             {totalNumberOfRights === 0 && t('authent_overviewpage.system_user_no_rights')}
             {totalNumberOfRights === 1 && t('authent_overviewpage.system_single_right_header')}
             {totalNumberOfRights > 1 && t('authent_overviewpage.system_rights_header')}
           </Heading>
-          <Link asChild>
+          <Link asChild data-size='sm'>
             <RouterLink to={`${AuthenticationRoute.Details}/${url`${systemUser.id}`}`}>
               <PencilIcon fontSize={24} />
               {t('authent_overviewpage.edit_system_user')}

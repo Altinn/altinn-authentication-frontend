@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Heading, Paragraph, Spinner } from '@digdir/designsystemet-react';
+import { Alert, Button, Spinner } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './RightsIncludedPageContent.module.css';
 import { useCreateSystemUserMutation, useGetSystemRightsQuery } from '@/rtk/features/systemUserApi';
@@ -9,6 +9,10 @@ import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
 import { useFirstRenderEffect } from '@/resources/hooks';
 import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
 import { RightsList } from '@/components/RightsList';
+import { ButtonRow } from '@/components/ButtonRow';
+import { DelegationCheckError } from '@/components/DelegationCheckError';
+import { ProblemDetail } from '@/types/problemDetail';
+import { PageDescription } from '@/components/PageDescription';
 
 export const RightsIncludedPageContent = () => {
   // Dette er en ny side fra "Design av 5/12" (se Repo Wiki, med senere endringer tror jeg)
@@ -17,23 +21,23 @@ export const RightsIncludedPageContent = () => {
   // og ikke CreationPageContent som tidligere (men den kjører foreløpig fortsatt POST)
 
   const { t } = useTranslation();
-  const [postNewSystemUser, { isError: isCreateSystemUserError, isLoading: isCreatingSystemUser }] =
+  const [postNewSystemUser, { error: createSystemUserError, isLoading: isCreatingSystemUser }] =
     useCreateSystemUserMutation();
 
   const integrationTitle = useAppSelector((state) => state.createSystemUser.integrationTitle);
-  const selectedSystemVendor = useAppSelector((state) => state.createSystemUser.selectedSystemType);
+  const selectedSystemId = useAppSelector((state) => state.createSystemUser.selectedSystemId);
   const {
     data: rights,
     isLoading: isLoadingRights,
     isError: isLoadRightsError,
-  } = useGetSystemRightsQuery(selectedSystemVendor);
+  } = useGetSystemRightsQuery(selectedSystemId);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useFirstRenderEffect(() => {
     // if integrationTitle or selectedSystemVendor is not set (if user goes directly to /rightsincluded url), navigate back to creation
-    if (!integrationTitle || !selectedSystemVendor) {
+    if (!integrationTitle || !selectedSystemId) {
       navigate(AuthenticationRoute.Creation);
     }
   });
@@ -48,7 +52,7 @@ export const RightsIncludedPageContent = () => {
     // key:value pairs are needed
     const postObjekt = {
       integrationTitle: integrationTitle,
-      selectedSystemType: selectedSystemVendor,
+      systemId: selectedSystemId,
     };
 
     postNewSystemUser(postObjekt)
@@ -64,39 +68,42 @@ export const RightsIncludedPageContent = () => {
   };
 
   if (isLoadingRights) {
-    return <Spinner title={t('authent_includedrightspage.loading_rights')} />;
+    return <Spinner aria-label={t('authent_includedrightspage.loading_rights')} />;
   }
 
   const totalNumberOfRights =
     (rights?.resources?.length ?? 0) + (rights?.accessPackages?.length ?? 0);
 
   return (
-    <div>
-      <Heading level={2} size='sm' spacing>
-        {totalNumberOfRights === 1
-          ? t('authent_includedrightspage.sub_title_single')
-          : t('authent_includedrightspage.sub_title')}
-      </Heading>
-      <Paragraph size='sm' spacing>
-        {totalNumberOfRights === 1
-          ? t('authent_includedrightspage.content_text_single')
-          : t('authent_includedrightspage.content_text')}
-      </Paragraph>
+    <div className={classes.rightsIncludedWrapper}>
+      <PageDescription
+        heading={
+          totalNumberOfRights === 1
+            ? t('authent_includedrightspage.sub_title_single')
+            : t('authent_includedrightspage.sub_title')
+        }
+        ingress={
+          totalNumberOfRights === 1
+            ? t('authent_includedrightspage.content_text_single')
+            : t('authent_includedrightspage.content_text')
+        }
+      />
       <div>
         <RightsList resources={rights?.resources ?? []} accessPackages={rights?.accessPackages} />
-        {isCreateSystemUserError && (
-          <Alert color='danger' role='alert'>
-            {t('authent_includedrightspage.create_systemuser_error')}
-          </Alert>
+        {createSystemUserError && (
+          <DelegationCheckError
+            defaultError='authent_includedrightspage.create_systemuser_error'
+            error={createSystemUserError as { data: ProblemDetail }}
+          />
         )}
         {isLoadRightsError && (
-          <Alert color='danger' role='alert'>
+          <Alert data-color='danger' role='alert'>
             {t('authent_includedrightspage.load_rights_error')}
           </Alert>
         )}
-        <div className={classes.buttonContainer}>
+        <ButtonRow>
           <Button
-            size='sm'
+            data-size='sm'
             variant='primary'
             onClick={handleConfirm}
             disabled={isCreatingSystemUser || isLoadRightsError}
@@ -107,10 +114,10 @@ export const RightsIncludedPageContent = () => {
               ? t('authent_includedrightspage.creating_systemuser')
               : t('authent_includedrightspage.confirm_button')}
           </Button>
-          <Button variant='tertiary' size='sm' onClick={handleReject}>
+          <Button variant='tertiary' data-size='sm' onClick={handleReject}>
             {t('common.cancel')}
           </Button>
-        </div>
+        </ButtonRow>
       </div>
     </div>
   );

@@ -40,19 +40,4 @@ public class SystemUserClientIntegrationTest : IClassFixture<CustomWebApplicatio
 
         Assert.True(usr is not null);
     }
-
-    [Fact]
-    public async Task CreateSystemUser_ReturnOk()
-    {
-        var usr = await _systemUserClient.PostNewSystemUserReal(
-            1,
-            new CreateSystemUserRequestToAuthComp 
-            { 
-                OwnedByPartyId = 1,
-                SelectedSystemType = "IntegrationTest ProductName",
-                IntegrationTitle = "IntegrationTest Title"
-            });
-
-        Assert.True(usr is not null);
-    }
 }

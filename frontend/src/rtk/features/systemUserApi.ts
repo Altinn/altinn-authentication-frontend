@@ -2,6 +2,7 @@ import { url } from '@/utils/urlUtils';
 import { api } from './api';
 import {
   AccessPackage,
+  ChangeRequest,
   ServiceResource,
   SystemUser,
   SystemUserCreationRequest,
@@ -15,7 +16,7 @@ enum Tags {
 
 interface CreationRequest {
   integrationTitle: string;
-  selectedSystemType: string;
+  systemId: string;
 }
 
 const apiWithTag = api.enhanceEndpoints({ addTagTypes: [Tags.SystemUsers, Tags.VendorSystems] });
@@ -80,6 +81,23 @@ export const systemUserApi = apiWithTag.injectEndpoints({
       }),
       invalidatesTags: [Tags.SystemUsers],
     }),
+    getChangeRequest: builder.query<ChangeRequest, string>({
+      query: (changeRequestId) => url`systemuser/changerequest/${changeRequestId}`,
+    }),
+    approveChangeRequest: builder.mutation<void, string>({
+      query: (changeRequestId) => ({
+        url: url`systemuser/changerequest/${changeRequestId}/approve`,
+        method: 'POST',
+      }),
+      invalidatesTags: [Tags.SystemUsers],
+    }),
+    rejectChangeRequest: builder.mutation<void, string>({
+      query: (changeRequestId) => ({
+        url: url`systemuser/changerequest/${changeRequestId}/reject`,
+        method: 'POST',
+      }),
+      invalidatesTags: [Tags.SystemUsers],
+    }),
   }),
 });
 
@@ -94,4 +112,7 @@ export const {
   useGetSystemUserRequestQuery,
   useApproveSystemUserRequestMutation,
   useRejectSystemUserRequestMutation,
+  useGetChangeRequestQuery,
+  useApproveChangeRequestMutation,
+  useRejectChangeRequestMutation,
 } = systemUserApi;

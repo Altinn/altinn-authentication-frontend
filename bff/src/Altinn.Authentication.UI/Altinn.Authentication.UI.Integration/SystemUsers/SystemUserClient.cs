@@ -52,27 +52,32 @@ public class SystemUserClient : ISystemUserClient
         return null;
     }
 
-    public async Task<SystemUser?> PostNewSystemUserReal(
+    public async Task<Result<SystemUser>> CreateSystemUser(
         int partyId,
-        CreateSystemUserRequestToAuthComp newSystemUserDescriptor, 
+        SystemUserRequestDto newSystemUser,
         CancellationToken cancellation = default)
-    {      
+    {
 
         string token = JwtTokenUtil.GetTokenFromContext(_httpContextAccessor.HttpContext!, _platformSettings.JwtCookieName!)!;
-        string endpointUrl = $"systemuser/{partyId}";
-        var accessToken = await _accessTokenProvider.GetAccessToken();
+        string endpointUrl = $"systemuser/{partyId}/create";
 
-        _logger.LogInformation($"PostNewSystemUser: Url {endpointUrl}, Payload: {newSystemUserDescriptor} ");
-
-        var content = JsonContent.Create(newSystemUserDescriptor);
+        var content = JsonContent.Create(newSystemUser);
         HttpResponseMessage response = await _httpClient.PostAsync(token, endpointUrl, content);
-
-        if (response.IsSuccessStatusCode)
+       
+        if (response.IsSuccessStatusCode) 
         {
-            return await response.Content.ReadFromJsonAsync<SystemUser>(cancellation);            
+            return await response.Content.ReadFromJsonAsync<SystemUser>(cancellation);
         }
-
-        return null;
+        
+        try
+        {
+            AltinnProblemDetails? problemDetails = await response.Content.ReadFromJsonAsync<AltinnProblemDetails>(cancellation);
+            return ProblemMapper.MapToAuthUiError(problemDetails?.ErrorCode.ToString());
+        }
+        catch 
+        {
+            return Problem.Generic_EndOfMethod;
+        }
     }
 
     public async Task<Result<bool>> DeleteSystemUserReal(int partyId, Guid id, CancellationToken cancellationToken = default)
@@ -112,10 +117,5 @@ public class SystemUserClient : ISystemUserClient
         }
 
         return list;
-    }
-
-    public Task<bool> ChangeSystemUserRealProduct(string selectedSystemType, Guid id, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
     }
 }

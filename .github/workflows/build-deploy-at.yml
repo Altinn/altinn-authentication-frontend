@@ -54,7 +54,7 @@ jobs:
 
     strategy:
       matrix:
-        environment: [AT21, AT22]       
+        environment: [AT22, AT23, AT24]       
 
     steps:        
       - name: Checkout
@@ -80,10 +80,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [AT22]
+        environment: [AT22, AT23, AT24]
     uses: "./.github/workflows/template-test-playwright.yml"
     with:
       environment: ${{ matrix.environment }}
+    secrets:
+      USERNAME_TEST_API: ${{ secrets.USERNAME_TEST_API }}
+      PASSWORD_TEST_API: ${{ secrets.PASSWORD_TEST_API }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+
 
 
 
