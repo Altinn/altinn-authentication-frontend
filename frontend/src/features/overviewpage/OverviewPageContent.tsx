@@ -86,9 +86,13 @@ export const OverviewPageContent = () => {
               ? t('authent_overviewpage.existing_earlier_system_users_title')
               : t('authent_overviewpage.existing_system_users_title')}
           </Heading>
-          {systemUsersWithoutCreatedItem.map((systemUser) => (
-            <SystemUserActionBar key={systemUser.id} systemUser={systemUser} />
-          ))}
+          <ul className='unstyledList'>
+            {systemUsersWithoutCreatedItem.map((systemUser) => (
+              <li key={systemUser.id}>
+                <SystemUserActionBar systemUser={systemUser} />
+              </li>
+            ))}
+          </ul>
         </>
       )}
     </div>
