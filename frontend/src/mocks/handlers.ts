@@ -2,6 +2,132 @@
 import { ServiceResource, SystemUser, VendorSystem } from '@/types';
 import { http, HttpResponse } from 'msw';
 
+const kravOgBetalingerResource: ServiceResource = {
+  identifier: 'ske-krav-og-betalinger',
+  version: '1',
+  title: {
+    en: 'Krav og betalinger',
+    nb: 'Krav og betalinger',
+    nn: 'Krav og betalinger',
+  },
+  description: {
+    en: 'Ressurs for å styre tilgang til Krav og betalinger',
+    nb: 'Ressurs for å styre tilgang til Krav og betalinger',
+    nn: 'Ressurs for å styre tilgang til Krav og betalinger',
+  },
+  rightDescription: {
+    en: 'Gir tilgang til Krav og betalinger',
+    nb: 'Gir tilgang til Krav og betalinger',
+    nn: 'Gir tilgang til Krav og betalinger',
+  },
+  homepage: 'https://skatteetaten.github.io/api-dokumentasjon/api/kravogbetalinger',
+  status: 'UnderDevelopment',
+  contactPoints: [
+    {
+      category: 'Brukerstøtte',
+      email: '',
+      telephone: '',
+      contactPage: 'https://skatteetaten.github.io/api-dokumentasjon/kontaktoss',
+    },
+  ],
+  delegable: true,
+  visible: true,
+  hasCompetentAuthority: {
+    organization: '974761076',
+    orgcode: 'skd',
+    name: {
+      en: 'Norwegian Tax Administration',
+      nb: 'Skatteetaten',
+      nn: 'Skatteetaten',
+    },
+  },
+  keywords: [],
+  accessListMode: 'Disabled',
+  selfIdentifiedUserEnabled: false,
+  enterpriseUserEnabled: true,
+  resourceType: 'GenericAccessResource',
+  availableForType: ['LegalEntityEnterprise'],
+  logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
+};
+
+const accessPackage = {
+  id: 'urn:altinn:accesspackage:skattegrunnlag',
+  urn: 'urn:altinn:accesspackage:skattegrunnlag',
+  name: {
+    en: '',
+    nb: 'Skattegrunnlag',
+    nn: '',
+  },
+  description: {
+    en: '',
+    nb: 'Denne tilgangspakken gir fullmakter til tjenester knyttet til innhenting av skattegrunnlag. Ved regelverksendringer eller innføring av nye digitale tjenester kan det bli endringer i tilganger som fullmakten gir.',
+    nn: '',
+  },
+  area: {
+    name: 'Skatt, avgift, regnskap og toll',
+    description: '',
+    iconName: '',
+    id: 'skatt_area',
+    shortDescription: '',
+  },
+  resources: [
+    {
+      identifier: 'ske-krav-og-betalinger',
+      title: {
+        en: '',
+        nb: 'Krav og betaling',
+        nn: '',
+      },
+      hasCompetentAuthority: {
+        name: {
+          en: '',
+          nb: 'Skatteetaten',
+          nn: '',
+        },
+        organization: 'skd',
+        orgcode: '123456789',
+      },
+      logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
+    },
+    {
+      identifier: 'nav-og-betalinger',
+      title: {
+        en: '',
+        nb: 'Nav og betaling',
+        nn: '',
+      },
+      hasCompetentAuthority: {
+        name: {
+          en: '',
+          nb: 'Arbeids- og velferdsetaten (NAV)',
+          nn: '',
+        },
+        organization: 'skd',
+        orgcode: '123456789',
+      },
+      logoUrl: 'https://altinncdn.no/orgs/nav/nav.png',
+    },
+    {
+      identifier: 'lakselus',
+      title: {
+        en: '',
+        nb: 'Registrering av lakselus',
+        nn: '',
+      },
+      hasCompetentAuthority: {
+        name: {
+          en: '',
+          nb: 'Fiskeridirektoratet',
+          nn: '',
+        },
+        organization: 'fd',
+        orgcode: '123456789',
+      },
+      logoUrl: 'https://altinncdn.no/orgs/fd/fiskeridirektoratet.png',
+    },
+  ],
+};
+
 const systemUsers: SystemUser[] = [
   {
     id: 'ecfd59bb-0e8f-453d-ab56-6d6f69ec76d7',
@@ -59,6 +185,7 @@ const systemUsers: SystemUser[] = [
         logoUrl: 'https://altinncdn.no/orgs/nav/nav.png',
       },
     ],
+    accessPackages: [accessPackage],
   },
 ];
 
@@ -463,54 +590,6 @@ const systems: VendorSystem[] = [
   },
 ];
 
-const kravOgBetalingerResource: ServiceResource = {
-  identifier: 'ske-krav-og-betalinger',
-  version: '1',
-  title: {
-    en: 'Krav og betalinger',
-    nb: 'Krav og betalinger',
-    nn: 'Krav og betalinger',
-  },
-  description: {
-    en: 'Ressurs for å styre tilgang til Krav og betalinger',
-    nb: 'Ressurs for å styre tilgang til Krav og betalinger',
-    nn: 'Ressurs for å styre tilgang til Krav og betalinger',
-  },
-  rightDescription: {
-    en: 'Gir tilgang til Krav og betalinger',
-    nb: 'Gir tilgang til Krav og betalinger',
-    nn: 'Gir tilgang til Krav og betalinger',
-  },
-  homepage: 'https://skatteetaten.github.io/api-dokumentasjon/api/kravogbetalinger',
-  status: 'UnderDevelopment',
-  contactPoints: [
-    {
-      category: 'Brukerstøtte',
-      email: '',
-      telephone: '',
-      contactPage: 'https://skatteetaten.github.io/api-dokumentasjon/kontaktoss',
-    },
-  ],
-  delegable: true,
-  visible: true,
-  hasCompetentAuthority: {
-    organization: '974761076',
-    orgcode: 'skd',
-    name: {
-      en: 'Norwegian Tax Administration',
-      nb: 'Skatteetaten',
-      nn: 'Skatteetaten',
-    },
-  },
-  keywords: [],
-  accessListMode: 'Disabled',
-  selfIdentifiedUserEnabled: false,
-  enterpriseUserEnabled: true,
-  resourceType: 'GenericAccessResource',
-  availableForType: ['LegalEntityEnterprise'],
-  logoUrl: 'https://altinncdn.no/orgs/skd/skd.png',
-};
-
 export const handlers = [
   // GET user
   http.get('/authfront/api/v1/profile/user', () => {
@@ -547,62 +626,68 @@ export const handlers = [
   // GET rights of system
   http.get('/authfront/api/v1/systemregister/rights/:systemId', (req) => {
     if (req.params.systemId === 'non_delegable_resource') {
-      return HttpResponse.json([
-        {
-          identifier: 'systembrukerapitest',
-          version: '1',
-          title: {
-            en: 'API-test, ikke delegerbar',
-            nb: 'API-test, ikke delegerbar',
-            nn: 'API-test, ikke delegerbar',
-          },
-          description: {
-            en: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
-            nb: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
-            nn: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
-          },
-          rightDescription: {
-            en: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
-            nb: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
-            nn: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
-          },
-          status: 'UnderDevelopment',
-          spatial: null,
-          contactPoints: [
-            {
-              category: 'Brukerstøtte',
-              email: 'ikke-delegerbar@ikke-delegerbar.no',
-              telephone: '',
-              contactPage: '',
+      return HttpResponse.json({
+        resources: [
+          {
+            identifier: 'systembrukerapitest',
+            version: '1',
+            title: {
+              en: 'API-test, ikke delegerbar',
+              nb: 'API-test, ikke delegerbar',
+              nn: 'API-test, ikke delegerbar',
             },
-          ],
-          produces: null,
-          isPartOf: null,
-          thematicAreas: null,
-          resourceReferences: null,
-          delegable: true,
-          visible: true,
-          hasCompetentAuthority: {
-            organization: '991825827',
-            orgcode: 'ttd',
-            name: {
-              en: 'Testdepartementet',
-              nb: 'Testdepartementet',
-              nn: 'Testdepartementet',
+            description: {
+              en: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
+              nb: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
+              nn: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
             },
+            rightDescription: {
+              en: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
+              nb: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
+              nn: 'Ikke delegerbar ressurs, vil feile ved opprett systembruker',
+            },
+            status: 'UnderDevelopment',
+            spatial: null,
+            contactPoints: [
+              {
+                category: 'Brukerstøtte',
+                email: 'ikke-delegerbar@ikke-delegerbar.no',
+                telephone: '',
+                contactPage: '',
+              },
+            ],
+            produces: null,
+            isPartOf: null,
+            thematicAreas: null,
+            resourceReferences: null,
+            delegable: true,
+            visible: true,
+            hasCompetentAuthority: {
+              organization: '991825827',
+              orgcode: 'ttd',
+              name: {
+                en: 'Testdepartementet',
+                nb: 'Testdepartementet',
+                nn: 'Testdepartementet',
+              },
+            },
+            keywords: [],
+            accessListMode: 'Disabled',
+            selfIdentifiedUserEnabled: false,
+            enterpriseUserEnabled: true,
+            resourceType: 'GenericAccessResource',
+            availableForType: ['LegalEntityEnterprise'],
+            authorizationReference: null,
+            logoUrl: '',
           },
-          keywords: [],
-          accessListMode: 'Disabled',
-          selfIdentifiedUserEnabled: false,
-          enterpriseUserEnabled: true,
-          resourceType: 'GenericAccessResource',
-          availableForType: ['LegalEntityEnterprise'],
-          authorizationReference: null,
-          logoUrl: '',
-        },
-      ]);
+        ],
+        accessPackages: [],
+      });
     }
-    return HttpResponse.json([kravOgBetalingerResource]);
+    return HttpResponse.json({
+      resources: [kravOgBetalingerResource],
+      accessPackages: [accessPackage],
+    });
   }),
 
   // POST new systemuser
@@ -627,6 +712,7 @@ export const handlers = [
         supplierOrgno: system?.systemVendorOrgNumber ?? '',
         rights: [],
         resources: [kravOgBetalingerResource],
+        accessPackages: [],
       };
       console.log(systemUsers);
       systemUsers.push(newSystemUser);
@@ -679,6 +765,7 @@ export const handlers = [
         },
       ],
       resources: [kravOgBetalingerResource],
+      accessPackages: [accessPackage],
       status: 'New',
       redirectUrl: 'https://smartcloudaltinn.azurewebsites.net/receipt',
     });

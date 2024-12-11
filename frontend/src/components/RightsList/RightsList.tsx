@@ -18,7 +18,7 @@ export const RightsList = ({ resources, accessPackages }: RightsListProps): Reac
   return (
     <>
       {!!resources.length && (
-        <Heading size='xs' level={3} className={classes.rightsListHeader}>
+        <Heading data-size='xs' level={3} className={classes.rightsListHeader}>
           {t('authent_overviewpage.single_rights')}
         </Heading>
       )}
@@ -36,7 +36,7 @@ export const RightsList = ({ resources, accessPackages }: RightsListProps): Reac
         );
       })}
       {!!accessPackages?.length && (
-        <Heading size='xs' level={3} className={classes.rightsListHeader}>
+        <Heading data-size='xs' level={3} className={classes.rightsListHeader}>
           {t('authent_overviewpage.access_packages')}
         </Heading>
       )}
@@ -48,10 +48,8 @@ export const RightsList = ({ resources, accessPackages }: RightsListProps): Reac
             subtitle={accessPackage.area?.name}
             color='neutral'
           >
-            <Paragraph size='sm' spacing>
-              {accessPackage.description?.[currentLanguage]}
-            </Paragraph>
-            <Label size='sm'>{t('authent_overviewpage.access_package_resources')}</Label>
+            <Paragraph data-size='sm'>{accessPackage.description?.[currentLanguage]}</Paragraph>
+            <Label data-size='sm'>{t('authent_overviewpage.access_package_resources')}</Label>
             <div>
               {accessPackage.resources.map((resource) => {
                 return (
