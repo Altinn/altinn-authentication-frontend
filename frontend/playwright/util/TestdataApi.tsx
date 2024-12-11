@@ -1,5 +1,4 @@
 import { ApiRequests } from '../api-requests/ApiRequests'; // Adjust the path based on your project structure
-import { Token } from '../api-requests/Token'; // Adjust the path based on your project structure
 
 export class TestdataApi {
   static async cleanUpTestUsers() {
