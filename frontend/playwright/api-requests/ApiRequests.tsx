@@ -138,7 +138,7 @@ export class ApiRequests {
     systemRequestId: string,
   ): Promise<T> {
     //Hardcode for now to test:
-    var endpoint = `v1/systemuser/request/vendor/${systemRequestId}`;
+    const endpoint = `v1/systemuser/request/vendor/${systemRequestId}`;
     const url = `${process.env.API_BASE_URL}${endpoint}`;
 
     const response = await fetch(url, {
