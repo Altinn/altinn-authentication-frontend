@@ -27,8 +27,8 @@
   "devDependencies": {
     "@playwright/test": "^1.45.1",
     "@types/node": "^22.0.0",
-    "@types/react": "^18.2.58",
-    "@types/react-dom": "^18.2.19",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@types/redux-logger": "^3.0.13",
     "@vitejs/plugin-react": "^4.2.1",
     "eslint": "9.16.0",
