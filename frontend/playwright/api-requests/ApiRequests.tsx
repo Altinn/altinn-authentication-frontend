@@ -61,7 +61,6 @@ export class ApiRequests {
         }
         const errorText = await response.text();
         console.error('Failed to fetch system users:', response.status, errorText);
-        console.log(response.status);
         throw new Error(`Failed to fetch system users: ${response.statusText}`);
       }
 
@@ -148,6 +147,28 @@ export class ApiRequests {
       token,
     );
     return apiResponse.confirmUrl; // Return the Confirmation URL to use in the test
+  }
+
+  public async getStatusForSystemUserRequest<T>(systemRequestId: string): Promise<T> {
+    const scopes =
+      'altinn:authentication/systemuser.request.read altinn:authentication/systemuser.request.write';
+    const token = await this.tokenClass.getEnterpriseAltinnToken(scopes);
+    const endpoint = `v1/systemuser/request/vendor/${systemRequestId}`;
+    const url = `${process.env.API_BASE_URL}${endpoint}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch status for system user request. Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
   }
 
   private async sendPostRequest<T>(

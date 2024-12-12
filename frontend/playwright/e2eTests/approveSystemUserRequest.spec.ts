@@ -19,6 +19,12 @@ test.describe('Godkjenn og avvis Systembrukerforespørsel', () => {
 
     //Expect user to be logged out
     await expect(page).toHaveURL('https://info.altinn.no');
+
+    //Read from status api to verify that status is not rejected after clicking "Avvis"
+    const statusApiRequest = await api.getStatusForSystemUserRequest<{ status: string }>(
+      response.id,
+    );
+    expect(statusApiRequest.status).toBe('Rejected');
   });
 
   test('Godkjenn Systembrukerforespørsel', async ({ page }): Promise<void> => {
@@ -30,5 +36,11 @@ test.describe('Godkjenn og avvis Systembrukerforespørsel', () => {
 
     //Expect user to be logged out
     await expect(page).toHaveURL('https://info.altinn.no');
+
+    //Read from status api to verify that status is not Accepted after clicking "Avvis"
+    const statusApiRequest = await api.getStatusForSystemUserRequest<{ status: string }>(
+      response.id,
+    );
+    expect(statusApiRequest.status).toBe('Accepted');
   });
 });
