@@ -98,14 +98,10 @@ export class ApiRequests {
 
   public async postSystemuserRequest(externalRef: string) {
     const payload = this.generatePayloadSystemUserRequest(externalRef);
-    const scopes =
-      'altinn:authentication/systemuser.request.read altinn:authentication/systemuser.request.write';
-    const token = await this.tokenClass.getEnterpriseAltinnToken(scopes);
     const endpoint = 'v1/systemuser/request/vendor';
     const apiResponse = await this.sendPostRequest<{ confirmUrl: string; id: string }>(
       payload,
       endpoint,
-      token,
     );
     return apiResponse; // Return the Confirmation URL to use in the test
   }
@@ -137,23 +133,25 @@ export class ApiRequests {
 
   public async postSystemuserChangeRequest(externalRef: string) {
     const payload = this.generatePayloadSystemUserChangeRequest(externalRef);
-    const scopes =
-      'altinn:authentication/systemuser.request.read altinn:authentication/systemuser.request.write';
-    const token = await this.tokenClass.getEnterpriseAltinnToken(scopes);
     const endpoint = 'v1/systemuser/changerequest/vendor';
-    const apiResponse = await this.sendPostRequest<{ confirmUrl: string }>(
-      payload,
-      endpoint,
-      token,
-    );
+    const apiResponse = await this.sendPostRequest<{ confirmUrl: string }>(payload, endpoint);
     return apiResponse.confirmUrl; // Return the Confirmation URL to use in the test
   }
 
   public async getStatusForSystemUserRequest<T>(systemRequestId: string): Promise<T> {
+    const endpoint = `v1/systemuser/request/vendor/${systemRequestId}`;
+    return this.sendGetStatusRequest(endpoint);
+  }
+
+  public async getStatusForSystemUserChangeRequest<T>(systemRequestId: string): Promise<T> {
+    const endpoint = `v1/systemuser/changerequest/vendor/${systemRequestId}`;
+    return this.sendGetStatusRequest(endpoint);
+  }
+
+  private async sendGetStatusRequest(endpoint: string) {
     const scopes =
       'altinn:authentication/systemuser.request.read altinn:authentication/systemuser.request.write';
     const token = await this.tokenClass.getEnterpriseAltinnToken(scopes);
-    const endpoint = `v1/systemuser/request/vendor/${systemRequestId}`;
     const url = `${process.env.API_BASE_URL}${endpoint}`;
 
     const response = await fetch(url, {
@@ -174,10 +172,11 @@ export class ApiRequests {
   private async sendPostRequest<T>(
     payload: PostSystemUserRequestPayload | PostSystemUserChangeRequestPayload | null,
     endpoint: string,
-    token: string,
   ): Promise<T> {
     const url = `${process.env.API_BASE_URL}${endpoint}`;
-
+    const scopes =
+      'altinn:authentication/systemuser.request.read altinn:authentication/systemuser.request.write';
+    const token = await this.tokenClass.getEnterpriseAltinnToken(scopes);
     try {
       const response = await fetch(url, {
         method: 'POST',
