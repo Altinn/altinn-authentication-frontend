@@ -490,16 +490,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:1.0.0-next.39":
-  version: 1.0.0-next.39
-  resolution: "@digdir/designsystemet-css@npm:1.0.0-next.39"
-  checksum: 10c0/9fec473ec40aa9387ba87d2673a2928abf7df00f06106306b4b3894bef2d36fe6c71b462c0442848faf8eeb4847fbb930ae64cec70337d992b51588040db3a94
+"@digdir/designsystemet-css@npm:1.0.0-next.41":
+  version: 1.0.0-next.41
+  resolution: "@digdir/designsystemet-css@npm:1.0.0-next.41"
+  checksum: 10c0/34a453a332af7a08553538d05e17bc479fb9065a25edee8f4b6f0a0b439f17756baed24436058ee5e781ce6ddcd6388310eef73804f5999724d178f2a32105ba
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-react@npm:1.0.0-next.39":
-  version: 1.0.0-next.39
-  resolution: "@digdir/designsystemet-react@npm:1.0.0-next.39"
+"@digdir/designsystemet-react@npm:1.0.0-next.41-test-react19":
+  version: 1.0.0-next.41-test-react19
+  resolution: "@digdir/designsystemet-react@npm:1.0.0-next.41-test-react19"
   dependencies:
     "@floating-ui/dom": "npm:^1.6.10"
     "@floating-ui/react": "npm:0.26.23"
@@ -511,14 +511,14 @@ __metadata:
   peerDependencies:
     react: ">=18.3.1"
     react-dom: ">=18.3.1"
-  checksum: 10c0/d9d7d76bb554ba58f9d2bb94e89f4c16ff5dd11484fe0cbdfadd8f15ea89ed087fb9afca717dc46448a1d386a732b014062ffe6ea7da3d05c0c88785ac8afc12
+  checksum: 10c0/3c275d1dcb2d7f55e906fb95fe523165343534ad9c31308231bbea65a4c3a2fda3e0bfea516b161890eeadae0ebb939d3e89cdb85a23049ed1027ce467c37b64
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-theme@npm:1.0.0-next.39":
-  version: 1.0.0-next.39
-  resolution: "@digdir/designsystemet-theme@npm:1.0.0-next.39"
-  checksum: 10c0/a9466a2c0c259517f98b5f549ea9b43ae0e88711da7e5b12975eed10f5901dd818f31e0c7ffcd4c8cd321739248cc9c2ed5da31137d5ef1d0f0685543178b6b8
+"@digdir/designsystemet-theme@npm:1.0.0-next.41":
+  version: 1.0.0-next.41
+  resolution: "@digdir/designsystemet-theme@npm:1.0.0-next.41"
+  checksum: 10c0/9e63bd4704053e00ececf0090ba13bab0cc6f34977e05f7fcfc32ac0dd8b75b81f7c7644cc55ae18a58c90863b0e3e7f49bc4fc7f5d6c3da36c48de2b3762443
   languageName: node
   linkType: hard
 
@@ -2015,9 +2015,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:1.0.0-next.39"
-    "@digdir/designsystemet-react": "npm:1.0.0-next.39"
-    "@digdir/designsystemet-theme": "npm:1.0.0-next.39"
+    "@digdir/designsystemet-css": "npm:1.0.0-next.41"
+    "@digdir/designsystemet-react": "npm:1.0.0-next.41-test-react19"
+    "@digdir/designsystemet-theme": "npm:1.0.0-next.41"
     "@navikt/aksel-icons": "npm:^7.0.0"
     "@playwright/test": "npm:^1.45.1"
     "@reduxjs/toolkit": "npm:^2.1.0"
