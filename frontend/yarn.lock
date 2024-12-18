@@ -490,10 +490,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:1.0.0-next.39":
-  version: 1.0.0-next.39
-  resolution: "@digdir/designsystemet-css@npm:1.0.0-next.39"
-  checksum: 10c0/9fec473ec40aa9387ba87d2673a2928abf7df00f06106306b4b3894bef2d36fe6c71b462c0442848faf8eeb4847fbb930ae64cec70337d992b51588040db3a94
+"@digdir/designsystemet-css@npm:1.0.0-next.42":
+  version: 1.0.0-next.42
+  resolution: "@digdir/designsystemet-css@npm:1.0.0-next.42"
+  checksum: 10c0/29f09d149b6eff8e38299e07eacae222cfc059e0791126c4df033fa8c92c5fd4ac89c058bae861e6c67193817753e6d4e0ce3d49d8f2026ba75b793198c8f1e8
   languageName: node
   linkType: hard
 
@@ -2007,7 +2007,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:1.0.0-next.39"
+    "@digdir/designsystemet-css": "npm:1.0.0-next.42"
     "@digdir/designsystemet-react": "npm:1.0.0-next.39"
     "@digdir/designsystemet-theme": "npm:1.0.0-next.39"
     "@navikt/aksel-icons": "npm:^7.0.0"
