@@ -9,7 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@digdir/designsystemet-css": "1.0.0-next.41",
+    "@digdir/designsystemet-css": "1.0.0-next.44",
     "@digdir/designsystemet-react": "1.0.0-next.41-test-react19",
     "@digdir/designsystemet-theme": "1.0.0-next.41",
     "@navikt/aksel-icons": "^7.0.0",
@@ -31,8 +31,8 @@
     "@types/react-dom": "^19.0.0",
     "@types/redux-logger": "^3.0.13",
     "@vitejs/plugin-react": "^4.2.1",
-    "eslint": "9.16.0",
-    "eslint-plugin-react": "7.37.2",
+    "eslint": "9.17.0",
+    "eslint-plugin-react": "7.37.3",
     "eslint-plugin-react-hooks": "5.1.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
