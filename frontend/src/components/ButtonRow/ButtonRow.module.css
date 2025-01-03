@@ -1,6 +1,7 @@
 .buttonRow {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   gap: var(--ds-spacing-4);
   margin-top: var(--ds-spacing-15);
 }

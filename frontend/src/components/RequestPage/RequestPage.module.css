@@ -2,6 +2,12 @@
   --vendor-container-padding: var(--ds-spacing-12);
 }
 
+@media only screen and (max-width: 769px) {
+  :root {
+    --vendor-container-padding: var(--ds-spacing-4);
+  }
+}
+
 .requestPage {
   min-height: 100vh;
   background-color: var(--ds-color-neutral-background-subtle);

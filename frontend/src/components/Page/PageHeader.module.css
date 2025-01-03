@@ -1,6 +1,6 @@
 .pageHeader {
   --page-header-height: var(--ds-sizing-22);
-  height: var(--page-header-height);
+  min-height: var(--page-header-height);
   background-color: var(--component-page_header-background-color);
   display: flex;
   color: var(--component-page_header-color);
