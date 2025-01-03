@@ -29,7 +29,8 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             Rights =
             [
                 
-            ]
+            ],
+            IsVisible = true
         };
 
         RegisteredSystemDTO regsys2 = new()
@@ -52,7 +53,8 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             Rights =
             [
                 
-            ]
+            ],
+            IsVisible = true
         };
 
         RegisteredSystemDTO regsys3 = new()
@@ -75,7 +77,8 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             Rights =
             [
                 
-            ]
+            ],
+            IsVisible = true
         };
 
         RegisteredSystemDTO regsys4 = new()
@@ -97,7 +100,8 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             },
             Rights =
             [
-            ]
+            ],
+            IsVisible = true
 
         };
 
@@ -121,7 +125,33 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             Rights =
             [
                 
-            ]
+            ],
+            IsVisible = true
+        };
+
+
+        RegisteredSystemDTO regsys6 = new()
+        {
+            SystemVendorOrgNumber = "314048435",
+            Description = new Dictionary<string, string>
+            {
+                {"nb", "Kult system som er usynlig." },
+                {"en", "Cool system that is not visible." },
+                {"nn", "Framifrå system som er usynlig." }
+            },
+            SystemId = "visma_skatt_totalpakke_usynlig",
+            SystemVendorOrgName = "Visma Not Visible",
+            Name = new Dictionary<string, string>
+            {
+                {"nb", "4Humans HR system 2024 versjon." },
+                {"en", "4Humans HR system 2024 versjon." },
+                {"nn", "4Humans HR system 2024 versjon." }
+            },
+            Rights =
+            [
+
+            ],
+            IsVisible = false
         };
 
         List<RegisteredSystemDTO> theList = new()
@@ -130,7 +160,8 @@ public class SystemRegisterClientMock : ISystemRegisterClient
             regsys2,
             regsys3,
             regsys4,
-            regsys5
+            regsys5,
+            regsys6
         };
 
             return theList;
