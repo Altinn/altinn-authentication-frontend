@@ -10,6 +10,10 @@ import { ButtonRow } from '@/components/ButtonRow';
 import { PageDescription } from '@/components/PageDescription';
 import { RightsIncludedPageContent } from './RightsIncludedPageContent';
 
+const isStringMatch = (inputString: string, matchString = ''): boolean => {
+  return matchString.toLowerCase().indexOf(inputString.toLowerCase()) >= 0;
+};
+
 export const CreationPageContent = () => {
   const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
@@ -31,10 +35,6 @@ export const CreationPageContent = () => {
 
   const handleConfirm = () => {
     setIsConfirmStep(true);
-  };
-
-  const isStringMatch = (inputString: string, matchString: string): boolean => {
-    return matchString.toLowerCase().indexOf(inputString.toLowerCase()) >= 0;
   };
 
   if (isConfirmStep) {
@@ -59,22 +59,13 @@ export const CreationPageContent = () => {
           loading={isLoadingVendors}
           loadingLabel={t('authent_creationpage.loading_systems')}
           placeholder={t('common.choose')}
-          onValueChange={(newValue: string[]) => {
-            if (newValue?.length) {
-              setSelectedSystemId(newValue[0]);
-            }
-          }}
-          filter={(inputValue: string, option) => {
-            const vendor = vendors?.find((x) => x.systemId === option.value);
-            if (!vendor) {
-              return false;
-            }
-            const isOrgNrMatch = isStringMatch(inputValue, vendor.systemVendorOrgNumber);
-            const isOrgNameMatch = isStringMatch(inputValue, vendor.systemVendorOrgName);
-            const isSystemNameMatch = isStringMatch(inputValue, vendor.name[currentLanguage]);
-            return isOrgNrMatch || isOrgNameMatch || isSystemNameMatch;
-          }}
           value={selectedSystemId ? [selectedSystemId] : undefined}
+          onValueChange={(newValue: string[]) => setSelectedSystemId(newValue[0])}
+          filter={(inputValue: string, { label, description }) => {
+            const isLabelMatch = isStringMatch(inputValue, label);
+            const isDescriptionMatch = isStringMatch(inputValue, description);
+            return isLabelMatch || isDescriptionMatch;
+          }}
         >
           {vendors?.map((vendor) => {
             return (
