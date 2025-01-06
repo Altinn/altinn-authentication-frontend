@@ -21,10 +21,11 @@ public class SystemRegisterService : ISystemRegisterService
     public async Task<List<RegisteredSystemDTO>> GetListRegSys(CancellationToken cancellationToken)
     {
         List<RegisteredSystemDTO> lista = await _systemRegisterClient.GetListRegSys(cancellationToken);
-        
-        IEnumerable<string> orgNrs = lista.Select(x => x.SystemVendorOrgNumber);
+        IEnumerable<RegisteredSystemDTO> visibleSystems = lista.Where(system => system.IsVisible);
+
+        IEnumerable<string> orgNrs = visibleSystems.Select(x => x.SystemVendorOrgNumber);
         var orgNames = await _registerClient.GetPartyNamesForOrganization(orgNrs, cancellationToken);
-        foreach (RegisteredSystemDTO response in lista)
+        foreach (RegisteredSystemDTO response in visibleSystems)
         {
             try
             {
@@ -37,7 +38,7 @@ public class SystemRegisterService : ISystemRegisterService
             }
         }
 
-        return lista;
+        return visibleSystems.ToList();
     }
 
     public async Task<FullRights> GetSystemRights(string systemId, CancellationToken cancellationToken)
