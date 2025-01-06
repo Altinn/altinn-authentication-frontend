@@ -39,7 +39,6 @@
     "loading_systems": "Laster leverandører og system..."
   },
   "authent_includedrightspage": {
-    "banner_title": "Lag ny systemtilgang",
     "sub_title": "Systemtilgangen vil inneholde disse tjenestene",
     "sub_title_single": "Systemtilgangen vil inneholde denne tjenesten",
     "content_text": "Disse tjenestene er forhåndsvalgt av fagsystemet.",
