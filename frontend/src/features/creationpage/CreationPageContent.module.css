@@ -8,3 +8,7 @@
 .inputContainer {
   max-width: 27rem;
 }
+
+.successButton {
+  background-color: var(--ds-color-success-base-default);
+}

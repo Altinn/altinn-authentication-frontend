@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
-import createSystemUserReducer, { CreateSystemUserState } from '../features/createSystemUserSlice';
 import { api } from '../features/api';
 
 const logger = createLogger();
@@ -8,7 +7,6 @@ const logger = createLogger();
 const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
-    createSystemUser: createSystemUserReducer,
   },
   middleware: (getDefaultMiddleware) => {
     const middleWares = getDefaultMiddleware().concat(api.middleware);
@@ -21,7 +19,5 @@ const store = configureStore({
 });
 
 export default store;
-export interface RootState {
-  createSystemUser: CreateSystemUserState;
-}
+
 export type AppDispatch = typeof store.dispatch;

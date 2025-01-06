@@ -3,7 +3,6 @@ import { createBrowserRouter, createRoutesFromElements, Route } from 'react-rout
 import { OverviewPage } from '@/features/overviewpage/OverviewPage';
 import { CreationPage } from '@/features/creationpage/CreationPage';
 import { NotFoundSite } from '@/sites/NotFoundSite';
-import { RightsIncludedPage } from '@/features/rightsincludedpage';
 import { DetailPage } from '@/features/detailpage/DetailPage';
 import { AuthenticationRoute } from '../paths';
 import { VendorRequestPage } from '@/features/vendorRequestPage';
@@ -20,11 +19,6 @@ export const Router = createBrowserRouter(
       <Route
         path={AuthenticationRoute.Creation}
         element={<CreationPage />}
-        errorElement={<NotFoundSite />}
-      />
-      <Route
-        path={AuthenticationRoute.RightsIncluded}
-        element={<RightsIncludedPage />}
         errorElement={<NotFoundSite />}
       />
       <Route

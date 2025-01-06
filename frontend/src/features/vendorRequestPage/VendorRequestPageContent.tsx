@@ -10,8 +10,6 @@ import {
   useRejectSystemUserRequestMutation,
 } from '@/rtk/features/systemUserApi';
 import { AuthenticationRoute } from '@/routes/paths';
-import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
-import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 import { getApiBaseUrl, getLogoutUrl } from '@/utils/urlUtils';
 import { ButtonRow } from '@/components/ButtonRow';
@@ -29,7 +27,6 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   const [isReceiptVisible, setIsReceiptVisible] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const [
     postAcceptCreationRequest,
@@ -76,8 +73,7 @@ export const VendorRequestPageContent = ({ request, userInfo }: VendorRequestPag
   };
 
   const redirectToOverview = (): void => {
-    dispatch(setCreatedId(request.id));
-    navigate(AuthenticationRoute.Overview);
+    navigate(AuthenticationRoute.Overview, { state: { createdId: request.id } });
   };
 
   const logoutAndRedirectToVendor = (): void => {

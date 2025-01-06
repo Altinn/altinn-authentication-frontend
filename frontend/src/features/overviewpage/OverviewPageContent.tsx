@@ -1,14 +1,11 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './OverviewPageContent.module.css';
 import { PlusIcon } from '@navikt/aksel-icons';
 import { Alert, Button, Heading, Spinner } from '@digdir/designsystemet-react';
-import { useFirstRenderEffect } from '@/resources/hooks';
 import { useTranslation } from 'react-i18next';
 import { useGetSystemUsersQuery } from '@/rtk/features/systemUserApi';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { setSelectedSystemId } from '@/rtk/features/createSystemUserSlice';
 import { SystemUserActionBar } from '@/components/SystemUserActionBar';
 import { useGetLoggedInUserQuery } from '@/rtk/features/userApi';
 import { RightsError } from '@/components/RightsError';
@@ -23,17 +20,12 @@ export const OverviewPageContent = () => {
 
   const { data: userInfo, isLoading: isLoadingUserInfo } = useGetLoggedInUserQuery();
 
-  const dispatch = useAppDispatch();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const routerLocation = useLocation();
 
-  const newlyCreatedId = useAppSelector((state) => state.createSystemUser.newlyCreatedId);
+  const newlyCreatedId = routerLocation?.state?.createdId;
   const newlyCreatedItem = systemUsers?.find((systemUser) => systemUser.id === newlyCreatedId);
-
-  // reset create wizard values when overviewPage is rendered; the user ends up here after create, cancel or back navigation
-  useFirstRenderEffect(() => {
-    dispatch(setSelectedSystemId({ systemId: '', friendlySystemName: '' }));
-  });
 
   const goToStartNewSystemUser = () => {
     navigate(AuthenticationRoute.Creation);
