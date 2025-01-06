@@ -38,13 +38,11 @@ export const CreationPageContent = () => {
   };
 
   if (isConfirmStep) {
-    const integrationTitle = vendors?.find(
-      (vendorSystem) => vendorSystem.systemId === selectedSystemId,
-    )?.name[currentLanguage];
+    const selectedSystem = vendors?.find((system) => system.systemId === selectedSystemId);
     return (
       <RightsIncludedPageContent
         selectedSystemId={selectedSystemId}
-        integrationTitle={integrationTitle ?? ''}
+        integrationTitle={selectedSystem?.name[currentLanguage] ?? ''}
       />
     );
   }
