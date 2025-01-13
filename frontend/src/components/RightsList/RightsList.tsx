@@ -12,17 +12,29 @@ interface RightsListProps {
 export const RightsList = ({ resources }: RightsListProps): React.ReactNode => {
   const { i18n } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
-  return resources.map((resource) => {
-    return (
-      <ActionBar
-        key={resource.identifier}
-        title={resource.title?.[currentLanguage]}
-        icon={resource.logoUrl && <RightsListLogo logoUrl={resource.logoUrl} />}
-        subtitle={resource?.hasCompetentAuthority?.name?.[currentLanguage]}
-        color='neutral'
-      >
-        <div>{resource.description?.[currentLanguage]}</div>
-      </ActionBar>
-    );
-  });
+  return (
+    <ul className='unstyledList'>
+      {resources.map((resource) => {
+        return (
+          <li key={resource.identifier}>
+            <ActionBar
+              title={resource.title?.[currentLanguage]}
+              icon={
+                resource.logoUrl && (
+                  <RightsListLogo
+                    logoUrl={resource.logoUrl}
+                    altText={resource?.hasCompetentAuthority?.name?.[currentLanguage]}
+                  />
+                )
+              }
+              subtitle={resource?.hasCompetentAuthority?.name?.[currentLanguage]}
+              color='neutral'
+            >
+              <div>{resource.description?.[currentLanguage]}</div>
+            </ActionBar>
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
