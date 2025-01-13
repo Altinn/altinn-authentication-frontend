@@ -10,8 +10,6 @@ import {
   useRejectChangeRequestMutation,
 } from '@/rtk/features/systemUserApi';
 import { AuthenticationRoute } from '@/routes/paths';
-import { setCreatedId } from '@/rtk/features/createSystemUserSlice';
-import { useAppDispatch } from '@/rtk/app/hooks';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 import { getApiBaseUrl, getLogoutUrl } from '@/utils/urlUtils';
 import { ButtonRow } from '@/components/ButtonRow';
@@ -32,7 +30,6 @@ export const ChangeRequestPageContent = ({
   const [isReceiptVisible, setIsReceiptVisible] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
 
   const [
     postAcceptChangeRequest,
@@ -79,8 +76,7 @@ export const ChangeRequestPageContent = ({
   };
 
   const redirectToOverview = (): void => {
-    dispatch(setCreatedId(changeRequest.id));
-    navigate(AuthenticationRoute.Overview);
+    navigate(AuthenticationRoute.Overview, { state: { createdId: changeRequest.id } });
   };
 
   const logoutAndRedirectToVendor = (): void => {

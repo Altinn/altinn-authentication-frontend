@@ -39,7 +39,6 @@
     "loading_systems": "Loading vendors and systems..."
   },
   "authent_includedrightspage": {
-    "banner_title": "Create new system access",
     "sub_title": "The system access will contain these services",
     "sub_title_single": "The system access will contain this service",
     "content_text": "These services are pre-selected by the vendor system.",

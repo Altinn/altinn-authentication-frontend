@@ -39,7 +39,6 @@
     "loading_systems": "Lastar leverandørar og system..."
   },
   "authent_includedrightspage": {
-    "banner_title": "Lag ny systemtilgang",
     "sub_title": "Systemtilgangen vil innehalde desse tenestene",
     "sub_title_single": "Systemtilgangen vil innehalde denne tenesta",
     "content_text": "Desse tenestene er førehandsvalde av fagsystemet.",

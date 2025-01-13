@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Button, Combobox, Alert } from '@digdir/designsystemet-react';
 import { AuthenticationRoute } from '@/routes/paths';
 import classes from './CreationPageContent.module.css';
 import { useGetVendorsQuery } from '@/rtk/features/systemUserApi';
-import { useAppDispatch, useAppSelector } from '@/rtk/app/hooks';
-import { setSelectedSystemId } from '@/rtk/features/createSystemUserSlice';
 import { i18nLanguageToShortLanguageCode } from '@/utils/languageUtils';
 import { ButtonRow } from '@/components/ButtonRow';
 import { PageDescription } from '@/components/PageDescription';
+import { RightsIncludedPageContent } from './RightsIncludedPageContent';
+
+const isStringMatch = (inputString: string, matchString = ''): boolean => {
+  return matchString.toLowerCase().indexOf(inputString.toLowerCase()) >= 0;
+};
 
 export const CreationPageContent = () => {
   const { i18n, t } = useTranslation();
   const currentLanguage = i18nLanguageToShortLanguageCode(i18n.language);
 
-  const dispatch = useAppDispatch();
-
-  const { integrationTitle, selectedSystemId } = useAppSelector((state) => state.createSystemUser);
+  const [selectedSystemId, setSelectedSystemId] = useState<string>('');
+  const [isConfirmStep, setIsConfirmStep] = useState<boolean>(false);
 
   const {
     data: vendors,
@@ -32,49 +34,38 @@ export const CreationPageContent = () => {
   };
 
   const handleConfirm = () => {
-    navigate(AuthenticationRoute.RightsIncluded);
+    setIsConfirmStep(true);
   };
 
-  const isStringMatch = (inputString: string, matchString: string): boolean => {
-    return matchString.toLowerCase().indexOf(inputString.toLowerCase()) >= 0;
-  };
+  if (isConfirmStep) {
+    const selectedSystem = vendors?.find((system) => system.systemId === selectedSystemId);
+    return (
+      <RightsIncludedPageContent
+        selectedSystemId={selectedSystemId}
+        integrationTitle={selectedSystem?.name[currentLanguage] ?? ''}
+      />
+    );
+  }
 
   return (
     <div className={classes.creationPageContainer}>
-      <div>
-        <PageDescription
-          heading={t('authent_creationpage.sub_title')}
-          ingress={t('authent_creationpage.content_text1')}
-        />
-      </div>
+      <PageDescription
+        heading={t('authent_creationpage.sub_title')}
+        ingress={t('authent_creationpage.content_text1')}
+      />
       <div className={classes.inputContainer}>
         <Combobox
           label={t('authent_creationpage.pull_down_menu_label')}
           loading={isLoadingVendors}
           loadingLabel={t('authent_creationpage.loading_systems')}
           placeholder={t('common.choose')}
-          onValueChange={(newValue: string[]) => {
-            if (newValue?.length) {
-              const system = vendors?.find((x) => x.systemId === newValue[0]);
-              dispatch(
-                setSelectedSystemId({
-                  systemId: newValue[0],
-                  friendlySystemName: system?.name[currentLanguage] ?? '',
-                }),
-              );
-            }
-          }}
-          filter={(inputValue: string, option) => {
-            const vendor = vendors?.find((x) => x.systemId === option.value);
-            if (!vendor) {
-              return false;
-            }
-            const isOrgNrMatch = isStringMatch(inputValue, vendor.systemVendorOrgNumber);
-            const isOrgNameMatch = isStringMatch(inputValue, vendor.systemVendorOrgName);
-            const isSystemNameMatch = isStringMatch(inputValue, vendor.name[currentLanguage]);
-            return isOrgNrMatch || isOrgNameMatch || isSystemNameMatch;
-          }}
           value={selectedSystemId ? [selectedSystemId] : undefined}
+          onValueChange={(newValue: string[]) => setSelectedSystemId(newValue[0])}
+          filter={(inputValue: string, { label, description }) => {
+            const isLabelMatch = isStringMatch(inputValue, label);
+            const isDescriptionMatch = isStringMatch(inputValue, description);
+            return isLabelMatch || isDescriptionMatch;
+          }}
         >
           {vendors?.map((vendor) => {
             return (
@@ -97,7 +88,7 @@ export const CreationPageContent = () => {
           variant='primary'
           data-size='sm'
           onClick={handleConfirm}
-          disabled={!integrationTitle.trim() || !selectedSystemId}
+          disabled={!selectedSystemId}
         >
           {t('authent_creationpage.confirm_button')}
         </Button>
