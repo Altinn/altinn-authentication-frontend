@@ -7,12 +7,12 @@
 .pageContent {
   background-color: var(--ds-color-accent-background-default);
   box-sizing: inherit;
-  --component-page-content-padding: var(--ds-spacing-12);
+  --component-page-content-padding: var(--ds-size-12);
   padding: var(--component-page-content-padding);
 }
 
 @media only screen and (max-width: 769px) {
   .pageContent {
-    --component-page-content-padding: var(--ds-spacing-2);
+    --component-page-content-padding: var(--ds-size-2);
   }
 }

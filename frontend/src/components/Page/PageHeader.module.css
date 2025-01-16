@@ -1,5 +1,5 @@
 .pageHeader {
-  --page-header-height: var(--ds-sizing-22);
+  --page-header-height: var(--ds-size-22);
   min-height: var(--page-header-height);
   background-color: var(--component-page_header-background-color);
   display: flex;
@@ -7,11 +7,11 @@
   align-items: center;
   --page_header-title-font-size: 1rem;
   font-size: var(--page_header-title-font-size);
-  --page-header-padding: var(--ds-spacing-8);
+  --page-header-padding: var(--ds-size-8);
   padding-left: var(--page-header-padding);
   padding-right: var(--page-header-padding);
   gap: var(--page-header-padding);
-  --page-header-icon-dimension: var(--ds-sizing-10);
+  --page-header-icon-dimension: var(--ds-size-10);
 }
 
 .pageHeader.dark {
@@ -21,7 +21,6 @@
 
 .pageHeader.light {
   --component-page_header-background-color: var(--ds-semantic-surface-neutral-default);
-  --component-page_header-color: var(--ds-semantic-text-neutral-default);
   border-bottom: solid 1px var(--ds-semantic-border-neutral-subtle);
 }
 
@@ -47,9 +46,9 @@
 
 @media only screen and (max-width: 769px) {
   .pageHeader {
-    --page-header-height: var(--ds-sizing-14);
-    --page-header-padding: var(--ds-spacing-5);
+    --page-header-height: var(--ds-size-14);
+    --page-header-padding: var(--ds-size-5);
     --page_header-title-font-size: 0.75rem;
-    --page-header-icon-dimension: var(--ds-sizing-7);
+    --page-header-icon-dimension: var(--ds-size-7);
   }
 }

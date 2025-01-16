@@ -51,7 +51,7 @@ export const ActionBarHeader = ({
 
   return (
     <div
-      className={cn(classes.actionBar, classes[color], classes[size], {
+      className={cn(classes.actionBar, classes[color], {
         [classes.subtitle]: subtitle,
         [classes.open]: open,
       })}

@@ -2,21 +2,8 @@
   display: flex;
   border: 1px var(--border-color) solid;
   border-radius: 4px;
-  color: var(--ds-semantic-text-neutral-default);
   background-color: var(--background-color);
-  margin-top: var(--ds-spacing-2);
-}
-
-.actionBar.small {
-  min-height: var(--ds-sizing-8);
-}
-
-.actionBar.medium {
-  min-height: var(--ds-sizing-14);
-}
-
-.actionBar.large {
-  min-height: var(--ds-sizing-26);
+  margin-top: var(--ds-size-2);
 }
 
 .actionBar.open {
@@ -37,6 +24,7 @@
 
 .actionBarHeader {
   color: inherit;
+  height: auto;
   width: 100%;
 }
 
@@ -46,7 +34,7 @@
 
 .actionBarButtonContainer {
   display: flex;
-  gap: var(--ds-spacing-4);
+  gap: var(--ds-size-4);
   align-items: center;
   height: 100%;
   width: 100%;
@@ -56,7 +44,7 @@
   flex: 1;
   display: flex;
   flex-direction: row;
-  gap: var(--ds-spacing-4);
+  gap: var(--ds-size-4);
   height: 100%;
   position: relative;
   align-items: center;
