@@ -13,7 +13,7 @@ on:
       - frontend/**
 
 env:
-  dotnet_version: 8.0.x
+  dotnet_version: 9.0.x
 
 jobs:
   build:
