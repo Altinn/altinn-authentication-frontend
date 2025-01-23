@@ -35,13 +35,13 @@ export const RequestPage = ({
           )}
         </div>
         <div className={classes.vendorRequestBlock}>
-          <Heading level={1} size='lg'>
+          <Heading level={1} data-size='lg'>
             {heading}
           </Heading>
         </div>
         <div className={classes.vendorRequestBlock}>{children}</div>
         {system && (
-          <Paragraph size='sm' className={classes.vendorInfo}>
+          <Paragraph data-size='sm' className={classes.vendorInfo}>
             {t('vendor_request.org_nr', {
               systemName: system.name[currentLanguage],
               vendorName: system.systemVendorOrgName,

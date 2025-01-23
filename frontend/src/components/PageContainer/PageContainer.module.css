@@ -7,10 +7,10 @@
 }
 
 .buttonContainer {
-  margin-top: var(--ds-spacing-8);
+  margin-top: var(--ds-size-8);
   display: flex;
   justify-content: space-between;
-  margin-bottom: var(--ds-spacing-2);
+  margin-bottom: var(--ds-size-2);
 }
 
 .buttonContainerButton {
@@ -22,24 +22,24 @@
 }
 
 .buttonContainerIcon {
-  height: var(--ds-sizing-6);
-  width: var(--ds-sizing-6);
+  height: var(--ds-size-6);
+  width: var(--ds-size-6);
 }
 
 @media only screen and (min-width: 375px) {
   .pageMargin {
-    margin: var(--ds-spacing-2);
+    margin: var(--ds-size-2);
   }
 }
 
 @media only screen and (min-width: 769px) {
   .pageMargin {
-    margin: var(--ds-spacing-4);
+    margin: var(--ds-size-4);
   }
 }
 
 @media only screen and (min-width: 992px) {
   .pageMargin {
-    margin: var(--ds-spacing-10);
+    margin: var(--ds-size-10);
   }
 }

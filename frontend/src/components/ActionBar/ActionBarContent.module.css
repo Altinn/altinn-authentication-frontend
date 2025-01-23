@@ -4,10 +4,10 @@
   border-bottom-right-radius: 6px;
   border-width: 1px;
   border-color: var(--border-color);
-  padding: var(--ds-spacing-10);
+  padding: var(--ds-size-10);
   display: flex;
   flex-direction: column;
-  gap: var(--ds-spacing-1);
+  gap: var(--ds-size-1);
 }
 
 .actionBarContent.light {

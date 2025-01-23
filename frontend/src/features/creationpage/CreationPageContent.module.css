@@ -1,7 +1,7 @@
 .creationPageContainer {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-spacing-4);
+  gap: var(--ds-size-4);
   max-width: 37rem;
 }
 
