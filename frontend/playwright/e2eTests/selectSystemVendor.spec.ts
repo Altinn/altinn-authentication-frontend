@@ -1,7 +1,11 @@
 import { expect, test } from '@playwright/test';
 import { SystemUserPage } from '../pages/systemUserPage';
+import { TestdataApi } from 'playwright/util/TestdataApi';
 
 test('Create system user and verify landing page', async ({ page }): Promise<void> => {
+  //Make sure system user does not exist first
+  TestdataApi.cleanUpTestUsers();
+
   const system = 'E2E - Playwright - Authentication';
   const systemUserPage = new SystemUserPage(page);
   await systemUserPage.selectSystem(system);
