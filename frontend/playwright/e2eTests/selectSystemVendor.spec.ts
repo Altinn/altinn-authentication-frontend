@@ -16,5 +16,7 @@ test('Create system user and verify landing page', async ({ page }): Promise<voi
   await systemUserPage.CREATE_SYSTEM_USER_BUTTON.click();
   await expect(systemUserPage.SYSTEMUSER_CREATED_HEADING).toBeVisible();
   await expect(page.getByText(system).first()).toBeVisible();
+
+  //Cleanup
   await TestdataApi.removeSystem(system);
 });
