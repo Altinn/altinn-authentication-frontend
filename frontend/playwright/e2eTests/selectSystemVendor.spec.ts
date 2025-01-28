@@ -8,8 +8,7 @@ test('Create system user and verify landing page', async ({ page }): Promise<voi
   let api: ApiRequests = new ApiRequests();
 
   await TestdataApi.removeAllSystemUsers();
-  var system = await api.CreateSystemSystemRegister();
-  console.log(system);
+  var system = await api.createSystemSystemRegister();
 
   const systemUserPage = new SystemUserPage(page);
   await systemUserPage.selectSystem(system);
