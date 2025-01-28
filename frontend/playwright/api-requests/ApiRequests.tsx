@@ -228,7 +228,7 @@ export class ApiRequests {
     const scopes = 'altinn:authentication/systemregister.write';
 
     // We expect a JSON response, but we'll just return 'any' or the "name" you need.
-    await this.sendPostRequest<typeof payload, any>(payload, endpoint, scopes);
+    await this.sendPostRequest<typeof payload, string>(payload, endpoint, scopes);
     return name;
   }
 

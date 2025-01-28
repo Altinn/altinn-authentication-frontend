@@ -5,10 +5,10 @@ import { ApiRequests } from 'playwright/api-requests/ApiRequests';
 
 test('Create system user and verify landing page', async ({ page }): Promise<void> => {
   //Make sure system user does not exist first
-  let api: ApiRequests = new ApiRequests();
+  const api: ApiRequests = new ApiRequests();
 
   await TestdataApi.removeAllSystemUsers();
-  var system = await api.createSystemSystemRegister();
+  const system = await api.createSystemSystemRegister();
 
   const systemUserPage = new SystemUserPage(page);
   await systemUserPage.selectSystem(system);
