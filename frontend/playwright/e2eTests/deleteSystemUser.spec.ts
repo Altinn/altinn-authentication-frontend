@@ -1,25 +1,42 @@
 import { expect, test } from '@playwright/test';
 import { SystemUserPage } from '../pages/systemUserPage';
 import { ApiRequests } from 'playwright/api-requests/ApiRequests';
+import { TestdataApi } from 'playwright/util/TestdataApi';
 
-test('Delete created system user', async ({ page }): Promise<void> => {
-  const systemUserPage = new SystemUserPage(page);
-  let api: ApiRequests = new ApiRequests();
+test.describe('System user deletion', () => {
+  let systemId: string;
+  let api: ApiRequests;
 
-  // Create new system user
-  var system = await api.createSystemSystemRegister();
+  test.beforeAll(async () => {
+    api = new ApiRequests();
+  });
 
-  await systemUserPage.selectSystem(system);
+  test.beforeEach(async ({ page }) => {
+    //Create a system in your "system register" before each test
+    systemId = await api.createSystemSystemRegister();
 
-  await systemUserPage.CREATE_SYSTEM_USER_BUTTON.click();
-  await expect(systemUserPage.SYSTEMUSER_CREATED_HEADING).toBeVisible();
-  await expect(page.getByText(system).first()).toBeVisible();
+    // 2) Use the UI to create a new system user
+    const systemUserPage = new SystemUserPage(page);
+    await systemUserPage.selectSystem(systemId);
+    await systemUserPage.CREATE_SYSTEM_USER_BUTTON.click();
+    await expect(systemUserPage.SYSTEMUSER_CREATED_HEADING).toBeVisible();
+    await expect(page.getByText(systemId).first()).toBeVisible();
+  });
 
-  // Delete system user
-  await systemUserPage.EDIT_SYSTEMUSER_LINK.click();
-  await systemUserPage.DELETE_SYSTEMUSER_BUTTON.click();
-  await systemUserPage.FINAL_DELETE_SYSTEMUSER_BUTTON.click();
+  test('Delete created system user', async ({ page }) => {
+    const systemUserPage = new SystemUserPage(page);
 
-  //Back to overview page
-  await expect(systemUserPage.MAIN_HEADER).toBeVisible();
+    // Delete system user
+    await systemUserPage.EDIT_SYSTEMUSER_LINK.click();
+    await systemUserPage.DELETE_SYSTEMUSER_BUTTON.click();
+    await systemUserPage.FINAL_DELETE_SYSTEMUSER_BUTTON.click();
+
+    // Confirm we are back on overview page
+    await expect(systemUserPage.MAIN_HEADER).toBeVisible();
+  });
+
+  test.afterEach(async () => {
+    // Remove system
+    await TestdataApi.removeSystem(systemId);
+  });
 });
