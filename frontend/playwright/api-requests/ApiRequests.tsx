@@ -74,12 +74,10 @@ export class ApiRequests {
 
   public async deleteSystemInSystemRegister(systemName: string) {
     var endpoint = `v1/systemregister/vendor/${process.env.ORG}_${systemName}`;
-    console.log('debug endpoint:' + endpoint);
     var token = await this.tokenClass.getEnterpriseAltinnToken(
       'altinn:authentication/systemuser.request.write altinn:authentication/systemregister.write altinn:authentication/systemuser.request.read',
     );
     const url = `${process.env.API_BASE_URL}${endpoint}`;
-    console.log('fullt endepunkt: ' + url);
 
     try {
       const response = await fetch(url, {
@@ -328,8 +326,6 @@ export class ApiRequests {
 
     const scopes = 'altinn:authentication/systemregister.write';
     const token = await this.tokenClass.getEnterpriseAltinnToken(scopes);
-
-    console.log(url);
 
     const response = await fetch(url, {
       method: 'POST',
