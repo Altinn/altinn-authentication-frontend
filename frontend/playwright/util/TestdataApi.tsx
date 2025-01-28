@@ -1,7 +1,7 @@
 import { ApiRequests } from '../api-requests/ApiRequests'; // Adjust the path based on your project structure
 
 export class TestdataApi {
-  static async cleanUpTestUsers() {
+  static async removeAllSystemUsers() {
     const api = new ApiRequests();
 
     try {
@@ -15,6 +15,11 @@ export class TestdataApi {
     } catch (error) {
       console.error('Error during cleanup:', error);
     }
+  }
+
+  static async removeSystem(systemName: string) {
+    const api = new ApiRequests();
+    await api.deleteSystemInSystemRegister(systemName);
   }
 
   static generateExternalRef() {
