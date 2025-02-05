@@ -183,8 +183,8 @@ export class ApiRequests {
 
   public async createSystemSystemRegister(): Promise<string> {
     const vendorId = process.env.ORG;
-    const clientId = `Client_${Date.now()}`;
-    const name = `AE2E-${Date.now()}`;
+    const clientId = `Client_${Date.now()}` + Math.random();
+    const name = `AE2E-${Date.now()}` + Math.random();
 
     const payload = {
       Id: `${vendorId}_${name}`,
