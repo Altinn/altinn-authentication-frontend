@@ -9,7 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@digdir/designsystemet-css": "1.0.0-next.47",
+    "@digdir/designsystemet-css": "1.0.0-next.48",
     "@digdir/designsystemet-react": "1.0.0-next.47",
     "@digdir/designsystemet-theme": "1.0.0-next.47",
     "@navikt/aksel-icons": "^7.0.0",
