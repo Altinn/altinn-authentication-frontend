@@ -49,7 +49,9 @@ export class Token {
    * @returns The Altinn test token as a string
    */
   public async getPersonalAltinnToken(scopes = ''): Promise<string> {
-    // Construct the URL for fetching the Altinn test token
+    // Add general policy scope required for approving system user requests
+    scopes = scopes + 'altinn:portal/enduser';
+
     const url =
       `https://altinn-testtools-token-generator.azurewebsites.net/api/GetPersonalToken?env=${process.env.environment}` +
       `&pid=${process.env.PID}` +
