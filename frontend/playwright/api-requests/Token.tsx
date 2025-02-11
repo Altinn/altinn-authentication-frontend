@@ -48,15 +48,14 @@ export class Token {
    * Used for fetching an Altinn test token for a specific role
    * @returns The Altinn test token as a string
    */
-  public async getPersonalAltinnToken(scopes = ''): Promise<string> {
-    // Construct the URL for fetching the Altinn test token
+  public async getPersonalAltinnToken(): Promise<string> {
     const url =
       `https://altinn-testtools-token-generator.azurewebsites.net/api/GetPersonalToken?env=${process.env.environment}` +
       `&pid=${process.env.PID}` +
       `&userid=${process.env.ALTINN_USER_ID}` +
       `&partyid=${process.env.ALTINN_PARTY_ID}` +
       `&authLvl=3&ttl=3000` +
-      (scopes ? `&scopes=${scopes}` : '');
+      `&scopes=altinn:portal/enduser`;
 
     // Retrieve the token
     const auth = Buffer.from(`${this.username}:${this.password}`).toString('base64');
