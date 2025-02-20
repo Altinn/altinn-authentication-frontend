@@ -1059,9 +1059,9 @@ __metadata:
   linkType: hard
 
 "@navikt/aksel-icons@npm:^7.0.0":
-  version: 7.12.2
-  resolution: "@navikt/aksel-icons@npm:7.12.2"
-  checksum: 10c0/af8d968432e62f59b2a69e622297317ff32b2e81f79001406fb57d6049ea8f19f90ba2b3bfbf6dab9f41a738031e027bd36aadc8c0e53d57535e657c2b51e197
+  version: 7.14.0
+  resolution: "@navikt/aksel-icons@npm:7.14.0"
+  checksum: 10c0/2f0600127d3755a1340bae94912060e30860ba4e258b5b8e49a7d0eea8cd6ccadaec50277ff13101f6586b7a98dbb3c81809999ae7293b553afbecdfae08f6cf
   languageName: node
   linkType: hard
 
@@ -1569,11 +1569,11 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^22.0.0":
-  version: 22.13.1
-  resolution: "@types/node@npm:22.13.1"
+  version: 22.13.4
+  resolution: "@types/node@npm:22.13.4"
   dependencies:
     undici-types: "npm:~6.20.0"
-  checksum: 10c0/d4e56d41d8bd53de93da2651c0a0234e330bd7b1b6d071b1a94bd3b5ee2d9f387519e739c52a15c1faa4fb9d97e825b848421af4b2e50e6518011e7adb4a34b7
+  checksum: 10c0/3a234fa7766a3efc382cf81f66f474c26cdab2f54f43f757634c81c0444eb2160c2dabbde9741e4983078a318a88515b65416b5f1ab5478548579d7b3ead1d95
   languageName: node
   linkType: hard
 
@@ -1605,11 +1605,11 @@ __metadata:
   linkType: hard
 
 "@types/react@npm:^19.0.0":
-  version: 19.0.8
-  resolution: "@types/react@npm:19.0.8"
+  version: 19.0.10
+  resolution: "@types/react@npm:19.0.10"
   dependencies:
     csstype: "npm:^3.0.2"
-  checksum: 10c0/5fa7236356b1476de03519c66ef65d4fd904826956105619e2ad60cb0b55ae7b251dd5fff02234076225b5e15333d0d936bf9dbe1d461406f8a2ba01c197ddcd
+  checksum: 10c0/41884cca21850c8b2d6578b172ca0ca4fff6021251a68532b19f2031ac23dc5a9222470208065f8d9985d367376047df2f49ece8d927f7d04cdc94922b1eb34b
   languageName: node
   linkType: hard
 
@@ -2061,7 +2061,7 @@ __metadata:
     "@types/redux-logger": "npm:^3.0.13"
     "@vitejs/plugin-react": "npm:^4.2.1"
     classnames: "npm:^2.5.1"
-    eslint: "npm:9.20.0"
+    eslint: "npm:9.20.1"
     eslint-plugin-react: "npm:7.37.4"
     eslint-plugin-react-hooks: "npm:5.1.0"
     husky: "npm:^9.0.11"
@@ -3225,9 +3225,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:9.20.0":
-  version: 9.20.0
-  resolution: "eslint@npm:9.20.0"
+"eslint@npm:9.20.1":
+  version: 9.20.1
+  resolution: "eslint@npm:9.20.1"
   dependencies:
     "@eslint-community/eslint-utils": "npm:^4.2.0"
     "@eslint-community/regexpp": "npm:^4.12.1"
@@ -3270,7 +3270,7 @@ __metadata:
       optional: true
   bin:
     eslint: bin/eslint.js
-  checksum: 10c0/5eb2d9b5ed85a0b022871d19719417d110afb07a4abfedd856ad03d9a821def5f6bc31d7c407ca27f56e5e66e39375300fd2b877017245eb99c44060d6c983bd
+  checksum: 10c0/056789dd5a00897730376f8c0a191e22840e97b7276916068ec096341cb2ec3a918c8bd474bf94ccd7b457ad9fbc16e5c521a993c7cc6ebcf241933e2fd378b0
   languageName: node
   linkType: hard
 
@@ -3928,11 +3928,11 @@ __metadata:
   linkType: hard
 
 "i18next-browser-languagedetector@npm:^8.0.0":
-  version: 8.0.2
-  resolution: "i18next-browser-languagedetector@npm:8.0.2"
+  version: 8.0.3
+  resolution: "i18next-browser-languagedetector@npm:8.0.3"
   dependencies:
     "@babel/runtime": "npm:^7.23.2"
-  checksum: 10c0/b4ed7531ab503da12e043209c396b1aa9a0bdb2bbb397c0c85605bf16f08bf4cdacf9c1866cd32be1f19266488accb8d15dc8a76a6046e9ee359284199a8dcbc
+  checksum: 10c0/cb8af8ca13b02e6dcece6a85ad8a8191cb7e3d914c57651d5cecc3b5ad91720d823f97646c5acf136c9cb573f146311aa02c0f03b1053e4f0fd82bd43c121702
   languageName: node
   linkType: hard
 
@@ -5643,11 +5643,11 @@ __metadata:
   linkType: hard
 
 "prettier@npm:^3.2.5":
-  version: 3.5.0
-  resolution: "prettier@npm:3.5.0"
+  version: 3.5.1
+  resolution: "prettier@npm:3.5.1"
   bin:
     prettier: bin/prettier.cjs
-  checksum: 10c0/6c355d74c377f5622953229d92477e8b9779162e848db90fd7e06c431deb73585d31fafc4516cf5868917825b97b9ec7c87c8d8b8e03ccd9fc9c0b7699d1a650
+  checksum: 10c0/9f6f810eae455d6e4213845151a484a2338f2e0d6a8b84ee8e13a83af8a2421ef6c1e31e61e4b135671fb57b9541f6624648880cc2061ac803e243ac898c0123
   languageName: node
   linkType: hard
 
