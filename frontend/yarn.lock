@@ -515,10 +515,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-theme@npm:1.0.0-next.47":
-  version: 1.0.0-next.47
-  resolution: "@digdir/designsystemet-theme@npm:1.0.0-next.47"
-  checksum: 10c0/41d661b9f636340086c8fca077273df330ae771a2d0fed18ea5e691e4c037afb4d3a9b3683fab5795f2ca88ca1614faefe2a28ad373011c091a42748d8d8fc9a
+"@digdir/designsystemet-theme@npm:1.0.1":
+  version: 1.0.1
+  resolution: "@digdir/designsystemet-theme@npm:1.0.1"
+  checksum: 10c0/a8616bd5c1ef19f9a0a17db2cc74e65054dc32c857069cd6089d5c5c945324a592eedbfaca59e92ee86ef6a4a3800299f896eab04aba24d95b53cf4f74033765
   languageName: node
   linkType: hard
 
@@ -2042,7 +2042,7 @@ __metadata:
   dependencies:
     "@digdir/designsystemet-css": "npm:1.0.0-next.47"
     "@digdir/designsystemet-react": "npm:1.0.0-next.47"
-    "@digdir/designsystemet-theme": "npm:1.0.0-next.47"
+    "@digdir/designsystemet-theme": "npm:1.0.1"
     "@navikt/aksel-icons": "npm:^7.0.0"
     "@playwright/test": "npm:^1.45.1"
     "@reduxjs/toolkit": "npm:^2.1.0"
