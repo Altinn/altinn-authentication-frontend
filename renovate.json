@@ -16,6 +16,18 @@
       "matchUpdateTypes": [
         "major"
       ]
+    },
+    {
+      "matchPackageNames": [
+        "@digdir/designsystemet-*"
+      ],
+      "groupName": "Digdir Designsystemet",
+      "groupSlug": "digdir-designsystemet",
+      "matchCurrentVersion": "<1.0.0",
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
     }
   ]
 }
