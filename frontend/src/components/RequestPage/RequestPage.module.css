@@ -10,7 +10,7 @@
 
 .requestPage {
   min-height: 100vh;
-  background-color: var(--ds-color-neutral-background-subtle);
+  background-color: #f3f4f4;
 }
 
 .requestWrapper {
