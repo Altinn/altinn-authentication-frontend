@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Button, Heading, Modal, Textfield, Alert } from '@digdir/designsystemet-react';
+import { Button, Heading, Dialog, Textfield, Alert } from '@digdir/designsystemet-react';
 import { TrashIcon } from '@navikt/aksel-icons';
 import classes from './DetailPage.module.css';
 import { AuthenticationRoute } from '@/routes/paths';
@@ -35,11 +35,11 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
 
   return (
     <div className={classes.detailPageContent}>
-      <Modal ref={deleteModalRef}>
-        <Modal.Block>
+      <Dialog ref={deleteModalRef}>
+        <Dialog.Block>
           <Heading level={2}>{t('authent_detailpage.delete_systemuser_header')}</Heading>
-        </Modal.Block>
-        <Modal.Block>
+        </Dialog.Block>
+        <Dialog.Block>
           {t('authent_detailpage.delete_systemuser_body', {
             title: systemUser.integrationTitle,
           })}
@@ -64,8 +64,8 @@ export const DetailPageContent = ({ systemUser }: DetailPageContentProps) => {
               {t('common.cancel')}
             </Button>
           </ButtonRow>
-        </Modal.Block>
-      </Modal>
+        </Dialog.Block>
+      </Dialog>
       <PageDescription
         heading={systemUser.integrationTitle || t('authent_detailpage.no_name')}
         ingress={systemUser.supplierName?.toUpperCase()}

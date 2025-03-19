@@ -9,9 +9,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@digdir/designsystemet-css": "1.0.0-next.47",
-    "@digdir/designsystemet-react": "1.0.0-next.47",
-    "@digdir/designsystemet-theme": "1.0.0-next.47",
+    "@digdir/designsystemet-css": "1.0.2",
+    "@digdir/designsystemet-react": "1.0.2",
+    "@digdir/designsystemet-theme": "1.0.2",
     "@navikt/aksel-icons": "^7.0.0",
     "@reduxjs/toolkit": "^2.1.0",
     "classnames": "^2.5.1",
