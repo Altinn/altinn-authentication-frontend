@@ -541,37 +541,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:1.0.3":
-  version: 1.0.3
-  resolution: "@digdir/designsystemet-css@npm:1.0.3"
-  checksum: 10c0/f40c6479d2cfa1772e367f1dfef92cfc97b9a659b65f1b7e0b0fdc119e1170f04a2e8ea9a9853f672dbcb5051193212db4a4a7ba8003adb9a9445e259f799a37
+"@digdir/designsystemet-css@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@digdir/designsystemet-css@npm:1.0.4"
+  checksum: 10c0/3b6d541afa4d858dd48b18b4964b7ce3129e2241aaa46ab76abe967c721d7ab8a1b323701f1b5d84b3f9a4a4e358046abc74bfd3dd6966abc5e2ae9a380221ce
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-react@npm:1.0.3":
-  version: 1.0.3
-  resolution: "@digdir/designsystemet-react@npm:1.0.3"
+"@digdir/designsystemet-react@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@digdir/designsystemet-react@npm:1.0.4"
   dependencies:
-    "@floating-ui/dom": "npm:^1.6.10"
+    "@floating-ui/dom": "npm:^1.6.13"
     "@floating-ui/react": "npm:0.26.23"
-    "@navikt/aksel-icons": "npm:^7.0.0"
-    "@radix-ui/react-slot": "npm:^1.1.1"
-    "@tanstack/react-virtual": "npm:^3.11.2"
-    "@u-elements/u-datalist": "npm:^0.1.3"
-    "@u-elements/u-details": "npm:^0.1.0"
-    "@u-elements/u-tags": "npm:^0.1.2"
+    "@navikt/aksel-icons": "npm:^7.18.0"
+    "@radix-ui/react-slot": "npm:^1.1.2"
+    "@tanstack/react-virtual": "npm:^3.13.6"
+    "@u-elements/u-datalist": "npm:^0.1.5"
+    "@u-elements/u-details": "npm:^0.1.1"
+    "@u-elements/u-tags": "npm:^0.1.4"
     clsx: "npm:^2.1.1"
   peerDependencies:
     react: ">=18.3.1 || ^19.0.0"
     react-dom: ">=18.3.1 || ^19.0.0"
-  checksum: 10c0/f3b0a285ca69164ef30360310157ab10ddbe41e1f2a716554fc9499cde0005fc7e0a9be3fa7c5f41006561f858c4cff2739a8ac3ff4c95b7f903264ff7154709
+  checksum: 10c0/bc8215fa18440c2340e34af86f24cc30f5ac84925e7b2a5a10085aa5693f514e42d0cd3bb430362a1adbfb960cb77fe2ebca379737d3d03d125edd21e0560b18
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-theme@npm:1.0.3":
-  version: 1.0.3
-  resolution: "@digdir/designsystemet-theme@npm:1.0.3"
-  checksum: 10c0/7355ad59dbe580434d62b829a724d76cc3a9164771081f872aa9383a732928c689df74ae0154bdc8bad112376a918200495a503d344a86fb58654cbc0b532d28
+"@digdir/designsystemet-theme@npm:1.0.4":
+  version: 1.0.4
+  resolution: "@digdir/designsystemet-theme@npm:1.0.4"
+  checksum: 10c0/ac8c9ec0419278e7aa74d12ed61c0c80cbeea3b3411f638840fa41b4c927b6e8a6a4fa381e555a17d1d776c0d35a4275e09b926afef0fa3ba6465ffa86db630a
   languageName: node
   linkType: hard
 
@@ -871,13 +871,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@floating-ui/dom@npm:^1.6.10":
-  version: 1.6.11
-  resolution: "@floating-ui/dom@npm:1.6.11"
+"@floating-ui/dom@npm:^1.6.13":
+  version: 1.6.13
+  resolution: "@floating-ui/dom@npm:1.6.13"
   dependencies:
     "@floating-ui/core": "npm:^1.6.0"
-    "@floating-ui/utils": "npm:^0.2.8"
-  checksum: 10c0/02ef34a75a515543c772880338eea7b66724997bd5ec7cd58d26b50325709d46d480a306b84e7d5509d734434411a4bcf23af5680c2e461e6e6a8bf45d751df8
+    "@floating-ui/utils": "npm:^0.2.9"
+  checksum: 10c0/272242d2eb6238ffcee0cb1f3c66e0eafae804d5d7b449db5ecf904bc37d31ad96cf575a9e650b93c1190f64f49a684b1559d10e05ed3ec210628b19116991a9
   languageName: node
   linkType: hard
 
@@ -918,6 +918,13 @@ __metadata:
   version: 0.2.8
   resolution: "@floating-ui/utils@npm:0.2.8"
   checksum: 10c0/a8cee5f17406c900e1c3ef63e3ca89b35e7a2ed645418459a73627b93b7377477fc888081011c6cd177cac45ec2b92a6cab018c14ea140519465498dddd2d3f9
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.2.9":
+  version: 0.2.9
+  resolution: "@floating-ui/utils@npm:0.2.9"
+  checksum: 10c0/48bbed10f91cb7863a796cc0d0e917c78d11aeb89f98d03fc38d79e7eb792224a79f538ed8a2d5d5584511d4ca6354ef35f1712659fd569868e342df4398ad6f
   languageName: node
   linkType: hard
 
@@ -1109,6 +1116,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@navikt/aksel-icons@npm:^7.18.0":
+  version: 7.21.0
+  resolution: "@navikt/aksel-icons@npm:7.21.0"
+  checksum: 10c0/33a9b4e4769e3ae2c13fbb62ff8097fd1c6f55297a4d456b2e462826b0072b83909f54496825c9ad8a049ab67008efccfbb385230d5d71115b92e2312fe0d10c
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.5":
   version: 2.1.5
   resolution: "@nodelib/fs.scandir@npm:2.1.5"
@@ -1200,31 +1214,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@radix-ui/react-compose-refs@npm:1.1.1":
-  version: 1.1.1
-  resolution: "@radix-ui/react-compose-refs@npm:1.1.1"
+"@radix-ui/react-compose-refs@npm:1.1.2":
+  version: 1.1.2
+  resolution: "@radix-ui/react-compose-refs@npm:1.1.2"
   peerDependencies:
     "@types/react": "*"
     react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/3e84580024e66e3cc5b9ae79355e787815c1d2a3c7d46e7f47900a29c33751ca24cf4ac8903314957ab1f7788aebe1687e2258641c188cf94653f7ddf8f70627
+  checksum: 10c0/d36a9c589eb75d634b9b139c80f916aadaf8a68a7c1c4b8c6c6b88755af1a92f2e343457042089f04cc3f23073619d08bb65419ced1402e9d4e299576d970771
   languageName: node
   linkType: hard
 
-"@radix-ui/react-slot@npm:^1.1.1":
-  version: 1.1.2
-  resolution: "@radix-ui/react-slot@npm:1.1.2"
+"@radix-ui/react-slot@npm:^1.1.2":
+  version: 1.2.0
+  resolution: "@radix-ui/react-slot@npm:1.2.0"
   dependencies:
-    "@radix-ui/react-compose-refs": "npm:1.1.1"
+    "@radix-ui/react-compose-refs": "npm:1.1.2"
   peerDependencies:
     "@types/react": "*"
     react: ^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/81d45091806c52b507cec80b4477e4f31189d76ffcd7845b382eb3a034e6cf1faef71b881612028d5893f7580bf9ab59daa18fbf2792042dccd755c99a18df67
+  checksum: 10c0/f1455f36479e87a0a2254fc2e2b2aba6740d1fbcada949071210bf2a009a031ad508ac01b544bce96337bcca82f49531b46c71615141a5985aaa11ae69b967b1
   languageName: node
   linkType: hard
 
@@ -1547,22 +1561,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/react-virtual@npm:^3.11.2":
-  version: 3.13.4
-  resolution: "@tanstack/react-virtual@npm:3.13.4"
+"@tanstack/react-virtual@npm:^3.13.6":
+  version: 3.13.6
+  resolution: "@tanstack/react-virtual@npm:3.13.6"
   dependencies:
-    "@tanstack/virtual-core": "npm:3.13.4"
+    "@tanstack/virtual-core": "npm:3.13.6"
   peerDependencies:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
     react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-  checksum: 10c0/45cf785fa2984d536218aa546dc0b515cd6be2c8160987d01815a5b182fc517923d41d7f852fad718132ffc17faed94093a8318158ad6b338fdaba3243485da3
+  checksum: 10c0/3d2fdf024cb9189981cc015518a34a771a57cd698ca775022ad481431e6f26e596309f57d2238ef15f3b53b805879edaed6394e4cad1bb550ee92259e4d52633
   languageName: node
   linkType: hard
 
-"@tanstack/virtual-core@npm:3.13.4":
-  version: 3.13.4
-  resolution: "@tanstack/virtual-core@npm:3.13.4"
-  checksum: 10c0/00ed3054e5f1370fe61d3fc9eec40ca0f18b66cfcb4a0bbce1a26397518c90145a0b493e463992b352842760bb8b0ec40969f07e3bb94dc6e68064f3973fe41a
+"@tanstack/virtual-core@npm:3.13.6":
+  version: 3.13.6
+  resolution: "@tanstack/virtual-core@npm:3.13.6"
+  checksum: 10c0/9c40af4deccf0fadc5c371f4e659f1aff221db0ede9664ee7cf3642a2d05f6f1c9494605f3606f70d7c8948dc22e50c48519a8435d0e845f1b1f34c9353722c8
   languageName: node
   linkType: hard
 
@@ -1829,24 +1843,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@u-elements/u-datalist@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@u-elements/u-datalist@npm:0.1.3"
-  checksum: 10c0/090ce2ed43cda471313d51ddcfb4429ee9bf300f15a16de93cca10b9e05c0e033ad7be98a08f91700ee2b38e03cd53952bb590f077783fb03240407132ee4c88
+"@u-elements/u-datalist@npm:^0.1.5":
+  version: 0.1.5
+  resolution: "@u-elements/u-datalist@npm:0.1.5"
+  checksum: 10c0/b3d45e57537ddf9c9decbb6b3bc6778839f37ffaeb61f8a535dc0f647cc8846385763bc4523de45877df64dcf30b1d7190dde0690eb6a850ef070e0b351fc4eb
   languageName: node
   linkType: hard
 
-"@u-elements/u-details@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "@u-elements/u-details@npm:0.1.0"
-  checksum: 10c0/b4a45ed5a28fedf27688e66f8cc67ba323fe5ceae8625cf39c2b56da07fd1bb7fb666fd54ad42c4906dbf691f6de29844246e6bddf2d591c7220e847a7d9f57a
+"@u-elements/u-details@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@u-elements/u-details@npm:0.1.1"
+  checksum: 10c0/df382b61dc31f44d6b093193afe0e5ba795d27009158a71440e0a53cb47a7aa0c6ebba03ce44186a77e18c3cbdb7e8f4c312018a837f7e5ee41cf5bb1f349c2d
   languageName: node
   linkType: hard
 
-"@u-elements/u-tags@npm:^0.1.2":
-  version: 0.1.3
-  resolution: "@u-elements/u-tags@npm:0.1.3"
-  checksum: 10c0/ed008d41b34840b1f48d2fe0fbfad8f03f93e5d5f13c4c35dc4936f4b74e037a3c8d9c7115889b137af82244bfec63861d49bf82883a9963cb32e53ed60d5843
+"@u-elements/u-tags@npm:^0.1.4":
+  version: 0.1.4
+  resolution: "@u-elements/u-tags@npm:0.1.4"
+  checksum: 10c0/36359c2031777a6cbfff8bdee6374a7557999a9c77a3cb22e7569f2052643f028789e9530c76980b3b396a131bc7d6431eec08f30afade214d7b8d833b8d208c
   languageName: node
   linkType: hard
 
@@ -2137,9 +2151,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:1.0.3"
-    "@digdir/designsystemet-react": "npm:1.0.3"
-    "@digdir/designsystemet-theme": "npm:1.0.3"
+    "@digdir/designsystemet-css": "npm:1.0.4"
+    "@digdir/designsystemet-react": "npm:1.0.4"
+    "@digdir/designsystemet-theme": "npm:1.0.4"
     "@navikt/aksel-icons": "npm:^7.0.0"
     "@playwright/test": "npm:^1.45.1"
     "@reduxjs/toolkit": "npm:^2.1.0"
