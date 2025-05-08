@@ -18,22 +18,22 @@ jobs:
 
     steps:
      - name: Checkout
-       uses: actions/checkout@v4
+       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
      - name: Setup .NET
-       uses: actions/setup-dotnet@v4
+       uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
        with: 
          dotnet-version: ${{ env.DOTNET_VERSION}}
 
      - name: Login to Github Container Registry
-       uses: docker/login-action@v3
+       uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3
        with:
          registry: ghcr.io
          username: ${{ github.actor }}
          password: ${{ secrets.GITHUB_TOKEN }}
 
      - name: Build and Push to ghcr
-       uses: docker/build-push-action@v6
+       uses: docker/build-push-action@14487ce63c7a62a4a324b0bfb37086795e31c6c1 # v6
        with:
          push: true
          tags: ghcr.io/altinn/altinn-authentication-frontend:${{ github.sha }}
@@ -58,10 +58,10 @@ jobs:
 
     steps:        
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
       - name: Azure Login
-        uses: azure/login@v2
+        uses: azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5 # v2
         with: 
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
