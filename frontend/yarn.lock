@@ -541,16 +541,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:1.0.4":
-  version: 1.0.4
-  resolution: "@digdir/designsystemet-css@npm:1.0.4"
-  checksum: 10c0/3b6d541afa4d858dd48b18b4964b7ce3129e2241aaa46ab76abe967c721d7ab8a1b323701f1b5d84b3f9a4a4e358046abc74bfd3dd6966abc5e2ae9a380221ce
+"@digdir/designsystemet-css@npm:1.0.5":
+  version: 1.0.5
+  resolution: "@digdir/designsystemet-css@npm:1.0.5"
+  checksum: 10c0/c9141dca0bb400abe27f3ce65fa6b17b5f96285b476c749bb8a69b69b2be6503d0338c28007a8c2b9d9736d087c6c90e9a3fa4ab6e55b9e87ef48b5ba3f96de3
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-react@npm:1.0.4":
-  version: 1.0.4
-  resolution: "@digdir/designsystemet-react@npm:1.0.4"
+"@digdir/designsystemet-react@npm:1.0.5":
+  version: 1.0.5
+  resolution: "@digdir/designsystemet-react@npm:1.0.5"
   dependencies:
     "@floating-ui/dom": "npm:^1.6.13"
     "@floating-ui/react": "npm:0.26.23"
@@ -564,14 +564,14 @@ __metadata:
   peerDependencies:
     react: ">=18.3.1 || ^19.0.0"
     react-dom: ">=18.3.1 || ^19.0.0"
-  checksum: 10c0/bc8215fa18440c2340e34af86f24cc30f5ac84925e7b2a5a10085aa5693f514e42d0cd3bb430362a1adbfb960cb77fe2ebca379737d3d03d125edd21e0560b18
+  checksum: 10c0/eeb363a0b48b45c0136eeb21fe079003caeffcca9a89b7eae18f4ead95a5cdc8c48efad6e13d80760d4447f77cda3516cfc31bd1e61d5da909272acbfc7dc5d4
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-theme@npm:1.0.4":
-  version: 1.0.4
-  resolution: "@digdir/designsystemet-theme@npm:1.0.4"
-  checksum: 10c0/ac8c9ec0419278e7aa74d12ed61c0c80cbeea3b3411f638840fa41b4c927b6e8a6a4fa381e555a17d1d776c0d35a4275e09b926afef0fa3ba6465ffa86db630a
+"@digdir/designsystemet-theme@npm:1.0.5":
+  version: 1.0.5
+  resolution: "@digdir/designsystemet-theme@npm:1.0.5"
+  checksum: 10c0/ad7c7d0ee87bbc7c0270196f399124bc56228f37f401d2dd7325eb64dbe2ff55687b4d31044839148d86d0888a3cfa20ec8ee80b75fff8198921deb7cfd89ee6
   languageName: node
   linkType: hard
 
@@ -2151,9 +2151,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:1.0.4"
-    "@digdir/designsystemet-react": "npm:1.0.4"
-    "@digdir/designsystemet-theme": "npm:1.0.4"
+    "@digdir/designsystemet-css": "npm:1.0.5"
+    "@digdir/designsystemet-react": "npm:1.0.5"
+    "@digdir/designsystemet-theme": "npm:1.0.5"
     "@navikt/aksel-icons": "npm:^7.0.0"
     "@playwright/test": "npm:^1.45.1"
     "@reduxjs/toolkit": "npm:^2.1.0"
