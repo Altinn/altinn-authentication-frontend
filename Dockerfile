@@ -15,7 +15,7 @@ RUN dotnet publish Altinn.Authentication.UI/Altinn.Authentication.UI/Altinn.Auth
 
 #Building the final image
 
-FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine@sha256:53867b9ebb86beab644de47226867d255d0360e38324d2afb3ff4d2f2933e33f AS final
+FROM mcr.microsoft.com/dotnet/aspnet:9.0-alpine@sha256:d4bf3d8c8f0236341ddd93d15208152e26bc6dcc9d34c635351a3402c284137f AS final
 
 EXPOSE 8080/tcp
 #EXPOSE 443
