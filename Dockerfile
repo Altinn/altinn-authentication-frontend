@@ -1,5 +1,5 @@
 #Building the Authentication Frontend
-FROM node:alpine@sha256:be4d5e92ac68483ec71440bf5934865b4b7fcb93588f17a24d411d15f0204e4f AS generate-authentication-frontend
+FROM node:alpine@sha256:943586fc90d9970962a93a48a867c7dfaaaa1af498ece53004037164b03db103 AS generate-authentication-frontend
 WORKDIR /build
 COPY frontend .
 RUN corepack enable
