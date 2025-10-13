@@ -20,7 +20,7 @@ const NewPageAlert = () => {
         style={{
           backgroundColor: '#fff',
           padding: '2rem',
-          maxWidth: '35rem',
+          maxWidth: '40rem',
         }}
       >
         Systemtilgang-sidene er flyttet til en ny url, vennligst gå til{' '}
