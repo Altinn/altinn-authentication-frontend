@@ -1,42 +1,38 @@
 import React from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
-import { OverviewPage } from '@/features/overviewpage/OverviewPage';
-import { CreationPage } from '@/features/creationpage/CreationPage';
-import { NotFoundSite } from '@/sites/NotFoundSite';
-import { DetailPage } from '@/features/detailpage/DetailPage';
-import { AuthenticationRoute } from '../paths';
-import { VendorRequestPage } from '@/features/vendorRequestPage';
-import { ChangeRequestPage } from '@/features/changeRequestPage';
+
+const getNewUiUrl = (): string => {
+  const host = window.location.hostname.replace('authn.ui.', 'am.ui.');
+  return `https://${host}/accessmanagement/ui/systemuser/overview`;
+};
+
+const NewPageAlert = () => {
+  return (
+    <div
+      style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: '#fff',
+          padding: '2rem',
+          maxWidth: '35rem',
+        }}
+      >
+        Systemtilgang-sidene er flyttet til en ny url, vennligst gå til{' '}
+        <a href={getNewUiUrl()} target='_blank' rel='noreferrer'>
+          {getNewUiUrl()}
+        </a>
+      </div>
+    </div>
+  );
+};
 
 export const Router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path='/' errorElement={<NotFoundSite />}>
-      <Route
-        path={AuthenticationRoute.Overview}
-        element={<OverviewPage />}
-        errorElement={<NotFoundSite />}
-      />
-      <Route
-        path={AuthenticationRoute.Creation}
-        element={<CreationPage />}
-        errorElement={<NotFoundSite />}
-      />
-      <Route
-        path={`${AuthenticationRoute.Details}/:id`}
-        element={<DetailPage />}
-        errorElement={<NotFoundSite />}
-      />
-      <Route
-        path={`${AuthenticationRoute.VendorRequest}`}
-        element={<VendorRequestPage />}
-        errorElement={<NotFoundSite />}
-      />
-      <Route
-        path={`${AuthenticationRoute.ChangeRequest}`}
-        element={<ChangeRequestPage />}
-        errorElement={<NotFoundSite />}
-      />
-    </Route>,
-  ),
+  createRoutesFromElements(<Route path='*' element={<NewPageAlert />}></Route>),
   { basename: '/authfront/ui' },
 );
