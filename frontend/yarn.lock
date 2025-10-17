@@ -467,37 +467,37 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-css@npm:1.5.1":
-  version: 1.5.1
-  resolution: "@digdir/designsystemet-css@npm:1.5.1"
-  checksum: 10c0/34c22e0127e1a15c7a3ca3d6246c92fc3d9727fb45768e08faae47f255249d7eb12aa79369d9bfcd743fc3210e3949040e849902d93a0fc6f0b4c7dc82b6502b
+"@digdir/designsystemet-css@npm:1.6.1":
+  version: 1.6.1
+  resolution: "@digdir/designsystemet-css@npm:1.6.1"
+  checksum: 10c0/5aed2f1e512a57b83a8aa5448177d4b82c2c51ab90fc1033bdb041b3801053bef80d2ab389e958a3d4fc563c11473d9c43a95e94472e65d41d3db94304e3e865
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-react@npm:1.5.1":
-  version: 1.5.1
-  resolution: "@digdir/designsystemet-react@npm:1.5.1"
+"@digdir/designsystemet-react@npm:1.6.1":
+  version: 1.6.1
+  resolution: "@digdir/designsystemet-react@npm:1.6.1"
   dependencies:
     "@floating-ui/dom": "npm:^1.7.4"
     "@floating-ui/react": "npm:0.26.23"
-    "@navikt/aksel-icons": "npm:^7.29.1"
+    "@navikt/aksel-icons": "npm:^7.31.0"
     "@radix-ui/react-slot": "npm:^1.2.3"
     "@tanstack/react-virtual": "npm:^3.13.12"
-    "@u-elements/u-combobox": "npm:^1.0.1"
+    "@u-elements/u-combobox": "npm:^1.0.2"
     "@u-elements/u-datalist": "npm:^1.0.14"
     "@u-elements/u-details": "npm:^0.1.5"
     clsx: "npm:^2.1.1"
   peerDependencies:
     react: ">=18.3.1 || ^19.0.0"
     react-dom: ">=18.3.1 || ^19.0.0"
-  checksum: 10c0/35f946c44d7e07c2bb3044827f425560575e03b983087725325b2fa5aa813ec43d2423f8f24fa317ea9f9788b82a2f76d31363fbb72520b39482c639c4fd5274
+  checksum: 10c0/7a64b2d48c87c9054e62ac0f6f2cd298b7d640ac73d378cc957c8d47a3b7eb55e2943afbb5a334e17368cf9fb642699d1b8e0920ec882bb4ac4b0d27b76cfde8
   languageName: node
   linkType: hard
 
-"@digdir/designsystemet-theme@npm:1.5.1":
-  version: 1.5.1
-  resolution: "@digdir/designsystemet-theme@npm:1.5.1"
-  checksum: 10c0/81442cbe470fd9d3082c0547c60aaf4700c4e37340392dc72a2b3cf5c03c51a2a5d55e819becf4a89511f83f29714059ab4e2ba5b6e4ec671e1f9da4dc0d0f53
+"@digdir/designsystemet-theme@npm:1.6.1":
+  version: 1.6.1
+  resolution: "@digdir/designsystemet-theme@npm:1.6.1"
+  checksum: 10c0/89a996685b1590d23ef25b601dd6fea70574aa09fc9115dddaa04d3e5c6d174d8c59c1b838cf3bebcdcf002ad5d9ffc5f6c43ce8d58c081a911433d61604208d
   languageName: node
   linkType: hard
 
@@ -1057,10 +1057,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@navikt/aksel-icons@npm:^7.0.0, @navikt/aksel-icons@npm:^7.29.1":
+"@navikt/aksel-icons@npm:^7.0.0":
   version: 7.32.1
   resolution: "@navikt/aksel-icons@npm:7.32.1"
   checksum: 10c0/881c6369befe0e586533276b2182daef9e64ddfa89ec730ade51a96a22582824e07adcc5e40396186ebca8d7256d0427391fc7ad9a0d0bd13c7bde14912b1eba
+  languageName: node
+  linkType: hard
+
+"@navikt/aksel-icons@npm:^7.31.0":
+  version: 7.32.2
+  resolution: "@navikt/aksel-icons@npm:7.32.2"
+  checksum: 10c0/17070a3cd6272cbf811d6d0d3a21461966508a8b77c7c277fe5112bef8eb6fc104d1172d52b862d3af8c18f9b09e609d2f223196e791e4be62b81f7b0afe987b
   languageName: node
   linkType: hard
 
@@ -1802,10 +1809,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@u-elements/u-combobox@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@u-elements/u-combobox@npm:1.0.1"
-  checksum: 10c0/a2373c4995b71310b2a0704108c0c1846314bd76c923e27056fff6cc4634dacb1130e2cf44943b1725f60541ca8a8611413989efe9328d915321cbc404abfc10
+"@u-elements/u-combobox@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@u-elements/u-combobox@npm:1.0.2"
+  checksum: 10c0/22fe3322d52e8322a76be13dcbd931d2b3ce0e4c354a2a504b30c00b24beb99f846c7fb1534a835bd68cfb8ffcc30704d114783df918b2ac9e917c328b051875
   languageName: node
   linkType: hard
 
@@ -2111,9 +2118,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "authentication-frontend@workspace:."
   dependencies:
-    "@digdir/designsystemet-css": "npm:1.5.1"
-    "@digdir/designsystemet-react": "npm:1.5.1"
-    "@digdir/designsystemet-theme": "npm:1.5.1"
+    "@digdir/designsystemet-css": "npm:1.6.1"
+    "@digdir/designsystemet-react": "npm:1.6.1"
+    "@digdir/designsystemet-theme": "npm:1.6.1"
     "@navikt/aksel-icons": "npm:^7.0.0"
     "@playwright/test": "npm:^1.45.1"
     "@reduxjs/toolkit": "npm:^2.1.0"
