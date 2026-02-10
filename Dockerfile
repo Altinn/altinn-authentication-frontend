@@ -8,7 +8,7 @@ RUN yarn build
 
 #Building the Authentication BFF Backend
 
-FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine@sha256:512f8347b0d2f9848f099a8c31be07286955ceea337cadb1114057ed0b15862f AS generate-authentication-backend
+FROM mcr.microsoft.com/dotnet/sdk:9.0-alpine@sha256:ebdd46c1a72c10bb992c276e5e6afc6e245757bd1a295d7f0870b266e11c306e AS generate-authentication-backend
 
 COPY bff/src .
 RUN dotnet publish Altinn.Authentication.UI/Altinn.Authentication.UI/Altinn.Authentication.UI.csproj -c Release -r linux-x64 -o /app_output --no-self-contained 
